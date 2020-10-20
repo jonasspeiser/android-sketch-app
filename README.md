@@ -30,10 +30,10 @@ Use your **real name** (i.e., not a nickname or an abbreviation) and your offici
 * For implementation/coding problems, please open an issue in the GitLab Issue Tracker of this GitLab project and use the issue to document your own efforts while working towards a solution. In case you get stuck, ask our tutors for assistance by mentioning their handles in a comment to the issue. SE2 tutors are:
   * Cordula Thekla Eggerth, GitLab handle: @cordulae33
   * Robert Sama, GitLab handle: @roberts95
-* If you have specific questions regarding grading or team issues, please also open a GitLab Issue in this GitLab project and assign it to your team's supervisor. Your **team supervisor** can be identified based on your team id which is also used as the GitLab Team Project name. The team id consists of 3 digits and the first digit determines your supervisor:
-  * Teams starting with `1` (e.g., team `104`) are supervised by Bernhard Frömel, GitLab handle: @froemelb93
-  * Teams starting with `2` (e.g., team `213`) are supervised by Amirali Amiri, GitLab handle: @amiralia57
-  * Teams starting with `3` (e.g., team `309`) are supervised by Maximilian Wöhrer, GitLab handle: @woehrea2
+* If you have specific questions regarding grading or team issues, please also open a GitLab Issue in this GitLab project and assign it to your team's supervisor. Your **team supervisor** can be identified based on your team id which is also visible in your GitLab Team Project name. The team id consists of 4 digits and the first two digits encode your supervisor:
+  * Teams starting with `01` (e.g., team `0104`) are supervised by Bernhard Frömel, GitLab handle: @froemelb93
+  * Teams starting with `02` (e.g., team `0213`) are supervised by Amirali Amiri, GitLab handle: @amiralia57
+  * Teams starting with `03` (e.g., team `0309`) are supervised by Maximilian Wöhrer, GitLab handle: @woehrea2
 * As a last resort you can contact the course supervisors directly via [email](mailto:se2@swa.univie.ac.at).
 
 
