@@ -1,0 +1,4 @@
+com/se2ws2020team0310/sketchapp/MainActivity.java
+ com.se2ws2020team0310.sketchapp.MainActivity
+com/se2ws2020team0310/sketchapp/BuildConfig.java
+ com.se2ws2020team0310.sketchapp.BuildConfig
