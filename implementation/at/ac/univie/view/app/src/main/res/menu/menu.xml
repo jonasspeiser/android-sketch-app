@@ -3,6 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/text"
+        android:icon="@drawable/menu_icon_text"
+        android:title="Text"
+        app:showAsAction="always"/>
+    <item
         android:id="@+id/finger"
         android:icon="@drawable/menu_icon_finger"
         android:title="Finger"
@@ -39,15 +44,5 @@
     <item
         android:id="@+id/delete"
         android:title="Delete"/>
-    <item
-        android:id="@+id/color"
-        android:icon="@drawable/menu_icon_colors"
-        android:title="Color"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/stroke_width"
-        android:icon="@drawable/menu_icon_line_width"
-        android:title="Stroke width"
-        app:showAsAction="always" />
 
 </menu>
