@@ -1,4 +1,4 @@
-package com.se2ws2020team0310.sketch_app;
+package at.ac.univie.se2ws2020team0310.sketch_app;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.se2ws2020team0310.sketch_app;
+package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,7 +7,7 @@ import android.view.MenuInflater;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.se2ws2020team0310.sketch_app.R;
+import at.ac.univie.se2ws2020team0310.sketch_app.R;
 
 public class MainActivity extends AppCompatActivity {
 

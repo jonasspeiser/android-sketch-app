@@ -1,4 +1,4 @@
-package com.se2ws2020team0310.sketch_app;
+package at.ac.univie.se2ws2020team0310.sketch_app;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.se2ws2020team0310.sketch_app", appContext.getPackageName());
+        assertEquals("at.ac.univie.se2ws2020team0310.sketch_app", appContext.getPackageName());
     }
 }

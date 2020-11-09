@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.se2ws2020team0310.sketch_app"
+        applicationId "at.ac.univie.se2ws2020team0310.sketch_app"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 1
