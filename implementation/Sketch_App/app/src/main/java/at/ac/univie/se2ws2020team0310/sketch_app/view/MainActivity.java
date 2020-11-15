@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         canvasView = (CanvasView) findViewById(R.id.canvasView);
@@ -38,47 +40,51 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.textId:
-                // TODO
-
-                break;
+                SeekBar textSizeSeekBar = findViewById(R.id.textSizeSeekBar);
+                if(textSizeSeekBar.VISIBLE == 1){
+                    textSizeSeekBar.setVisibility(View.INVISIBLE);
+                }else{
+                    textSizeSeekBar.setVisibility(View.VISIBLE);
+                }
+                return true;
 
             case R.id.fingerId:
                 // TODO
-                break;
+                return true;
 
             case R.id.lineId:
                 // TODO
-                break;
+                return true;
 
             case R.id.circleId:
                 canvasView.selectCircle();
-                break;
+                return true;
 
             case R.id.squareId:
                 // TODO
-                break;
+                return true;
 
             case R.id.triangleId:
                 // TODO
-                break;
+                return true;
 
             case R.id.loadId:
                 // TODO
-                break;
+                return true;
 
             case R.id.saveId:
                 // TODO
-                break;
+                return true;
 
             case R.id.exportId:
                 // TODO
-                break;
+                return true;
 
             case R.id.deleteId:
-                break;
+                return true;
 
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }
