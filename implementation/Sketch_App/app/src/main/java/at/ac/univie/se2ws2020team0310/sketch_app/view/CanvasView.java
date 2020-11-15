@@ -11,15 +11,17 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CanvasView extends View {
 
 // Attributes
     public static Canvas mCircleCanvas;
     public Paint mCirclePaint;
-    private float mCircleX, mCircleY, mCircleRadius;
 
 
-    private Shape drawnShapes[] = new Shape[5]; // das ist nur ein Test,
+    private List <Circle> drawnShapes = new ArrayList<Circle>(); // das ist nur ein Test,
     // Feldlänge später dynamisch festlegen.
 
 // Constructors
@@ -62,31 +64,29 @@ public class CanvasView extends View {
     public void selectCircle() {
         // put circle into list
         // call drawShape(variable)
-        float xPosition = getWidth() / 2; // center horizontally
-        float yPosition = getHeight() / 2; // center vertically
-        float radius = 50;
-        Paint paint = mCirclePaint;
-        drawShape(xPosition, yPosition, radius, paint);
+        Circle mCircle = new Circle();
+        mCircle.setmCircleRadius(50);
+        mCircle.setmCirclePaint(mCirclePaint);
+        //mCircle.setmCircleX(getWidth() / 2); // center horizontally
+        //mCircle.setmCircleY(getHeight() / 2); // center vertically
+        mCircle.setmCircleX(mCircle.generateRandomWidth(mCircleCanvas));
+        mCircle.setmCircleY(mCircle.generateRandomHeight(mCircleCanvas));
+
+
+        drawnShapes.add(mCircle);
+
+        postInvalidate();
     }
 
-    public void drawShape(float cx, float cy, float radius, Paint paint) {
-        // später: als Parameter ein Objekt vom Typ Kreis übergeben
-        // und canvas.drawcircle mit dessen Attributen als Parameter aufrufen
-        mCircleX = cx;
-        mCircleY = cy;
-        mCircleRadius = radius;
-        mCirclePaint = paint;
-        invalidate();
-
-    }
 
     @Override
     protected void onDraw(Canvas canvas) {
         mCircleCanvas = canvas;
         super.onDraw(mCircleCanvas);
 
-        // for shape in drawnShapes[]: canvas.drawCircle
-        canvas.drawCircle(mCircleX, mCircleY, mCircleRadius, mCirclePaint);
+        for (Circle circle:drawnShapes) {
+            canvas.drawCircle(circle.getmCircleX(), circle.getmCircleY(), circle.getmCircleRadius(), circle.getmCirclePaint());
+        }
     }
 
 
