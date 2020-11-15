@@ -1,6 +1,7 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -17,12 +18,13 @@ import java.util.List;
 public class CanvasView extends View {
 
 // Attributes
-    public static Canvas mCircleCanvas;
+    private Bitmap mBitmap;
+    public Canvas mCircleCanvas;
+
     public Paint mCirclePaint;
 
 
     private List <Circle> drawnShapes = new ArrayList<Circle>(); // das ist nur ein Test,
-    // Feldlänge später dynamisch festlegen.
 
 // Constructors
     public CanvasView(Context context) {
@@ -62,9 +64,15 @@ public class CanvasView extends View {
     }
 
     public void selectCircle() {
-        // put circle into list
-        // call drawShape(variable)
+        // initiates canvas-object, constructs circle-object, adds circle-object to the draw-list
+        // and invalidates the view, so that everything gets drawn
+
+        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        mCircleCanvas = new Canvas(mBitmap);
+
         Circle mCircle = new Circle();
+        // TODO: Implement another constructor for Circle-Class
+        //  and put following paragraph into a constructor statement
         mCircle.setmCircleRadius(50);
         mCircle.setmCirclePaint(mCirclePaint);
         //mCircle.setmCircleX(getWidth() / 2); // center horizontally
@@ -72,10 +80,9 @@ public class CanvasView extends View {
         mCircle.setmCircleX(mCircle.generateRandomWidth(mCircleCanvas));
         mCircle.setmCircleY(mCircle.generateRandomHeight(mCircleCanvas));
 
-
         drawnShapes.add(mCircle);
 
-        postInvalidate();
+        invalidate();
     }
 
 
