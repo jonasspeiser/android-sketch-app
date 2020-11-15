@@ -3,46 +3,46 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/text"
+        android:id="@+id/textId"
         android:icon="@drawable/menu_icon_text"
         android:title="Text"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/finger"
+        android:id="@+id/fingerId"
         android:icon="@drawable/menu_icon_finger"
         android:title="Finger"
         app:showAsAction="always" />
     <item
-        android:id="@+id/line"
+        android:id="@+id/lineId"
         android:icon="@drawable/menu_icon_line"
         android:title="Line"
         app:showAsAction="always" />
     <item
-        android:id="@+id/circle"
+        android:id="@+id/circleId"
         android:icon="@drawable/menu_icon_circle"
         android:title="Circle"
         app:showAsAction="always" />
     <item
-        android:id="@+id/square"
+        android:id="@+id/squareId"
         android:icon="@drawable/menu_icon_square"
         android:title="Square"
         app:showAsAction="always" />
     <item
-        android:id="@+id/triangle"
+        android:id="@+id/triangleId"
         android:icon="@drawable/menu_icon_triangle"
         android:title="Triangle"
         app:showAsAction="always" />
     <item
-        android:id="@+id/load"
+        android:id="@+id/loadId"
         android:title="Load" />
     <item
-        android:id="@+id/save"
+        android:id="@+id/saveId"
         android:title="Save" />
     <item
-        android:id="@+id/export"
+        android:id="@+id/exportId"
         android:title="Export"/>
     <item
-        android:id="@+id/delete"
+        android:id="@+id/deleteId"
         android:title="Delete"/>
 
 </menu>
