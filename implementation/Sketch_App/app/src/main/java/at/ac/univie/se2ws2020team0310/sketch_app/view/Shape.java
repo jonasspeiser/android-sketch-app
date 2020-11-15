@@ -3,9 +3,9 @@ package at.ac.univie.se2ws2020team0310.sketch_app.view;
 import android.graphics.Paint;
 
 abstract class Shape {
-    //TODO Abstrakte Klasse, welche die Methoden für die Unterklassen Circle, etc vorgibt
+    //TODO Paint hier deklarieren (in Klassendiagramm "Color" zu Paint-Objekt ändern
     private Paint mPaint;
-    private float xPosition, yPosition, radius;
+    private float xPosition, yPosition, size;
 
     public Paint getmPaint() {
         return mPaint;
@@ -31,12 +31,12 @@ abstract class Shape {
         this.yPosition = yPosition;
     }
 
-    public float getRadius() {
-        return radius;
+    public float getSize() {
+        return size;
     }
 
-    public void setRadius(float radius) {
-        this.radius = radius;
+    public void setSize(float size) {
+        this.size = size;
     }
 
 

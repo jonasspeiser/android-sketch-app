@@ -4,10 +4,10 @@ import android.graphics.Canvas;
 
 import java.util.Random;
 
-public class Circle extends Shape {
+public class Quadrangle extends Shape {
 
 
-    public float generateRandomX(Canvas canvas) {
+    public float generateRandomX(Canvas canvas) { // provisorisch Logik von Circle übernommen
         int minX = (int) this.getSize() * 2;
         int maxX = canvas.getWidth() - ( (int) this.getSize() *2 );
         Random random = new Random();
@@ -16,7 +16,7 @@ public class Circle extends Shape {
 
     }
 
-    public float generateRandomY(Canvas canvas) {
+    public float generateRandomY(Canvas canvas) { // provisorisch Logik von Circle übernommen
         int minY = (int) this.getSize() * 2;
         int maxY = canvas.getHeight() - ( (int) this.getSize() *2 );
         Random random = new Random();
@@ -24,6 +24,5 @@ public class Circle extends Shape {
         return mPivotY;
 
     }
-
 
 }

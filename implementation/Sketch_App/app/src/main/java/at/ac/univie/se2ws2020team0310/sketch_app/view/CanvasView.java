@@ -73,12 +73,12 @@ public class CanvasView extends View {
         Circle mCircle = new Circle();
         // TODO: Implement another constructor for Circle-Class
         //  and put following paragraph into a constructor call
-        mCircle.setRadius(50);
+        mCircle.setSize(50);
         mCircle.setmPaint(mCirclePaint);
         //mCircle.setmCircleX(getWidth() / 2); // center horizontally
         //mCircle.setmCircleY(getHeight() / 2); // center vertically
-        mCircle.setxPosition(mCircle.generateRandomWidth(mCircleCanvas));
-        mCircle.setyPosition(mCircle.generateRandomHeight(mCircleCanvas));
+        mCircle.setxPosition(mCircle.generateRandomX(mCircleCanvas));
+        mCircle.setyPosition(mCircle.generateRandomY(mCircleCanvas));
 
         drawnShapes.add(mCircle);
 
@@ -93,7 +93,7 @@ public class CanvasView extends View {
 
         for (Shape shape:drawnShapes) {
             if(shape instanceof Circle) {
-                canvas.drawCircle(shape.getxPosition(), shape.getyPosition(), shape.getRadius(), shape.getmPaint());
+                canvas.drawCircle(shape.getxPosition(), shape.getyPosition(), shape.getSize(), shape.getmPaint());
             }
         }
     }
