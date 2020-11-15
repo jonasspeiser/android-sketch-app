@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.squareId:
-                // TODO
+                canvasView.selectQuadrangle();
                 break;
 
             case R.id.triangleId:
