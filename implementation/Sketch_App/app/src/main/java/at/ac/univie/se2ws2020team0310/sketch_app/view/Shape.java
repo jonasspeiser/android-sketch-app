@@ -3,7 +3,7 @@ package at.ac.univie.se2ws2020team0310.sketch_app.view;
 import android.graphics.Paint;
 
 abstract class Shape {
-    //TODO Paint hier deklarieren (in Klassendiagramm "Color" zu Paint-Objekt ändern
+    //TODO Paint hier deklarieren (in Klassendiagramm "Color" zu Paint-Objekt ändern)
     private Paint mPaint;
     private float xPosition, yPosition, size;
 
