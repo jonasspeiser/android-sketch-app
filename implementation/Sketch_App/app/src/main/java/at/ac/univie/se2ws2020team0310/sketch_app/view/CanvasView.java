@@ -71,7 +71,7 @@ public class CanvasView extends View {
         Circle mCircle = new Circle();
         // TODO: Implement another constructor for Circle-Class
         //  and put following paragraph into a constructor call
-        mCircle.setSize(50);
+        mCircle.setSize(Shape.getStrokeWidth());
         mCircle.setmPaint(mPaint);
         //mCircle.setmCircleX(getWidth() / 2); // center horizontally
         //mCircle.setmCircleY(getHeight() / 2); // center vertically

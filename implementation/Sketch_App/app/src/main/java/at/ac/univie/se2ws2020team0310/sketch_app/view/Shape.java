@@ -6,6 +6,15 @@ abstract class Shape {
     //TODO Paint hier deklarieren (in Klassendiagramm "Color" zu Paint-Objekt ändern)
     private Paint mPaint;
     private float xPosition, yPosition, size;
+    private static int strokeWidth = 100;
+
+    public static int getStrokeWidth(){
+        return strokeWidth;
+    }
+
+    public static void setStrokeWidth(int strokeWidth) {
+        Shape.strokeWidth = strokeWidth;
+    }
 
     public Paint getmPaint() {
         return mPaint;

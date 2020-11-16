@@ -6,7 +6,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,22 +24,38 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        SeekBar textSizeSeekBar = findViewById(R.id.textSizeSeekBar);
+        SeekBar textSizeSeekBar = findViewById(R.id.strokeWidthSeekBar);
+
+        // TODO: create method for this
+        findViewById(R.id.strokeWidthButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SeekBar textSizeSeekBar = findViewById(R.id.strokeWidthSeekBar);
+                if(textSizeSeekBar.getVisibility()==SeekBar.VISIBLE){
+                    textSizeSeekBar.setVisibility(View.INVISIBLE);
+                }else{
+                    textSizeSeekBar.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
         canvasView = (CanvasView) findViewById(R.id.canvasView);
             textSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                int textSize = 0;
+                int strokeWidth = 0;
 
                 public void onProgressChanged(SeekBar textSizeSeekBar, int progress, boolean fromUser) {
-                    textSize = progress;
+                    strokeWidth = progress;
+                    Shape.setStrokeWidth(strokeWidth);
                 }
 
-                public void onStartTrackingTouch(SeekBar seekBar) {
+                public void onStartTrackingTouch(SeekBar textSizeSeekBar) {
                     // TODO Auto-generated method stub
                 }
 
-                public void onStopTrackingTouch(SeekBar seekBar) {
+                public void onStopTrackingTouch(SeekBar textSizeSeekBar) {
                 }
             });
+
 
         }
 
@@ -56,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.textId:
-                SeekBar textSizeSeekBar = findViewById(R.id.textSizeSeekBar);
+                SeekBar textSizeSeekBar = findViewById(R.id.strokeWidthSeekBar);
                 if(textSizeSeekBar.getVisibility()==SeekBar.VISIBLE){
                     textSizeSeekBar.setVisibility(View.INVISIBLE);
                 }else{
