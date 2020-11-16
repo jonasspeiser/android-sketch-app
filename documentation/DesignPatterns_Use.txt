@@ -1,0 +1,4 @@
+Design Patterns:
+
+--> Observer Pattern: used in button(subject) and onClickListener(observer) 
+source: https://www.geeksforgeeks.org/observer-pattern-set-1-introduction/
