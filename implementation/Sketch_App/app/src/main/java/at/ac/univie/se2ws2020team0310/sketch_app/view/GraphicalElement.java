@@ -91,6 +91,10 @@ abstract class GraphicalElement {
     public void setObjectTextSize(int objectTextSize) {
         this.objectTextSize = objectTextSize;
     }
+    
+        public static void changeTextSize(float textSize) {
+        selectedPaint.setTextSize(textSize);
+    }
 
     public static void changeStrokeWidth(float strokeWidth) {
         selectedPaint.setStrokeWidth(strokeWidth);
