@@ -71,8 +71,9 @@ public class CanvasView extends View {
         Circle mCircle = new Circle();
         // TODO: Implement another constructor for Circle-Class
         //  and put following paragraph into a constructor call
+        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        mCircle.setObjectPaint(mPaint);
         mCircle.setShapeSize(70);
-        mCircle.setObjectPaint(new Paint (GraphicalElement.getSelectedPaint()));
         //mCircle.setmCircleX(getWidth() / 2); // center horizontally
         //mCircle.setmCircleY(getHeight() / 2); // center vertically
         mCircle.setxPosition(mCircle.generateRandomX(mCanvas));
@@ -89,10 +90,11 @@ public class CanvasView extends View {
         mCanvas = new Canvas(mBitmap);
 
         Quadrangle mSquare = new Quadrangle();
+        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        mSquare.setObjectPaint(mPaint);
         mSquare.setShapeSize(150);
         mSquare.setLength(mSquare.getShapeSize());
         mSquare.setHeight(mSquare.getShapeSize());
-        mSquare.setObjectPaint(GraphicalElement.getSelectedPaint());
         mSquare.setxPosition(mSquare.generateRandomX(mCanvas));
         mSquare.setyPosition(mSquare.generateRandomY(mCanvas));
 
@@ -110,10 +112,10 @@ public class CanvasView extends View {
 
         for (GraphicalElement graphicalElement : drawnElements) {
             if(graphicalElement instanceof Circle) {
-                canvas.drawCircle(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getShapeSize(), graphicalElement.getSelectedPaint());
+                canvas.drawCircle(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getShapeSize(), graphicalElement.getObjectPaint());
             }
             if(graphicalElement instanceof Quadrangle) {
-                canvas.drawRect(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getxPosition() + ((Quadrangle) graphicalElement).getLength(), graphicalElement.getyPosition() + ((Quadrangle) graphicalElement).getHeight(), graphicalElement.getSelectedPaint());
+                canvas.drawRect(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getxPosition() + ((Quadrangle) graphicalElement).getLength(), graphicalElement.getyPosition() + ((Quadrangle) graphicalElement).getHeight(), graphicalElement.getObjectPaint());
             }
         }
     }
