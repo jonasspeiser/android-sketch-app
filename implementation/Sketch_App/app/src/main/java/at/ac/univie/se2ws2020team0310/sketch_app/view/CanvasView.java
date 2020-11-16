@@ -115,6 +115,25 @@ public class CanvasView extends View {
         invalidate();
 
     }
+    
+    public void selectText() {
+
+        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBitmap);
+
+        Text mText = new Text();
+        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        mText.setObjectPaint(mPaint);
+
+        mText.setyPosition(mText.generateRandomX(mCanvas)); // center horizontally
+        mText.setyPosition(mText.generateRandomY(mCanvas)); // center vertically
+
+
+        drawnElements.add(mText);
+
+        invalidate();
+
+    }
 
 
     @Override
@@ -132,6 +151,9 @@ public class CanvasView extends View {
             if(graphicalElement instanceof Drawing) {
                 canvas.drawBitmap(mBitmap, 0 , 0, graphicalElement.getObjectPaint());
                 canvas.drawPath(((Drawing) graphicalElement).getObjectPath(),graphicalElement.getObjectPaint());
+            }
+            if(graphicalElement instanceof Text) {
+                canvas.drawText("Hello", graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
             }
 
         }
