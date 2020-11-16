@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/textId"
+        android:icon="@drawable/menu_icon_text"
+        android:title="Text"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/fingerId"
+        android:icon="@drawable/menu_icon_finger"
+        android:title="Finger"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/lineId"
+        android:icon="@drawable/menu_icon_line"
+        android:title="Line"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/circleId"
+        android:icon="@drawable/menu_icon_circle"
+        android:title="Circle"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/squareId"
+        android:icon="@drawable/menu_icon_square"
+        android:title="Square"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/triangleId"
+        android:icon="@drawable/menu_icon_triangle"
+        android:title="Triangle"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/loadId"
+        android:title="Load" />
+    <item
+        android:id="@+id/saveId"
+        android:title="Save" />
+    <item
+        android:id="@+id/exportId"
+        android:title="Export"/>
+    <item
+        android:id="@+id/deleteId"
+        android:title="Delete"/>
+
+</menu>
