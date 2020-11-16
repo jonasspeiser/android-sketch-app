@@ -33,74 +33,80 @@ public class MainActivity extends AppCompatActivity {
         SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
         SeekBar textSizeSeekBar = findViewById(R.id.textSizeSeekBar);
 
-        // TODO: create method for this
-        findViewById(R.id.strokeWidthButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
-                if(strokeWidthSeekBar.getVisibility()==SeekBar.VISIBLE){
-                    strokeWidthSeekBar.setVisibility(View.INVISIBLE);
-                }else{
-                    strokeWidthSeekBar.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-        // TODO: create method for this
-        findViewById(R.id.colorSelectorButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ColorPicker colorPicker = new ColorPicker(MainActivity.this);
-                colorPicker.show();
-                colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
-                    @Override
-                    public void onChooseColor(int position, int color) {
-                        GraphicalElement.getSelectedPaint().setColor(color);
-                    }
-
-                    @Override
-                    public void onCancel(){
-                        // put code
-                    }
-                });
-            }
-        });
-
         canvasView = (CanvasView) findViewById(R.id.canvasView);
-            strokeWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                int strokeWidth = 0;
 
-                public void onProgressChanged(SeekBar textSizeSeekBar, int progress, boolean fromUser) {
-                    strokeWidth = progress;
-                    GraphicalElement.changeStrokeWidth(strokeWidth);
-                }
+        //Set Listeners
+        findViewById(R.id.colorSelectorButton).setOnClickListener(colorPickerListener);
+        findViewById(R.id.strokeWidthButton).setOnClickListener(strokeWidthButtonListener);
 
-                public void onStartTrackingTouch(SeekBar textSizeSeekBar) {
-                    // TODO Auto-generated method stub
-                }
+        strokeWidthSeekBar.setOnSeekBarChangeListener(strokeWidthSeekBarListener);
+        textSizeSeekBar.setOnSeekBarChangeListener(textSizeSeekBarListener);
+    }
 
-                public void onStopTrackingTouch(SeekBar textSizeSeekBar) {
-                }
-            });
-        textSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int textSize = 0;
+    // Define Listeners
+    private SeekBar.OnSeekBarChangeListener textSizeSeekBarListener = new SeekBar.OnSeekBarChangeListener(){
+        int textSize = 0;
 
-            public void onProgressChanged(SeekBar textSizeSeekBar, int progress, boolean fromUser) {
-                textSize = progress;
-                GraphicalElement.setSelectedTextSize(textSize);
-            }
-
-            public void onStartTrackingTouch(SeekBar textSizeSeekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            public void onStopTrackingTouch(SeekBar textSizeSeekBar) {
-            }
-        });
-
+        public void onProgressChanged(SeekBar textSizeSeekBar, int progress, boolean fromUser) {
+            textSize = progress;
+            GraphicalElement.setSelectedTextSize(textSize);
         }
 
+        public void onStartTrackingTouch(SeekBar textSizeSeekBar) {
+            // TODO Auto-generated method stub
+        }
 
+        public void onStopTrackingTouch(SeekBar textSizeSeekBar) {
+        }
+    };
+
+    private SeekBar.OnSeekBarChangeListener strokeWidthSeekBarListener = new SeekBar.OnSeekBarChangeListener(){
+        int strokeWidth = 0;
+
+        public void onProgressChanged(SeekBar textSizeSeekBar, int progress, boolean fromUser) {
+            strokeWidth = progress;
+            GraphicalElement.changeStrokeWidth(strokeWidth);
+        }
+
+        public void onStartTrackingTouch(SeekBar textSizeSeekBar) {
+            // TODO Auto-generated method stub
+        }
+
+        public void onStopTrackingTouch(SeekBar textSizeSeekBar) {
+        }
+    };
+
+    private View.OnClickListener colorPickerListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            ColorPicker colorPicker = new ColorPicker(MainActivity.this);
+            colorPicker.show();
+            colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
+                @Override
+                public void onChooseColor(int position, int color) {
+                    GraphicalElement.getSelectedPaint().setColor(color);
+                }
+
+                @Override
+                public void onCancel() {
+                }
+            });
+        }
+    };
+
+    private View.OnClickListener strokeWidthButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
+            if (strokeWidthSeekBar.getVisibility() == SeekBar.VISIBLE) {
+                strokeWidthSeekBar.setVisibility(View.INVISIBLE);
+            } else {
+                strokeWidthSeekBar.setVisibility(View.VISIBLE);
+            }
+        }
+    };
+
+    // Initialize menu
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.clear();
         MenuInflater inflater = getMenuInflater();
@@ -108,17 +114,23 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    // Define SeekBar visibilities
+    private void toggle_SeekBar_visibility(SeekBar seekBar){
+        if(seekBar.getVisibility()==SeekBar.VISIBLE){
+            seekBar.setVisibility(View.INVISIBLE);
+        }else{
+            seekBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    // Define menu actions
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.textId:
                 SeekBar textSizeSeekBar = findViewById(R.id.textSizeSeekBar);
-                if(textSizeSeekBar.getVisibility()==SeekBar.VISIBLE){
-                    textSizeSeekBar.setVisibility(View.INVISIBLE);
-                }else{
-                    textSizeSeekBar.setVisibility(View.VISIBLE);
-                }
+                toggle_SeekBar_visibility(textSizeSeekBar);
                 return true;
 
             case R.id.fingerId:
