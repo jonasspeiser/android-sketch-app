@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.squareId:
-                // TODO
+                canvasView.selectQuadrangle();
                 return true;
 
             case R.id.triangleId:
