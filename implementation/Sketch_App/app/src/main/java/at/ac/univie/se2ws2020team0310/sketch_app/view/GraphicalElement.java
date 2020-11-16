@@ -1,5 +1,6 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 
 abstract class GraphicalElement {
@@ -90,8 +91,6 @@ abstract class GraphicalElement {
     public void setObjectTextSize(int objectTextSize) {
         this.objectTextSize = objectTextSize;
     }
-
-
 
     public static void changeStrokeWidth(float strokeWidth) {
         selectedPaint.setStrokeWidth(strokeWidth);

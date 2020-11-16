@@ -1,17 +1,23 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.R;
+import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +43,26 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     strokeWidthSeekBar.setVisibility(View.VISIBLE);
                 }
+            }
+        });
+
+        // TODO: create method for this
+        findViewById(R.id.colorSelectorButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ColorPicker colorPicker = new ColorPicker(MainActivity.this);
+                colorPicker.show();
+                colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
+                    @Override
+                    public void onChooseColor(int position, int color) {
+                        GraphicalElement.getSelectedPaint().setColor(color);
+                    }
+
+                    @Override
+                    public void onCancel(){
+                        // put code
+                    }
+                });
             }
         });
 
@@ -72,8 +98,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         }
+
 
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.clear();
