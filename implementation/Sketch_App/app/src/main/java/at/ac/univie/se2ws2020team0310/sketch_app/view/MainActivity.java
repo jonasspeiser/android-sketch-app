@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
                 public void onProgressChanged(SeekBar textSizeSeekBar, int progress, boolean fromUser) {
                     strokeWidth = progress;
-                    Shape.setStrokeWidth(strokeWidth);
+                    GraphicalElement.changeStrokeWidth(strokeWidth);
                 }
 
                 public void onStartTrackingTouch(SeekBar textSizeSeekBar) {
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onProgressChanged(SeekBar textSizeSeekBar, int progress, boolean fromUser) {
                 textSize = progress;
-                Shape.setTextSize(textSize);
+                GraphicalElement.setSelectedTextSize(textSize);
             }
 
             public void onStartTrackingTouch(SeekBar textSizeSeekBar) {
