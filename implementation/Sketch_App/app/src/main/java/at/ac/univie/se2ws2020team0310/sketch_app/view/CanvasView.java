@@ -5,10 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -17,21 +15,13 @@ import androidx.annotation.RequiresApi;
 import java.util.ArrayList;
 import java.util.List;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.R;
-
 public class CanvasView extends View {
 
 // Attributes
     private Bitmap mBitmap;
-    public Canvas mCanvas;
+    private Canvas mCanvas;
 
-    public Paint mPaint;
-
-    private Path mPath;
-
-
-
-    private List <Shape> drawnShapes = new ArrayList<>(); // das ist nur ein Test,
+    private List <GraphicalElement> drawnElements = new ArrayList<>();
 
 // Constructors
     public CanvasView(Context context) {
@@ -63,18 +53,12 @@ public class CanvasView extends View {
 
     void init(@Nullable AttributeSet set) {
 
-        mPaint = new Paint();
+        Paint mPaint = new Paint();
         mPaint.setColor(Color.RED);
-        mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setAntiAlias(true);
-
-        mPath = new Path();
-        mPaint.setAntiAlias(true);
-        mPaint.setStrokeWidth(30);
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeJoin(Paint.Join.ROUND);
-        mPaint.setStrokeCap(Paint.Cap.ROUND);
-
+        mPaint.setStrokeWidth(15);
+        mPaint.setAntiAlias(true);
+        GraphicalElement.setSelectedPaint(mPaint);
     }
 
     public void selectCircle() {
@@ -87,14 +71,15 @@ public class CanvasView extends View {
         Circle mCircle = new Circle();
         // TODO: Implement another constructor for Circle-Class
         //  and put following paragraph into a constructor call
-        mCircle.setSize(50);
-        mCircle.setmPaint(mPaint);
+        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        mCircle.setObjectPaint(mPaint);
+        mCircle.setShapeSize(70);
         //mCircle.setmCircleX(getWidth() / 2); // center horizontally
         //mCircle.setmCircleY(getHeight() / 2); // center vertically
         mCircle.setxPosition(mCircle.generateRandomX(mCanvas));
         mCircle.setyPosition(mCircle.generateRandomY(mCanvas));
 
-        drawnShapes.add(mCircle);
+        drawnElements.add(mCircle);
 
         invalidate();
     }
@@ -105,22 +90,17 @@ public class CanvasView extends View {
         mCanvas = new Canvas(mBitmap);
 
         Quadrangle mSquare = new Quadrangle();
-        mSquare.setSize(150);
-        mSquare.setLength(mSquare.getSize());
-        mSquare.setHeight(mSquare.getSize());
-        mSquare.setmPaint(mPaint);
+        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        mSquare.setObjectPaint(mPaint);
+        mSquare.setShapeSize(150);
+        mSquare.setLength(mSquare.getShapeSize());
+        mSquare.setHeight(mSquare.getShapeSize());
         mSquare.setxPosition(mSquare.generateRandomX(mCanvas));
         mSquare.setyPosition(mSquare.generateRandomY(mCanvas));
 
-        drawnShapes.add(mSquare);
+        drawnElements.add(mSquare);
 
         invalidate();
-
-    }
-    public void onClick(View view){
-        if (view.getId() == R.id.fingerId){
-
-        }
 
     }
 
@@ -130,50 +110,15 @@ public class CanvasView extends View {
         mCanvas = canvas;
         super.onDraw(mCanvas);
 
-        for (Shape shape:drawnShapes) {
-            if(shape instanceof Circle) {
-                canvas.drawCircle(shape.getxPosition(), shape.getyPosition(), shape.getSize(), shape.getmPaint());
+        for (GraphicalElement graphicalElement : drawnElements) {
+            if(graphicalElement instanceof Circle) {
+                canvas.drawCircle(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getShapeSize(), graphicalElement.getObjectPaint());
             }
-            if(shape instanceof Quadrangle) {
-                canvas.drawRect(shape.getxPosition(), shape.getyPosition(), shape.getxPosition() + ((Quadrangle) shape).getLength(), shape.getyPosition() + ((Quadrangle) shape).getHeight(), shape.getmPaint());
+            if(graphicalElement instanceof Quadrangle) {
+                canvas.drawRect(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getxPosition() + ((Quadrangle) graphicalElement).getLength(), graphicalElement.getyPosition() + ((Quadrangle) graphicalElement).getHeight(), graphicalElement.getObjectPaint());
             }
         }
-
-        canvas.drawBitmap(mBitmap,0,0,mPaint);
-        canvas.drawPath(mPath,mPaint);
     }
 
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        mBitmap = mBitmap.createBitmap(w,h, Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mBitmap);
-        // TODO überprüfen, ob das so übernommen wird oder Jonas Lösung
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        float touchX = event.getX();
-        float touchY = event.getY();
-
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                mPath.moveTo(touchX,touchY);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                mPath.lineTo(touchX,touchY);
-                break;
-            case MotionEvent.ACTION_UP:
-                mPath.lineTo(touchX,touchY);
-                mCanvas.drawPath(mPath,mPaint);
-                //mPath.reset();
-                break;
-            default:
-            return false;
-        }
-    invalidate();
-    return true;
-
-    }
 
 }
