@@ -5,8 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -15,6 +17,8 @@ import androidx.annotation.RequiresApi;
 import java.util.ArrayList;
 import java.util.List;
 
+import at.ac.univie.se2ws2020team0310.sketch_app.R;
+
 public class CanvasView extends View {
 
 // Attributes
@@ -22,6 +26,9 @@ public class CanvasView extends View {
     public Canvas mCanvas;
 
     public Paint mPaint;
+
+    private Path mPath;
+
 
 
     private List <Shape> drawnShapes = new ArrayList<>(); // das ist nur ein Test,
@@ -60,6 +67,13 @@ public class CanvasView extends View {
         mPaint.setColor(Color.RED);
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setAntiAlias(true);
+
+        mPath = new Path();
+        mPaint.setAntiAlias(true);
+        mPaint.setStrokeWidth(30);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
 
     }
 
@@ -103,6 +117,12 @@ public class CanvasView extends View {
         invalidate();
 
     }
+    public void onClick(View view){
+        if (view.getId() == R.id.fingerId){
+
+        }
+
+    }
 
 
     @Override
@@ -118,7 +138,42 @@ public class CanvasView extends View {
                 canvas.drawRect(shape.getxPosition(), shape.getyPosition(), shape.getxPosition() + ((Quadrangle) shape).getLength(), shape.getyPosition() + ((Quadrangle) shape).getHeight(), shape.getmPaint());
             }
         }
+
+        canvas.drawBitmap(mBitmap,0,0,mPaint);
+        canvas.drawPath(mPath,mPaint);
     }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        mBitmap = mBitmap.createBitmap(w,h, Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBitmap);
+        // TODO überprüfen, ob das so übernommen wird oder Jonas Lösung
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        float touchX = event.getX();
+        float touchY = event.getY();
+
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                mPath.moveTo(touchX,touchY);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                mPath.lineTo(touchX,touchY);
+                break;
+            case MotionEvent.ACTION_UP:
+                mPath.lineTo(touchX,touchY);
+                mCanvas.drawPath(mPath,mPaint);
+                //mPath.reset();
+                break;
+            default:
+            return false;
+        }
+    invalidate();
+    return true;
+
+    }
 
 }
