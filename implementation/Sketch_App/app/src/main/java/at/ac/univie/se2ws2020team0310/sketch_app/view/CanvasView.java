@@ -60,6 +60,8 @@ public class CanvasView extends View {
 
 // Methods
 
+
+    //TODO: change style for text --> at the moment it is red without filling
     void init(@Nullable AttributeSet set) {
 
         Paint mPaint = new Paint();
@@ -125,8 +127,8 @@ public class CanvasView extends View {
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
         mText.setObjectPaint(mPaint);
 
-        mText.setyPosition(mText.generateRandomX(mCanvas)); // center horizontally
-        mText.setyPosition(mText.generateRandomY(mCanvas)); // center vertically
+        mText.setxPosition(mText.generateRandomX(mCanvas)); 
+        mText.setyPosition(mText.generateRandomY(mCanvas));
 
 
         drawnElements.add(mText);
