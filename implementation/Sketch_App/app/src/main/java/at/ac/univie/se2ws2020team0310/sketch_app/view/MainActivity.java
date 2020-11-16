@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         public void onProgressChanged(SeekBar textSizeSeekBar, int progress, boolean fromUser) {
             textSize = progress;
-            GraphicalElement.setSelectedTextSize(textSize);
+            GraphicalElement.changeTextSize(textSize);
         }
 
         public void onStartTrackingTouch(SeekBar textSizeSeekBar) {
