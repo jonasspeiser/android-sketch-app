@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        SeekBar textSizeSeekBar = findViewById(R.id.textSizeSeekBar);
         canvasView = (CanvasView) findViewById(R.id.canvasView);
     }
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.textId:
                 SeekBar textSizeSeekBar = findViewById(R.id.textSizeSeekBar);
-                if(textSizeSeekBar.VISIBLE == 1){
+                if(textSizeSeekBar.getVisibility()==SeekBar.VISIBLE){
                     textSizeSeekBar.setVisibility(View.INVISIBLE);
                 }else{
                     textSizeSeekBar.setVisibility(View.VISIBLE);

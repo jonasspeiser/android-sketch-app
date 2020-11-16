@@ -20,9 +20,7 @@ public class CanvasView extends View {
 // Attributes
     private Bitmap mBitmap;
     public Canvas mCanvas;
-
     public Paint mPaint;
-
 
     private List <Shape> drawnShapes = new ArrayList<>(); // das ist nur ein Test,
 
