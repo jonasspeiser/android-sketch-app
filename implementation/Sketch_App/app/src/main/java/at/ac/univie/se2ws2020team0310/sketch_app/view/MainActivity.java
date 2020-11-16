@@ -28,10 +28,10 @@ public class MainActivity extends AppCompatActivity {
         SeekBar textSizeSeekBar = findViewById(R.id.textSizeSeekBar);
         canvasView = (CanvasView) findViewById(R.id.canvasView);
             textSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                int progressChangedValue = 0;
+                int textSize = 0;
 
                 public void onProgressChanged(SeekBar textSizeSeekBar, int progress, boolean fromUser) {
-                    progressChangedValue = progress;
+                    textSize = progress;
                 }
 
                 public void onStartTrackingTouch(SeekBar seekBar) {
@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 public void onStopTrackingTouch(SeekBar seekBar) {
-                    Toast.makeText(MainActivity.this, "Seek bar progress is :" + progressChangedValue,
-                            Toast.LENGTH_SHORT).show();
                 }
             });
 
