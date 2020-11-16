@@ -24,23 +24,24 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        SeekBar textSizeSeekBar = findViewById(R.id.strokeWidthSeekBar);
+        SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
+        SeekBar textSizeSeekBar = findViewById(R.id.textSizeSeekBar);
 
         // TODO: create method for this
         findViewById(R.id.strokeWidthButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SeekBar textSizeSeekBar = findViewById(R.id.strokeWidthSeekBar);
-                if(textSizeSeekBar.getVisibility()==SeekBar.VISIBLE){
-                    textSizeSeekBar.setVisibility(View.INVISIBLE);
+                SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
+                if(strokeWidthSeekBar.getVisibility()==SeekBar.VISIBLE){
+                    strokeWidthSeekBar.setVisibility(View.INVISIBLE);
                 }else{
-                    textSizeSeekBar.setVisibility(View.VISIBLE);
+                    strokeWidthSeekBar.setVisibility(View.VISIBLE);
                 }
             }
         });
 
         canvasView = (CanvasView) findViewById(R.id.canvasView);
-            textSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            strokeWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 int strokeWidth = 0;
 
                 public void onProgressChanged(SeekBar textSizeSeekBar, int progress, boolean fromUser) {
@@ -55,6 +56,21 @@ public class MainActivity extends AppCompatActivity {
                 public void onStopTrackingTouch(SeekBar textSizeSeekBar) {
                 }
             });
+        textSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int textSize = 0;
+
+            public void onProgressChanged(SeekBar textSizeSeekBar, int progress, boolean fromUser) {
+                textSize = progress;
+                Shape.setTextSize(textSize);
+            }
+
+            public void onStartTrackingTouch(SeekBar textSizeSeekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            public void onStopTrackingTouch(SeekBar textSizeSeekBar) {
+            }
+        });
 
 
         }
@@ -71,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.textId:
-                SeekBar textSizeSeekBar = findViewById(R.id.strokeWidthSeekBar);
+                SeekBar textSizeSeekBar = findViewById(R.id.textSizeSeekBar);
                 if(textSizeSeekBar.getVisibility()==SeekBar.VISIBLE){
                     textSizeSeekBar.setVisibility(View.INVISIBLE);
                 }else{
