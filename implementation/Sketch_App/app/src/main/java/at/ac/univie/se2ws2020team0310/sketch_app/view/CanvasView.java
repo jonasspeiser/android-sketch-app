@@ -8,12 +8,15 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.SeekBar;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import at.ac.univie.se2ws2020team0310.sketch_app.R;
 
 public class CanvasView extends View {
 
