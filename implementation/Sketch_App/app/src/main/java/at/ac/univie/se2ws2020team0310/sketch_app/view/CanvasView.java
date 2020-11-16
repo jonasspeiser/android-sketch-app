@@ -5,8 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -20,6 +22,10 @@ public class CanvasView extends View {
 // Attributes
     private Bitmap mBitmap;
     private Canvas mCanvas;
+    private Drawing drawing;
+    Path mPath = new Path();
+   // private Path mPath;
+   // private Paint mPaint;
 
     private List <GraphicalElement> drawnElements = new ArrayList<>();
 
@@ -58,7 +64,10 @@ public class CanvasView extends View {
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(15);
         mPaint.setAntiAlias(true);
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
         GraphicalElement.setSelectedPaint(mPaint);
+
     }
 
     public void selectCircle() {
@@ -117,8 +126,48 @@ public class CanvasView extends View {
             if(graphicalElement instanceof Quadrangle) {
                 canvas.drawRect(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getxPosition() + ((Quadrangle) graphicalElement).getLength(), graphicalElement.getyPosition() + ((Quadrangle) graphicalElement).getHeight(), graphicalElement.getObjectPaint());
             }
+            if(graphicalElement instanceof Drawing) {
+                canvas.drawBitmap(mBitmap, 0 , 0, graphicalElement.getObjectPaint());
+                canvas.drawPath(((Drawing) graphicalElement).getObjectPath(),graphicalElement.getObjectPaint());
+            }
+
         }
+
+    }
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBitmap);
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        float touchX = event.getX();
+        float touchY = event.getY();
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mPath.moveTo(touchX, touchY);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                mPath.lineTo(touchX, touchY);
+                break;
+            case MotionEvent.ACTION_UP:
+                mPath.lineTo(touchX, touchY);
+
+                drawing = new Drawing();
+                drawing.setObjectPaint(GraphicalElement.getSelectedPaint());
+                mCanvas.drawPath(mPath, drawing.getObjectPaint());
+                drawing.setObjectPath(mPath);
+                drawnElements.add(drawing);
+                //mPath.reset();
+                break;
+            default:
+                return false;
+        }
+        invalidate();
+        return true;
+    }
 
 }
