@@ -1,16 +1,11 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

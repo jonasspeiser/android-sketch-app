@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -16,9 +17,13 @@ import androidx.annotation.RequiresApi;
 import java.util.ArrayList;
 import java.util.List;
 
+import at.ac.univie.se2ws2020team0310.sketch_app.model.AppException;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.EGraphicalElementType;
+
 public class CanvasView extends View {
 
 // Attributes
+    // TODO initiate in Constructor and only adapt on size change
     private Bitmap mBitmap;
     private Canvas mCanvas;
 
@@ -70,6 +75,7 @@ public class CanvasView extends View {
         mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
 
+
         Circle mCircle = new Circle();
         // TODO: Implement another constructor for Circle-Class
         //  and put following paragraph into a constructor call
@@ -85,10 +91,10 @@ public class CanvasView extends View {
     }
 
     public void selectQuadrangle() {
-
+        // TODO remove following block of code from here
         mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
-
+        /*
         Quadrangle mSquare = new Quadrangle();
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
         mSquare.setObjectPaint(mPaint);
@@ -97,8 +103,17 @@ public class CanvasView extends View {
         mSquare.setHeight(mSquare.getShapeSize());
         mSquare.setxPosition(mSquare.generateRandomX(mCanvas));
         mSquare.setyPosition(mSquare.generateRandomY(mCanvas));
+         */
+        // use a Factory to create the Quadrangle as a GraphicalElement
+        try {
+            GraphicalElement mSquare =
+                    GraphicalElementFactory.createElement(EGraphicalElementType.QUADRANGLE, mCanvas);
+            drawnElements.add(mSquare);
+            invalidate();
+        } catch (AppException e) {
+            Log.e("CanvasView", e.getMessage());
+        }
 
-        drawnElements.add(mSquare);
     }
 
     public void selectText() {
@@ -154,6 +169,8 @@ public class CanvasView extends View {
         mCanvas = canvas;
         super.onDraw(mCanvas);
 
+        // Iterator pattern is already implemented in the List interface
+        // we could replace it with our own Iterator
         for (GraphicalElement graphicalElement : drawnElements) {
             if(graphicalElement instanceof Circle) {
                 canvas.drawCircle(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getShapeSize(), graphicalElement.getObjectPaint());
