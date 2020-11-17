@@ -22,6 +22,7 @@ public class CanvasView extends View {
     private Bitmap mBitmap;
     private Canvas mCanvas;
 
+    private GraphicalElement selectedGraphicalElement;
     private List <GraphicalElement> drawnElements = new ArrayList<>();
 
 // Constructors
@@ -81,7 +82,7 @@ public class CanvasView extends View {
         mCircle.setxPosition(mCircle.generateRandomX(mCanvas));
         mCircle.setyPosition(mCircle.generateRandomY(mCanvas));
 
-        drawnElements.add(mCircle);
+        selectedGraphicalElement = mCircle;
     }
 
     public void selectQuadrangle() {
@@ -98,7 +99,7 @@ public class CanvasView extends View {
         mSquare.setxPosition(mSquare.generateRandomX(mCanvas));
         mSquare.setyPosition(mSquare.generateRandomY(mCanvas));
 
-        drawnElements.add(mSquare);
+        selectedGraphicalElement = mSquare;
     }
 
     public void selectText() {
@@ -118,7 +119,7 @@ public class CanvasView extends View {
         //mText.setyPosition(getHeight() / 2);
 
 
-        drawnElements.add(mText);
+        selectedGraphicalElement = mText;
     }
 
     // draw the element at the position of the user's touch
@@ -130,6 +131,18 @@ public class CanvasView extends View {
         //TODO: if-statement einfügen, damit der nächste Absatz nur aufgerufen wird,
         // wenn zuvor eine Shape im Menü angewählt wurde.
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            drawnElements.add(selectedGraphicalElement);
+
+            // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
+            GraphicalElement lastElement = drawnElements.get(drawnElements.size() - 1);
+            lastElement.setxPosition(touchX);
+            lastElement.setyPosition(touchY);
+
+            invalidate();
+            return true;
+        }
+
+        if (event.getAction() == MotionEvent.ACTION_MOVE) {
             // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
             GraphicalElement lastElement = drawnElements.get(drawnElements.size() - 1);
             lastElement.setxPosition(touchX);
