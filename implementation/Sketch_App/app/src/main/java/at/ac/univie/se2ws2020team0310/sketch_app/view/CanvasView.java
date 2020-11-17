@@ -77,10 +77,6 @@ public class CanvasView extends View {
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
         mCircle.setObjectPaint(mPaint);
         mCircle.setShapeSize(70);
-        //mCircle.setmCircleX(getWidth() / 2); // center horizontally
-        //mCircle.setmCircleY(getHeight() / 2); // center vertically
-        mCircle.setxPosition(mCircle.generateRandomX(mCanvas));
-        mCircle.setyPosition(mCircle.generateRandomY(mCanvas));
 
         selectedGraphicalElement = mCircle;
     }
@@ -96,8 +92,6 @@ public class CanvasView extends View {
         mSquare.setShapeSize(150);
         mSquare.setLength(mSquare.getShapeSize());
         mSquare.setHeight(mSquare.getShapeSize());
-        mSquare.setxPosition(mSquare.generateRandomX(mCanvas));
-        mSquare.setyPosition(mSquare.generateRandomY(mCanvas));
 
         selectedGraphicalElement = mSquare;
     }
@@ -113,11 +107,6 @@ public class CanvasView extends View {
 
         mPaint.setColor(Color.BLACK);
         mPaint.setStyle(Paint.Style.FILL);
-
-
-        //mText.setxPosition(getWidth() / 2);
-        //mText.setyPosition(getHeight() / 2);
-
 
         selectedGraphicalElement = mText;
     }
