@@ -137,6 +137,29 @@ public class CanvasView extends View {
 
     }
 
+    // draw the element at the position of the user's touch
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        float touchX = event.getX();
+        float touchY = event.getY();
+
+        //TODO: if-statement einfügen, damit der nächste Absatz nur aufgerufen wird,
+        // wenn zuvor eine Shape im Menü angewählt wurde.
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
+            GraphicalElement lastElement = drawnElements.get(drawnElements.size() - 1);
+            lastElement.setxPosition(touchX);
+            lastElement.setyPosition(touchY);
+
+            invalidate();
+            return true;
+
+        } else {
+            return false;
+        }
+
+    }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
