@@ -9,14 +9,10 @@ abstract class GraphicalElement {
 
     //TODO: Klassendiagramm "Color" zu Paint-Objekt ändern
     private static Paint selectedPaint;
-    private static int selectedStrokeWidth = 100;
-    private static int selectedTextSize = 50;
 
     private float xPosition, yPosition, shapeSize;
 
     private Paint objectPaint;
-    private int objectStrokeWidth;
-    private int objectTextSize;
 
 // Methods
 
@@ -26,22 +22,6 @@ abstract class GraphicalElement {
 
     public static void setSelectedPaint(Paint selectedPaint) {
         GraphicalElement.selectedPaint = selectedPaint;
-    }
-
-    public static int getSelectedTextSize() {
-        return selectedTextSize;
-    }
-
-    public static void setSelectedTextSize(int selectedTextSize) {
-        GraphicalElement.selectedTextSize = selectedTextSize;
-    }
-
-    public static int getSelectedStrokeWidth(){
-        return selectedStrokeWidth;
-    }
-
-    public static void setSelectedStrokeWidth(int selectedStrokeWidth) {
-        GraphicalElement.selectedStrokeWidth = selectedStrokeWidth;
     }
 
     public float getxPosition() {
@@ -74,22 +54,6 @@ abstract class GraphicalElement {
 
     public void setObjectPaint(Paint objectPaint) {
         this.objectPaint = objectPaint;
-    }
-
-    public int getObjectStrokeWidth() {
-        return objectStrokeWidth;
-    }
-
-    public void setObjectStrokeWidth(int objectStrokeWidth) {
-        this.objectStrokeWidth = objectStrokeWidth;
-    }
-
-    public int getObjectTextSize() {
-        return objectTextSize;
-    }
-
-    public void setObjectTextSize(int objectTextSize) {
-        this.objectTextSize = objectTextSize;
     }
 
     public static void changeTextSize(float textSize) {
