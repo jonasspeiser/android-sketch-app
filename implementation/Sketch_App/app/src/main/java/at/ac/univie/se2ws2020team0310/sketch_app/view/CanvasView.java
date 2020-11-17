@@ -63,6 +63,7 @@ public class CanvasView extends View {
 
     //TODO: change style for text --> at the moment it is red without filling
     void init(@Nullable AttributeSet set) {
+        //TODO: Paint Objekt wirklich hier initiieren??
 
         Paint mPaint = new Paint();
         mPaint.setColor(Color.RED);
@@ -94,8 +95,6 @@ public class CanvasView extends View {
         mCircle.setyPosition(mCircle.generateRandomY(mCanvas));
 
         drawnElements.add(mCircle);
-
-        invalidate();
     }
 
     public void selectQuadrangle() {
@@ -113,9 +112,6 @@ public class CanvasView extends View {
         mSquare.setyPosition(mSquare.generateRandomY(mCanvas));
 
         drawnElements.add(mSquare);
-
-        invalidate();
-
     }
     
     public void selectText() {
