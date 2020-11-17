@@ -53,6 +53,7 @@ public class CanvasView extends View {
 // Methods
 
     void init(@Nullable AttributeSet set) {
+        //TODO: Paint Objekt wirklich hier initiieren??
 
         Paint mPaint = new Paint();
         mPaint.setColor(Color.RED);
@@ -81,8 +82,6 @@ public class CanvasView extends View {
         mCircle.setyPosition(mCircle.generateRandomY(mCanvas));
 
         drawnElements.add(mCircle);
-
-        invalidate();
     }
 
     public void selectQuadrangle() {
@@ -100,9 +99,6 @@ public class CanvasView extends View {
         mSquare.setyPosition(mSquare.generateRandomY(mCanvas));
 
         drawnElements.add(mSquare);
-
-        invalidate();
-
     }
 
     // draw the element at the position of the user's touch
