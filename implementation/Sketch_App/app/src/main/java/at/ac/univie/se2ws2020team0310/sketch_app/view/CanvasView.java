@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -101,6 +102,29 @@ public class CanvasView extends View {
         drawnElements.add(mSquare);
 
         invalidate();
+
+    }
+
+    // draw the element at the position of the user's touch
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        float touchX = event.getX();
+        float touchY = event.getY();
+
+        //TODO: if-statement einfügen, damit der nächste Absatz nur aufgerufen wird,
+        // wenn zuvor eine Shape im Menü angewählt wurde.
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
+            GraphicalElement lastElement = drawnElements.get(drawnElements.size() - 1);
+            lastElement.setxPosition(touchX);
+            lastElement.setyPosition(touchY);
+
+            invalidate();
+            return true;
+
+        } else {
+            return false;
+        }
 
     }
 
