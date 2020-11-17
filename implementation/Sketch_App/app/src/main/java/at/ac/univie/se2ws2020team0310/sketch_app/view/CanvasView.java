@@ -56,10 +56,11 @@ public class CanvasView extends View {
         //TODO: Paint Objekt wirklich hier initiieren??
 
         Paint mPaint = new Paint();
-        mPaint.setColor(Color.RED);
+        mPaint.setColor(Color.BLACK);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(15);
         mPaint.setAntiAlias(true);
+        mPaint.setTextSize(50);
         GraphicalElement.setSelectedPaint(mPaint);
     }
 
@@ -110,7 +111,7 @@ public class CanvasView extends View {
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
         mText.setObjectPaint(mPaint);
 
-        mPaint.setColor(Color.BLACK);
+
         mPaint.setStyle(Paint.Style.FILL);
 
 
