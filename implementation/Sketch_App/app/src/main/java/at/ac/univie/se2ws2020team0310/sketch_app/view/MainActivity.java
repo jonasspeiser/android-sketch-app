@@ -68,26 +68,22 @@ public class MainActivity extends AppCompatActivity {
 
         canvasView = (CanvasView) findViewById(R.id.canvasView);
             strokeWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                int strokeWidth = 0;
 
-                public void onProgressChanged(SeekBar textSizeSeekBar, int progress, boolean fromUser) {
-                    strokeWidth = progress;
-                    GraphicalElement.changeStrokeWidth(strokeWidth);
+                public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
+                    GraphicalElement.changeStrokeWidth(progress);
                 }
 
-                public void onStartTrackingTouch(SeekBar textSizeSeekBar) {
+                public void onStartTrackingTouch(SeekBar strokeWidthSeekBar) {
                     // TODO Auto-generated method stub
                 }
 
-                public void onStopTrackingTouch(SeekBar textSizeSeekBar) {
+                public void onStopTrackingTouch(SeekBar strokeWidthSeekBar) {
                 }
             });
         textSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int textSize = 0;
 
             public void onProgressChanged(SeekBar textSizeSeekBar, int progress, boolean fromUser) {
-                textSize = progress;
-                GraphicalElement.setSelectedTextSize(textSize);
+                GraphicalElement.changeTextSize(progress);
             }
 
             public void onStartTrackingTouch(SeekBar textSizeSeekBar) {
@@ -119,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     textSizeSeekBar.setVisibility(View.VISIBLE);
                 }
+                canvasView.selectText();
                 return true;
 
             case R.id.fingerId:

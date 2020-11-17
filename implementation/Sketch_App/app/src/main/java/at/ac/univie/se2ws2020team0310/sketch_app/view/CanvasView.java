@@ -101,6 +101,26 @@ public class CanvasView extends View {
         drawnElements.add(mSquare);
     }
 
+    public void selectText() {
+
+        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBitmap);
+
+        Text mText = new Text();
+        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        mText.setObjectPaint(mPaint);
+
+        mPaint.setColor(Color.BLACK);
+        mPaint.setStyle(Paint.Style.FILL);
+
+
+        //mText.setxPosition(getWidth() / 2);
+        //mText.setyPosition(getHeight() / 2);
+
+
+        drawnElements.add(mText);
+    }
+
     // draw the element at the position of the user's touch
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -136,6 +156,9 @@ public class CanvasView extends View {
             }
             if(graphicalElement instanceof Quadrangle) {
                 canvas.drawRect(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getxPosition() + ((Quadrangle) graphicalElement).getLength(), graphicalElement.getyPosition() + ((Quadrangle) graphicalElement).getHeight(), graphicalElement.getObjectPaint());
+            }
+            if(graphicalElement instanceof Text) {
+                canvas.drawText("Hello", graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
             }
         }
     }
