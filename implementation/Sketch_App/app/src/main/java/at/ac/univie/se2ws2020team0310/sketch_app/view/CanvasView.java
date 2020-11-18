@@ -132,9 +132,6 @@ public class CanvasView extends View {
 
         mPaint.setStyle(Paint.Style.FILL);
 
-        //mText.setxPosition(getWidth() / 2);
-        //mText.setyPosition(getHeight() / 2);
-
         selectedGraphicalElement = mText;
     }
 
@@ -163,7 +160,6 @@ public class CanvasView extends View {
             }
             else if (selectedGraphicalElement == null) {
                 //TODO: throw error message "No object selected"
-
             }
 
         }
