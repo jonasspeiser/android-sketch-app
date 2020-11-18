@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
             public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
                 GraphicalElement.getSelectedPaint().setStrokeWidth(progress);
+                GraphicalElement.changeTextSize(progress);
+                canvasView.getLastElement().getObjectPaint().setTextSize(progress);
                 canvasView.getLastElement().getObjectPaint().setStrokeWidth(progress);
                 canvasView.invalidate();
             }
@@ -86,20 +88,6 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar strokeWidthSeekBar) {
             }
         });
-        textSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-            public void onProgressChanged(SeekBar textSizeSeekBar, int progress, boolean fromUser) {
-                GraphicalElement.changeTextSize(progress);
-            }
-
-            public void onStartTrackingTouch(SeekBar textSizeSeekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            public void onStopTrackingTouch(SeekBar textSizeSeekBar) {
-            }
-        });
-
     }
 
 
@@ -117,12 +105,6 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.textId:
-                SeekBar textSizeSeekBar = findViewById(R.id.textSizeSeekBar);
-                if(textSizeSeekBar.getVisibility()==SeekBar.VISIBLE){
-                    textSizeSeekBar.setVisibility(View.INVISIBLE);
-                }else{
-                    textSizeSeekBar.setVisibility(View.VISIBLE);
-                }
                 canvasView.selectText();
                 Toast textToast = Toast.makeText(getApplicationContext(), "Text selected", Toast.LENGTH_LONG);
                 textToast.show();
