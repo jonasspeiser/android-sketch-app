@@ -9,7 +9,6 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -23,7 +22,6 @@ public class CanvasView extends View {
     private Bitmap mBitmap;
     private Canvas mCanvas;
 
-    private GraphicalElement selectedGraphicalElement;
     private List <GraphicalElement> drawnElements = new ArrayList<>();
 
 // Constructors
@@ -58,39 +56,19 @@ public class CanvasView extends View {
         //TODO: Paint Objekt wirklich hier initiieren??
 
         Paint mPaint = new Paint();
-        mPaint.setColor(Color.BLACK);
+        mPaint.setColor(Color.RED);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(15);
         mPaint.setAntiAlias(true);
-        mPaint.setTextSize(50);
         GraphicalElement.setSelectedPaint(mPaint);
     }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mBitmap);
-    }
-
-    public GraphicalElement getLastElement() {
-        GraphicalElement lastElement = drawnElements.get(drawnElements.size() - 1);
-        return lastElement;
-    }
-
-    // TODO: Put the select-Methods into Graphical Element and use Polymorphism in the sublasses
-    public void selectLine() {
-
-        Line mLine = new Line();
-        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
-        mLine.setObjectPaint(mPaint);
-
-        selectedGraphicalElement = mLine;
-    }
-
 
     public void selectCircle() {
         // initiates canvas-object, constructs circle-object, adds circle-object to the draw-list
         // and invalidates the view, so that everything gets drawn
+
+        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBitmap);
 
         Circle mCircle = new Circle();
         // TODO: Implement another constructor for Circle-Class
@@ -98,11 +76,18 @@ public class CanvasView extends View {
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
         mCircle.setObjectPaint(mPaint);
         mCircle.setShapeSize(70);
+        //mCircle.setmCircleX(getWidth() / 2); // center horizontally
+        //mCircle.setmCircleY(getHeight() / 2); // center vertically
+        mCircle.setxPosition(mCircle.generateRandomX(mCanvas));
+        mCircle.setyPosition(mCircle.generateRandomY(mCanvas));
 
-        selectedGraphicalElement = mCircle;
+        drawnElements.add(mCircle);
     }
 
     public void selectQuadrangle() {
+
+        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBitmap);
 
         Quadrangle mSquare = new Quadrangle();
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
@@ -110,31 +95,11 @@ public class CanvasView extends View {
         mSquare.setShapeSize(150);
         mSquare.setLength(mSquare.getShapeSize());
         mSquare.setHeight(mSquare.getShapeSize());
+        mSquare.setxPosition(mSquare.generateRandomX(mCanvas));
+        mSquare.setyPosition(mSquare.generateRandomY(mCanvas));
 
-        selectedGraphicalElement = mSquare;
+        drawnElements.add(mSquare);
     }
-
-    public void selectTriangle() {
-
-        Triangle mTriangle = new Triangle();
-        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
-        mTriangle.setObjectPaint(mPaint);
-        mTriangle.setShapeSize(150);
-
-        selectedGraphicalElement = mTriangle;
-    }
-
-    public void selectText() {
-
-        Text mText = new Text();
-        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
-        mText.setObjectPaint(mPaint);
-
-        mPaint.setStyle(Paint.Style.FILL);
-
-        selectedGraphicalElement = mText;
-    }
-
 
     // draw the element at the position of the user's touch
     @Override
@@ -142,33 +107,13 @@ public class CanvasView extends View {
         float touchX = event.getX();
         float touchY = event.getY();
 
-        //TODO: Für Implementierung von Freehand-Drawing:
-        // if-statement einfügen, damit der nächste Absatz nur aufgerufen wird,
+        //TODO: if-statement einfügen, damit der nächste Absatz nur aufgerufen wird,
         // wenn zuvor eine Shape im Menü angewählt wurde.
-
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (selectedGraphicalElement != null) {
-                drawnElements.add(selectedGraphicalElement);
-
-                // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
-                //TODO: last element
-                getLastElement().setxPosition(touchX);
-                getLastElement().setyPosition(touchY);
-
-                invalidate();
-                return true;
-            }
-            else if (selectedGraphicalElement == null) {
-                //TODO: throw error message "No object selected"
-            }
-
-        }
-
-
-        if (event.getAction() == MotionEvent.ACTION_MOVE) {
             // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
-            getLastElement().setxPosition(touchX);
-            getLastElement().setyPosition(touchY);
+            GraphicalElement lastElement = drawnElements.get(drawnElements.size() - 1);
+            lastElement.setxPosition(touchX);
+            lastElement.setyPosition(touchY);
 
             invalidate();
             return true;
@@ -186,30 +131,14 @@ public class CanvasView extends View {
         super.onDraw(mCanvas);
 
         for (GraphicalElement graphicalElement : drawnElements) {
-            if(graphicalElement instanceof Line) {
-                canvas.drawLine(((Line) graphicalElement).getStartX(), ((Line) graphicalElement).getStartY(), graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
-            }
             if(graphicalElement instanceof Circle) {
                 canvas.drawCircle(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getShapeSize(), graphicalElement.getObjectPaint());
             }
-            if(graphicalElement instanceof Quadrangle) { //TODO: Berechnung von x und y Koordinaten in Methode in Quadrangle-Klasse auslagern
+            if(graphicalElement instanceof Quadrangle) {
                 canvas.drawRect(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getxPosition() + ((Quadrangle) graphicalElement).getLength(), graphicalElement.getyPosition() + ((Quadrangle) graphicalElement).getHeight(), graphicalElement.getObjectPaint());
             }
-            if(graphicalElement instanceof Triangle) {
-                ((Triangle) graphicalElement).drawTriangle(canvas, graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
-            }
-            if(graphicalElement instanceof Text) {
-                canvas.drawText("Hello", graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
-            }
-
         }
     }
-
-    public void clear() {
-        drawnElements.clear();
-        invalidate();
-    }
-
 
 
 }
