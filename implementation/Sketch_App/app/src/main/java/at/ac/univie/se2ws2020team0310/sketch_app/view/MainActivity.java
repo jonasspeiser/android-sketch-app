@@ -5,6 +5,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -99,6 +102,12 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.textId:
+
+                EditText editText = (EditText) findViewById(R.id.editText);
+                Button toggleText = findViewById(R.id.toggleText);
+                editText.setVisibility(View.VISIBLE);
+                toggleText.setVisibility(View.VISIBLE);
+
                 canvasView.selectText();
                 Toast textToast = Toast.makeText(getApplicationContext(), "Text selected", Toast.LENGTH_LONG);
                 textToast.show();
@@ -152,4 +161,20 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    // TODO: Move this to CanvasView or in another class?
+    public void printText (View view) {
+        EditText editText = findViewById(R.id.editText);
+        Button toggleText = findViewById(R.id.toggleText);
+
+        canvasView.selectText();
+        Text mText = (Text) canvasView.getSelectedGraphicalElement();
+        mText.setTextinput(editText.getText().toString());
+
+        canvasView.invalidate();
+
+        editText.setVisibility(View.GONE);
+        toggleText.setVisibility(View.GONE);
+    }
+
 }
