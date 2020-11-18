@@ -21,7 +21,10 @@ import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class MainActivity extends AppCompatActivity {
 
+// Attributes
     private CanvasView canvasView;
+
+// Methods
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.lineId:
-                // TODO
+                canvasView.selectLine();
                 return true;
 
             case R.id.circleId:

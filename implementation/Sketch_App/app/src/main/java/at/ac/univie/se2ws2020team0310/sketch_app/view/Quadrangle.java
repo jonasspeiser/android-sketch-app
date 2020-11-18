@@ -5,9 +5,12 @@ import android.graphics.Canvas;
 import java.util.Random;
 
 public class Quadrangle extends GraphicalElement {
+
+// Attributes
     private float length;
     private float height;
 
+// Getters and Setters
     public float getLength() {
         return length;
     }

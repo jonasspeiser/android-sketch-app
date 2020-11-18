@@ -51,7 +51,7 @@ public class CanvasView extends View {
         init(attrs);
     }
 
-// Methods
+// Other Methods
 
     void init(@Nullable AttributeSet set) {
         //TODO: Paint Objekt wirklich hier initiieren??
@@ -62,6 +62,18 @@ public class CanvasView extends View {
         mPaint.setStrokeWidth(15);
         mPaint.setAntiAlias(true);
         GraphicalElement.setSelectedPaint(mPaint);
+    }
+    // TODO: Put the select-Methods into Graphical Element and use Polymorphism in the sublasses
+    public void selectLine() {
+
+        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBitmap);
+
+        Line mLine = new Line();
+        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        mLine.setObjectPaint(mPaint);
+
+        selectedGraphicalElement = mLine;
     }
 
     public void selectCircle() {
@@ -170,6 +182,9 @@ public class CanvasView extends View {
         super.onDraw(mCanvas);
 
         for (GraphicalElement graphicalElement : drawnElements) {
+            if(graphicalElement instanceof Line) {
+                canvas.drawLine(((Line) graphicalElement).getStartX(), ((Line) graphicalElement).getStartY(), graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
+            }
             if(graphicalElement instanceof Circle) {
                 canvas.drawCircle(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getShapeSize(), graphicalElement.getObjectPaint());
             }

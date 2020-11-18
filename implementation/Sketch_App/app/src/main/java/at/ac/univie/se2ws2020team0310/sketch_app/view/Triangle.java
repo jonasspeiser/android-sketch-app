@@ -6,8 +6,10 @@ import android.graphics.Path;
 
 public class Triangle extends GraphicalElement {
 
-    public void drawTriangle(Canvas canvas, float x, float y, Paint paint) {
+// Methods
 
+    public void drawTriangle(Canvas canvas, float x, float y, Paint paint) {
+        // in Anlehnung an: https://kylewbanks.com/blog/drawing-triangles-rhombuses-and-other-shapes-on-android-canvas#:~:text=Simply%20call%20drawTriangle%20with%20the,the%20width%20of%20the%20triangle.&text=Not%20bad%2C%20with%20a%20little,for%20your%20triangle%20drawing%20needs.
         float halfWidth = this.getShapeSize() / 2;
 
         Path path = new Path();
