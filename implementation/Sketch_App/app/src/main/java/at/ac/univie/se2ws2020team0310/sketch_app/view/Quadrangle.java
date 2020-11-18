@@ -5,9 +5,12 @@ import android.graphics.Canvas;
 import java.util.Random;
 
 public class Quadrangle extends GraphicalElement {
+
+    // Attributes
     private float length;
     private float height;
 
+    // Getters and Setters
     public float getLength() {
         return length;
     }
@@ -22,24 +25,6 @@ public class Quadrangle extends GraphicalElement {
 
     public void setHeight(float height) {
         this.height = height;
-    }
-
-    public float generateRandomX(Canvas canvas) { // provisorisch Logik von Circle übernommen
-        int minX = (int) this.getShapeSize() * 2;
-        int maxX = canvas.getWidth() - ( (int) this.getShapeSize() *2 );
-        Random random = new Random();
-        float mPivotX = random.nextInt(maxX - minX + 1) + minX;
-        return mPivotX;
-
-    }
-
-    public float generateRandomY(Canvas canvas) { // provisorisch Logik von Circle übernommen
-        int minY = (int) this.getShapeSize() * 2;
-        int maxY = canvas.getHeight() - ( (int) this.getShapeSize() *2 );
-        Random random = new Random();
-        float mPivotY = random.nextInt(maxY - minY + 1) + minY;
-        return mPivotY;
-
     }
 
 }

@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onChooseColor(int position, int color) {
                         GraphicalElement.getSelectedPaint().setColor(color);
+                        canvasView.getLastElement().getObjectPaint().setColor(color);
+                        canvasView.invalidate();
                     }
 
                     @Override
@@ -66,20 +68,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         canvasView = (CanvasView) findViewById(R.id.canvasView);
-            strokeWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        strokeWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
-                public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
-                    GraphicalElement.changeStrokeWidth(progress);
-                }
+            public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
+                GraphicalElement.getSelectedPaint().setStrokeWidth(progress);
+                canvasView.getLastElement().getObjectPaint().setStrokeWidth(progress);
+                canvasView.invalidate();
+            }
 
-                public void onStartTrackingTouch(SeekBar strokeWidthSeekBar) {
-                    // TODO Auto-generated method stub
-                }
+            public void onStartTrackingTouch(SeekBar strokeWidthSeekBar) {
+                // TODO Auto-generated method stub
+            }
 
-                public void onStopTrackingTouch(SeekBar strokeWidthSeekBar) {
-                }
-            });
+            public void onStopTrackingTouch(SeekBar strokeWidthSeekBar) {
+            }
+        });
         textSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             public void onProgressChanged(SeekBar textSizeSeekBar, int progress, boolean fromUser) {
@@ -94,7 +99,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        }
+    }
+
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -123,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.lineId:
-                // TODO
+                canvasView.selectLine();
                 return true;
 
             case R.id.circleId:
@@ -135,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.triangleId:
-                // TODO
+                canvasView.selectTriangle();
                 return true;
 
             case R.id.loadId:

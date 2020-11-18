@@ -22,6 +22,7 @@ public class CanvasView extends View {
     private Bitmap mBitmap;
     private Canvas mCanvas;
 
+    private GraphicalElement selectedGraphicalElement;
     private List <GraphicalElement> drawnElements = new ArrayList<>();
 
 // Constructors
@@ -64,6 +65,25 @@ public class CanvasView extends View {
         GraphicalElement.setSelectedPaint(mPaint);
     }
 
+    public GraphicalElement getLastElement() {
+        GraphicalElement lastElement = drawnElements.get(drawnElements.size() - 1);
+        return lastElement;
+    }
+
+    // TODO: Put the select-Methods into Graphical Element and use Polymorphism in the sublasses
+    public void selectLine() {
+
+        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBitmap);
+
+        Line mLine = new Line();
+        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        mLine.setObjectPaint(mPaint);
+
+        selectedGraphicalElement = mLine;
+    }
+
+
     public void selectCircle() {
         // initiates canvas-object, constructs circle-object, adds circle-object to the draw-list
         // and invalidates the view, so that everything gets drawn
@@ -77,12 +97,8 @@ public class CanvasView extends View {
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
         mCircle.setObjectPaint(mPaint);
         mCircle.setShapeSize(70);
-        //mCircle.setmCircleX(getWidth() / 2); // center horizontally
-        //mCircle.setmCircleY(getHeight() / 2); // center vertically
-        mCircle.setxPosition(mCircle.generateRandomX(mCanvas));
-        mCircle.setyPosition(mCircle.generateRandomY(mCanvas));
 
-        drawnElements.add(mCircle);
+        selectedGraphicalElement = mCircle;
     }
 
     public void selectQuadrangle() {
@@ -96,10 +112,21 @@ public class CanvasView extends View {
         mSquare.setShapeSize(150);
         mSquare.setLength(mSquare.getShapeSize());
         mSquare.setHeight(mSquare.getShapeSize());
-        mSquare.setxPosition(mSquare.generateRandomX(mCanvas));
-        mSquare.setyPosition(mSquare.generateRandomY(mCanvas));
 
-        drawnElements.add(mSquare);
+        selectedGraphicalElement = mSquare;
+    }
+
+    public void selectTriangle() {
+
+        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBitmap);
+
+        Triangle mTriangle = new Triangle();
+        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        mTriangle.setObjectPaint(mPaint);
+        mTriangle.setShapeSize(150);
+
+        selectedGraphicalElement = mTriangle;
     }
 
     public void selectText() {
@@ -111,9 +138,7 @@ public class CanvasView extends View {
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
         mText.setObjectPaint(mPaint);
 
-
         mPaint.setStyle(Paint.Style.FILL);
-
 
         //mText.setxPosition(getWidth() / 2);
         //mText.setyPosition(getHeight() / 2);
@@ -132,13 +157,28 @@ public class CanvasView extends View {
         float touchX = event.getX();
         float touchY = event.getY();
 
-        //TODO: if-statement einfügen, damit der nächste Absatz nur aufgerufen wird,
+        //TODO: Für Implementierung von Freehand-Drawing:
+        // if-statement einfügen, damit der nächste Absatz nur aufgerufen wird,
         // wenn zuvor eine Shape im Menü angewählt wurde.
+
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (selectedGraphicalElement != null) {
+                drawnElements.add(selectedGraphicalElement);
+
+                // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
+                //TODO: last element
+                getLastElement().setxPosition(touchX);
+                getLastElement().setyPosition(touchY);
+
+                invalidate();
+                return true;
+            }
+        }
+
+        if (event.getAction() == MotionEvent.ACTION_MOVE) {
             // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
-            GraphicalElement lastElement = drawnElements.get(drawnElements.size() - 1);
-            lastElement.setxPosition(touchX);
-            lastElement.setyPosition(touchY);
+            getLastElement().setxPosition(touchX);
+            getLastElement().setyPosition(touchY);
 
             invalidate();
             return true;
@@ -156,17 +196,25 @@ public class CanvasView extends View {
         super.onDraw(mCanvas);
 
         for (GraphicalElement graphicalElement : drawnElements) {
+            if(graphicalElement instanceof Line) {
+                canvas.drawLine(((Line) graphicalElement).getStartX(), ((Line) graphicalElement).getStartY(), graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
+            }
             if(graphicalElement instanceof Circle) {
                 canvas.drawCircle(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getShapeSize(), graphicalElement.getObjectPaint());
             }
-            if(graphicalElement instanceof Quadrangle) {
+            if(graphicalElement instanceof Quadrangle) { //TODO: Berechnung von x und y Koordinaten in Methode in Quadrangle-Klasse auslagern
                 canvas.drawRect(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getxPosition() + ((Quadrangle) graphicalElement).getLength(), graphicalElement.getyPosition() + ((Quadrangle) graphicalElement).getHeight(), graphicalElement.getObjectPaint());
+            }
+            if(graphicalElement instanceof Triangle) {
+                ((Triangle) graphicalElement).drawTriangle(canvas, graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
             }
             if(graphicalElement instanceof Text) {
                 canvas.drawText("Hello", graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
             }
+
         }
     }
+
 
 
 }
