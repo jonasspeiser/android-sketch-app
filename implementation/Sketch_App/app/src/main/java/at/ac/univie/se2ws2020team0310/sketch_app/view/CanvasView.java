@@ -17,6 +17,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -24,28 +25,21 @@ import androidx.annotation.RequiresApi;
 import java.util.ArrayList;
 import java.util.List;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.R;
-
 public class CanvasView extends View {
 
 // Attributes
     private Bitmap mBitmap;
     private Canvas mCanvas;
 
-
     private GraphicalElement selectedGraphicalElement;
     private List <GraphicalElement> drawnElements = new ArrayList<>();
 
-    private static final String TAG = "CanvasView";
-
-
-    // Constructors
+// Constructors
     public CanvasView(Context context) {
         super(context);
 
         init(null);
     }
-
 
     public CanvasView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -84,7 +78,6 @@ public class CanvasView extends View {
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(50);
         GraphicalElement.setSelectedPaint(mPaint);
-
     }
 
     @Override
@@ -160,13 +153,8 @@ public class CanvasView extends View {
     // draw the element at the position of the user's touch
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        super.onTouchEvent(event);
-        Log.d(TAG, "onTOUCH");
-
         float touchX = event.getX();
         float touchY = event.getY();
-
-
 
         //TODO: Für Implementierung von Freehand-Drawing:
         // if-statement einfügen, damit der nächste Absatz nur aufgerufen wird,
@@ -184,6 +172,10 @@ public class CanvasView extends View {
                 invalidate();
                 return true;
             }
+            else if (selectedGraphicalElement == null) {
+                //TODO: throw error message "No object selected"
+            }
+
         }
 
         if (event.getAction() == MotionEvent.ACTION_MOVE) {

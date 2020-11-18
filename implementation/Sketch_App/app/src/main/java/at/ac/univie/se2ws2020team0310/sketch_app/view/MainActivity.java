@@ -1,8 +1,5 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,14 +29,13 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
-        SeekBar textSizeSeekBar = findViewById(R.id.textSizeSeekBar);
+        SeekBar seekBar = findViewById(R.id.SeekBar);
 
         // TODO: create method for this
-        findViewById(R.id.strokeWidthButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.sizeButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
+                SeekBar strokeWidthSeekBar = findViewById(R.id.SeekBar);
                 if(strokeWidthSeekBar.getVisibility()==SeekBar.VISIBLE){
                     strokeWidthSeekBar.setVisibility(View.INVISIBLE);
                 }else{
@@ -73,36 +68,23 @@ public class MainActivity extends AppCompatActivity {
 
 
         canvasView = (CanvasView) findViewById(R.id.canvasView);
-        strokeWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
-            public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 GraphicalElement.getSelectedPaint().setStrokeWidth(progress);
+                GraphicalElement.changeTextSize(progress);
+                canvasView.getLastElement().getObjectPaint().setTextSize(progress);
                 canvasView.getLastElement().getObjectPaint().setStrokeWidth(progress);
                 canvasView.invalidate();
             }
 
-            public void onStartTrackingTouch(SeekBar strokeWidthSeekBar) {
+            public void onStartTrackingTouch(SeekBar seekBar) {
                 // TODO Auto-generated method stub
             }
 
-            public void onStopTrackingTouch(SeekBar strokeWidthSeekBar) {
+            public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-
-        textSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-            public void onProgressChanged(SeekBar textSizeSeekBar, int progress, boolean fromUser) {
-                GraphicalElement.changeTextSize(progress);
-            }
-
-            public void onStartTrackingTouch(SeekBar textSizeSeekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            public void onStopTrackingTouch(SeekBar textSizeSeekBar) {
-            }
-        });
-
     }
 
 
@@ -120,12 +102,6 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.textId:
-                SeekBar textSizeSeekBar = findViewById(R.id.textSizeSeekBar);
-                if(textSizeSeekBar.getVisibility()==SeekBar.VISIBLE){
-                    textSizeSeekBar.setVisibility(View.INVISIBLE);
-                }else{
-                    textSizeSeekBar.setVisibility(View.VISIBLE);
-                }
 
                 EditText editText = (EditText) findViewById(R.id.editText);
                 Button toggleText = findViewById(R.id.toggleText);

@@ -23,7 +23,7 @@
         app:srcCompat="@drawable/menu_icon_colors" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/strokeWidthButton"
+        android:id="@+id/sizeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -56,36 +56,22 @@
         android:layout_height="match_parent"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="-16dp" />
 
     <SeekBar
-        android:id="@+id/strokeWidthSeekBar"
+        android:id="@+id/SeekBar"
         android:layout_width="180dp"
         android:layout_height="24dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/canvasView"
-        app:layout_constraintEnd_toStartOf="@+id/strokeWidthButton"
+        app:layout_constraintEnd_toStartOf="@+id/sizeButton"
         app:layout_constraintHorizontal_bias="0.723"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.795"
         tools:visibility="invisible" />
-
-    <SeekBar
-        android:id="@+id/textSizeSeekBar"
-        android:layout_width="180dp"
-        android:layout_height="24dp"
-        android:max="300"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.305"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/canvasView"
-        app:layout_constraintVertical_bias="0.066" />
 
     <EditText
         android:id="@+id/editText"
@@ -99,7 +85,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/colorSelectorButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/strokeWidthSeekBar" />
+        app:layout_constraintTop_toBottomOf="@+id/SeekBar" />
 
     <Button
         android:id="@+id/toggleText"
@@ -112,7 +98,7 @@
         app:layout_constraintEnd_toStartOf="@+id/colorSelectorButton"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/strokeWidthSeekBar"
+        app:layout_constraintTop_toBottomOf="@+id/SeekBar"
         app:layout_constraintVertical_bias="0.058" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
