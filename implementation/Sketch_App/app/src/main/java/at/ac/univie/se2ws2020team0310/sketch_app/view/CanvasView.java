@@ -120,15 +120,17 @@ public class CanvasView extends View {
         //TODO: if-statement einfügen, damit der nächste Absatz nur aufgerufen wird,
         // wenn zuvor eine Shape im Menü angewählt wurde.
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            drawnElements.add(selectedGraphicalElement);
+            if (selectedGraphicalElement != null) {
+                drawnElements.add(selectedGraphicalElement);
 
-            // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
-            GraphicalElement lastElement = drawnElements.get(drawnElements.size() - 1);
-            lastElement.setxPosition(touchX);
-            lastElement.setyPosition(touchY);
+                // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
+                GraphicalElement lastElement = drawnElements.get(drawnElements.size() - 1);
+                lastElement.setxPosition(touchX);
+                lastElement.setyPosition(touchY);
 
-            invalidate();
-            return true;
+                invalidate();
+                return true;
+            }
         }
 
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
