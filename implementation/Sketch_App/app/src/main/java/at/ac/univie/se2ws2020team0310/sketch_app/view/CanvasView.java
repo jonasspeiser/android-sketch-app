@@ -145,6 +145,16 @@ public class CanvasView extends View {
 
     }
 
+    public void selectTriangle() {
+
+        Triangle mTriangle = new Triangle();
+        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        mTriangle.setObjectPaint(mPaint);
+        mTriangle.setShapeSize(150);
+
+        selectedGraphicalElement = mTriangle;
+    }
+
     public void selectText() {
 
         Text mText = new Text();

@@ -50,8 +50,6 @@ public final class GraphicalElementFactory {
         mSquare.setShapeSize(150);
         mSquare.setLength(mSquare.getShapeSize());
         mSquare.setHeight(mSquare.getShapeSize());
-        mSquare.setxPosition(mSquare.generateRandomX(canvas));
-        mSquare.setyPosition(mSquare.generateRandomY(canvas));
         return mSquare;
     }
 
