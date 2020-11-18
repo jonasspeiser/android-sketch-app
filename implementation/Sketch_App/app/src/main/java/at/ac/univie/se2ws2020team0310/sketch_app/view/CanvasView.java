@@ -6,9 +6,17 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
+import android.text.InputType;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.BaseInputConnection;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -16,21 +24,28 @@ import androidx.annotation.RequiresApi;
 import java.util.ArrayList;
 import java.util.List;
 
+import at.ac.univie.se2ws2020team0310.sketch_app.R;
+
 public class CanvasView extends View {
 
 // Attributes
     private Bitmap mBitmap;
     private Canvas mCanvas;
 
+
     private GraphicalElement selectedGraphicalElement;
     private List <GraphicalElement> drawnElements = new ArrayList<>();
 
-// Constructors
+    private static final String TAG = "CanvasView";
+
+
+    // Constructors
     public CanvasView(Context context) {
         super(context);
 
         init(null);
     }
+
 
     public CanvasView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -51,6 +66,12 @@ public class CanvasView extends View {
         init(attrs);
     }
 
+// Getters and Setters
+
+    public GraphicalElement getSelectedGraphicalElement() {
+        return selectedGraphicalElement;
+    }
+
 // Methods
 
     void init(@Nullable AttributeSet set) {
@@ -63,6 +84,7 @@ public class CanvasView extends View {
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(50);
         GraphicalElement.setSelectedPaint(mPaint);
+
     }
 
     @Override
@@ -131,9 +153,6 @@ public class CanvasView extends View {
 
         mPaint.setStyle(Paint.Style.FILL);
 
-        //mText.setxPosition(getWidth() / 2);
-        //mText.setyPosition(getHeight() / 2);
-
         selectedGraphicalElement = mText;
     }
 
@@ -141,8 +160,13 @@ public class CanvasView extends View {
     // draw the element at the position of the user's touch
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
+        Log.d(TAG, "onTOUCH");
+
         float touchX = event.getX();
         float touchY = event.getY();
+
+
 
         //TODO: Für Implementierung von Freehand-Drawing:
         // if-statement einfügen, damit der nächste Absatz nur aufgerufen wird,
@@ -196,7 +220,7 @@ public class CanvasView extends View {
                 ((Triangle) graphicalElement).drawTriangle(canvas, graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
             }
             if(graphicalElement instanceof Text) {
-                canvas.drawText("Hello", graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
+                canvas.drawText(((Text) graphicalElement).getTextinput(), graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
             }
 
         }
