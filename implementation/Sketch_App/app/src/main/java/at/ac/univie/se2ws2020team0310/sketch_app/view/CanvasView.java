@@ -71,7 +71,6 @@ public class CanvasView extends View {
         mCanvas = new Canvas(mBitmap);
     }
 
-
     public GraphicalElement getLastElement() {
         GraphicalElement lastElement = drawnElements.get(drawnElements.size() - 1);
         return lastElement;
@@ -134,7 +133,6 @@ public class CanvasView extends View {
 
         //mText.setxPosition(getWidth() / 2);
         //mText.setyPosition(getHeight() / 2);
-
 
         selectedGraphicalElement = mText;
     }
@@ -202,6 +200,11 @@ public class CanvasView extends View {
             }
 
         }
+    }
+
+    public void clear() {
+        drawnElements.clear();
+        invalidate();
     }
 
 
