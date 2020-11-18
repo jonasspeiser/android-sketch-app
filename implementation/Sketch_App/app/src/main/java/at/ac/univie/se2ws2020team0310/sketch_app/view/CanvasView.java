@@ -63,6 +63,13 @@ public class CanvasView extends View {
         mPaint.setAntiAlias(true);
         GraphicalElement.setSelectedPaint(mPaint);
     }
+
+    public GraphicalElement getLastElement() {
+        GraphicalElement lastElement = drawnElements.get(drawnElements.size() - 1);
+        return lastElement;
+    }
+
+
     // TODO: Put the select-Methods into Graphical Element and use Polymorphism in the sublasses
     public void selectLine() {
 
@@ -151,9 +158,9 @@ public class CanvasView extends View {
                 drawnElements.add(selectedGraphicalElement);
 
                 // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
-                GraphicalElement lastElement = drawnElements.get(drawnElements.size() - 1);
-                lastElement.setxPosition(touchX);
-                lastElement.setyPosition(touchY);
+                //TODO: last element
+                getLastElement().setxPosition(touchX);
+                getLastElement().setyPosition(touchY);
 
                 invalidate();
                 return true;
@@ -162,9 +169,8 @@ public class CanvasView extends View {
 
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
             // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
-            GraphicalElement lastElement = drawnElements.get(drawnElements.size() - 1);
-            lastElement.setxPosition(touchX);
-            lastElement.setyPosition(touchY);
+            getLastElement().setxPosition(touchX);
+            getLastElement().setyPosition(touchY);
 
             invalidate();
             return true;

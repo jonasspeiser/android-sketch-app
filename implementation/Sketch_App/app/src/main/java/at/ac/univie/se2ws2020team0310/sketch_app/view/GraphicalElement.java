@@ -60,12 +60,4 @@ abstract class GraphicalElement {
         selectedPaint.setTextSize(textSize);
     }
 
-// Other Methods
-
-    public static void changeStrokeWidth(float strokeWidth) {
-        selectedPaint.setStrokeWidth(strokeWidth);
-    }
-
-
-
 }
