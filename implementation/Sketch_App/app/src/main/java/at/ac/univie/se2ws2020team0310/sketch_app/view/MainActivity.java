@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         canvasView = (CanvasView) findViewById(R.id.canvasView);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 

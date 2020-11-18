@@ -25,9 +25,13 @@ import androidx.annotation.RequiresApi;
 import java.util.ArrayList;
 import java.util.List;
 
+import at.ac.univie.se2ws2020team0310.sketch_app.model.AppException;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.EGraphicalElementType;
+
 public class CanvasView extends View {
 
 // Attributes
+    // TODO initiate in Constructor and only adapt on size change
     private Bitmap mBitmap;
     private Canvas mCanvas;
 
@@ -106,6 +110,10 @@ public class CanvasView extends View {
         // initiates canvas-object, constructs circle-object, adds circle-object to the draw-list
         // and invalidates the view, so that everything gets drawn
 
+        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBitmap);
+
+
         Circle mCircle = new Circle();
         // TODO: Implement another constructor for Circle-Class
         //  and put following paragraph into a constructor call
@@ -118,24 +126,23 @@ public class CanvasView extends View {
 
     public void selectQuadrangle() {
 
+        /*
         Quadrangle mSquare = new Quadrangle();
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
         mSquare.setObjectPaint(mPaint);
         mSquare.setShapeSize(150);
         mSquare.setLength(mSquare.getShapeSize());
         mSquare.setHeight(mSquare.getShapeSize());
+         */
+        // use a Factory to create the Quadrangle as a GraphicalElement
+        try {
+            GraphicalElement mSquare =
+                    GraphicalElementFactory.createElement(EGraphicalElementType.QUADRANGLE, mCanvas);
+            selectedGraphicalElement = mSquare;
+        } catch (AppException e) {
+            Log.e("CanvasView", e.getMessage());
+        }
 
-        selectedGraphicalElement = mSquare;
-    }
-
-    public void selectTriangle() {
-
-        Triangle mTriangle = new Triangle();
-        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
-        mTriangle.setObjectPaint(mPaint);
-        mTriangle.setShapeSize(150);
-
-        selectedGraphicalElement = mTriangle;
     }
 
     public void selectText() {
@@ -198,6 +205,8 @@ public class CanvasView extends View {
         mCanvas = canvas;
         super.onDraw(mCanvas);
 
+        // Iterator pattern is already implemented in the List interface
+        // we could replace it with our own Iterator
         for (GraphicalElement graphicalElement : drawnElements) {
             if(graphicalElement instanceof Line) {
                 canvas.drawLine(((Line) graphicalElement).getStartX(), ((Line) graphicalElement).getStartY(), graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
