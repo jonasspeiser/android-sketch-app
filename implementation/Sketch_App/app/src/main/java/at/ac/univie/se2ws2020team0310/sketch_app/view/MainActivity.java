@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.clear();
         MenuInflater inflater = getMenuInflater();
@@ -122,6 +124,8 @@ public class MainActivity extends AppCompatActivity {
                     textSizeSeekBar.setVisibility(View.VISIBLE);
                 }
                 canvasView.selectText();
+                Toast textToast = Toast.makeText(getApplicationContext(), "Text selected", Toast.LENGTH_LONG);
+                textToast.show();
                 return true;
 
             case R.id.fingerId:
@@ -130,18 +134,26 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.lineId:
                 canvasView.selectLine();
+                Toast lineToast = Toast.makeText(getApplicationContext(), "Line selected", Toast.LENGTH_LONG);
+                lineToast.show();
                 return true;
 
             case R.id.circleId:
                 canvasView.selectCircle();
+                Toast circleToast = Toast.makeText(getApplicationContext(), "Circle selected", Toast.LENGTH_LONG);
+                circleToast.show();
                 return true;
 
             case R.id.squareId:
                 canvasView.selectQuadrangle();
+                Toast quadrangleToast = Toast.makeText(getApplicationContext(), "Quadrangle selected", Toast.LENGTH_LONG);
+                quadrangleToast.show();
                 return true;
 
             case R.id.triangleId:
                 canvasView.selectTriangle();
+                Toast triangleToast = Toast.makeText(getApplicationContext(), "Triangle selected", Toast.LENGTH_LONG);
+                triangleToast.show();
                 return true;
 
             case R.id.loadId:
@@ -157,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.deleteId:
+                canvasView.clear();
                 return true;
 
             default:
