@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
                     @Override
                     public void onChooseColor(int position, int color) {
+                        GraphicalElement.getSelectedPaint().setColor(color);
                         canvasView.getLastElement().getObjectPaint().setColor(color);
                         canvasView.invalidate();
                     }
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
             strokeWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
                 public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
+                    GraphicalElement.getSelectedPaint().setStrokeWidth(progress);
                     canvasView.getLastElement().getObjectPaint().setStrokeWidth(progress);
                     canvasView.invalidate();
                 }
