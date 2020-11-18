@@ -9,6 +9,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -160,7 +161,13 @@ public class CanvasView extends View {
                 invalidate();
                 return true;
             }
+            else if (selectedGraphicalElement == null) {
+                //TODO: throw error message "No object selected"
+
+            }
+
         }
+
 
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
             // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
