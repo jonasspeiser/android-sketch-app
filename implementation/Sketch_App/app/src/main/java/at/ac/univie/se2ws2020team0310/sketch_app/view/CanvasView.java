@@ -96,6 +96,19 @@ public class CanvasView extends View {
         selectedGraphicalElement = mSquare;
     }
 
+    public void selectTriangle() {
+
+        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBitmap);
+
+        Triangle mTriangle = new Triangle();
+        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        mTriangle.setObjectPaint(mPaint);
+        mTriangle.setShapeSize(150);
+
+        selectedGraphicalElement = mTriangle;
+    }
+
     public void selectText() {
 
         mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
@@ -117,8 +130,10 @@ public class CanvasView extends View {
         float touchX = event.getX();
         float touchY = event.getY();
 
-        //TODO: if-statement einfügen, damit der nächste Absatz nur aufgerufen wird,
+        //TODO: Für Implementierung von Freehand-Drawing:
+        // if-statement einfügen, damit der nächste Absatz nur aufgerufen wird,
         // wenn zuvor eine Shape im Menü angewählt wurde.
+
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (selectedGraphicalElement != null) {
                 drawnElements.add(selectedGraphicalElement);
@@ -158,12 +173,16 @@ public class CanvasView extends View {
             if(graphicalElement instanceof Circle) {
                 canvas.drawCircle(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getShapeSize(), graphicalElement.getObjectPaint());
             }
-            if(graphicalElement instanceof Quadrangle) {
+            if(graphicalElement instanceof Quadrangle) { //TODO: Berechnung von x und y Koordinaten in Methode in Quadrangle-Klasse auslagern
                 canvas.drawRect(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getxPosition() + ((Quadrangle) graphicalElement).getLength(), graphicalElement.getyPosition() + ((Quadrangle) graphicalElement).getHeight(), graphicalElement.getObjectPaint());
+            }
+            if(graphicalElement instanceof Triangle) {
+                ((Triangle) graphicalElement).drawTriangle(canvas, graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
             }
             if(graphicalElement instanceof Text) {
                 canvas.drawText("Hello", graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
             }
+
         }
     }
 

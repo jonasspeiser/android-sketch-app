@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.triangleId:
-                // TODO
+                canvasView.selectTriangle();
                 return true;
 
             case R.id.loadId:
