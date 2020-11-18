@@ -65,6 +65,13 @@ public class CanvasView extends View {
         GraphicalElement.setSelectedPaint(mPaint);
     }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBitmap);
+    }
+
+
     public GraphicalElement getLastElement() {
         GraphicalElement lastElement = drawnElements.get(drawnElements.size() - 1);
         return lastElement;
@@ -72,9 +79,6 @@ public class CanvasView extends View {
 
     // TODO: Put the select-Methods into Graphical Element and use Polymorphism in the sublasses
     public void selectLine() {
-
-        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mBitmap);
 
         Line mLine = new Line();
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
@@ -88,9 +92,6 @@ public class CanvasView extends View {
         // initiates canvas-object, constructs circle-object, adds circle-object to the draw-list
         // and invalidates the view, so that everything gets drawn
 
-        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mBitmap);
-
         Circle mCircle = new Circle();
         // TODO: Implement another constructor for Circle-Class
         //  and put following paragraph into a constructor call
@@ -102,9 +103,6 @@ public class CanvasView extends View {
     }
 
     public void selectQuadrangle() {
-
-        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mBitmap);
 
         Quadrangle mSquare = new Quadrangle();
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
@@ -118,9 +116,6 @@ public class CanvasView extends View {
 
     public void selectTriangle() {
 
-        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mBitmap);
-
         Triangle mTriangle = new Triangle();
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
         mTriangle.setObjectPaint(mPaint);
@@ -130,9 +125,6 @@ public class CanvasView extends View {
     }
 
     public void selectText() {
-
-        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mBitmap);
 
         Text mText = new Text();
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
@@ -144,10 +136,7 @@ public class CanvasView extends View {
         //mText.setyPosition(getHeight() / 2);
 
 
-        drawnElements.add(mText);
-
-        invalidate();
-
+        selectedGraphicalElement = mText;
     }
 
 
