@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         SeekBar sizeSeekBar = findViewById(R.id.sizeSeekBar);
         SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
 
-
         findViewById(R.id.sizeButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    //The implementation of the load, save and export-functions will be included for DEAD.
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -194,7 +194,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.exportId:
-                // TODO
                 return true;
 
             case R.id.deleteId:
@@ -213,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
 
         canvasView.selectText();
         Text mText = (Text) canvasView.getSelectedGraphicalElement();
-        mText.setTextinput(editText.getText().toString());
+        mText.setTextInput(editText.getText().toString());
 
         canvasView.invalidate();
 

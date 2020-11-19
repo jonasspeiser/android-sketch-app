@@ -8,6 +8,6 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.Text;
 public class DrawTextStrategy implements IDrawStrategy{
     @Override
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
-        canvas.drawText(((Text) graphicalElement).getTextinput(), graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
+        canvas.drawText(((Text) graphicalElement).getTextInput(), graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
     }
 }
