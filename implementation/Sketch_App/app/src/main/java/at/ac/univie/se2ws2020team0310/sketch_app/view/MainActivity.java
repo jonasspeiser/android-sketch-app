@@ -1,6 +1,5 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;

@@ -1,6 +1,5 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
