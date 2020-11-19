@@ -39,8 +39,13 @@ public class MainActivity extends AppCompatActivity {
                 if(sizeSeekBar.getVisibility()==SeekBar.VISIBLE){
                     sizeSeekBar.setVisibility(View.INVISIBLE);
                 }else{
-                    sizeSeekBar.setVisibility(View.VISIBLE);
-                }
+                    if (canvasView.getSelectedGraphicalElement() == null) {
+                        Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
+                        error.show();
+                    }
+                    if (canvasView.getSelectedGraphicalElement() != null) {
+                        sizeSeekBar.setVisibility(View.VISIBLE);
+                    }                }
             }
         });
 
@@ -52,7 +57,13 @@ public class MainActivity extends AppCompatActivity {
                 if(strokeWidthSeekBar.getVisibility()==SeekBar.VISIBLE){
                     strokeWidthSeekBar.setVisibility(View.INVISIBLE);
                 }else{
-                    strokeWidthSeekBar.setVisibility(View.VISIBLE);
+                    if (canvasView.getSelectedGraphicalElement() == null) {
+                        Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
+                        error.show();
+                    }
+                    if (canvasView.getSelectedGraphicalElement() != null) {
+                        strokeWidthSeekBar.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });
@@ -61,23 +72,28 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.colorSelectorButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ColorPicker colorPicker = new ColorPicker(MainActivity.this);
-                colorPicker.show();
-                colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
-                    @Override
-                    public void onChooseColor(int position, int color) {
-                        GraphicalElement.getSelectedPaint().setColor(color);
-                        canvasView.getLastElement().getObjectPaint().setColor(color);
-                        canvasView.invalidate();
-                    }
+                if (canvasView.getSelectedGraphicalElement() == null) {
+                    Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
+                    error.show();
+                } else {
+                    ColorPicker colorPicker = new ColorPicker(MainActivity.this);
+                    colorPicker.show();
+                    colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
+                        @Override
+                        public void onChooseColor(int position, int color) {
+                            GraphicalElement.getSelectedPaint().setColor(color);
+                            canvasView.getLastElement().getObjectPaint().setColor(color);
+                            canvasView.invalidate();
+                        }
 
-                    @Override
-                    public void onCancel(){
-                        // put code
-                    }
-                });
+                        @Override
+                        public void onCancel() {
+                            // put code
+                        }
+                    });
+                }
             }
-        });
+            });
 
 
         canvasView = (CanvasView) findViewById(R.id.canvasView);
