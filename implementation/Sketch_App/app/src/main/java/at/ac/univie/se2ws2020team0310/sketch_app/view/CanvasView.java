@@ -32,7 +32,7 @@ public class CanvasView extends View {
     private Canvas mCanvas;
 
     private GraphicalElement selectedGraphicalElement;
-    private List <GraphicalElement> drawnElements = new ArrayList<>();
+    private final List <GraphicalElement> drawnElements = new ArrayList<>();
 
 // Constructors
     public CanvasView(Context context) {
