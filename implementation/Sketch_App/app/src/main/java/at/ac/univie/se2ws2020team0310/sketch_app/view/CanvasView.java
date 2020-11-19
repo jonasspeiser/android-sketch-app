@@ -25,9 +25,6 @@ import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.GraphicalElementFacto
 
 public class CanvasView extends View {
 
-// Attributes
-    // TODO initiate in Constructor and only adapt on size change
-    private Bitmap mBitmap;
     private Canvas mCanvas;
 
     private GraphicalElement selectedGraphicalElement;
@@ -81,7 +78,7 @@ public class CanvasView extends View {
 
     @Override
     protected void onSizeChanged(int width, int height, int old_width, int old_height) {
-        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
     }
 
