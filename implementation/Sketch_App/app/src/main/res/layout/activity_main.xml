@@ -15,7 +15,7 @@
         android:id="@+id/sizeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="120dp"
         android:clickable="true"
         app:backgroundTint="@color/design_default_color_on_secondary"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -81,10 +81,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/canvasView"
         app:layout_constraintEnd_toStartOf="@+id/strokeWidthButton"
-        app:layout_constraintHorizontal_bias="0.798"
+        app:layout_constraintHorizontal_bias="0.867"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.827"
+        app:layout_constraintVertical_bias="0.688"
         tools:visibility="invisible" />
 
     <EditText
@@ -123,10 +123,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/canvasView"
         app:layout_constraintEnd_toStartOf="@+id/sizeButton"
-        app:layout_constraintHorizontal_bias="0.798"
+        app:layout_constraintHorizontal_bias="0.867"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.94"
+        app:layout_constraintVertical_bias="0.792"
         tools:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
