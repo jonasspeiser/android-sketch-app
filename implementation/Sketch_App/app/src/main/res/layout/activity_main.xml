@@ -9,8 +9,10 @@
     tools:actionBarNavMode="standard"
     tools:menu="@menu/menu">
 
+    <!--Constrained the height to at maximum the screen size.-->
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/colorSelectorButton"
+        android:id="@+id/sizeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
@@ -20,21 +22,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/menu_icon_colors" />
+        app:srcCompat="@drawable/size_icon" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/sizeButton"
+        android:id="@+id/strokeWidthButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         app:backgroundTint="@color/design_default_color_on_secondary"
-        app:layout_constraintBottom_toTopOf="@+id/colorSelectorButton"
+        app:layout_constraintBottom_toTopOf="@+id/sizeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976"
         app:srcCompat="@drawable/menu_icon_stroke_width" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/colorSelectorButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:backgroundTint="@color/design_default_color_on_secondary"
+        app:layout_constraintBottom_toTopOf="@+id/strokeWidthButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976"
+        app:srcCompat="@drawable/menu_icon_colors" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -46,9 +62,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        />
-
-    <!--Constrained the height to at maximum the screen size.-->
+        tools:layout_editor_absoluteX="-16dp" />
 
     <at.ac.univie.se2ws2020team0310.sketch_app.view.CanvasView
         android:id="@+id/canvasView"
@@ -57,21 +71,20 @@
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="-16dp" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="0dp" />
 
     <SeekBar
-        android:id="@+id/SeekBar"
+        android:id="@+id/strokeWidthSeekBar"
         android:layout_width="180dp"
         android:layout_height="24dp"
-        android:max="300"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/canvasView"
-        app:layout_constraintEnd_toStartOf="@+id/sizeButton"
-        app:layout_constraintHorizontal_bias="0.723"
+        app:layout_constraintEnd_toStartOf="@+id/strokeWidthButton"
+        app:layout_constraintHorizontal_bias="0.798"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.795"
+        app:layout_constraintVertical_bias="0.827"
         tools:visibility="invisible" />
 
     <EditText
@@ -86,7 +99,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/colorSelectorButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SeekBar" />
+        app:layout_constraintTop_toBottomOf="@+id/strokeWidthSeekBar" />
 
     <Button
         android:id="@+id/toggleText"
@@ -99,7 +112,21 @@
         app:layout_constraintEnd_toStartOf="@+id/colorSelectorButton"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SeekBar"
+        app:layout_constraintTop_toBottomOf="@+id/strokeWidthSeekBar"
         app:layout_constraintVertical_bias="0.058" />
+
+    <SeekBar
+        android:id="@+id/sizeSeekBar"
+        android:layout_width="180dp"
+        android:layout_height="24dp"
+        android:max="300"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/canvasView"
+        app:layout_constraintEnd_toStartOf="@+id/sizeButton"
+        app:layout_constraintHorizontal_bias="0.798"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.94"
+        tools:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

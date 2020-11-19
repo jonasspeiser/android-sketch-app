@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -33,17 +32,42 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        SeekBar seekBar = findViewById(R.id.SeekBar);
+        SeekBar sizeSeekBar = findViewById(R.id.sizeSeekBar);
+        SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
 
-        // TODO: create method for this
+
         findViewById(R.id.sizeButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SeekBar strokeWidthSeekBar = findViewById(R.id.SeekBar);
+                SeekBar sizeSeekBar = findViewById(R.id.sizeSeekBar);
+                if(sizeSeekBar.getVisibility()==SeekBar.VISIBLE){
+                    sizeSeekBar.setVisibility(View.INVISIBLE);
+                }else{
+                    if (canvasView.getSelectedGraphicalElement() == null) {
+                        Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
+                        error.show();
+                    }
+                    if (canvasView.getSelectedGraphicalElement() != null) {
+                        sizeSeekBar.setVisibility(View.VISIBLE);
+                    }                }
+            }
+        });
+
+        // TODO: create method for this
+        findViewById(R.id.strokeWidthButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
                 if(strokeWidthSeekBar.getVisibility()==SeekBar.VISIBLE){
                     strokeWidthSeekBar.setVisibility(View.INVISIBLE);
                 }else{
-                    strokeWidthSeekBar.setVisibility(View.VISIBLE);
+                    if (canvasView.getSelectedGraphicalElement() == null) {
+                        Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
+                        error.show();
+                    }
+                    if (canvasView.getSelectedGraphicalElement() != null) {
+                        strokeWidthSeekBar.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });
@@ -52,46 +76,63 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.colorSelectorButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ColorPicker colorPicker = new ColorPicker(MainActivity.this);
-                colorPicker.show();
-                colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
-                    @Override
-                    public void onChooseColor(int position, int color) {
-                        GraphicalElement.getSelectedPaint().setColor(color);
-                        canvasView.getLastElement().getObjectPaint().setColor(color);
-                        canvasView.invalidate();
-                    }
+                if (canvasView.getSelectedGraphicalElement() == null) {
+                    Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
+                    error.show();
+                } else {
+                    ColorPicker colorPicker = new ColorPicker(MainActivity.this);
+                    colorPicker.show();
+                    colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
+                        @Override
+                        public void onChooseColor(int position, int color) {
+                            GraphicalElement.getSelectedPaint().setColor(color);
+                            canvasView.getLastElement().getObjectPaint().setColor(color);
+                            canvasView.invalidate();
+                        }
 
-                    @Override
-                    public void onCancel(){
-                        // put code
-                    }
-                });
+                        @Override
+                        public void onCancel() {
+                            // put code
+                        }
+                    });
+                }
             }
-        });
+            });
 
         canvasView = (CanvasView) findViewById(R.id.canvasView);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                GraphicalElement.getSelectedPaint().setStrokeWidth(progress);
-                GraphicalElement.changeTextSize(progress);
+            public void onProgressChanged(SeekBar sizeSeekBar, int progress, boolean fromUser) {
+                GraphicalElement.getSelectedPaint().setTextSize(progress);
                 canvasView.getLastElement().getObjectPaint().setTextSize(progress);
+                //TODO: change object size
+                canvasView.invalidate();
+            }
+
+            public void onStartTrackingTouch(SeekBar sizeSeekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            public void onStopTrackingTouch(SeekBar sizeSeekBar) {
+            }
+        });
+        strokeWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
+                GraphicalElement.getSelectedPaint().setStrokeWidth(progress);
                 canvasView.getLastElement().getObjectPaint().setStrokeWidth(progress);
                 canvasView.invalidate();
             }
 
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            public void onStartTrackingTouch(SeekBar strokeWidthSeekBar) {
                 // TODO Auto-generated method stub
             }
 
-            public void onStopTrackingTouch(SeekBar seekBar) {
+            public void onStopTrackingTouch(SeekBar strokeWidthSeekBar) {
             }
         });
+
     }
-
-
-
 
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.clear();
@@ -105,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.textId:
-
                 EditText editText = (EditText) findViewById(R.id.editText);
                 Button toggleText = findViewById(R.id.toggleText);
                 editText.setVisibility(View.VISIBLE);
