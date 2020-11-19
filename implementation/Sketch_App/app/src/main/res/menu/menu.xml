@@ -5,44 +5,44 @@
     <item
         android:id="@+id/textId"
         android:icon="@drawable/menu_icon_text"
-        android:title="Text"
+        android:title="@string/menu_icon_text_title"
         app:showAsAction="always"/>
     <item
         android:id="@+id/fingerId"
         android:icon="@drawable/menu_icon_finger"
-        android:title="Finger"
+        android:title="@string/menu_icon_finger_title"
         app:showAsAction="always" />
     <item
         android:id="@+id/lineId"
         android:icon="@drawable/menu_icon_line"
-        android:title="Line"
+        android:title="@string/menu_icon_line_title"
         app:showAsAction="always" />
     <item
         android:id="@+id/circleId"
         android:icon="@drawable/menu_icon_circle"
-        android:title="Circle"
+        android:title="@string/menu_icon_circle_title"
         app:showAsAction="always" />
     <item
         android:id="@+id/squareId"
         android:icon="@drawable/menu_icon_square"
-        android:title="Square"
+        android:title="@string/menu_icon_square_title"
         app:showAsAction="always" />
     <item
         android:id="@+id/triangleId"
         android:icon="@drawable/menu_icon_triangle"
-        android:title="Triangle"
+        android:title="@string/menu_icon_triangle_title"
         app:showAsAction="always" />
     <item
         android:id="@+id/loadId"
-        android:title="Load" />
+        android:title="@string/option_menu_load" />
     <item
         android:id="@+id/saveId"
-        android:title="Save" />
+        android:title="@string/option_menu_save" />
     <item
         android:id="@+id/exportId"
-        android:title="Export"/>
+        android:title="@string/option_menu_export"/>
     <item
         android:id="@+id/deleteId"
-        android:title="Delete"/>
+        android:title="@string/option_menu_delete"/>
 
 </menu>
