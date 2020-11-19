@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import at.ac.univie.se2ws2020team0310.sketch_app.BuildConfig;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.AppException;
+import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawQuadrangle;
 
 public final class GraphicalElementFactory {
 
@@ -44,7 +45,7 @@ public final class GraphicalElementFactory {
     }
 
     private static Quadrangle createQuadrangle(Canvas canvas) {
-        Quadrangle mSquare = new Quadrangle();
+        Quadrangle mSquare = new Quadrangle(new DrawQuadrangle());
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
         mSquare.setObjectPaint(mPaint);
         mSquare.setShapeSize(150);

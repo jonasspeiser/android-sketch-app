@@ -1,18 +1,25 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
-import android.graphics.Color;
+import android.graphics.Canvas;
 import android.graphics.Paint;
 
-abstract class GraphicalElement {
+import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.IDrawStrategy;
+
+public abstract class GraphicalElement {
 
 // Attributes
 
     //TODO: Klassendiagramm "Color" zu Paint-Objekt ändern
     private static Paint selectedPaint;
+    private IDrawStrategy drawStrategy;
 
     protected float xPosition, yPosition, shapeSize;
 
     protected Paint objectPaint;
+
+    public GraphicalElement(IDrawStrategy drawStrategy) { //Konstruktor
+        this.drawStrategy = drawStrategy;
+    }
 
 // Getters and Setters
 
@@ -60,4 +67,7 @@ abstract class GraphicalElement {
         selectedPaint.setTextSize(textSize);
     }
 
+    public void draw(Canvas canvas) {
+        drawStrategy.draw(canvas, this);
+    }
 }

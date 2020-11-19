@@ -27,6 +27,10 @@ import java.util.List;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.EGraphicalElementType;
+import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawCircleStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawLineStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawTextStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawTriangleStrategy;
 
 public class CanvasView extends View {
 
@@ -98,7 +102,7 @@ public class CanvasView extends View {
     // TODO: Put the select-Methods into Graphical Element and use Polymorphism in the sublasses
     public void selectLine() {
 
-        Line mLine = new Line();
+        Line mLine = new Line(new DrawLineStrategy());
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
         mLine.setObjectPaint(mPaint);
 
@@ -110,11 +114,11 @@ public class CanvasView extends View {
         // initiates canvas-object, constructs circle-object, adds circle-object to the draw-list
         // and invalidates the view, so that everything gets drawn
 
-        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mBitmap);
+        //mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        //mCanvas = new Canvas(mBitmap);
 
 
-        Circle mCircle = new Circle();
+        Circle mCircle = new Circle(new DrawCircleStrategy());
         // TODO: Implement another constructor for Circle-Class
         //  and put following paragraph into a constructor call
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
@@ -147,7 +151,7 @@ public class CanvasView extends View {
 
     public void selectTriangle() {
 
-        Triangle mTriangle = new Triangle();
+        Triangle mTriangle = new Triangle(new DrawTriangleStrategy());
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
         mTriangle.setObjectPaint(mPaint);
         mTriangle.setShapeSize(150);
@@ -157,7 +161,7 @@ public class CanvasView extends View {
 
     public void selectText() {
 
-        Text mText = new Text();
+        Text mText = new Text(new DrawTextStrategy());
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
         mText.setObjectPaint(mPaint);
 
@@ -218,7 +222,9 @@ public class CanvasView extends View {
         // Iterator pattern is already implemented in the List interface
         // we could replace it with our own Iterator
         for (GraphicalElement graphicalElement : drawnElements) {
-            if(graphicalElement instanceof Line) {
+            graphicalElement.draw(canvas);
+            // koennte man strategy pattern benutzen
+            /*if(graphicalElement instanceof Line) {
                 canvas.drawLine(((Line) graphicalElement).getStartX(), ((Line) graphicalElement).getStartY(), graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
             }
             if(graphicalElement instanceof Circle) {
@@ -232,7 +238,7 @@ public class CanvasView extends View {
             }
             if(graphicalElement instanceof Text) {
                 canvas.drawText(((Text) graphicalElement).getTextinput(), graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
-            }
+            }*/
 
         }
     }

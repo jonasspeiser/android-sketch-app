@@ -1,9 +1,15 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
+import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.IDrawStrategy;
+
 public class Line extends GraphicalElement {
 
     // Attributes
     private float startX, startY;
+
+    public Line(IDrawStrategy drawStrategy) {
+        super(drawStrategy);
+    }
 
     // Getters and Setters
     public float getStartX() {
