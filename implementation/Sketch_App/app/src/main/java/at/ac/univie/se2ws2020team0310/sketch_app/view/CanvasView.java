@@ -87,81 +87,56 @@ public class CanvasView extends View {
     }
 
     public GraphicalElement getLastElement() {
-        GraphicalElement lastElement = drawnElements.get(drawnElements.size() - 1);
-        return lastElement;
+        return drawnElements.get(drawnElements.size() - 1);
     }
 
-    // TODO: Put the select-Methods into Graphical Element and use Polymorphism in the sublasses
     public void selectLine() {
 
-        Line mLine = new Line(new DrawLineStrategy());
-        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
-        mLine.setObjectPaint(mPaint);
-
-        selectedGraphicalElement = mLine;
-    }
-
-
-    public void selectCircle() {
-        // initiates canvas-object, constructs circle-object, adds circle-object to the draw-list
-        // and invalidates the view, so that everything gets drawn
-
-        //mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        //mCanvas = new Canvas(mBitmap);
-
-
-        Circle mCircle = new Circle(new DrawCircleStrategy());
-        // TODO: Implement another constructor for Circle-Class
-        //  and put following paragraph into a constructor call
-        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
-        mCircle.setObjectPaint(mPaint);
-        mCircle.setShapeSize(70);
-
-        selectedGraphicalElement = mCircle;
-    }
-
-    public void selectQuadrangle() {
-
-        /*
-        Quadrangle mSquare = new Quadrangle();
-        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
-        mSquare.setObjectPaint(mPaint);
-        mSquare.setShapeSize(150);
-        mSquare.setLength(mSquare.getShapeSize());
-        mSquare.setHeight(mSquare.getShapeSize());
-         */
-        // use a Factory to create the Quadrangle as a GraphicalElement
         try {
-            GraphicalElement mSquare =
-                    GraphicalElementFactory.createElement(EGraphicalElementType.QUADRANGLE, mCanvas);
-            selectedGraphicalElement = mSquare;
+            selectedGraphicalElement = GraphicalElementFactory.createElement(EGraphicalElementType.LINE);
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());
         }
 
     }
 
+    public void selectCircle() {
+
+        try {
+            selectedGraphicalElement = GraphicalElementFactory.createElement(EGraphicalElementType.CIRCLE);
+        } catch (AppException e) {
+            Log.e("CanvasView", e.getMessage());
+        }
+    }
+
+    public void selectQuadrangle() {
+
+        // use a Factory to create the Quadrangle as a GraphicalElement
+        try {
+            selectedGraphicalElement = GraphicalElementFactory.createElement(EGraphicalElementType.QUADRANGLE);
+        } catch (AppException e) {
+            Log.e("CanvasView", e.getMessage());
+        }
+    }
+
     public void selectTriangle() {
 
-        Triangle mTriangle = new Triangle(new DrawTriangleStrategy());
-        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
-        mTriangle.setObjectPaint(mPaint);
-        mTriangle.setShapeSize(150);
+        try {
+            selectedGraphicalElement = GraphicalElementFactory.createElement(EGraphicalElementType.TRIANGLE);
+        } catch (AppException e) {
+            Log.e("CanvasView", e.getMessage());
+        }
 
-        selectedGraphicalElement = mTriangle;
     }
 
     public void selectText() {
 
-        Text mText = new Text(new DrawTextStrategy());
-        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
-        mText.setObjectPaint(mPaint);
-
-        mPaint.setStyle(Paint.Style.FILL);
-
-        selectedGraphicalElement = mText;
+        try {
+            selectedGraphicalElement = GraphicalElementFactory.createElement(EGraphicalElementType.TEXT_FIELD);
+        } catch (AppException e) {
+            Log.e("CanvasView", e.getMessage());
+        }
     }
-
 
     // draw the element at the position of the user's touch
     @Override
@@ -185,8 +160,9 @@ public class CanvasView extends View {
                 invalidate();
                 return true;
             }
-            else if (selectedGraphicalElement == null) {
-                //TODO: throw error message "No object selected"
+            else {
+                Log.w("CanvasView", "No object selected");
+                return false;
             }
 
         }
@@ -202,36 +178,16 @@ public class CanvasView extends View {
         } else {
             return false;
         }
-
     }
-
 
     @Override
     protected void onDraw(Canvas canvas) {
         mCanvas = canvas;
         super.onDraw(mCanvas);
 
-        // Iterator pattern is already implemented in the List interface
-        // we could replace it with our own Iterator
         for (GraphicalElement graphicalElement : drawnElements) {
             graphicalElement.draw(canvas);
-            // koennte man strategy pattern benutzen
-            /*if(graphicalElement instanceof Line) {
-                canvas.drawLine(((Line) graphicalElement).getStartX(), ((Line) graphicalElement).getStartY(), graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
-            }
-            if(graphicalElement instanceof Circle) {
-                canvas.drawCircle(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getShapeSize(), graphicalElement.getObjectPaint());
-            }
-            if(graphicalElement instanceof Quadrangle) { //TODO: Berechnung von x und y Koordinaten in Methode in Quadrangle-Klasse auslagern
-                canvas.drawRect(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getxPosition() + ((Quadrangle) graphicalElement).getLength(), graphicalElement.getyPosition() + ((Quadrangle) graphicalElement).getHeight(), graphicalElement.getObjectPaint());
-            }
-            if(graphicalElement instanceof Triangle) {
-                ((Triangle) graphicalElement).drawTriangle(canvas, graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
-            }
-            if(graphicalElement instanceof Text) {
-                canvas.drawText(((Text) graphicalElement).getTextinput(), graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
-            }*/
-
+            //siehe strategy pattern
         }
     }
 
@@ -239,7 +195,5 @@ public class CanvasView extends View {
         drawnElements.clear();
         invalidate();
     }
-
-
 
 }

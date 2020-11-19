@@ -6,7 +6,11 @@ import android.graphics.Paint;
 import at.ac.univie.se2ws2020team0310.sketch_app.BuildConfig;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.AppException;
+import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawCircleStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawLineStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawQuadrangle;
+import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawTextStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawTriangleStrategy;
 
 public final class GraphicalElementFactory {
 
@@ -14,20 +18,20 @@ public final class GraphicalElementFactory {
         // empty constructor
     }
 
-    public static GraphicalElement createElement(EGraphicalElementType type, Canvas canvas) throws AppException {
+    public static GraphicalElement createElement(EGraphicalElementType type) throws AppException {
         switch (type) {
             case LINE:
-                break;
+                return createLine();
             case CIRCLE:
-                //return createCircle(canvas);
+                return createCircle();
             case DRAWING:
                 break;
             case TRIANGLE:
-                break;
+                return createTriangle();
             case QUADRANGLE:
-                return createQuadrangle(canvas);
+                return createQuadrangle();
             case TEXT_FIELD:
-                break;
+                return createText();
             case COMPOSITE_SHAPE:
                 break;
             default:
@@ -43,7 +47,38 @@ public final class GraphicalElementFactory {
         return null;
     }
 
-    private static Quadrangle createQuadrangle(Canvas canvas) {
+    private static Text createText() {
+        Text mText = new Text(new DrawTextStrategy());
+        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        mPaint.setStyle(Paint.Style.FILL);
+        mText.setObjectPaint(mPaint);
+        return mText;
+    }
+
+    private static Triangle createTriangle() {
+        Triangle mTriangle = new Triangle(new DrawTriangleStrategy());
+        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        mTriangle.setObjectPaint(mPaint);
+        mTriangle.setShapeSize(150);
+        return mTriangle;
+    }
+
+    private static Line createLine() {
+        Line mLine = new Line(new DrawLineStrategy());
+        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        mLine.setObjectPaint(mPaint);
+        return mLine;
+    }
+
+    private static Circle createCircle() {
+        Circle mCircle = new Circle(new DrawCircleStrategy());
+        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        mCircle.setObjectPaint(mPaint);
+        mCircle.setShapeSize(70);
+        return mCircle;
+    }
+
+    private static Quadrangle createQuadrangle() {
         Quadrangle mSquare = new Quadrangle(new DrawQuadrangle());
         Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
         mSquare.setObjectPaint(mPaint);
