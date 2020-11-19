@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        canvasView = (CanvasView) findViewById(R.id.canvasView);
+        canvasView = findViewById(R.id.canvasView);
         sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             public void onProgressChanged(SeekBar sizeSeekBar, int progress, boolean fromUser) {
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.textId:
-                EditText editText = (EditText) findViewById(R.id.editText);
+                EditText editText = findViewById(R.id.editText);
                 Button toggleText = findViewById(R.id.toggleText);
                 editText.setVisibility(View.VISIBLE);
                 toggleText.setVisibility(View.VISIBLE);
