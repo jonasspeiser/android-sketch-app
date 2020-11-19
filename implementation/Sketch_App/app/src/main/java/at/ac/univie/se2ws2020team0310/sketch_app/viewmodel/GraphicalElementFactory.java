@@ -23,6 +23,7 @@ public final class GraphicalElementFactory {
         // empty constructor
     }
 
+    //Implementation of DRAWING (Free-Hand) and COMPOSITE_SHAPE until DEAD
     public static GraphicalElement createElement(EGraphicalElementType type) throws AppException {
         switch (type) {
             case LINE:
@@ -30,6 +31,7 @@ public final class GraphicalElementFactory {
             case CIRCLE:
                 return createCircle();
             case DRAWING:
+            case COMPOSITE_SHAPE:
                 break;
             case TRIANGLE:
                 return createTriangle();
@@ -37,8 +39,6 @@ public final class GraphicalElementFactory {
                 return createQuadrangle();
             case TEXT_FIELD:
                 return createText();
-            case COMPOSITE_SHAPE:
-                break;
             default:
                 throw new AppException("Unknown type: " + type);
         }

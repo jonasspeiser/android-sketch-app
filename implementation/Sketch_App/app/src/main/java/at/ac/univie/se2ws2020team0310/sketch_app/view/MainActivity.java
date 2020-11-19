@@ -158,6 +158,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.fingerId:
+            case R.id.saveId:
+            case R.id.loadId:
+            case R.id.exportId:
                 // TODO
                 return true;
 
@@ -183,17 +186,6 @@ public class MainActivity extends AppCompatActivity {
                 canvasView.selectTriangle();
                 Toast triangleToast = Toast.makeText(getApplicationContext(), "Triangle selected", Toast.LENGTH_LONG);
                 triangleToast.show();
-                return true;
-
-            case R.id.loadId:
-                // TODO
-                return true;
-
-            case R.id.saveId:
-                // TODO
-                return true;
-
-            case R.id.exportId:
                 return true;
 
             case R.id.deleteId:
