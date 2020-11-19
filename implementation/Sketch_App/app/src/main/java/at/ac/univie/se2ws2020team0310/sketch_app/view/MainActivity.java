@@ -36,68 +36,59 @@ public class MainActivity extends AppCompatActivity {
         SeekBar sizeSeekBar = findViewById(R.id.sizeSeekBar);
         SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
 
-        findViewById(R.id.sizeButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SeekBar sizeSeekBar = findViewById(R.id.sizeSeekBar);
-                if(sizeSeekBar.getVisibility()==SeekBar.VISIBLE){
-                    sizeSeekBar.setVisibility(View.INVISIBLE);
-                }else{
-                    if (canvasView.getSelectedGraphicalElement() == null) {
-                        Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
-                        error.show();
-                    }
-                    if (canvasView.getSelectedGraphicalElement() != null) {
-                        sizeSeekBar.setVisibility(View.VISIBLE);
-                    }                }
-            }
-        });
-
-        // TODO: create method for this
-        findViewById(R.id.strokeWidthButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
-                if(strokeWidthSeekBar.getVisibility()==SeekBar.VISIBLE){
-                    strokeWidthSeekBar.setVisibility(View.INVISIBLE);
-                }else{
-                    if (canvasView.getSelectedGraphicalElement() == null) {
-                        Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
-                        error.show();
-                    }
-                    if (canvasView.getSelectedGraphicalElement() != null) {
-                        strokeWidthSeekBar.setVisibility(View.VISIBLE);
-                    }
-                }
-            }
-        });
-
-        // TODO: create method for this
-        findViewById(R.id.colorSelectorButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        findViewById(R.id.sizeButton).setOnClickListener(v -> {
+            SeekBar sizeSeekBar1 = findViewById(R.id.sizeSeekBar);
+            if(sizeSeekBar1.getVisibility()==SeekBar.VISIBLE){
+                sizeSeekBar1.setVisibility(View.INVISIBLE);
+            }else{
                 if (canvasView.getSelectedGraphicalElement() == null) {
                     Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                     error.show();
-                } else {
-                    ColorPicker colorPicker = new ColorPicker(MainActivity.this);
-                    colorPicker.show();
-                    colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
-                        @Override
-                        public void onChooseColor(int position, int color) {
-                            GraphicalElement.getSelectedPaint().setColor(color);
-                            canvasView.getLastElement().getObjectPaint().setColor(color);
-                            canvasView.invalidate();
-                        }
+                }
+                if (canvasView.getSelectedGraphicalElement() != null) {
+                    sizeSeekBar1.setVisibility(View.VISIBLE);
+                }                }
+        });
 
-                        @Override
-                        public void onCancel() {
-                            // put code
-                        }
-                    });
+        // TODO: create method for this
+        findViewById(R.id.strokeWidthButton).setOnClickListener(v -> {
+            SeekBar strokeWidthSeekBar1 = findViewById(R.id.strokeWidthSeekBar);
+            if(strokeWidthSeekBar1.getVisibility()==SeekBar.VISIBLE){
+                strokeWidthSeekBar1.setVisibility(View.INVISIBLE);
+            }else{
+                if (canvasView.getSelectedGraphicalElement() == null) {
+                    Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
+                    error.show();
+                }
+                if (canvasView.getSelectedGraphicalElement() != null) {
+                    strokeWidthSeekBar1.setVisibility(View.VISIBLE);
                 }
             }
-            });
+        });
+
+        // TODO: create method for this
+        findViewById(R.id.colorSelectorButton).setOnClickListener(v -> {
+            if (canvasView.getSelectedGraphicalElement() == null) {
+                Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
+                error.show();
+            } else {
+                ColorPicker colorPicker = new ColorPicker(MainActivity.this);
+                colorPicker.show();
+                colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
+                    @Override
+                    public void onChooseColor(int position, int color) {
+                        GraphicalElement.getSelectedPaint().setColor(color);
+                        canvasView.getLastElement().getObjectPaint().setColor(color);
+                        canvasView.invalidate();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        // put code
+                    }
+                });
+            }
+        });
 
         canvasView = (CanvasView) findViewById(R.id.canvasView);
         sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
