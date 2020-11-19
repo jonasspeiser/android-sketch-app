@@ -19,10 +19,8 @@ import java.util.List;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.EGraphicalElementType;
-import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawCircleStrategy;
-import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawLineStrategy;
-import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawTextStrategy;
-import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawTriangleStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.GraphicalElement;
+import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.GraphicalElementFactory;
 
 public class CanvasView extends View {
 

@@ -1,4 +1,4 @@
-package at.ac.univie.se2ws2020team0310.sketch_app.view;
+package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.IDrawStrategy;
 

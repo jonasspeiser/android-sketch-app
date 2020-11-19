@@ -1,11 +1,16 @@
-package at.ac.univie.se2ws2020team0310.sketch_app.view;
+package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
-import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.BuildConfig;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.AppException;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.Circle;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.EGraphicalElementType;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.GraphicalElement;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.Line;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.Quadrangle;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.Text;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.Triangle;
 import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawCircleStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawLineStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawQuadrangle;

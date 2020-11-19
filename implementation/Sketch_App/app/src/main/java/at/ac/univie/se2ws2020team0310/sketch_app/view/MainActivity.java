@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.R;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.GraphicalElement;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.Text;
 import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class MainActivity extends AppCompatActivity {
