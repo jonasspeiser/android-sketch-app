@@ -21,9 +21,6 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.Collections;
 import java.util.List;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.model.Circle;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.GraphicalElement;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.Line;
 import at.ac.univie.se2ws2020team0310.sketch_app.view.CanvasView;
 import at.ac.univie.se2ws2020team0310.sketch_app.view.MainActivity;
 import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawLineStrategy;
