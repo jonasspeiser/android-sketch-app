@@ -38,28 +38,28 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.sizeButton).setOnClickListener(v -> {
             if(sizeSeekBar.getVisibility()==SeekBar.VISIBLE){
-                sizeSeekBar.setVisibility(View.INVISIBLE);
+                sizeSeekBar.setVisibility(SeekBar.INVISIBLE);
             }else{
                 if (canvasView.getSelectedGraphicalElement() == null) {
                     Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                     error.show();
                 }
                 if (canvasView.getSelectedGraphicalElement() != null) {
-                    sizeSeekBar.setVisibility(View.VISIBLE);
+                    sizeSeekBar.setVisibility(SeekBar.VISIBLE);
                 }                }
         });
 
         // TODO: create method for this
         findViewById(R.id.strokeWidthButton).setOnClickListener(v -> {
             if(strokeWidthSeekBar.getVisibility()==SeekBar.VISIBLE){
-                strokeWidthSeekBar.setVisibility(View.INVISIBLE);
+                strokeWidthSeekBar.setVisibility(SeekBar.INVISIBLE);
             }else{
                 if (canvasView.getSelectedGraphicalElement() == null) {
                     Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                     error.show();
                 }
                 if (canvasView.getSelectedGraphicalElement() != null) {
-                    strokeWidthSeekBar.setVisibility(View.VISIBLE);
+                    strokeWidthSeekBar.setVisibility(SeekBar.VISIBLE);
                 }
             }
         });
