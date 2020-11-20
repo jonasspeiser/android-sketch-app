@@ -109,7 +109,7 @@
 
     <Button
         android:id="@+id/toggleText"
-        android:onClick="printText"
+        android:onClick="onClickDoneButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/done"

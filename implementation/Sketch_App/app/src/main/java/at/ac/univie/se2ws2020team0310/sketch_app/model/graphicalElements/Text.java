@@ -4,19 +4,19 @@ import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.IDrawStrategy;
 
 public class Text extends GraphicalElement {
 
-    private String textInput;
+    private String userText;
 
     public Text(IDrawStrategy drawStrategy) {
         super(drawStrategy);
-        textInput = "";
+        userText = "";
     }
 
-    public String getTextInput() {
-        return textInput;
+    public String getUserText() {
+        return userText;
     }
 
-    public void setTextInput(String textInput) {
-        this.textInput = textInput;
+    public void setUserText(String userText) {
+        this.userText = userText;
     }
 
     public void setSize(float textsize) { // Overrides super.setSize(float size)

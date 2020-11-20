@@ -159,10 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.textId:
-                EditText editText = findViewById(R.id.editText);
-                Button toggleText = findViewById(R.id.toggleText);
-                editText.setVisibility(View.VISIBLE);
-                toggleText.setVisibility(View.VISIBLE);
+                showTextEntryField();
 
                 canvasView.getAppViewModel().selectText();
                 Toast textToast = Toast.makeText(getApplicationContext(), "Text selected", Toast.LENGTH_LONG);
@@ -210,25 +207,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // TODO: Move this to CanvasView or in another class?
-    public void printText (View view) {
-        EditText editText = findViewById(R.id.editText);
-        Button toggleText = findViewById(R.id.toggleText);
+    public void onClickDoneButton(View view) {
 
         canvasView.getAppViewModel().selectText();
         Text mText = (Text) canvasView.getAppViewModel().getSelectedGraphicalElement();
-        mText.setTextInput(editText.getText().toString());
+        mText.setUserText(getEnteredText());
 
         canvasView.invalidate();
 
+        hideTextEntryField();
+    }
+
+    public String getEnteredText(){
+        EditText editText = findViewById(R.id.editText);
+        return editText.getText().toString();
+    }
+
+    public void showTextEntryField(){
+        EditText editText = findViewById(R.id.editText);
+        Button toggleText = findViewById(R.id.toggleText);
+
+        editText.setVisibility(View.VISIBLE);
+        toggleText.setVisibility(View.VISIBLE);
+    }
+
+    public void hideTextEntryField() {
+        EditText editText = findViewById(R.id.editText);
+        Button toggleText = findViewById(R.id.toggleText);
+
         editText.setVisibility(View.GONE);
         toggleText.setVisibility(View.GONE);
-
-
-
     }
 
 
-    // Hide the keyboard
+    // Hide the Soft Keyboard
     // solution from: https://stackoverflow.com/questions/4165414/how-to-hide-soft-keyboard-on-android-after-clicking-outside-edittext
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
