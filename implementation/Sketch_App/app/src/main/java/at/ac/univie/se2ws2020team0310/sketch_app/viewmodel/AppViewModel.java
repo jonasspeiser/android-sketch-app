@@ -2,6 +2,8 @@ package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
 import android.util.Log;
 
+import androidx.lifecycle.ViewModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +11,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
-public class AppViewModel {
+public class AppViewModel extends ViewModel {
     // Diese Klasse können wir auch verwenden, um Layer darzustellen (dann evtl umbenennen)
 
 // Attributes
