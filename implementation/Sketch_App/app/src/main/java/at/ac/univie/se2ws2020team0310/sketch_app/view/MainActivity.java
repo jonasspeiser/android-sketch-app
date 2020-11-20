@@ -38,8 +38,9 @@ public class MainActivity extends AppCompatActivity {
         canvasView = findViewById(R.id.canvasView);
 
         // Define display logic of Seekbars and the ColorPicker Palette
-        SetSeekBarBehaviors();
-        ColorPickerBehavior();
+        SetStrokeWidthSeekBarBehavior();
+        SetSizeSeekBarBehavior();
+        SetColorPickerBehavior();
 
         sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
@@ -75,22 +76,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void SetSeekBarBehaviors(){
+    public void SetSizeSeekBarBehavior() {
         SeekBar sizeSeekBar = findViewById(R.id.sizeSeekBar);
-        SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
 
         findViewById(R.id.sizeButton).setOnClickListener(v -> {
-            if(sizeSeekBar.getVisibility()==SeekBar.VISIBLE){
+            if (sizeSeekBar.getVisibility() == SeekBar.VISIBLE) {
                 sizeSeekBar.setVisibility(SeekBar.INVISIBLE);
-            }else{
+            } else {
                 if (canvasView.getSelectedGraphicalElement() == null) {
                     Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                     error.show();
                 }
                 if (canvasView.getSelectedGraphicalElement() != null) {
                     sizeSeekBar.setVisibility(SeekBar.VISIBLE);
-                }                }
+                }
+            }
         });
+    }
+
+    public void SetStrokeWidthSeekBarBehavior(){
+        SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
 
         findViewById(R.id.strokeWidthButton).setOnClickListener(v -> {
             if(strokeWidthSeekBar.getVisibility()==SeekBar.VISIBLE){
@@ -107,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void ColorPickerBehavior(){
+    public void SetColorPickerBehavior(){
         findViewById(R.id.colorSelectorButton).setOnClickListener(v -> {
             if (canvasView.getSelectedGraphicalElement() == null) {
                 Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
