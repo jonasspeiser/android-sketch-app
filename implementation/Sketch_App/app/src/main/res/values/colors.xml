@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="blue">#0336FF</color>
     <color name="grey">#5D6D7E</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white" tools:ignore="UnusedResources">#FFFFFFFF</color>
 </resources>
