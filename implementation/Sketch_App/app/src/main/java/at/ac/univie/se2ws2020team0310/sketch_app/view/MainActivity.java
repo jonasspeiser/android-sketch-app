@@ -35,60 +35,12 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         SeekBar sizeSeekBar = findViewById(R.id.sizeSeekBar);
         SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
-
-        findViewById(R.id.sizeButton).setOnClickListener(v -> {
-            if(sizeSeekBar.getVisibility()==SeekBar.VISIBLE){
-                sizeSeekBar.setVisibility(SeekBar.INVISIBLE);
-            }else{
-                if (canvasView.getSelectedGraphicalElement() == null) {
-                    Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
-                    error.show();
-                }
-                if (canvasView.getSelectedGraphicalElement() != null) {
-                    sizeSeekBar.setVisibility(SeekBar.VISIBLE);
-                }                }
-        });
-
-        // TODO: create method for this
-        findViewById(R.id.strokeWidthButton).setOnClickListener(v -> {
-            if(strokeWidthSeekBar.getVisibility()==SeekBar.VISIBLE){
-                strokeWidthSeekBar.setVisibility(SeekBar.INVISIBLE);
-            }else{
-                if (canvasView.getSelectedGraphicalElement() == null) {
-                    Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
-                    error.show();
-                }
-                if (canvasView.getSelectedGraphicalElement() != null) {
-                    strokeWidthSeekBar.setVisibility(SeekBar.VISIBLE);
-                }
-            }
-        });
-
-        // TODO: create method for this
-        findViewById(R.id.colorSelectorButton).setOnClickListener(v -> {
-            if (canvasView.getSelectedGraphicalElement() == null) {
-                Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
-                error.show();
-            } else {
-                ColorPicker colorPicker = new ColorPicker(MainActivity.this);
-                colorPicker.show();
-                colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
-                    @Override
-                    public void onChooseColor(int position, int color) {
-                        GraphicalElement.getSelectedPaint().setColor(color);
-                        canvasView.getLastElement().getObjectPaint().setColor(color);
-                        canvasView.invalidate();
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        // put code
-                    }
-                });
-            }
-        });
-
         canvasView = findViewById(R.id.canvasView);
+
+        // Define display logic of Seekbars and the ColorPicker Palette
+        SetSeekBarBehaviors();
+        ColorPickerBehavior();
+
         sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             public void onProgressChanged(SeekBar sizeSeekBar, int progress, boolean fromUser) {
@@ -118,6 +70,64 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public void onStopTrackingTouch(SeekBar strokeWidthSeekBar) {
+            }
+        });
+
+    }
+
+    public void SetSeekBarBehaviors(){
+        SeekBar sizeSeekBar = findViewById(R.id.sizeSeekBar);
+        SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
+
+        findViewById(R.id.sizeButton).setOnClickListener(v -> {
+            if(sizeSeekBar.getVisibility()==SeekBar.VISIBLE){
+                sizeSeekBar.setVisibility(SeekBar.INVISIBLE);
+            }else{
+                if (canvasView.getSelectedGraphicalElement() == null) {
+                    Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
+                    error.show();
+                }
+                if (canvasView.getSelectedGraphicalElement() != null) {
+                    sizeSeekBar.setVisibility(SeekBar.VISIBLE);
+                }                }
+        });
+
+        findViewById(R.id.strokeWidthButton).setOnClickListener(v -> {
+            if(strokeWidthSeekBar.getVisibility()==SeekBar.VISIBLE){
+                strokeWidthSeekBar.setVisibility(SeekBar.INVISIBLE);
+            }else{
+                if (canvasView.getSelectedGraphicalElement() == null) {
+                    Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
+                    error.show();
+                }
+                if (canvasView.getSelectedGraphicalElement() != null) {
+                    strokeWidthSeekBar.setVisibility(SeekBar.VISIBLE);
+                }
+            }
+        });
+    }
+
+    public void ColorPickerBehavior(){
+        findViewById(R.id.colorSelectorButton).setOnClickListener(v -> {
+            if (canvasView.getSelectedGraphicalElement() == null) {
+                Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
+                error.show();
+            } else {
+                ColorPicker colorPicker = new ColorPicker(MainActivity.this);
+                colorPicker.show();
+                colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
+                    @Override
+                    public void onChooseColor(int position, int color) {
+                        GraphicalElement.getSelectedPaint().setColor(color);
+                        canvasView.getLastElement().getObjectPaint().setColor(color);
+                        canvasView.invalidate();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        // put code
+                    }
+                });
             }
         });
 
@@ -199,9 +209,6 @@ public class MainActivity extends AppCompatActivity {
 
         editText.setVisibility(View.GONE);
         toggleText.setVisibility(View.GONE);
-
-
-
     }
 
 

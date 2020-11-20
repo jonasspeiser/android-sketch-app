@@ -29,7 +29,7 @@ public class MainActivityTest extends MainActivity{
     private CanvasView canvasView;
     public SeekBar sizeSeekBar;
 
-    public void testOnClickListener(){
+    public void OnClickListener(){
         findViewById(R.id.sizeButton).setOnClickListener(v -> {
             sizeSeekBar.setVisibility(SeekBar.INVISIBLE);
             if (sizeSeekBar.getVisibility() == SeekBar.VISIBLE) {
@@ -47,5 +47,10 @@ public class MainActivityTest extends MainActivity{
                 }
             }
         });
+
+        public void testOnClickListener() {
+            int Visibility = setOnCli
+        }
     }
+
 }
