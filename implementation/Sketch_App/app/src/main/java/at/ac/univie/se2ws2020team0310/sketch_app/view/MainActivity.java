@@ -1,6 +1,7 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,13 +19,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.R;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.GraphicalElement;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.Text;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
 import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class MainActivity extends AppCompatActivity {
 
     private CanvasView canvasView;
+
+    static private Paint selectedPaint;
+
+
+    public static Paint getSelectedPaint() {
+        return MainActivity.selectedPaint;
+    }
+
+    public static void setSelectedPaint(Paint selectedPaint) {
+        MainActivity.selectedPaint = selectedPaint;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +51,11 @@ public class MainActivity extends AppCompatActivity {
             if(sizeSeekBar.getVisibility()==SeekBar.VISIBLE){
                 sizeSeekBar.setVisibility(SeekBar.INVISIBLE);
             }else{
-                if (canvasView.getSelectedGraphicalElement() == null) {
+                if (canvasView.getAppViewModel().getSelectedGraphicalElement() == null) {
                     Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                     error.show();
                 }
-                if (canvasView.getSelectedGraphicalElement() != null) {
+                if (canvasView.getAppViewModel().getSelectedGraphicalElement() != null) {
                     sizeSeekBar.setVisibility(SeekBar.VISIBLE);
                 }                }
         });
@@ -54,11 +65,11 @@ public class MainActivity extends AppCompatActivity {
             if(strokeWidthSeekBar.getVisibility()==SeekBar.VISIBLE){
                 strokeWidthSeekBar.setVisibility(SeekBar.INVISIBLE);
             }else{
-                if (canvasView.getSelectedGraphicalElement() == null) {
+                if (canvasView.getAppViewModel().getSelectedGraphicalElement() == null) {
                     Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                     error.show();
                 }
-                if (canvasView.getSelectedGraphicalElement() != null) {
+                if (canvasView.getAppViewModel().getSelectedGraphicalElement() != null) {
                     strokeWidthSeekBar.setVisibility(SeekBar.VISIBLE);
                 }
             }
@@ -66,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO: create method for this
         findViewById(R.id.colorSelectorButton).setOnClickListener(v -> {
-            if (canvasView.getSelectedGraphicalElement() == null) {
+            if (canvasView.getAppViewModel().getSelectedGraphicalElement() == null) {
                 Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                 error.show();
             } else {
@@ -75,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
                 colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
                     @Override
                     public void onChooseColor(int position, int color) {
-                        GraphicalElement.getSelectedPaint().setColor(color);
-                        canvasView.getLastElement().getObjectPaint().setColor(color);
+                        selectedPaint.setColor(color);
+                        canvasView.getAppViewModel().getLastElement().setColor(color); //TODO: in ViewModel: Der Regler soll machen: onChange notify. Wir brauchen einen Observer, der den Wert dieses Reglers abgreift
                         canvasView.invalidate();
                     }
 
@@ -92,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
         sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             public void onProgressChanged(SeekBar sizeSeekBar, int progress, boolean fromUser) {
-                GraphicalElement.getSelectedPaint().setTextSize(progress);
-                canvasView.getLastElement().getObjectPaint().setTextSize(progress);
+                selectedPaint.setTextSize(progress);
+                canvasView.getAppViewModel().getLastElement().setSize(progress);
                 //TODO: change object size
                 canvasView.invalidate();
             }
@@ -108,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
         strokeWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
-                GraphicalElement.getSelectedPaint().setStrokeWidth(progress);
-                canvasView.getLastElement().getObjectPaint().setStrokeWidth(progress);
+                selectedPaint.setStrokeWidth(progress);
+                canvasView.getAppViewModel().getLastElement().setStrokeWidth(progress);
                 canvasView.invalidate();
             }
 
@@ -141,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                 editText.setVisibility(View.VISIBLE);
                 toggleText.setVisibility(View.VISIBLE);
 
-                canvasView.selectText();
+                canvasView.getAppViewModel().selectText();
                 Toast textToast = Toast.makeText(getApplicationContext(), "Text selected", Toast.LENGTH_LONG);
                 textToast.show();
                 return true;
@@ -154,25 +165,25 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.lineId:
-                canvasView.selectLine();
+                canvasView.getAppViewModel().selectLine();
                 Toast lineToast = Toast.makeText(getApplicationContext(), "Line selected", Toast.LENGTH_LONG);
                 lineToast.show();
                 return true;
 
             case R.id.circleId:
-                canvasView.selectCircle();
+                canvasView.getAppViewModel().selectCircle();
                 Toast circleToast = Toast.makeText(getApplicationContext(), "Circle selected", Toast.LENGTH_LONG);
                 circleToast.show();
                 return true;
 
             case R.id.squareId:
-                canvasView.selectQuadrangle();
+                canvasView.getAppViewModel().selectQuadrangle();
                 Toast quadrangleToast = Toast.makeText(getApplicationContext(), "Quadrangle selected", Toast.LENGTH_LONG);
                 quadrangleToast.show();
                 return true;
 
             case R.id.triangleId:
-                canvasView.selectTriangle();
+                canvasView.getAppViewModel().selectTriangle();
                 Toast triangleToast = Toast.makeText(getApplicationContext(), "Triangle selected", Toast.LENGTH_LONG);
                 triangleToast.show();
                 return true;
@@ -191,8 +202,8 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = findViewById(R.id.editText);
         Button toggleText = findViewById(R.id.toggleText);
 
-        canvasView.selectText();
-        Text mText = (Text) canvasView.getSelectedGraphicalElement();
+        canvasView.getAppViewModel().selectText();
+        Text mText = (Text) canvasView.getAppViewModel().getSelectedGraphicalElement();
         mText.setTextInput(editText.getText().toString());
 
         canvasView.invalidate();

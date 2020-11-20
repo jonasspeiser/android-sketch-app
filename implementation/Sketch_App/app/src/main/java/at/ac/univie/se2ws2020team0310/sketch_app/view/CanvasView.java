@@ -14,20 +14,17 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import at.ac.univie.se2ws2020team0310.sketch_app.model.AppException;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.EGraphicalElementType;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.GraphicalElement;
+import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.AppViewModel;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.GraphicalElementFactory;
 
 public class CanvasView extends View {
 
     private Canvas mCanvas;
 
-    private GraphicalElement selectedGraphicalElement;
-    private final List <GraphicalElement> drawnElements = new ArrayList<>();
+    private AppViewModel appViewModel = new AppViewModel();
 
 // Constructors
     public CanvasView(Context context) {
@@ -57,8 +54,8 @@ public class CanvasView extends View {
 
 // Getters and Setters
 
-    public GraphicalElement getSelectedGraphicalElement() {
-        return selectedGraphicalElement;
+    public AppViewModel getAppViewModel() {
+        return appViewModel;
     }
 
 // Methods
@@ -72,7 +69,7 @@ public class CanvasView extends View {
         mPaint.setStrokeWidth(15);
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(50);
-        GraphicalElement.setSelectedPaint(mPaint);
+        MainActivity.setSelectedPaint(mPaint);
     }
 
     @Override
@@ -81,57 +78,7 @@ public class CanvasView extends View {
         mCanvas = new Canvas(mBitmap);
     }
 
-    public GraphicalElement getLastElement() {
-        return drawnElements.get(drawnElements.size() - 1);
-    }
 
-    public void selectLine() {
-
-        try {
-            selectedGraphicalElement = GraphicalElementFactory.createElement(EGraphicalElementType.LINE);
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-
-    }
-
-    public void selectCircle() {
-
-        try {
-            selectedGraphicalElement = GraphicalElementFactory.createElement(EGraphicalElementType.CIRCLE);
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-    }
-
-    public void selectQuadrangle() {
-
-        // use a Factory to create the Quadrangle as a GraphicalElement
-        try {
-            selectedGraphicalElement = GraphicalElementFactory.createElement(EGraphicalElementType.QUADRANGLE);
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-    }
-
-    public void selectTriangle() {
-
-        try {
-            selectedGraphicalElement = GraphicalElementFactory.createElement(EGraphicalElementType.TRIANGLE);
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-
-    }
-
-    public void selectText() {
-
-        try {
-            selectedGraphicalElement = GraphicalElementFactory.createElement(EGraphicalElementType.TEXT_FIELD);
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-    }
 
     // draw the element at the position of the user's touch
     @Override
@@ -144,13 +91,13 @@ public class CanvasView extends View {
         // wenn zuvor eine Shape im Menü angewählt wurde.
 
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (selectedGraphicalElement != null) {
-                drawnElements.add(selectedGraphicalElement);
+            if (appViewModel.getSelectedGraphicalElement() != null) {
+                appViewModel.storeElement();
 
                 // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
                 //TODO: last element
-                getLastElement().setxPosition(touchX);
-                getLastElement().setyPosition(touchY);
+                appViewModel.getLastElement().setxPosition(touchX);
+                appViewModel.getLastElement().setyPosition(touchY);
 
                 invalidate();
                 return true;
@@ -164,8 +111,8 @@ public class CanvasView extends View {
 
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
             // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
-            getLastElement().setxPosition(touchX);
-            getLastElement().setyPosition(touchY);
+            appViewModel.getLastElement().setxPosition(touchX);
+            appViewModel.getLastElement().setyPosition(touchY);
 
             invalidate();
             return true;
@@ -180,14 +127,13 @@ public class CanvasView extends View {
         mCanvas = canvas;
         super.onDraw(mCanvas);
 
-        for (GraphicalElement graphicalElement : drawnElements) {
+        for (GraphicalElement graphicalElement : appViewModel.getDrawnElements()) {
             graphicalElement.draw(canvas);
-            //siehe strategy pattern
         }
     }
 
     public void clear() {
-        drawnElements.clear();
+        appViewModel.clear();
         invalidate();
     }
 

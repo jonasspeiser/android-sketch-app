@@ -4,13 +4,14 @@ import android.graphics.Paint;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.BuildConfig;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.AppException;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.Circle;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.EGraphicalElementType;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.GraphicalElement;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.Line;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.Quadrangle;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.Text;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.Triangle;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Circle;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Line;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Quadrangle;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Triangle;
+import at.ac.univie.se2ws2020team0310.sketch_app.view.MainActivity;
 import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawCircleStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawLineStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawQuadrangle;
@@ -54,7 +55,7 @@ public final class GraphicalElementFactory {
 
     private static Text createText() {
         Text mText = new Text(new DrawTextStrategy());
-        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        Paint mPaint = new Paint();
         mPaint.setStyle(Paint.Style.FILL);
         mText.setObjectPaint(mPaint);
         return mText;
@@ -62,7 +63,7 @@ public final class GraphicalElementFactory {
 
     private static Triangle createTriangle() {
         Triangle mTriangle = new Triangle(new DrawTriangleStrategy());
-        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        Paint mPaint = new Paint(MainActivity.getSelectedPaint());
         mTriangle.setObjectPaint(mPaint);
         mTriangle.setShapeSize(150);
         return mTriangle;
@@ -70,14 +71,14 @@ public final class GraphicalElementFactory {
 
     private static Line createLine() {
         Line mLine = new Line(new DrawLineStrategy());
-        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        Paint mPaint = new Paint(MainActivity.getSelectedPaint());
         mLine.setObjectPaint(mPaint);
         return mLine;
     }
 
     private static Circle createCircle() {
         Circle mCircle = new Circle(new DrawCircleStrategy());
-        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        Paint mPaint = new Paint(MainActivity.getSelectedPaint());
         mCircle.setObjectPaint(mPaint);
         mCircle.setShapeSize(70);
         return mCircle;
@@ -85,7 +86,7 @@ public final class GraphicalElementFactory {
 
     private static Quadrangle createQuadrangle() {
         Quadrangle mSquare = new Quadrangle(new DrawQuadrangle());
-        Paint mPaint = new Paint(GraphicalElement.getSelectedPaint());
+        Paint mPaint = new Paint(MainActivity.getSelectedPaint());
         mSquare.setObjectPaint(mPaint);
         mSquare.setShapeSize(150);
         mSquare.setLength(mSquare.getShapeSize());

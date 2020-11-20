@@ -1,4 +1,4 @@
-package at.ac.univie.se2ws2020team0310.sketch_app.model;
+package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -10,7 +10,6 @@ public abstract class GraphicalElement {
 // Attributes
 
     //TODO: Klassendiagramm "Color" zu Paint-Objekt ändern
-    private static Paint selectedPaint;
     private final IDrawStrategy drawStrategy;
 
     protected float xPosition, yPosition, shapeSize;
@@ -23,13 +22,6 @@ public abstract class GraphicalElement {
 
 // Getters and Setters
 
-    public static Paint getSelectedPaint() {
-        return selectedPaint;
-    }
-
-    public static void setSelectedPaint(Paint selectedPaint) {
-        GraphicalElement.selectedPaint = selectedPaint;
-    }
 
     public float getxPosition() {
         return xPosition;
@@ -63,11 +55,21 @@ public abstract class GraphicalElement {
         this.objectPaint = objectPaint;
     }
 
-    public static void changeTextSize(float textSize) {
-        selectedPaint.setTextSize(textSize);
-    }
-
     public void draw(Canvas canvas) {
         drawStrategy.draw(canvas, this);
+    }
+
+// Other Methods
+
+    public void setColor(int color) {
+        getObjectPaint().setColor(color);
+    }
+
+    public void setStrokeWidth(float strokeWidth) {
+        getObjectPaint().setStrokeWidth(strokeWidth);
+    }
+
+    public void setSize(float size) {
+        shapeSize = size;
     }
 }
