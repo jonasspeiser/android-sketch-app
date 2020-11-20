@@ -37,31 +37,29 @@ public class MainActivity extends AppCompatActivity {
         SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
 
         findViewById(R.id.sizeButton).setOnClickListener(v -> {
-            SeekBar sizeSeekBar1 = findViewById(R.id.sizeSeekBar);
-            if(sizeSeekBar1.getVisibility()==SeekBar.VISIBLE){
-                sizeSeekBar1.setVisibility(View.INVISIBLE);
+            if(sizeSeekBar.getVisibility()==SeekBar.VISIBLE){
+                sizeSeekBar.setVisibility(View.INVISIBLE);
             }else{
                 if (canvasView.getSelectedGraphicalElement() == null) {
                     Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                     error.show();
                 }
                 if (canvasView.getSelectedGraphicalElement() != null) {
-                    sizeSeekBar1.setVisibility(View.VISIBLE);
+                    sizeSeekBar.setVisibility(View.VISIBLE);
                 }                }
         });
 
         // TODO: create method for this
         findViewById(R.id.strokeWidthButton).setOnClickListener(v -> {
-            SeekBar strokeWidthSeekBar1 = findViewById(R.id.strokeWidthSeekBar);
-            if(strokeWidthSeekBar1.getVisibility()==SeekBar.VISIBLE){
-                strokeWidthSeekBar1.setVisibility(View.INVISIBLE);
+            if(strokeWidthSeekBar.getVisibility()==SeekBar.VISIBLE){
+                strokeWidthSeekBar.setVisibility(View.INVISIBLE);
             }else{
                 if (canvasView.getSelectedGraphicalElement() == null) {
                     Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                     error.show();
                 }
                 if (canvasView.getSelectedGraphicalElement() != null) {
-                    strokeWidthSeekBar1.setVisibility(View.VISIBLE);
+                    strokeWidthSeekBar.setVisibility(View.VISIBLE);
                 }
             }
         });
