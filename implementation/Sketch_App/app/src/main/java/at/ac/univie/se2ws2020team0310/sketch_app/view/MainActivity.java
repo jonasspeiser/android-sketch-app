@@ -1,6 +1,7 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
@@ -132,6 +133,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        initializePaint();
+    }
+
+    public void initializePaint() {
+        Paint mPaint = new Paint();
+        mPaint.setColor(Color.BLACK);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(15);
+        mPaint.setAntiAlias(true);
+        mPaint.setTextSize(50);
+        MainActivity.setSelectedPaint(mPaint);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

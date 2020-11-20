@@ -29,27 +29,19 @@ public class CanvasView extends View {
 // Constructors
     public CanvasView(Context context) {
         super(context);
-
-        init(null);
     }
 
     public CanvasView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-
-        init(attrs);
     }
 
     public CanvasView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
-        init(attrs);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public CanvasView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-
-        init(attrs);
     }
 
 // Getters and Setters
@@ -59,18 +51,6 @@ public class CanvasView extends View {
     }
 
 // Methods
-
-    void init(@Nullable AttributeSet set) {
-        //TODO: Paint Objekt wirklich hier initiieren??
-
-        Paint mPaint = new Paint();
-        mPaint.setColor(Color.BLACK);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(15);
-        mPaint.setAntiAlias(true);
-        mPaint.setTextSize(50);
-        MainActivity.setSelectedPaint(mPaint);
-    }
 
     @Override
     protected void onSizeChanged(int width, int height, int old_width, int old_height) {
@@ -95,7 +75,6 @@ public class CanvasView extends View {
                 appViewModel.storeElement();
 
                 // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
-                //TODO: last element
                 appViewModel.getLastElement().setxPosition(touchX);
                 appViewModel.getLastElement().setyPosition(touchY);
 
