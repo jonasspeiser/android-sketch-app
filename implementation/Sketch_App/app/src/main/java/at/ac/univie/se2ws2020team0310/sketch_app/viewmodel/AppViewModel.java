@@ -102,14 +102,4 @@ public class AppViewModel extends ViewModel {
         }
     }
 
-    /*
-currently selected Element
-
-create layer
-    new ElementStorage
-
-selectedLayer.getlastElement()
-
-
- */
 }

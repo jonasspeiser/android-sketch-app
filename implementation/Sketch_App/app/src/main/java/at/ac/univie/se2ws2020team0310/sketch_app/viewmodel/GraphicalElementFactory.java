@@ -94,7 +94,4 @@ public final class GraphicalElementFactory {
         return mSquare;
     }
 
-    // circle
-    // line
-    //etc.
 }
