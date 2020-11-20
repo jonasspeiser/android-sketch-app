@@ -37,11 +37,12 @@ public class MainActivity extends AppCompatActivity {
         SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
         canvasView = findViewById(R.id.canvasView);
 
-        // Define display logic of Seekbars and the ColorPicker Palette
+        // Defining the logic on when the SeekBars/ColorPicker should be displayed
         SetStrokeWidthSeekBarBehavior();
         SetSizeSeekBarBehavior();
         SetColorPickerBehavior();
 
+        // Set the SeekBarChangeListeners
         sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             public void onProgressChanged(SeekBar sizeSeekBar, int progress, boolean fromUser) {
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar sizeSeekBar) {
             }
         });
+
         strokeWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
