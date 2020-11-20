@@ -47,21 +47,70 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         SeekBar sizeSeekBar = findViewById(R.id.sizeSeekBar);
         SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
+        canvasView = findViewById(R.id.canvasView);
+
+        // Defining the logic on when the SeekBars/ColorPicker should be displayed
+        SetStrokeWidthSeekBarBehavior();
+        SetSizeSeekBarBehavior();
+        SetColorPickerBehavior();
+
+        // Set the SeekBarChangeListeners
+        sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            public void onProgressChanged(SeekBar sizeSeekBar, int progress, boolean fromUser) {
+                GraphicalElement.getSelectedPaint().setTextSize(progress);
+                canvasView.getLastElement().getObjectPaint().setTextSize(progress);
+                //TODO: change object size
+                canvasView.invalidate();
+            }
+
+            public void onStartTrackingTouch(SeekBar sizeSeekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            public void onStopTrackingTouch(SeekBar sizeSeekBar) {
+            }
+        });
+
+        strokeWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
+                GraphicalElement.getSelectedPaint().setStrokeWidth(progress);
+                canvasView.getLastElement().getObjectPaint().setStrokeWidth(progress);
+                canvasView.invalidate();
+            }
+
+            public void onStartTrackingTouch(SeekBar strokeWidthSeekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            public void onStopTrackingTouch(SeekBar strokeWidthSeekBar) {
+            }
+        });
+
+    }
+
+    public void SetSizeSeekBarBehavior() {
+        SeekBar sizeSeekBar = findViewById(R.id.sizeSeekBar);
 
         findViewById(R.id.sizeButton).setOnClickListener(v -> {
-            if(sizeSeekBar.getVisibility()==SeekBar.VISIBLE){
+            if (sizeSeekBar.getVisibility() == SeekBar.VISIBLE) {
                 sizeSeekBar.setVisibility(SeekBar.INVISIBLE);
-            }else{
-                if (canvasView.getAppViewModel().getSelectedGraphicalElement() == null) {
+            } else {
+                if (canvasView.getSelectedGraphicalElement() == null) {
                     Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                     error.show();
                 }
                 if (canvasView.getAppViewModel().getSelectedGraphicalElement() != null) {
                     sizeSeekBar.setVisibility(SeekBar.VISIBLE);
-                }                }
+                }
+            }
         });
+    }
 
-        // TODO: create method for this
+    public void SetStrokeWidthSeekBarBehavior(){
+        SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
+
         findViewById(R.id.strokeWidthButton).setOnClickListener(v -> {
             if(strokeWidthSeekBar.getVisibility()==SeekBar.VISIBLE){
                 strokeWidthSeekBar.setVisibility(SeekBar.INVISIBLE);
@@ -75,8 +124,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
-        // TODO: create method for this
+    public void SetColorPickerBehavior(){
         findViewById(R.id.colorSelectorButton).setOnClickListener(v -> {
             if (canvasView.getAppViewModel().getSelectedGraphicalElement() == null) {
                 Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
@@ -100,39 +150,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        canvasView = findViewById(R.id.canvasView);
-        sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-            public void onProgressChanged(SeekBar sizeSeekBar, int progress, boolean fromUser) {
-                selectedPaint.setTextSize(progress);
-                canvasView.getAppViewModel().getLastElement().setSize(progress);
-                //TODO: change object size
-                canvasView.invalidate();
-            }
-
-            public void onStartTrackingTouch(SeekBar sizeSeekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            public void onStopTrackingTouch(SeekBar sizeSeekBar) {
-            }
-        });
-        strokeWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-            public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
-                selectedPaint.setStrokeWidth(progress);
-                canvasView.getAppViewModel().getLastElement().setStrokeWidth(progress);
-                canvasView.invalidate();
-            }
-
-            public void onStartTrackingTouch(SeekBar strokeWidthSeekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            public void onStopTrackingTouch(SeekBar strokeWidthSeekBar) {
-            }
-        });
-
         initializePaint();
     }
 
@@ -144,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(50);
         MainActivity.setSelectedPaint(mPaint);
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
