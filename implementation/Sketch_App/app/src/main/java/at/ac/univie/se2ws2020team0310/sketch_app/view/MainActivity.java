@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
         sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             public void onProgressChanged(SeekBar sizeSeekBar, int progress, boolean fromUser) {
-                GraphicalElement.getSelectedPaint().setTextSize(progress);
-                canvasView.getLastElement().getObjectPaint().setTextSize(progress);
+                selectedPaint.setTextSize(progress);
+                canvasView.getAppViewModel().getLastElement().getObjectPaint().setTextSize(progress);
                 //TODO: change object size
                 canvasView.invalidate();
             }
@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
         strokeWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
-                GraphicalElement.getSelectedPaint().setStrokeWidth(progress);
-                canvasView.getLastElement().getObjectPaint().setStrokeWidth(progress);
+                selectedPaint.setStrokeWidth(progress);
+                canvasView.getAppViewModel().getLastElement().getObjectPaint().setStrokeWidth(progress);
                 canvasView.invalidate();
             }
 
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             if (sizeSeekBar.getVisibility() == SeekBar.VISIBLE) {
                 sizeSeekBar.setVisibility(SeekBar.INVISIBLE);
             } else {
-                if (canvasView.getSelectedGraphicalElement() == null) {
+                if (canvasView.getAppViewModel().getSelectedGraphicalElement() == null) {
                     Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                     error.show();
                 }
