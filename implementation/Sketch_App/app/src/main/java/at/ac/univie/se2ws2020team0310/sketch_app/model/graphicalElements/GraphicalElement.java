@@ -16,6 +16,8 @@ public abstract class GraphicalElement {
 
     protected Paint objectPaint;
 
+// Konstruktor
+
     public GraphicalElement(IDrawStrategy drawStrategy) { //Konstruktor
         this.drawStrategy = drawStrategy;
     }
