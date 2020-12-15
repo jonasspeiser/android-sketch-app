@@ -114,4 +114,16 @@ public class CanvasView extends View {
         invalidate();
     }
 
+    public void changeElementColor(int color) {
+        appViewModel.changeColor(color);
+    }
+
+    public void changeElementStrokeWidth(int strokewidth) {
+        appViewModel.changeStrokeWidth(strokewidth);
+    }
+
+    public void changeElementTextSize(int textsize) {
+        appViewModel.changeTextSize(textsize);
+    }
+
 }

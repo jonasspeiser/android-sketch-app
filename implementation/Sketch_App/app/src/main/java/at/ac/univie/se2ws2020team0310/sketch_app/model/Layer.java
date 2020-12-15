@@ -72,6 +72,18 @@ public class Layer {
         }
     };
 
+    public void changeColor(int color) {
+        getLastElement().setColor(color);
+    }
+
+    public void changeStrokeWidth(float strokewidth) {
+        getLastElement().setStrokeWidth(strokewidth);
+    }
+
+    public void changeTextSize(float textsize) {
+        getLastElement().setTextSize(textsize);
+    }
+
     public void changeCoordinates(float x, float y) {
         getLastElement().setCoordinates(x, y);
     };

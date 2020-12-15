@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onProgressChanged(SeekBar sizeSeekBar, int progress, boolean fromUser) {
                 selectedPaint.setTextSize(progress);
-                canvasView.getAppViewModel().getLastElement().getObjectPaint().setTextSize(progress);
+                canvasView.changeElementTextSize(progress);
                 //TODO: change object size
                 canvasView.invalidate();
             }
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
                 selectedPaint.setStrokeWidth(progress);
-                canvasView.getAppViewModel().getLastElement().getObjectPaint().setStrokeWidth(progress);
+                canvasView.changeElementStrokeWidth(progress);
                 canvasView.invalidate();
             }
 
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onChooseColor(int position, int color) {
                         selectedPaint.setColor(color);
-                        canvasView.getAppViewModel().getLastElement().setColor(color); //TODO: in ViewModel: Der Regler soll machen: onChange notify. Wir brauchen einen Observer, der den Wert dieses Reglers abgreift
+                        canvasView.changeElementColor(color); //TODO: in ViewModel: Der Regler soll machen: onChange notify. Wir brauchen einen Observer, der den Wert dieses Reglers abgreift
                         canvasView.invalidate();
                     }
 

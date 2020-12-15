@@ -74,6 +74,10 @@ public abstract class GraphicalElement {
         getObjectPaint().setStrokeWidth(strokeWidth);
     }
 
+    public void setTextSize(float textSize) {
+        getObjectPaint().setTextSize(textSize);
+    }
+
     public void setSize(float size) {
         shapeSize = size;
     }
