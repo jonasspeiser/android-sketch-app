@@ -39,11 +39,7 @@ public class AppViewModel extends ViewModel {
     public void storeElement() {
         sketch.storeElement();
     }
-/*
-    public GraphicalElement getLastElement() { // TODO: Diese Methode komplett von hier entfernen
-        return sketch.getLastElement();
-    }
-*/
+
     public void changeColor(int color) {
         sketch.changeColor(color);
     }
