@@ -62,7 +62,11 @@ public class Layer {
         }
     };
 
-    public void deleteElement() {
+    public void changeCoordinates(float x, float y) {
+        getLastElement().setCoordinates(x, y);
+    };
+
+    public void deleteLastElement() {
         drawnElements.remove(getLastElement());
     };
 

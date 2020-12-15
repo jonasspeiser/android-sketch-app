@@ -23,6 +23,10 @@ public abstract class GraphicalElement {
 
 // Getters and Setters
 
+    public void setCoordinates(float x, float y) {
+        this.xPosition = x;
+        this.yPosition = y;
+    }
 
     public float getxPosition() {
         return xPosition;

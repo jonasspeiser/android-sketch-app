@@ -75,8 +75,7 @@ public class CanvasView extends View {
                 appViewModel.storeElement();
 
                 // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
-                appViewModel.getLastElement().setxPosition(touchX);
-                appViewModel.getLastElement().setyPosition(touchY);
+                appViewModel.changeCoordinates(touchX, touchY);
 
                 invalidate();
                 return true;
@@ -90,8 +89,7 @@ public class CanvasView extends View {
 
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
             // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
-            appViewModel.getLastElement().setxPosition(touchX);
-            appViewModel.getLastElement().setyPosition(touchY);
+            appViewModel.changeCoordinates(touchX, touchY);
 
             invalidate();
             return true;

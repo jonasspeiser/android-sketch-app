@@ -40,8 +40,12 @@ public class AppViewModel extends ViewModel {
         sketch.storeElement();
     }
 
-    public GraphicalElement getLastElement() {
+    public GraphicalElement getLastElement() { // TODO: Diese Methode komplett von hier entfernen
         return sketch.getLastElement();
+    }
+
+    public void changeCoordinates(float x, float y) {
+        sketch.changeCoordinates(x, y);
     }
 
     public void clear() {
