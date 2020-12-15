@@ -18,6 +18,8 @@ public class Layer {
 
     private final List<GraphicalElement> drawnElements;
 
+    private boolean visible;
+
 // Constructors
 
     public Layer() {
@@ -36,6 +38,14 @@ public class Layer {
 
     public List<GraphicalElement> getDrawnElements() {
         return drawnElements;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
 // Other Methods
