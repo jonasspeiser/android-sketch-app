@@ -3,6 +3,7 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
@@ -50,6 +51,21 @@ public class Layer {
     public void clear() {
         drawnElements.clear();
     }
+
+    public void editElement(GraphicalElement graphicalElement) {
+        // TODO: Hier muss statt des if noch ein try-catch Block mit eigener Exception her ("Element not found")
+        if (drawnElements.contains(graphicalElement)) {
+            // moves the element which was given as a parameter to the last index in the list
+            // it can now be edited, as the last List element will always be edited with user input
+            int index = drawnElements.indexOf(graphicalElement);
+            Collections.rotate(drawnElements.subList(index, -1),-1);
+        }
+    };
+
+    public void deleteElement() {
+        drawnElements.remove(getLastElement());
+    };
+
 
 
     public void selectLine() {

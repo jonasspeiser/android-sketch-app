@@ -9,7 +9,6 @@ public abstract class GraphicalElement {
 
 // Attributes
 
-    //TODO: Klassendiagramm "Color" zu Paint-Objekt ändern
     private final IDrawStrategy drawStrategy;
 
     protected float xPosition, yPosition, shapeSize;
