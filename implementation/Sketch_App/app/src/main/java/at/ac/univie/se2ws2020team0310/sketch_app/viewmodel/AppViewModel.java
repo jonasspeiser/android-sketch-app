@@ -1,69 +1,105 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
-import android.text.TextUtils;
-import android.util.Patterns;
+import android.util.Log;
 
-import androidx.databinding.BaseObservable;
-import androidx.databinding.Bindable;
+import androidx.lifecycle.ViewModel;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.BR;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.User;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AppViewModel extends BaseObservable {
+import at.ac.univie.se2ws2020team0310.sketch_app.model.AppException;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
-    private User user;
+public class AppViewModel extends ViewModel {
+    // Diese Klasse können wir auch verwenden, um Layer darzustellen (dann evtl umbenennen)
 
-    private String successMessage = "Login was successful";
-    private String errorMessage = "Email or Password not valid";
+// Attributes
 
-    @Bindable
-    private String toastMessage = null;
+    private GraphicalElement selectedGraphicalElement;
 
+    private final List<GraphicalElement> drawnElements;
 
-    public String getToastMessage() {
-        return toastMessage;
-    }
-
-
-    private void setToastMessage(String toastMessage) {
-
-        this.toastMessage = toastMessage;
-        notifyPropertyChanged(BR.toastMessage);
-    }
-
-
-    public void setUserEmail(String email) {
-        user.setEmail(email);
-        notifyPropertyChanged(BR.userEmail);
-    }
-
-    @Bindable
-    public String getUserEmail() {
-        return user.getEmail();
-    }
-
-    @Bindable
-    public String getUserPassword() {
-        return user.getPassword();
-    }
-
-    public void setUserPassword(String password) {
-        user.setPassword(password);
-        notifyPropertyChanged(BR.userPassword);
-    }
+// Constructors
 
     public AppViewModel() {
-        user = new User("","");
+        this.drawnElements = new ArrayList<>();
     }
 
-    public void onLoginClicked() {
-        if (isInputDataValid())
-            setToastMessage(successMessage);
-        else
-            setToastMessage(errorMessage);
+// Getters and Setters
+
+    public GraphicalElement getSelectedGraphicalElement() {
+        return selectedGraphicalElement;
     }
 
-    public boolean isInputDataValid() {
-        return !TextUtils.isEmpty(getUserEmail()) && Patterns.EMAIL_ADDRESS.matcher(getUserEmail()).matches() && getUserPassword().length() > 5;
+    public void setSelectedGraphicalElement(GraphicalElement selectedGraphicalElement) {
+        this.selectedGraphicalElement = selectedGraphicalElement;
     }
+
+    public List<GraphicalElement> getDrawnElements() {
+        return drawnElements;
+    }
+
+// Other Methods
+
+    public void storeElement() {
+        drawnElements.add(selectedGraphicalElement);
+    }
+
+    public GraphicalElement getLastElement() {
+        return drawnElements.get(drawnElements.size() - 1);
+    }
+
+    public void clear() {
+        drawnElements.clear();
+    }
+
+    public void selectLine() {
+
+        try {
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.LINE));
+        } catch (AppException e) {
+            Log.e("CanvasView", e.getMessage());
+        }
+
+    }
+
+    public void selectCircle() {
+
+        try {
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.CIRCLE));
+        } catch (AppException e) {
+            Log.e("CanvasView", e.getMessage());
+        }
+    }
+
+    public void selectQuadrangle() {
+
+        // use a Factory to create the Quadrangle as a GraphicalElement
+        try {
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.QUADRANGLE));
+        } catch (AppException e) {
+            Log.e("CanvasView", e.getMessage());
+        }
+    }
+
+    public void selectTriangle() {
+
+        try {
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.TRIANGLE));
+        } catch (AppException e) {
+            Log.e("CanvasView", e.getMessage());
+        }
+
+    }
+
+    public void selectText() {
+
+        try {
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.TEXT_FIELD));
+        } catch (AppException e) {
+            Log.e("CanvasView", e.getMessage());
+        }
+    }
+
 }
