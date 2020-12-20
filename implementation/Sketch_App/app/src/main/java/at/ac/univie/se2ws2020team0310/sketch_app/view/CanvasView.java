@@ -58,8 +58,6 @@ public class CanvasView extends View {
         mCanvas = new Canvas(mBitmap);
     }
 
-
-
     // draw the element at the position of the user's touch
     @Override
     public boolean onTouchEvent(MotionEvent event) {

@@ -1,4 +1,4 @@
-package at.ac.univie.se2ws2020team0310.sketch_app;
+//package at.ac.univie.se2ws2020team0310.sketch_app;
 
 import android.app.Activity;
 import android.graphics.Canvas;
@@ -21,15 +21,12 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.Collections;
 import java.util.List;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.model.Circle;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.GraphicalElement;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.Line;
 import at.ac.univie.se2ws2020team0310.sketch_app.view.CanvasView;
 import at.ac.univie.se2ws2020team0310.sketch_app.view.MainActivity;
 import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawLineStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.IDrawStrategy;
 
-public class CanvasViewTest {
+/*public class CanvasViewTest {
     @Test
     public void selectedGraphicalElementTest() {
         String graphicalElement = "Circle";
@@ -63,4 +60,4 @@ public class CanvasViewTest {
             assertNotEquals(yCoordTest,yCoord);
         }
     }
-}
+}*/

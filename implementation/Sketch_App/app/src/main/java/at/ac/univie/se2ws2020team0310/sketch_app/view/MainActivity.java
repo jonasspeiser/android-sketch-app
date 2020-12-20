@@ -18,22 +18,24 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.R;
+import at.ac.univie.se2ws2020team0310.sketch_app.databinding.ActivityMainBinding;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
 import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class MainActivity extends AppCompatActivity {
 
-    private CanvasView canvasView;
+    ActivityMainBinding binding;
 
+    private CanvasView canvasView;
     static private Paint selectedPaint;
 
 
     public static Paint getSelectedPaint() {
         return MainActivity.selectedPaint;
     }
-
     public static void setSelectedPaint(Paint selectedPaint) {
         MainActivity.selectedPaint = selectedPaint;
     }
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
