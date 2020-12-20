@@ -3,13 +3,13 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.IDrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawStrategy;
 
 public abstract class GraphicalElement {
 
 // Attributes
 
-    private final IDrawStrategy drawStrategy;
+    private final DrawStrategy drawStrategy;
 
     protected float xPosition, yPosition, shapeSize;
 
@@ -17,7 +17,7 @@ public abstract class GraphicalElement {
 
 // Konstruktor
 
-    public GraphicalElement(IDrawStrategy drawStrategy) { //Konstruktor
+    public GraphicalElement(DrawStrategy drawStrategy) { //Konstruktor
         this.drawStrategy = drawStrategy;
     }
 

@@ -3,8 +3,6 @@ package at.ac.univie.se2ws2020team0310.sketch_app.view;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -14,11 +12,8 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.model.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.AppViewModel;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
-import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.GraphicalElementFactory;
 
 public class CanvasView extends View {
 

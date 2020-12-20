@@ -1,4 +1,4 @@
-package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
+package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
 import android.graphics.Paint;
 
@@ -55,7 +55,7 @@ public final class GraphicalElementFactory {
 
     private static Text createText() {
         Text mText = new Text(new DrawTextStrategy());
-        Paint mPaint = new Paint();
+        Paint mPaint = new Paint(MainActivity.getSelectedPaint());
         mPaint.setStyle(Paint.Style.FILL);
         mText.setObjectPaint(mPaint);
         return mText;

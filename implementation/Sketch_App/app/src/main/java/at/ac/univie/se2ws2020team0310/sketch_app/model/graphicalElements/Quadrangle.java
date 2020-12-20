@@ -1,6 +1,6 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.IDrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawStrategy;
 
 public class Quadrangle extends GraphicalElement {
 
@@ -8,7 +8,7 @@ public class Quadrangle extends GraphicalElement {
     private float length;
     private float height;
 
-    public Quadrangle(IDrawStrategy drawStrategy) {
+    public Quadrangle(DrawStrategy drawStrategy) {
         super(drawStrategy);
     }
 

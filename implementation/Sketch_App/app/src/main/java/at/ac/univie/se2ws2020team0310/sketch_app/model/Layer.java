@@ -8,7 +8,6 @@ import java.util.List;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
-import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.GraphicalElementFactory;
 
 public class Layer {
 

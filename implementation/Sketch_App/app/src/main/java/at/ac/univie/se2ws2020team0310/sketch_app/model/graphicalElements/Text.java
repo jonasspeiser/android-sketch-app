@@ -1,12 +1,12 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.IDrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawStrategy;
 
 public class Text extends GraphicalElement {
 
     private String userText;
 
-    public Text(IDrawStrategy drawStrategy) {
+    public Text(DrawStrategy drawStrategy) {
         super(drawStrategy);
         userText = "";
     }

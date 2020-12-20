@@ -3,34 +3,26 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
 import android.graphics.Path;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.IDrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawStrategy;
 
-public class Drawing extends GraphicalElement {
+public class Freehand extends GraphicalElement {
 
-
-    //Attribute
+// Attributes
 
     private Path objectPath;
-
-    public Drawing(IDrawStrategy drawStrategy) {
+    public Freehand(DrawStrategy drawStrategy) {
         super(drawStrategy);
     }
 
 
-//Methoden
-
-
+// Methods
 
     public Path getObjectPath() {
         return objectPath;
     }
-
     public void setObjectPath(Path objectPath) {
         this.objectPath = objectPath;
     }
-
-
-
 
 }
 
