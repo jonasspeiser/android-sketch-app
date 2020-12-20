@@ -16,23 +16,23 @@ public class AppViewModel extends BaseObservable {
     boolean sizeSeekBarVisibility;
 
     @Bindable
-    public int getSizeSeekBarValue(){
+    public int getSizeSeekBarValue() {
         return sizeSeekBarValue;
     }
 
     //BR class is auto-generated, holds the specific resource for the data binding
-    public void setSizeSeekBarValue(int progress){
+    public void setSizeSeekBarValue(int progress) {
         sizeSeekBarValue = progress;
         notifyPropertyChanged(BR.sizeSeekBarValue);
         setSizeSeekBarValue(progress);
     }
 
     @Bindable
-    public int getStrokeWidthSeekBarValue(){
+    public int getStrokeWidthSeekBarValue() {
         return strokeWidthSeekBarValue;
     }
 
-    public void setStrokeWidthSeekBarValue(int progress){
+    public void setStrokeWidthSeekBarValue(int progress) {
         strokeWidthSeekBarValue = progress;
         notifyPropertyChanged(BR.strokeWidthSeekBarValue);
         setStrokeWidthSeekBarValue(progress);
