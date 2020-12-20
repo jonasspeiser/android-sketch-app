@@ -38,4 +38,32 @@ public class AppViewModel extends BaseObservable {
         setStrokeWidthSeekBarValue(progress);
     }
 
+    public void SetColorPickerBehavior() {
+    }
+
+    //TODO: Check if necessary
+    public void initializePaint() {
+    }
+
+    //TODO: Check if necessary
+    public boolean onOptionsItemSelected() {
+        return true;
+    }
+
+    //TODO: Check if necessary. Combine different methods related to the text field into one.
+    public void onTextFinished() {
+    }
+
+    public void showTextEntryField() {
+    }
+
+    public void hideTextEntryField() {
+    }
+
+    //Former Comment: Hide the Soft Keyboard. Solution from:
+    //https://stackoverflow.com/questions/4165414/how-to-hide-soft-keyboard-on-android-after-clicking-outside-edittext
+    public void dispatchTouchEvent() {
+    }
+
+
 }
