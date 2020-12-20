@@ -1,5 +1,6 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.BuildConfig;
@@ -58,6 +59,9 @@ public final class GraphicalElementFactory {
         Paint mPaint = new Paint();
         mPaint.setStyle(Paint.Style.FILL);
         mText.setObjectPaint(mPaint);
+        mPaint.setColor(Color.BLUE);
+
+
         return mText;
     }
 

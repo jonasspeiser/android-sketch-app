@@ -21,14 +21,16 @@ import androidx.appcompat.widget.Toolbar;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.R;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
+import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.AppViewModel;
 import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class MainActivity extends AppCompatActivity {
 
     private CanvasView canvasView;
 
-    static private Paint selectedPaint;
+    private AppViewModel appViewModel;
 
+    static private Paint selectedPaint;
 
     public static Paint getSelectedPaint() {
         return MainActivity.selectedPaint;
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         SetStrokeWidthSeekBarBehavior();
         SetSizeSeekBarBehavior();
         SetColorPickerBehavior();
+
 
         // Set the SeekBarChangeListeners
         sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -153,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
         initializePaint();
     }
 
+
     public void initializePaint() {
         Paint mPaint = new Paint();
         mPaint.setColor(Color.BLACK);
@@ -160,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
         mPaint.setStrokeWidth(15);
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(50);
+
         MainActivity.setSelectedPaint(mPaint);
 
     }
@@ -178,8 +183,10 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.textId:
                 showTextEntryField();
+                showTextStyleButtons();
 
                 canvasView.getAppViewModel().selectText();
+
                 Toast textToast = Toast.makeText(getApplicationContext(), "Text selected", Toast.LENGTH_LONG);
                 textToast.show();
                 return true;
@@ -234,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
         canvasView.invalidate();
 
         hideTextEntryField();
+        hideTextStyleButtons();
     }
 
     public String getEnteredText(){
@@ -257,8 +265,35 @@ public class MainActivity extends AppCompatActivity {
         toggleText.setVisibility(View.GONE);
     }
 
+    public void showTextStyleButtons(){
+        Button underlineText = findViewById(R.id.underlineButton);
+        Button boldText = findViewById(R.id.boldButton);
+        Button italicText = findViewById(R.id.italicButton);
 
-    // Hide the Soft Keyboard
+        underlineText.setVisibility(View.VISIBLE);
+        boldText.setVisibility(View.VISIBLE);
+        italicText.setVisibility(View.VISIBLE);
+    }
+
+    public void hideTextStyleButtons() {
+        Button underlineText = findViewById(R.id.underlineButton);
+        Button boldText = findViewById(R.id.boldButton);
+        Button italicText = findViewById(R.id.italicButton);
+
+        underlineText.setVisibility(View.GONE);
+        boldText.setVisibility(View.GONE);
+        italicText.setVisibility(View.GONE);
+    }
+
+    public void onClickStyleButtons(View view) {
+        appViewModel.buttonClick();
+    }
+
+
+
+
+
+        // Hide the Soft Keyboard
     // solution from: https://stackoverflow.com/questions/4165414/how-to-hide-soft-keyboard-on-android-after-clicking-outside-edittext
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {

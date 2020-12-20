@@ -20,6 +20,8 @@ public class AppViewModel extends ViewModel {
 
     private final List<GraphicalElement> drawnElements;
 
+    private TextDecorator textDecorator;
+
 // Constructors
 
     public AppViewModel() {
@@ -100,6 +102,10 @@ public class AppViewModel extends ViewModel {
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());
         }
+    }
+
+    public buttonClick() {
+        textDecorator.buttonClick();
     }
 
 }
