@@ -3,7 +3,7 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 
 public abstract class GraphicalElement {
 

@@ -1,6 +1,6 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 
 public class Quadrangle extends GraphicalElement {
 

@@ -6,6 +6,6 @@ public enum EGraphicalElementType {
     QUADRANGLE,
     LINE,
     TEXT_FIELD,
-    DRAWING,
+    FREEHAND,
     COMPOSITE_SHAPE
 }

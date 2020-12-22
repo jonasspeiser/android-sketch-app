@@ -1,5 +1,6 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
+import android.graphics.Paint;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -93,49 +94,49 @@ public class Layer {
 
 
 
-    public void selectLine() {
+    public void selectLine(Paint selectedPaint) {
 
         try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.LINE));
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.LINE, selectedPaint));
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());
         }
 
     }
 
-    public void selectCircle() {
+    public void selectCircle(Paint selectedPaint) {
 
         try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.CIRCLE));
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.CIRCLE, selectedPaint));
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());
         }
     }
 
-    public void selectQuadrangle() {
+    public void selectQuadrangle(Paint selectedPaint) {
 
         // use a Factory to create the Quadrangle as a GraphicalElement
         try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.QUADRANGLE));
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.QUADRANGLE, selectedPaint));
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());
         }
     }
 
-    public void selectTriangle() {
+    public void selectTriangle(Paint selectedPaint) {
 
         try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.TRIANGLE));
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.TRIANGLE, selectedPaint));
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());
         }
 
     }
 
-    public void selectText() {
+    public void selectText(Paint selectedPaint) {
 
         try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.TEXT_FIELD));
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.TEXT_FIELD, selectedPaint));
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());
         }

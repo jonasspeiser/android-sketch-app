@@ -1,5 +1,6 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
+import android.graphics.Paint;
 import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
@@ -60,24 +61,24 @@ public class AppViewModel extends ViewModel {
         sketch.clear();
     }
 
-    public void selectLine() {
-        sketch.selectLine();
+    public void selectLine(Paint selectedPaint) {
+        sketch.selectLine(selectedPaint);
     }
 
-    public void selectCircle() {
-           sketch.selectCircle();
+    public void selectCircle(Paint selectedPaint) {
+           sketch.selectCircle(selectedPaint);
     }
 
-    public void selectQuadrangle() {
-            sketch.selectQuadrangle();
+    public void selectQuadrangle(Paint selectedPaint) {
+            sketch.selectQuadrangle(selectedPaint);
     }
 
-    public void selectTriangle() {
-           sketch.selectTriangle();
+    public void selectTriangle(Paint selectedPaint) {
+           sketch.selectTriangle(selectedPaint);
     }
 
-    public void selectText() {
-            sketch.selectText();
+    public void selectText(Paint selectedPaint) {
+            sketch.selectText(selectedPaint);
     }
 
 }

@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.textId:
                 showTextEntryField();
 
-                canvasView.getAppViewModel().selectText();
+                canvasView.getAppViewModel().selectText(selectedPaint);
                 Toast textToast = Toast.makeText(getApplicationContext(), "Text selected", Toast.LENGTH_LONG);
                 textToast.show();
                 return true;
@@ -194,25 +194,25 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.lineId:
-                canvasView.getAppViewModel().selectLine();
+                canvasView.getAppViewModel().selectLine(selectedPaint);
                 Toast lineToast = Toast.makeText(getApplicationContext(), "Line selected", Toast.LENGTH_LONG);
                 lineToast.show();
                 return true;
 
             case R.id.circleId:
-                canvasView.getAppViewModel().selectCircle();
+                canvasView.getAppViewModel().selectCircle(selectedPaint);
                 Toast circleToast = Toast.makeText(getApplicationContext(), "Circle selected", Toast.LENGTH_LONG);
                 circleToast.show();
                 return true;
 
             case R.id.squareId:
-                canvasView.getAppViewModel().selectQuadrangle();
+                canvasView.getAppViewModel().selectQuadrangle(selectedPaint);
                 Toast quadrangleToast = Toast.makeText(getApplicationContext(), "Quadrangle selected", Toast.LENGTH_LONG);
                 quadrangleToast.show();
                 return true;
 
             case R.id.triangleId:
-                canvasView.getAppViewModel().selectTriangle();
+                canvasView.getAppViewModel().selectTriangle(selectedPaint);
                 Toast triangleToast = Toast.makeText(getApplicationContext(), "Triangle selected", Toast.LENGTH_LONG);
                 triangleToast.show();
                 return true;
@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
     // TODO: Move this to CanvasView or in another class?
     public void onClickDoneButton(View view) {
 
-        canvasView.getAppViewModel().selectText();
+        canvasView.getAppViewModel().selectText(selectedPaint);
         Text mText = (Text) canvasView.getAppViewModel().getSelectedGraphicalElement();
         mText.setUserText(getEnteredText());
 

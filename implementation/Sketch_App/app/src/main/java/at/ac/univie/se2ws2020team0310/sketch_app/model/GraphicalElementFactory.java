@@ -1,9 +1,12 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
 import android.graphics.Paint;
-
 import at.ac.univie.se2ws2020team0310.sketch_app.BuildConfig;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.AppException;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawCircleStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawLineStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawQuadrangleStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawTextStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawTriangleStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Circle;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
@@ -12,11 +15,6 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Quadran
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Triangle;
 import at.ac.univie.se2ws2020team0310.sketch_app.view.MainActivity;
-import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawCircleStrategy;
-import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawLineStrategy;
-import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawQuadrangle;
-import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawTextStrategy;
-import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.DrawTriangleStrategy;
 
 public final class GraphicalElementFactory {
 
@@ -24,22 +22,22 @@ public final class GraphicalElementFactory {
         // empty constructor
     }
 
-    //Implementation of DRAWING (Free-Hand) and COMPOSITE_SHAPE until DEAD
-    public static GraphicalElement createElement(EGraphicalElementType type) throws AppException {
+    //Implementation of FREEHAND and COMPOSITE_SHAPE until DEAD
+    public static GraphicalElement createElement(EGraphicalElementType type, Paint paint) throws AppException {
         switch (type) {
             case LINE:
-                return createLine();
+                return createLine(paint);
             case CIRCLE:
-                return createCircle();
-            case DRAWING:
+                return createCircle(paint);
+            case FREEHAND:
             case COMPOSITE_SHAPE:
                 break;
             case TRIANGLE:
-                return createTriangle();
+                return createTriangle(paint);
             case QUADRANGLE:
-                return createQuadrangle();
+                return createQuadrangle(paint);
             case TEXT_FIELD:
-                return createText();
+                return createText(paint);
             default:
                 throw new AppException("Unknown type: " + type);
         }
@@ -53,40 +51,40 @@ public final class GraphicalElementFactory {
         return null;
     }
 
-    private static Text createText() {
+    private static Text createText(Paint paint) {
         Text mText = new Text(new DrawTextStrategy());
-        Paint mPaint = new Paint(MainActivity.getSelectedPaint());
+        Paint mPaint = new Paint(paint);
         mPaint.setStyle(Paint.Style.FILL);
         mText.setObjectPaint(mPaint);
         return mText;
     }
 
-    private static Triangle createTriangle() {
+    private static Triangle createTriangle(Paint paint) {
         Triangle mTriangle = new Triangle(new DrawTriangleStrategy());
-        Paint mPaint = new Paint(MainActivity.getSelectedPaint());
+        Paint mPaint = new Paint(paint);
         mTriangle.setObjectPaint(mPaint);
         mTriangle.setShapeSize(150);
         return mTriangle;
     }
 
-    private static Line createLine() {
+    private static Line createLine(Paint paint) {
         Line mLine = new Line(new DrawLineStrategy());
-        Paint mPaint = new Paint(MainActivity.getSelectedPaint());
+        Paint mPaint = new Paint(paint);
         mLine.setObjectPaint(mPaint);
         return mLine;
     }
 
-    private static Circle createCircle() {
+    private static Circle createCircle(Paint paint) {
         Circle mCircle = new Circle(new DrawCircleStrategy());
-        Paint mPaint = new Paint(MainActivity.getSelectedPaint());
+        Paint mPaint = new Paint(paint);
         mCircle.setObjectPaint(mPaint);
         mCircle.setShapeSize(70);
         return mCircle;
     }
 
-    private static Quadrangle createQuadrangle() {
-        Quadrangle mSquare = new Quadrangle(new DrawQuadrangle());
-        Paint mPaint = new Paint(MainActivity.getSelectedPaint());
+    private static Quadrangle createQuadrangle(Paint paint) {
+        Quadrangle mSquare = new Quadrangle(new DrawQuadrangleStrategy());
+        Paint mPaint = new Paint(paint);
         mSquare.setObjectPaint(mPaint);
         mSquare.setShapeSize(150);
         mSquare.setLength(mSquare.getShapeSize());

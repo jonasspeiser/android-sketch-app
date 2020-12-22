@@ -1,4 +1,4 @@
-package at.ac.univie.se2ws2020team0310.sketch_app.view.draw;
+package at.ac.univie.se2ws2020team0310.sketch_app.model.draw;
 
 import android.graphics.Canvas;
 import android.graphics.Path;
