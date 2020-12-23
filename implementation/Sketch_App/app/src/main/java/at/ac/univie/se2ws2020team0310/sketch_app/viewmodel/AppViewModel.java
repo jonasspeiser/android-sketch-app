@@ -10,6 +10,7 @@ import java.util.List;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Layer;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
@@ -17,12 +18,12 @@ public class AppViewModel extends ViewModel {
 
 // Attributes
 
-    private Layer sketch;
+    private Sketch sketch;
 
 // Constructors
 
     public AppViewModel() {
-        this.sketch = new Layer();
+        this.sketch = new Sketch();
     }
 
 // Getters and Setters

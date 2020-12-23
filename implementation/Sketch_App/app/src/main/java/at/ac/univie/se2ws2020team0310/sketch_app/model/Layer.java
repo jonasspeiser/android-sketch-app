@@ -14,8 +14,6 @@ public class Layer {
 
 // Attributes
 
-    private GraphicalElement selectedGraphicalElement;
-
     private final List<GraphicalElement> drawnElements;
 
     private boolean visible;
@@ -24,17 +22,10 @@ public class Layer {
 
     public Layer() {
         this.drawnElements = new ArrayList<>();
+        this.visible = true;
     }
 
 // Getters and Setters
-
-    public GraphicalElement getSelectedGraphicalElement() {
-        return selectedGraphicalElement;
-    }
-
-    public void setSelectedGraphicalElement(GraphicalElement selectedGraphicalElement) {
-        this.selectedGraphicalElement = selectedGraphicalElement;
-    }
 
     public List<GraphicalElement> getDrawnElements() {
         return drawnElements;
@@ -50,7 +41,7 @@ public class Layer {
 
 // Other Methods
 
-    public void storeElement() {
+    public void storeElement(GraphicalElement selectedGraphicalElement) {
         drawnElements.add(selectedGraphicalElement);
     }
 
@@ -94,52 +85,5 @@ public class Layer {
 
 
 
-    public void selectLine(Paint selectedPaint) {
-
-        try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.LINE, selectedPaint));
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-
-    }
-
-    public void selectCircle(Paint selectedPaint) {
-
-        try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.CIRCLE, selectedPaint));
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-    }
-
-    public void selectQuadrangle(Paint selectedPaint) {
-
-        // use a Factory to create the Quadrangle as a GraphicalElement
-        try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.QUADRANGLE, selectedPaint));
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-    }
-
-    public void selectTriangle(Paint selectedPaint) {
-
-        try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.TRIANGLE, selectedPaint));
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-
-    }
-
-    public void selectText(Paint selectedPaint) {
-
-        try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.TEXT_FIELD, selectedPaint));
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-    }
 
 }

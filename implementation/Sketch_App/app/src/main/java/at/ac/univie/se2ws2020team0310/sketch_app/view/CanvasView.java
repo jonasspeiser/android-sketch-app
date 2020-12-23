@@ -12,6 +12,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import at.ac.univie.se2ws2020team0310.sketch_app.model.Layer;
 import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.AppViewModel;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
