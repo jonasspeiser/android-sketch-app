@@ -99,11 +99,11 @@ public class MainActivity extends AppCompatActivity {
             if (sizeSeekBar.getVisibility() == SeekBar.VISIBLE) {
                 sizeSeekBar.setVisibility(SeekBar.INVISIBLE);
             } else {
-                if (canvasView.getAppViewModel().getSelectedGraphicalElement() == null) {
+                if (canvasView.getAppViewModel().layerIsEmpty()) {
                     Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                     error.show();
                 }
-                if (canvasView.getAppViewModel().getSelectedGraphicalElement() != null) {
+                if (!canvasView.getAppViewModel().layerIsEmpty()) {
                     sizeSeekBar.setVisibility(SeekBar.VISIBLE);
                 }
             }
@@ -117,11 +117,11 @@ public class MainActivity extends AppCompatActivity {
             if(strokeWidthSeekBar.getVisibility()==SeekBar.VISIBLE){
                 strokeWidthSeekBar.setVisibility(SeekBar.INVISIBLE);
             }else{
-                if (canvasView.getAppViewModel().getSelectedGraphicalElement() == null) {
+                if (canvasView.getAppViewModel().layerIsEmpty()) {
                     Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                     error.show();
                 }
-                if (canvasView.getAppViewModel().getSelectedGraphicalElement() != null) {
+                if (!canvasView.getAppViewModel().layerIsEmpty()) {
                     strokeWidthSeekBar.setVisibility(SeekBar.VISIBLE);
                 }
             }
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void SetColorPickerBehavior(){
         findViewById(R.id.colorSelectorButton).setOnClickListener(v -> {
-            if (canvasView.getAppViewModel().getSelectedGraphicalElement() == null) {
+            if (canvasView.getAppViewModel().layerIsEmpty()) {
                 Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                 error.show();
             } else {

@@ -67,7 +67,9 @@ public class CanvasView extends View {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (appViewModel.getSelectedGraphicalElement() != null) {
                 appViewModel.storeElement();
-
+                appViewModel.resetSelection();
+            }
+            if (appViewModel.getDrawnElements() != null) {
                 // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
                 appViewModel.changeCoordinates(touchX, touchY);
 

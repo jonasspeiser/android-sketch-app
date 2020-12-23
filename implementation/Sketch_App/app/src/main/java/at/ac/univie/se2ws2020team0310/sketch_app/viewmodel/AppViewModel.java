@@ -18,12 +18,14 @@ public class AppViewModel extends ViewModel {
 
 // Attributes
 
-    private Sketch sketch;
+    private final Sketch sketch;
+    private boolean moveElement;
 
 // Constructors
 
     public AppViewModel() {
         this.sketch = new Sketch();
+        this.moveElement = false;
     }
 
 // Getters and Setters
@@ -41,6 +43,8 @@ public class AppViewModel extends ViewModel {
     public void storeElement() {
         sketch.storeElement();
     }
+
+    public boolean layerIsEmpty() {return sketch.layerIsEmpty();}
 
     public void changeColor(int color) {
         sketch.changeColor(color);
@@ -80,6 +84,33 @@ public class AppViewModel extends ViewModel {
 
     public void selectText(Paint selectedPaint) {
             sketch.selectText(selectedPaint);
+    }
+
+    public void resetSelection() {
+        sketch.resetSelection();
+    }
+/* TODO
+    public boolean isWithinElement(float x, float y) {
+        sketch.isWithinElement(x, y);
+    }
+
+
+    public void onTouchDown(float x, float y) {
+        if (this.isWithinElement(x, y)) {
+            this.moveElement = true;
+        }
+    }
+
+ */
+
+    public void onTouchMove(float x, float y) {
+        if (this.moveElement) {
+            this.changeCoordinates(x, y);
+        }
+    }
+
+    public void onTouchUp() {
+        this.moveElement = false;
     }
 
 }

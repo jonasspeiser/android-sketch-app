@@ -27,6 +27,10 @@ public class Layer {
 
 // Getters and Setters
 
+    public boolean isEmpty() {
+        return (drawnElements.size() <= 0);
+    }
+
     public List<GraphicalElement> getDrawnElements() {
         return drawnElements;
     }
@@ -46,7 +50,13 @@ public class Layer {
     }
 
     public GraphicalElement getLastElement() {
-        return drawnElements.get(drawnElements.size() - 1);
+        GraphicalElement lastElement = null;
+        try {
+            lastElement = drawnElements.get(drawnElements.size() - 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lastElement;
     }
 
     public void clear() {
@@ -64,19 +74,35 @@ public class Layer {
     };
 
     public void changeColor(int color) {
-        getLastElement().setColor(color);
+        try {
+            getLastElement().setColor(color);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void changeStrokeWidth(float strokewidth) {
-        getLastElement().setStrokeWidth(strokewidth);
+        try {
+            getLastElement().setStrokeWidth(strokewidth);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void changeTextSize(float textsize) {
-        getLastElement().setTextSize(textsize);
+        try {
+            getLastElement().setTextSize(textsize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void changeCoordinates(float x, float y) {
-        getLastElement().setCoordinates(x, y);
+        try {
+            getLastElement().setCoordinates(x, y);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     };
 
     public void deleteLastElement() {

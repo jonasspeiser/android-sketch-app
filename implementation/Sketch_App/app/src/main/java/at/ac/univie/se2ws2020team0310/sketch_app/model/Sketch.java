@@ -14,7 +14,7 @@ public class Sketch {
 
 // Attributes
 
-    private Layer layers[];
+    private final Layer[] layers;
     private Layer selectedLayer;
 
     private GraphicalElement selectedGraphicalElement;
@@ -64,6 +64,10 @@ public class Sketch {
 
 // Other Methods
 
+    public boolean layerIsEmpty() {
+        return selectedLayer.isEmpty();
+    }
+
     public void storeElement() {
         this.getSelectedLayer().storeElement(this.getSelectedGraphicalElement());
     }
@@ -101,7 +105,6 @@ public class Sketch {
     }
 
     public void selectCircle(Paint selectedPaint) {
-
         try {
             this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.CIRCLE, selectedPaint));
         } catch (AppException e) {
@@ -136,6 +139,10 @@ public class Sketch {
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());
         }
+    }
+
+    public void resetSelection() {
+        this.setSelectedGraphicalElement(null);
     }
 
 }
