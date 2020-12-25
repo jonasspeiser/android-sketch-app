@@ -4,7 +4,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 
 public class Quadrangle extends GraphicalElement {
 
-    // Attributes
+// Attributes
     private float length;
     private float height;
 
@@ -12,7 +12,7 @@ public class Quadrangle extends GraphicalElement {
         super(drawStrategy);
     }
 
-    // Getters and Setters
+// Getters and Setters
     public float getLength() {
         return length;
     }
@@ -27,6 +27,13 @@ public class Quadrangle extends GraphicalElement {
 
     public void setHeight(float height) {
         this.height = height;
+    }
+
+// Other Methods
+
+    public boolean isWithinElement(float x, float y) {
+        // TODO: implement method body
+        return false;
     }
 
 }

@@ -78,7 +78,8 @@ public final class GraphicalElementFactory {
         Circle mCircle = new Circle(new DrawCircleStrategy());
         Paint mPaint = new Paint(paint);
         mCircle.setObjectPaint(mPaint);
-        mCircle.setShapeSize(70);
+        mCircle.setShapeSize(150);
+        mCircle.setRadius( mCircle.getShapeSize() / 2);
         return mCircle;
     }
 

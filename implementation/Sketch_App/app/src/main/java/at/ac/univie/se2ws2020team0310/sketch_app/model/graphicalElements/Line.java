@@ -36,4 +36,9 @@ public class Line extends GraphicalElement {
         }
     }
 
+    public boolean isWithinElement(float x, float y) {
+        // TODO: implement method body
+        return false;
+    }
+
 }

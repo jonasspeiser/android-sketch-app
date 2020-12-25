@@ -15,7 +15,7 @@ public abstract class GraphicalElement {
 
     protected Paint objectPaint;
 
-// Konstruktor
+// Constructor
 
     public GraphicalElement(DrawStrategy drawStrategy) { //Konstruktor
         this.drawStrategy = drawStrategy;
@@ -81,4 +81,6 @@ public abstract class GraphicalElement {
     public void setSize(float size) {
         shapeSize = size;
     }
+
+    public abstract boolean isWithinElement(float x, float y);
 }
