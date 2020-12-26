@@ -218,6 +218,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.deleteId:
+                canvasView.deleteElement();
+                return true;
+
+            case R.id.clearId:
                 canvasView.clear();
                 return true;
 

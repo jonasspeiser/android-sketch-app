@@ -116,6 +116,11 @@ public class CanvasView extends View {
         invalidate();
     }
 
+    public void deleteElement() {
+        appViewModel.deleteElement();
+        invalidate();
+    }
+
     public void changeElementColor(int color) {
         appViewModel.changeColor(color);
     }

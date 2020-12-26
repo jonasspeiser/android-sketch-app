@@ -62,6 +62,8 @@ public class AppViewModel extends ViewModel {
         sketch.changeCoordinates(x, y);
     }
 
+    public void deleteElement(){sketch.deleteElement();}
+
     public void clear() {
         sketch.clear();
     }

@@ -88,6 +88,10 @@ public class Sketch {
         this.getSelectedLayer().changeCoordinates(x, y);
     }
 
+    public void deleteElement() {
+        selectedLayer.deleteLastElement();
+    }
+
     public void clear() {
         for (Layer layer : layers) {
             layer.clear();
