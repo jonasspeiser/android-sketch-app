@@ -69,7 +69,7 @@ public class Layer {
             // moves the element which was given as a parameter to the last index in the list
             // it can now be edited, as the last List element will always be edited with user input
             int index = drawnElements.indexOf(graphicalElement);
-            Collections.rotate(drawnElements.subList(index, -1),-1);
+            Collections.rotate(drawnElements.subList(index, drawnElements.size()),-1);
         }
     };
 

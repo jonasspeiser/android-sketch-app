@@ -145,4 +145,23 @@ public class Sketch {
         this.setSelectedGraphicalElement(null);
     }
 
-}
+    /**
+     * Checks, whether the provided coordinates are within a graphical element of the selected layer and if so, makes that element editable.
+     *
+     * @param x value on the x-axes
+     * @param y value on the y-axes
+     * @return returns true if the provided coordinates are within an element
+     */
+    public boolean isWithinElement(float x, float y) {
+        // TODO: We need a better name, as this method not only checks, whether a touch falls within an element, but also sets the found element "editable"
+        for (GraphicalElement graphicalElement : selectedLayer.getDrawnElements()) {
+               if (graphicalElement.isWithinElement(x, y)) {
+                    selectedLayer.editElement(graphicalElement);
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+

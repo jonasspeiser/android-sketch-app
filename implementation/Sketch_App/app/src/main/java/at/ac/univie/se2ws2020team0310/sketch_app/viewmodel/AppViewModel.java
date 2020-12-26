@@ -89,9 +89,10 @@ public class AppViewModel extends ViewModel {
     public void resetSelection() {
         sketch.resetSelection();
     }
-/* TODO
+
     public boolean isWithinElement(float x, float y) {
-        sketch.isWithinElement(x, y);
+        // TODO: Bessere Namensalternativen (weil die Methode nicht nur true zurückgibt, sondern das Element auch editierbar macht)
+        return sketch.isWithinElement(x, y);
     }
 
 
@@ -100,8 +101,6 @@ public class AppViewModel extends ViewModel {
             this.moveElement = true;
         }
     }
-
- */
 
     public void onTouchMove(float x, float y) {
         if (this.moveElement) {
