@@ -60,44 +60,40 @@ public class CanvasView extends View {
         float touchX = event.getX();
         float touchY = event.getY();
 
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                if (appViewModel.getSelectedGraphicalElement() == null & appViewModel.getDrawnElements() != null) {
+                    appViewModel.onTouchDown(touchX, touchY);
+                }
+                if (appViewModel.getSelectedGraphicalElement() != null) {
+                    appViewModel.storeElement();
+                    appViewModel.resetSelection();
+                    // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
+                    appViewModel.changeCoordinates(touchX, touchY);
+                }
+                if (appViewModel.getDrawnElements() != null) {
+                    invalidate();
+                    return true;
+                } else {
+                    Log.w("CanvasView", "No object selected");
+                    return false;
+                }
 
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (appViewModel.getSelectedGraphicalElement() == null & appViewModel.getDrawnElements() != null) {
-                appViewModel.onTouchDown(touchX, touchY);
-            }
-            if (appViewModel.getSelectedGraphicalElement() != null) {
-                appViewModel.storeElement();
-                appViewModel.resetSelection();
+            case MotionEvent.ACTION_MOVE:
                 // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
-                appViewModel.changeCoordinates(touchX, touchY);
-            }
-            if (appViewModel.getDrawnElements() != null) {
+                appViewModel.onTouchMove(touchX, touchY);
+
+                //appViewModel.changeCoordinates(touchX, touchY);
+
                 invalidate();
                 return true;
-            }
-            else {
-                Log.w("CanvasView", "No object selected");
+
+            case MotionEvent.ACTION_UP:
+                appViewModel.onTouchUp();
+                return true;
+
+            default:
                 return false;
-            }
-
-        }
-
-        if (event.getAction() == MotionEvent.ACTION_MOVE) {
-            // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
-            appViewModel.onTouchMove(touchX, touchY);
-
-            //appViewModel.changeCoordinates(touchX, touchY);
-
-            invalidate();
-            return true;
-        }
-
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            appViewModel.onTouchUp();
-            return true;
-
-        } else {
-            return false;
         }
     }
 
