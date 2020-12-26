@@ -111,7 +111,6 @@ public class AppViewModel extends ViewModel {
 
         if (this.getSelectedGraphicalElement() != null) {
             this.storeElement();
-            //this.resetSelection();
             // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
             this.changeCoordinates(x, y);
             this.moveElement = true;
