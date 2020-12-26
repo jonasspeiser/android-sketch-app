@@ -60,9 +60,6 @@ public class CanvasView extends View {
         float touchX = event.getX();
         float touchY = event.getY();
 
-        //TODO: Für Implementierung von Freehand-Drawing:
-        // if-statement einfügen, damit der nächste Absatz nur aufgerufen wird,
-        // wenn zuvor eine Shape im Menü angewählt wurde.
 
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (appViewModel.getSelectedGraphicalElement() == null & appViewModel.getDrawnElements() != null) {
@@ -71,11 +68,10 @@ public class CanvasView extends View {
             if (appViewModel.getSelectedGraphicalElement() != null) {
                 appViewModel.storeElement();
                 appViewModel.resetSelection();
-            }
-            if (appViewModel.getDrawnElements() != null) {
                 // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
                 appViewModel.changeCoordinates(touchX, touchY);
-
+            }
+            if (appViewModel.getDrawnElements() != null) {
                 invalidate();
                 return true;
             }
