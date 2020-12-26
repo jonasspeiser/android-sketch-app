@@ -62,16 +62,8 @@ public class CanvasView extends View {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (appViewModel.getSelectedGraphicalElement() == null & appViewModel.getDrawnElements() != null) {
-                    appViewModel.onTouchDown(touchX, touchY);
-                }
-                if (appViewModel.getSelectedGraphicalElement() != null) {
-                    appViewModel.storeElement();
-                    appViewModel.resetSelection();
-                    // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
-                    appViewModel.changeCoordinates(touchX, touchY);
-                }
-                if (appViewModel.getDrawnElements() != null) {
+                appViewModel.onTouchDown(touchX, touchY);
+                if (appViewModel.elementsToDraw()) {
                     invalidate();
                     return true;
                 } else {
@@ -80,11 +72,7 @@ public class CanvasView extends View {
                 }
 
             case MotionEvent.ACTION_MOVE:
-                // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
                 appViewModel.onTouchMove(touchX, touchY);
-
-                //appViewModel.changeCoordinates(touchX, touchY);
-
                 invalidate();
                 return true;
 

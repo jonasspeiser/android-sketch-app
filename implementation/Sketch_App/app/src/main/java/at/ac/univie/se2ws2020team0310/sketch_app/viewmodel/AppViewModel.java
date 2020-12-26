@@ -58,6 +58,7 @@ public class AppViewModel extends ViewModel {
         sketch.changeTextSize(textsize);
     }
 
+    /** write given coordinates (x, y) to the last selected graphical element */
     public void changeCoordinates(float x, float y) {
         sketch.changeCoordinates(x, y);
     }
@@ -97,12 +98,25 @@ public class AppViewModel extends ViewModel {
         return sketch.isWithinElement(x, y);
     }
 
+    public boolean elementsToDraw() {
+        return this.getDrawnElements() != null;
+    }
 
     public void onTouchDown(float x, float y) {
-        if (this.isWithinElement(x, y)) {
-            this.moveElement = true;
+        if (this.getSelectedGraphicalElement() == null & this.getDrawnElements() != null) {
+            if (this.isWithinElement(x, y)) {
+                this.moveElement = true;
+            }
+        }
+
+        if (this.getSelectedGraphicalElement() != null) {
+            this.storeElement();
+            this.resetSelection();
+            // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
+            this.changeCoordinates(x, y);
         }
     }
+
 
     public void onTouchMove(float x, float y) {
         if (this.moveElement) {
