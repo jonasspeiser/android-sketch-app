@@ -130,4 +130,16 @@ public class AppViewModel extends ViewModel {
         this.moveElement = false;
     }
 
+    public void freehandBehaviourOnTouchDown() {
+
+    }
+
+    public void freehandBehaviourOnTouchMove() {
+
+    }
+
+    public void freehandBehaviourOnTouchUp () {
+
+    }
+
 }
