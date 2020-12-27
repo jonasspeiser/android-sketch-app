@@ -84,6 +84,10 @@ public class Sketch {
         this.getSelectedLayer().changeTextSize(textsize);
     }
 
+    public void setCoordinates(float x, float y) {
+        this.getSelectedLayer().setCoordinates(x, y);
+    }
+
     public void changeCoordinates(float x, float y) {
         this.getSelectedLayer().changeCoordinates(x, y);
     }

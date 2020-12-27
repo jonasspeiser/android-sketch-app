@@ -97,9 +97,17 @@ public class Layer {
         }
     }
 
-    public void changeCoordinates(float x, float y) {
+    public void setCoordinates(float x, float y) {
         try {
             getLastElement().setCoordinates(x, y);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeCoordinates(float x, float y) {
+        try {
+            getLastElement().changeCoordinates(x, y);
         } catch (Exception e) {
             e.printStackTrace();
         }

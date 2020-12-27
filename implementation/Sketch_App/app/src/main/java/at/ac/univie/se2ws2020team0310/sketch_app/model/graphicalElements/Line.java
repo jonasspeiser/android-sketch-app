@@ -36,6 +36,11 @@ public class Line extends GraphicalElement {
         }
     }
 
+    @Override
+    public void changeCoordinates(float x, float y) {
+
+    }
+
     public boolean isWithinElement(float x, float y) {
         // TODO: implement method body
         return false;

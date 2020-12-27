@@ -53,6 +53,10 @@ public class AppViewModel extends ViewModel {
         sketch.changeTextSize(textsize);
     }
 
+    public void setElementCoordinates(float x, float y) {
+        sketch.setCoordinates(x,y);
+    }
+
     /** write given coordinates (x, y) to the last selected graphical element */
     public void changeElementCoordinates(float x, float y) {
         sketch.changeCoordinates(x, y);
@@ -131,15 +135,15 @@ public class AppViewModel extends ViewModel {
     }
 
     public void freehandBehaviourOnTouchDown() {
-
+        // TODO
     }
 
     public void freehandBehaviourOnTouchMove() {
-
+        // TODO
     }
 
     public void freehandBehaviourOnTouchUp () {
-
+        // TODO
     }
 
 }
