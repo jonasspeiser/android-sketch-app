@@ -97,11 +97,10 @@ public class AppViewModel extends ViewModel {
         return this.getDrawnElements() != null;
     }
 
-    public void onTouchDown(float x, float y) {
+    public void elementsBehaviourOnTouchDown(float x, float y) {
         // behaviour for drawing a new element
         if (this.getSelectedGraphicalElement() != null) {
             this.storeElement();
-            // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
             this.setElementCoordinates(x, y);
             this.moveElement = true;
         }
@@ -115,7 +114,7 @@ public class AppViewModel extends ViewModel {
     }
 
 
-    public void onTouchMove(float x, float y) {
+    public void elementsBehaviourOnTouchMove(float x, float y) {
         // behaviour for drawing a new element
         if (this.getSelectedGraphicalElement() != null) {
             this.setElementCoordinates(x, y);
@@ -126,7 +125,7 @@ public class AppViewModel extends ViewModel {
         }
     }
 
-    public void onTouchUp() {
+    public void elementsBehaviourOnTouchUp() {
         this.resetSelection();
         this.moveElement = false;
     }

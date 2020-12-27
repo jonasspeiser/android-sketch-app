@@ -61,7 +61,7 @@ public class CanvasView extends View {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                appViewModel.onTouchDown(touchX, touchY);
+                appViewModel.elementsBehaviourOnTouchDown(touchX, touchY);
                 if (appViewModel.elementsToDraw()) {
                     invalidate();
                     return true;
@@ -71,12 +71,12 @@ public class CanvasView extends View {
                 }
 
             case MotionEvent.ACTION_MOVE:
-                appViewModel.onTouchMove(touchX, touchY);
+                appViewModel.elementsBehaviourOnTouchMove(touchX, touchY);
                 invalidate();
                 return true;
 
             case MotionEvent.ACTION_UP:
-                appViewModel.onTouchUp();
+                appViewModel.elementsBehaviourOnTouchUp();
                 return true;
 
             default:
