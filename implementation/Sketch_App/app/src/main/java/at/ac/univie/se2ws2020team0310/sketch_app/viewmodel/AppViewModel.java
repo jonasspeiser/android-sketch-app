@@ -1,17 +1,12 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
 import android.graphics.Paint;
-import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.model.AppException;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.Layer;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
 public class AppViewModel extends ViewModel {
@@ -46,26 +41,26 @@ public class AppViewModel extends ViewModel {
 
     public boolean layerIsEmpty() {return sketch.layerIsEmpty();}
 
-    public void changeColor(int color) {
+    public void changeElementColor(int color) {
         sketch.changeColor(color);
     }
 
-    public void changeStrokeWidth(int strokewidth) {
+    public void changeElementStrokeWidth(int strokewidth) {
         sketch.changeStrokeWidth((float) strokewidth);
     }
 
-    public void changeTextSize(int textsize) {
+    public void changeElementTextSize(int textsize) {
         sketch.changeTextSize(textsize);
     }
 
     /** write given coordinates (x, y) to the last selected graphical element */
-    public void changeCoordinates(float x, float y) {
+    public void changeElementCoordinates(float x, float y) {
         sketch.changeCoordinates(x, y);
     }
 
     public void deleteElement(){sketch.deleteElement();}
 
-    public void clear() {
+    public void clearSketch() {
         sketch.clear();
     }
 
@@ -103,24 +98,31 @@ public class AppViewModel extends ViewModel {
     }
 
     public void onTouchDown(float x, float y) {
+        // behaviour for drawing a new element
+        if (this.getSelectedGraphicalElement() != null) {
+            this.storeElement();
+            // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
+            this.setElementCoordinates(x, y);
+            this.moveElement = true;
+        }
+        // behaviour for touching an existing element
         if (this.getSelectedGraphicalElement() == null & this.getDrawnElements() != null) {
             if (this.isWithinElement(x, y)) {
                 this.moveElement = true;
             }
         }
 
-        if (this.getSelectedGraphicalElement() != null) {
-            this.storeElement();
-            // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
-            this.changeCoordinates(x, y);
-            this.moveElement = true;
-        }
     }
 
 
     public void onTouchMove(float x, float y) {
+        // behaviour for drawing a new element
+        if (this.getSelectedGraphicalElement() != null) {
+            this.setElementCoordinates(x, y);
+        }
+        // behaviour for touching an existing element
         if (this.moveElement) {
-            this.changeCoordinates(x, y);
+            this.changeElementCoordinates(x, y);
         }
     }
 

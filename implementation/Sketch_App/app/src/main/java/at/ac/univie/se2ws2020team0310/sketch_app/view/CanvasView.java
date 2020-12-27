@@ -12,7 +12,6 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.model.Layer;
 import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.AppViewModel;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
@@ -96,7 +95,7 @@ public class CanvasView extends View {
     }
 
     public void clear() {
-        appViewModel.clear();
+        appViewModel.clearSketch();
         invalidate();
     }
 
@@ -106,17 +105,17 @@ public class CanvasView extends View {
     }
 
     public void changeElementColor(int color) {
-        appViewModel.changeColor(color);
+        appViewModel.changeElementColor(color);
         invalidate();
     }
 
     public void changeElementStrokeWidth(int strokewidth) {
-        appViewModel.changeStrokeWidth(strokewidth);
+        appViewModel.changeElementStrokeWidth(strokewidth);
         invalidate();
     }
 
     public void changeElementTextSize(int textsize) {
-        appViewModel.changeTextSize(textsize);
+        appViewModel.changeElementTextSize(textsize);
         invalidate();
     }
 
