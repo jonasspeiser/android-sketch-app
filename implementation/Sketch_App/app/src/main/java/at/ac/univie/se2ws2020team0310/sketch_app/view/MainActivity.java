@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
                 selectedPaint.setTextSize(progress);
                 canvasView.changeElementTextSize(progress);
                 //TODO: change object size
-                canvasView.invalidate();
             }
 
             public void onStartTrackingTouch(SeekBar sizeSeekBar) {
@@ -79,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
                 selectedPaint.setStrokeWidth(progress);
                 canvasView.changeElementStrokeWidth(progress);
-                canvasView.invalidate();
             }
 
             public void onStartTrackingTouch(SeekBar strokeWidthSeekBar) {
@@ -141,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onChooseColor(int position, int color) {
                         selectedPaint.setColor(color);
                         canvasView.changeElementColor(color); //TODO: in ViewModel: Der Regler soll machen: onChange notify. Wir brauchen einen Observer, der den Wert dieses Reglers abgreift
-                        canvasView.invalidate();
                     }
 
                     @Override
