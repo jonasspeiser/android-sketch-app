@@ -2,6 +2,7 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 
@@ -62,6 +63,12 @@ public abstract class GraphicalElement {
 
     public void draw(Canvas canvas) {
         drawStrategy.draw(canvas, this);
+    }
+
+
+    //method for freehand
+    public Path getPath() {
+        return null;
     }
 
 // Other Methods

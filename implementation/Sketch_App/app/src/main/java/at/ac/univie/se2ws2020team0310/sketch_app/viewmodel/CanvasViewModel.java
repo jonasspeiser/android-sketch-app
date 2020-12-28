@@ -1,10 +1,13 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
+import android.graphics.Path;
+
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Freehand;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
 public class CanvasViewModel extends ViewModel {
@@ -13,6 +16,7 @@ public class CanvasViewModel extends ViewModel {
 
     private final Sketch sketch;
     private boolean moveElement;
+    private Path path;
 
 // Constructors
 
@@ -83,7 +87,7 @@ public class CanvasViewModel extends ViewModel {
             this.moveElement = true;
         }
         // behaviour for touching an existing element
-        if (this.getSelectedGraphicalElement() == null & this.getDrawnElements() != null) {
+        if (this.getSelectedGraphicalElement() == null && this.getDrawnElements() != null) {
             if (this.isWithinElement(x, y)) {
                 this.moveElement = true;
             }
@@ -106,16 +110,26 @@ public class CanvasViewModel extends ViewModel {
         this.moveElement = false;
     }
 
-    public void freehandBehaviourOnTouchDown() {
-        // TODO
+    public void freehandBehaviourOnTouchDown(float touchX, float touchY) {
+        path = null;
+        if (getSelectedGraphicalElement() != null){
+            path = getSelectedGraphicalElement().getPath();
+        }
+
+        if (path != null) {
+            path.moveTo(touchX, touchY); // start ist hier
+        }
     }
 
-    public void freehandBehaviourOnTouchMove() {
-        // TODO
+    public void freehandBehaviourOnTouchMove(float touchX, float touchY) {
+        if (path != null) {
+            path.lineTo(touchX, touchY);
+        }
     }
 
-    public void freehandBehaviourOnTouchUp () {
-        // TODO
+    public void freehandBehaviourOnTouchUp(float touchX, float touchY) {
+        if (path != null) {
+            path.lineTo(touchX, touchY);
+        }
     }
-
 }

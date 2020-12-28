@@ -2,14 +2,18 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
+
 import at.ac.univie.se2ws2020team0310.sketch_app.BuildConfig;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawCircleStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawFreehandStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawLineStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawQuadrangleStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawTextStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawTriangleStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Circle;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Freehand;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Line;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Quadrangle;
@@ -30,6 +34,7 @@ public final class GraphicalElementFactory {
             case CIRCLE:
                 return createCircle(color, size, strokewidth);
             case FREEHAND:
+                return createFreehand(color, size, strokewidth);
             case COMPOSITE_SHAPE:
                 break;
             case TRIANGLE:
@@ -99,6 +104,19 @@ public final class GraphicalElementFactory {
         mSquare.setSize(size);
         mSquare.setStrokeWidth(strokewidth);
         return mSquare;
+    }
+
+    private static Freehand  createFreehand(int color, float size, float strokewidth) { // TODo
+        Freehand freehand = new Freehand(new DrawFreehandStrategy());
+        Paint mPaint = new Paint(initializePaint());
+        Path path = new Path();
+        freehand.setObjectPath(path);
+        freehand.setObjectPaint(mPaint);
+        freehand.setColor(color);
+        freehand.setSize(size);
+        freehand.setStrokeWidth(strokewidth);
+
+        return freehand;
     }
 
     public static Paint initializePaint() {

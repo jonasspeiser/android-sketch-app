@@ -20,8 +20,14 @@ public class Freehand extends GraphicalElement {
     public Path getObjectPath() {
         return objectPath;
     }
+
     public void setObjectPath(Path objectPath) {
         this.objectPath = objectPath;
+    }
+
+    @Override
+    public Path getPath() {
+        return objectPath;
     }
 
     public boolean isWithinElement(float x, float y) {
