@@ -48,7 +48,7 @@ public class Quadrangle extends GraphicalElement {
         float xBottomRight = this.xPosition + this.length;
         float yBottomRight = this.yPosition + this.height;
 
-        if (x >= xBottomLeft && x <= xTopRight && y <= yBottomLeft && y >= yTopRight) {
+        if (x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight) {
             // means that coordinates are within circle
             return true;
         } else {
