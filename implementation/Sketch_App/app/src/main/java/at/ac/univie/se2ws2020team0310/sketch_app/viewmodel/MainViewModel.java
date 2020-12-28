@@ -14,9 +14,16 @@ public class MainViewModel extends ViewModel {
     private Sketch sketch;
     private Paint selectedPaint;
 
+    private int selectedColor;
+    private float selectedSize;
+    private float selectedStrokeWidth;
+
 // Constructor
     public MainViewModel() {
         this.sketch = Sketch.getSketch();
+        this.selectedColor = Color.BLACK;
+        this.selectedSize = 150;
+        this.selectedStrokeWidth = 15;
         initializePaint();
     }
 // Getters and Setters
@@ -28,14 +35,38 @@ public class MainViewModel extends ViewModel {
         this.selectedPaint = selectedPaint;
     }
 
+    public int getSelectedColor() {
+        return selectedColor;
+    }
+
+    public void setSelectedColor(int selectedColor) {
+        this.selectedColor = selectedColor;
+    }
+
+    public float getSelectedSize() {
+        return selectedSize;
+    }
+
+    public void setSelectedSize(float selectedSize) {
+        this.selectedSize = selectedSize;
+    }
+
+    public float getSelectedStrokeWidth() {
+        return selectedStrokeWidth;
+    }
+
+    public void setSelectedStrokeWidth(float selectedStrokeWidth) {
+        this.selectedStrokeWidth = selectedStrokeWidth;
+    }
+
 // Other Methods
     public void initializePaint() {
         Paint mPaint = new Paint();
-        mPaint.setColor(Color.BLACK);
+        mPaint.setColor(this.selectedColor);
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(15);
+        mPaint.setStrokeWidth(this.selectedStrokeWidth);
         mPaint.setAntiAlias(true);
-        mPaint.setTextSize(50);
+        mPaint.setTextSize(this.selectedSize / 3);
         this.setSelectedPaint(mPaint);
     }
 
