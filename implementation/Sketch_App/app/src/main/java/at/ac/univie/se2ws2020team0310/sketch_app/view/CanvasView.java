@@ -63,7 +63,7 @@ public class CanvasView extends View {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                canvasViewModel.freehandBehaviourOnTouchDown();
+                canvasViewModel.freehandBehaviourOnTouchDown(touchX, touchY);
                 canvasViewModel.elementsBehaviourOnTouchDown(touchX, touchY);
                 if (canvasViewModel.elementsToDraw()) {
                     invalidate();
@@ -74,13 +74,13 @@ public class CanvasView extends View {
                 }
 
             case MotionEvent.ACTION_MOVE:
-                canvasViewModel.freehandBehaviourOnTouchMove();
+                canvasViewModel.freehandBehaviourOnTouchMove(touchX, touchY);
                 canvasViewModel.elementsBehaviourOnTouchMove(touchX, touchY);
                 invalidate();
                 return true;
 
             case MotionEvent.ACTION_UP:
-                canvasViewModel.freehandBehaviourOnTouchUp();
+                canvasViewModel.freehandBehaviourOnTouchUp(touchX, touchY);
                 canvasViewModel.elementsBehaviourOnTouchUp();
                 return true;
 

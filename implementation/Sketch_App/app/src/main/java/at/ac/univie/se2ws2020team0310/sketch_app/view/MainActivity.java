@@ -166,11 +166,14 @@ public class MainActivity extends AppCompatActivity {
                 showTextStyleButtons();
 
                 mainViewModel.selectGraphicalElement(EGraphicalElementType.TEXT_FIELD);
-                Toast textToast = Toast.makeText(getApplicationContext(), "Text selected", Toast.LENGTH_LONG);
-                textToast.show();
+                showToast("Text selected");
                 return true;
 
             case R.id.fingerId:
+                mainViewModel.selectGraphicalElement(EGraphicalElementType.FREEHAND);
+                showToast("Freehand drawing selected");
+                return true;
+
             case R.id.saveId:
             case R.id.loadId:
             case R.id.exportId:
@@ -179,26 +182,22 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.lineId:
                 mainViewModel.selectGraphicalElement(EGraphicalElementType.LINE);
-                Toast lineToast = Toast.makeText(getApplicationContext(), "Line selected", Toast.LENGTH_LONG);
-                lineToast.show();
+                showToast("Line selected");
                 return true;
 
             case R.id.circleId:
                 mainViewModel.selectGraphicalElement(EGraphicalElementType.CIRCLE);
-                Toast circleToast = Toast.makeText(getApplicationContext(), "Circle selected", Toast.LENGTH_LONG);
-                circleToast.show();
+                showToast("Circle selected");
                 return true;
 
             case R.id.squareId:
                 mainViewModel.selectGraphicalElement(EGraphicalElementType.QUADRANGLE);
-                Toast quadrangleToast = Toast.makeText(getApplicationContext(), "Quadrangle selected", Toast.LENGTH_LONG);
-                quadrangleToast.show();
+               showToast("Quadrangle selected");
                 return true;
 
             case R.id.triangleId:
                 mainViewModel.selectGraphicalElement(EGraphicalElementType.TRIANGLE);
-                Toast triangleToast = Toast.makeText(getApplicationContext(), "Triangle selected", Toast.LENGTH_LONG);
-                triangleToast.show();
+               showToast("Triangle selected");
                 return true;
 
             case R.id.deleteId:
@@ -282,5 +281,10 @@ public class MainActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
+    }
+
+    public void showToast(String text){
+        Toast textToast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
+        textToast.show();
     }
 }
