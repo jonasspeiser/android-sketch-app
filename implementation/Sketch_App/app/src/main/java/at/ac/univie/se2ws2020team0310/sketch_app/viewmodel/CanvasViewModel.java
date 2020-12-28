@@ -1,7 +1,5 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
-import android.graphics.Paint;
-
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
@@ -45,8 +43,8 @@ public class CanvasViewModel extends ViewModel {
         sketch.changeStrokeWidth((float) strokewidth);
     }
 
-    public void changeElementTextSize(int textsize) {
-        sketch.changeTextSize(textsize);
+    public void changeElementSize(int size) {
+        sketch.changeSize(size);
     }
 
     public void setElementCoordinates(float x, float y) {
@@ -90,9 +88,7 @@ public class CanvasViewModel extends ViewModel {
                 this.moveElement = true;
             }
         }
-
     }
-
 
     public void elementsBehaviourOnTouchMove(float x, float y) {
         // behaviour for drawing a new element

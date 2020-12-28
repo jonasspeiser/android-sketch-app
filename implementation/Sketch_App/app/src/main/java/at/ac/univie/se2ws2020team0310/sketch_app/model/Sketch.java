@@ -1,6 +1,5 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
-import android.graphics.Paint;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -84,8 +83,8 @@ public class Sketch {
         this.getSelectedLayer().changeStrokeWidth(strokewidth);
     }
 
-    public void changeTextSize(int textsize) {
-        this.getSelectedLayer().changeTextSize(textsize);
+    public void changeSize(int size) {
+        this.getSelectedLayer().changeSize(size);
     }
 
     public void setCoordinates(float x, float y) {
