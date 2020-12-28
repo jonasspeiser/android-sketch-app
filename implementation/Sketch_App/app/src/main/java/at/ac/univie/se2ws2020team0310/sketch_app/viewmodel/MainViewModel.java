@@ -1,11 +1,11 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
 import android.graphics.Color;
-import android.graphics.Paint;
 
 import androidx.lifecycle.ViewModel;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.TextDecorator;
 
 public class MainViewModel extends ViewModel {
 
@@ -16,6 +16,8 @@ public class MainViewModel extends ViewModel {
     private int selectedColor;
     private float selectedSize;
     private float selectedStrokeWidth;
+
+    private TextDecorator textDecorator;
 
 // Constructor
     public MainViewModel() {
@@ -73,6 +75,10 @@ public class MainViewModel extends ViewModel {
     }
 
     public boolean layerIsEmpty() {return sketch.layerIsEmpty();}
+
+    public void buttonClick() {
+        textDecorator.buttonClick();
+    }
 
 
 }

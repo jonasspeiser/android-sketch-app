@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.textId:
                 showTextEntryField();
+                showTextStyleButtons();
 
                 mainViewModel.selectText();
                 Toast textToast = Toast.makeText(getApplicationContext(), "Text selected", Toast.LENGTH_LONG);
@@ -222,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
         canvasView.invalidate();
 
         hideTextEntryField();
+        hideTextStyleButtons();
     }
 
     public String getEnteredText(){
@@ -243,6 +245,30 @@ public class MainActivity extends AppCompatActivity {
 
         editText.setVisibility(View.GONE);
         toggleText.setVisibility(View.GONE);
+    }
+
+    public void showTextStyleButtons(){
+        Button underlineText = findViewById(R.id.underlineButton);
+        Button boldText = findViewById(R.id.boldButton);
+        Button italicText = findViewById(R.id.italicButton);
+
+        underlineText.setVisibility(View.VISIBLE);
+        boldText.setVisibility(View.VISIBLE);
+        italicText.setVisibility(View.VISIBLE);
+    }
+
+    public void hideTextStyleButtons() {
+        Button underlineText = findViewById(R.id.underlineButton);
+        Button boldText = findViewById(R.id.boldButton);
+        Button italicText = findViewById(R.id.italicButton);
+
+        underlineText.setVisibility(View.GONE);
+        boldText.setVisibility(View.GONE);
+        italicText.setVisibility(View.GONE);
+    }
+
+    public void onClickStyleButtons(View view) {
+        mainViewModel.buttonClick();
     }
 
 
