@@ -13,7 +13,6 @@ public class Triangle extends GraphicalElement {
         return (float) ((x1*(y2-y3)+x2*(y3-y1)+x3*(y1-y2)) / 2.0);
     }
 
-    public GraphicalElement graphicalElement;   // TODO initialize it or add setter
 
     public boolean isWithinElement(float x, float y) {
         // TODO: implement method body
@@ -24,12 +23,12 @@ public class Triangle extends GraphicalElement {
         float yTop = this.yPosition;
 
         // bottom left
-        float xBottomLeft = this.xPosition - graphicalElement.getSize()/2;
-        float yBottomLeft = this.yPosition + graphicalElement.getSize()/2;
+        float xBottomLeft = this.xPosition - this.getSize()/2;
+        float yBottomLeft = this.yPosition + this.getSize()/2;
 
         //bottom right
-        float xBottomRight = this.xPosition + graphicalElement.getSize()/2;
-        float yBottomRight = this.yPosition + graphicalElement.getSize()/2;
+        float xBottomRight = this.xPosition + this.getSize()/2;
+        float yBottomRight = this.yPosition + this.getSize()/2;
 
         float A = area(xBottomLeft, yBottomLeft, xTop, yTop, xBottomRight, yBottomRight);
 

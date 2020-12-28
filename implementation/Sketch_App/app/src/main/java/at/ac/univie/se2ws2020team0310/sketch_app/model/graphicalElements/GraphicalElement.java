@@ -69,6 +69,7 @@ public abstract class GraphicalElement {
     public void changeCoordinates(float x, float y) {
         this.setCoordinates(x, y);
     }
+
     public void setColor(int color) {
         getObjectPaint().setColor(color);
     }

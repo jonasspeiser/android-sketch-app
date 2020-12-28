@@ -1,0 +1,33 @@
+Index: app/src/main/java/at/ac/univie/se2ws2020team0310/sketch_app/model/graphicalElements/Text.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;\r\n\r\nimport at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;\r\n\r\npublic class Text extends GraphicalElement {\r\n\r\n// Attributes\r\n\r\n    private String userText;\r\n\r\n// Constructor\r\n\r\n    public Text(DrawStrategy drawStrategy) {\r\n        super(drawStrategy);\r\n        userText = \"\";\r\n    }\r\n\r\n// Getters and Setters\r\n\r\n    public String getUserText() {\r\n        return userText;\r\n    }\r\n\r\n    public void setUserText(String userText) {\r\n        this.userText = userText;\r\n    }\r\n\r\n    @Override\r\n    public void setSize(float size) {\r\n        super.setSize(size);\r\n        setTextSize(size);\r\n    }\r\n\r\n// Other Methods\r\n\r\n    public void setTextSize(float textSize) {\r\n        getObjectPaint().setTextSize(textSize);\r\n    }\r\n\r\n    public boolean isWithinElement(float x, float y) {\r\n        // TODO: implement method body\r\n        return false;\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/at/ac/univie/se2ws2020team0310/sketch_app/model/graphicalElements/Text.java	(revision bd8ae83e49ad7cb88372e0469014d083b529d25a)
++++ app/src/main/java/at/ac/univie/se2ws2020team0310/sketch_app/model/graphicalElements/Text.java	(date 1609181040990)
+@@ -41,5 +41,5 @@
+         // TODO: implement method body
+         return false;
+     }
+-
++    
+ }
+Index: app/src/main/java/at/ac/univie/se2ws2020team0310/sketch_app/model/graphicalElements/GraphicalElement.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;\r\n\r\nimport android.graphics.Canvas;\r\nimport android.graphics.Paint;\r\n\r\nimport at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;\r\n\r\npublic abstract class GraphicalElement {\r\n\r\n// Attributes\r\n\r\n    private final DrawStrategy drawStrategy;\r\n\r\n    protected float xPosition, yPosition, size;\r\n\r\n    protected Paint objectPaint;\r\n\r\n// Constructor\r\n\r\n    public GraphicalElement(DrawStrategy drawStrategy) { //Konstruktor\r\n        this.drawStrategy = drawStrategy;\r\n    }\r\n\r\n// Getters and Setters\r\n\r\n    public void setCoordinates(float x, float y) {\r\n        this.xPosition = x;\r\n        this.yPosition = y;\r\n    }\r\n\r\n    public float getxPosition() {\r\n        return xPosition;\r\n    }\r\n\r\n    public void setxPosition(float xPosition) {\r\n        this.xPosition = xPosition;\r\n    }\r\n\r\n    public float getyPosition() {\r\n        return yPosition;\r\n    }\r\n\r\n    public void setyPosition(float yPosition) {\r\n        this.yPosition = yPosition;\r\n    }\r\n\r\n    public float getSize() {\r\n        return size;\r\n    }\r\n\r\n    public void setSize(float size) {\r\n        this.size = size;\r\n    }\r\n\r\n    public Paint getObjectPaint() {\r\n        return objectPaint;\r\n    }\r\n\r\n    public void setObjectPaint(Paint objectPaint) {\r\n        this.objectPaint = objectPaint;\r\n    }\r\n\r\n    public void draw(Canvas canvas) {\r\n        drawStrategy.draw(canvas, this);\r\n    }\r\n\r\n// Other Methods\r\n\r\n    public void changeCoordinates(float x, float y) {\r\n        this.setCoordinates(x, y);\r\n    }\r\n    public void setColor(int color) {\r\n        getObjectPaint().setColor(color);\r\n    }\r\n\r\n    public void setStrokeWidth(float strokeWidth) {\r\n        getObjectPaint().setStrokeWidth(strokeWidth);\r\n    }\r\n\r\n    public abstract boolean isWithinElement(float x, float y);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/at/ac/univie/se2ws2020team0310/sketch_app/model/graphicalElements/GraphicalElement.java	(revision bd8ae83e49ad7cb88372e0469014d083b529d25a)
++++ app/src/main/java/at/ac/univie/se2ws2020team0310/sketch_app/model/graphicalElements/GraphicalElement.java	(date 1609180946663)
+@@ -69,6 +69,7 @@
+     public void changeCoordinates(float x, float y) {
+         this.setCoordinates(x, y);
+     }
++
+     public void setColor(int color) {
+         getObjectPaint().setColor(color);
+     }

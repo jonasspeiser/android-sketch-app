@@ -38,7 +38,7 @@ public class Text extends GraphicalElement {
     public void setTextSize(float textSize) {
         getObjectPaint().setTextSize(textSize);
     }
-
+    
     public boolean isWithinElement(float x, float y) {
         // TODO: implement method body
         /*
