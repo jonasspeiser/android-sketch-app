@@ -12,14 +12,16 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.AppViewModel;
+import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.CanvasViewModel;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
 public class CanvasView extends View {
 
+// Attributes
+
     private Canvas mCanvas;
 
-    private AppViewModel appViewModel = new AppViewModel();
+    private final CanvasViewModel canvasViewModel = new CanvasViewModel();
 
 // Constructors
     public CanvasView(Context context) {
@@ -41,8 +43,8 @@ public class CanvasView extends View {
 
 // Getters and Setters
 
-    public AppViewModel getAppViewModel() {
-        return appViewModel;
+    public CanvasViewModel getCanvasViewModel() {
+        return canvasViewModel;
     }
 
 // Methods
@@ -61,9 +63,9 @@ public class CanvasView extends View {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                appViewModel.freehandBehaviourOnTouchDown();
-                appViewModel.elementsBehaviourOnTouchDown(touchX, touchY);
-                if (appViewModel.elementsToDraw()) {
+                canvasViewModel.freehandBehaviourOnTouchDown();
+                canvasViewModel.elementsBehaviourOnTouchDown(touchX, touchY);
+                if (canvasViewModel.elementsToDraw()) {
                     invalidate();
                     return true;
                 } else {
@@ -72,14 +74,14 @@ public class CanvasView extends View {
                 }
 
             case MotionEvent.ACTION_MOVE:
-                appViewModel.freehandBehaviourOnTouchMove();
-                appViewModel.elementsBehaviourOnTouchMove(touchX, touchY);
+                canvasViewModel.freehandBehaviourOnTouchMove();
+                canvasViewModel.elementsBehaviourOnTouchMove(touchX, touchY);
                 invalidate();
                 return true;
 
             case MotionEvent.ACTION_UP:
-                appViewModel.freehandBehaviourOnTouchUp();
-                appViewModel.elementsBehaviourOnTouchUp();
+                canvasViewModel.freehandBehaviourOnTouchUp();
+                canvasViewModel.elementsBehaviourOnTouchUp();
                 return true;
 
             default:
@@ -92,33 +94,33 @@ public class CanvasView extends View {
         mCanvas = canvas;
         super.onDraw(mCanvas);
 
-        for (GraphicalElement graphicalElement : appViewModel.getDrawnElements()) {
+        for (GraphicalElement graphicalElement : canvasViewModel.getDrawnElements()) {
             graphicalElement.draw(canvas);
         }
     }
 
     public void clear() {
-        appViewModel.clearSketch();
+        canvasViewModel.clearSketch();
         invalidate();
     }
 
     public void deleteElement() {
-        appViewModel.deleteElement();
+        canvasViewModel.deleteElement();
         invalidate();
     }
 
     public void changeElementColor(int color) {
-        appViewModel.changeElementColor(color);
+        canvasViewModel.changeElementColor(color);
         invalidate();
     }
 
     public void changeElementStrokeWidth(int strokewidth) {
-        appViewModel.changeElementStrokeWidth(strokewidth);
+        canvasViewModel.changeElementStrokeWidth(strokewidth);
         invalidate();
     }
 
     public void changeElementTextSize(int textsize) {
-        appViewModel.changeElementTextSize(textsize);
+        canvasViewModel.changeElementTextSize(textsize);
         invalidate();
     }
 

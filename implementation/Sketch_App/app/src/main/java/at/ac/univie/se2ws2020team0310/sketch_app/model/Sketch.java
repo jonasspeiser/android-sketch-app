@@ -3,7 +3,6 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model;
 import android.graphics.Paint;
 import android.util.Log;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,7 @@ public class Sketch {
 
 // Attributes
 
+    private static final Sketch sketch = new Sketch();
     private final Layer[] layers;
     private Layer selectedLayer;
 
@@ -21,7 +21,7 @@ public class Sketch {
 
 // Constructor
 
-    public Sketch() {
+    private Sketch() {
         this.layers = new Layer[3];
         for (int i = 0; i < 3; i++) {
             layers[i] = new Layer();
@@ -30,6 +30,10 @@ public class Sketch {
     }
 
 // Getters and Setters
+
+    public static Sketch getSketch() {
+        return sketch;
+    }
 
     public Layer getSelectedLayer() {
         return this.selectedLayer;

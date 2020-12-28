@@ -9,7 +9,7 @@ import java.util.List;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
-public class AppViewModel extends ViewModel {
+public class CanvasViewModel extends ViewModel {
 
 // Attributes
 
@@ -18,12 +18,12 @@ public class AppViewModel extends ViewModel {
 
 // Constructors
 
-    public AppViewModel() {
-        this.sketch = new Sketch();
+    public CanvasViewModel() {
+        this.sketch = Sketch.getSketch();
         this.moveElement = false;
     }
 
-// Getters and Setters
+// Other Methods
 
     public GraphicalElement getSelectedGraphicalElement() {
         return sketch.getSelectedGraphicalElement();
@@ -33,13 +33,9 @@ public class AppViewModel extends ViewModel {
         return sketch.getDrawnElements();
     }
 
-// Other Methods
-
     public void storeElement() {
         sketch.storeElement();
     }
-
-    public boolean layerIsEmpty() {return sketch.layerIsEmpty();}
 
     public void changeElementColor(int color) {
         sketch.changeColor(color);
@@ -66,26 +62,6 @@ public class AppViewModel extends ViewModel {
 
     public void clearSketch() {
         sketch.clear();
-    }
-
-    public void selectLine(Paint selectedPaint) {
-        sketch.selectLine(selectedPaint);
-    }
-
-    public void selectCircle(Paint selectedPaint) {
-           sketch.selectCircle(selectedPaint);
-    }
-
-    public void selectQuadrangle(Paint selectedPaint) {
-            sketch.selectQuadrangle(selectedPaint);
-    }
-
-    public void selectTriangle(Paint selectedPaint) {
-           sketch.selectTriangle(selectedPaint);
-    }
-
-    public void selectText(Paint selectedPaint) {
-            sketch.selectText(selectedPaint);
     }
 
     public void resetSelection() {
