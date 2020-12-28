@@ -58,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
         sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             public void onProgressChanged(SeekBar sizeSeekBar, int progress, boolean fromUser) {
-                mainViewModel.getSelectedPaint().setTextSize(progress);
+                mainViewModel.getSelectedPaint().setTextSize(progress); //TODO: delete this line
+                mainViewModel.setSelectedSize(progress);
                 canvasView.changeElementTextSize(progress);
                 //TODO: change object size
             }
@@ -74,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
         strokeWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
-                mainViewModel.getSelectedPaint().setStrokeWidth(progress);
+                mainViewModel.getSelectedPaint().setStrokeWidth(progress); //TODO: delete this line
+                mainViewModel.setSelectedStrokeWidth(progress);
                 canvasView.changeElementStrokeWidth(progress);
             }
 
@@ -135,7 +137,8 @@ public class MainActivity extends AppCompatActivity {
                 colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
                     @Override
                     public void onChooseColor(int position, int color) {
-                        mainViewModel.getSelectedPaint().setColor(color);
+                        mainViewModel.getSelectedPaint().setColor(color); //TODO: delete this line
+                        mainViewModel.setSelectedColor(color);
                         canvasView.changeElementColor(color); //TODO: in ViewModel: Der Regler soll machen: onChange notify. Wir brauchen einen Observer, der den Wert dieses Reglers abgreift
                     }
 

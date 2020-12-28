@@ -106,48 +106,48 @@ public class Sketch {
         }
     }
 
-    public void selectLine(Paint selectedPaint) {
+    public void selectLine(int color, float size, float strokewidth) {
 
         try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.LINE, selectedPaint));
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.LINE, color, size, strokewidth));
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());
         }
 
     }
 
-    public void selectCircle(Paint selectedPaint) {
+    public void selectCircle(int color, float size, float strokewidth) {
         try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.CIRCLE, selectedPaint));
-        } catch (AppException e) {
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.CIRCLE, color, size, strokewidth));
+        } catch (Exception e) {
             Log.e("CanvasView", e.getMessage());
         }
     }
 
-    public void selectQuadrangle(Paint selectedPaint) {
+    public void selectQuadrangle(int color, float size, float strokewidth) {
 
         // use a Factory to create the Quadrangle as a GraphicalElement
         try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.QUADRANGLE, selectedPaint));
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.QUADRANGLE, color, size, strokewidth));
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());
         }
     }
 
-    public void selectTriangle(Paint selectedPaint) {
+    public void selectTriangle(int color, float size, float strokewidth) {
 
         try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.TRIANGLE, selectedPaint));
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.TRIANGLE, color, size, strokewidth));
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());
         }
 
     }
 
-    public void selectText(Paint selectedPaint) {
+    public void selectText(int color, float size, float strokewidth) {
 
         try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.TEXT_FIELD, selectedPaint));
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.TEXT_FIELD, color, size, strokewidth));
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());
         }

@@ -11,7 +11,7 @@ public abstract class GraphicalElement {
 
     private final DrawStrategy drawStrategy;
 
-    protected float xPosition, yPosition, shapeSize;
+    protected float xPosition, yPosition, size;
 
     protected Paint objectPaint;
 
@@ -44,12 +44,12 @@ public abstract class GraphicalElement {
         this.yPosition = yPosition;
     }
 
-    public float getShapeSize() {
-        return shapeSize;
+    public float getSize() {
+        return size;
     }
 
-    public void setShapeSize(float shapeSize) {
-        this.shapeSize = shapeSize;
+    public void setSize(float size) {
+        this.size = size;
     }
 
     public Paint getObjectPaint() {
@@ -79,10 +79,6 @@ public abstract class GraphicalElement {
 
     public void setTextSize(float textSize) {
         getObjectPaint().setTextSize(textSize);
-    }
-
-    public void setSize(float size) {
-        shapeSize = size;
     }
 
     public abstract boolean isWithinElement(float x, float y);

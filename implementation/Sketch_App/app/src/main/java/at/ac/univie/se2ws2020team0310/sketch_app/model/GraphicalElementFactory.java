@@ -1,5 +1,6 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 import at.ac.univie.se2ws2020team0310.sketch_app.BuildConfig;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawCircleStrategy;
@@ -14,7 +15,6 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Line;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Quadrangle;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Triangle;
-import at.ac.univie.se2ws2020team0310.sketch_app.view.MainActivity;
 
 public final class GraphicalElementFactory {
 
@@ -23,21 +23,21 @@ public final class GraphicalElementFactory {
     }
 
     //Implementation of FREEHAND and COMPOSITE_SHAPE until DEAD
-    public static GraphicalElement createElement(EGraphicalElementType type, Paint paint) throws AppException {
+    public static GraphicalElement createElement(EGraphicalElementType type, int color, float size, float strokewidth) throws AppException {
         switch (type) {
             case LINE:
-                return createLine(paint);
+                return createLine(color, size, strokewidth);
             case CIRCLE:
-                return createCircle(paint);
+                return createCircle(color, size, strokewidth);
             case FREEHAND:
             case COMPOSITE_SHAPE:
                 break;
             case TRIANGLE:
-                return createTriangle(paint);
+                return createTriangle(color, size, strokewidth);
             case QUADRANGLE:
-                return createQuadrangle(paint);
+                return createQuadrangle(color, size, strokewidth);
             case TEXT_FIELD:
-                return createText(paint);
+                return createText(color, size, strokewidth);
             default:
                 throw new AppException("Unknown type: " + type);
         }
@@ -51,46 +51,65 @@ public final class GraphicalElementFactory {
         return null;
     }
 
-    private static Text createText(Paint paint) {
+    private static Text createText(int color, float size, float strokewidth) {
         Text mText = new Text(new DrawTextStrategy());
-        Paint mPaint = new Paint(paint);
+        Paint mPaint = new Paint(initializePaint());
         mPaint.setStyle(Paint.Style.FILL);
         mText.setObjectPaint(mPaint);
+        mText.setColor(Color.BLACK);
+        mText.setSize(size);
+        mText.setStrokeWidth(strokewidth);
+        mText.setTextSize(mText.getSize() / 3);
         return mText;
     }
 
-    private static Triangle createTriangle(Paint paint) {
+    private static Triangle createTriangle(int color, float size, float strokewidth) {
         Triangle mTriangle = new Triangle(new DrawTriangleStrategy());
-        Paint mPaint = new Paint(paint);
+        Paint mPaint = new Paint(initializePaint());
         mTriangle.setObjectPaint(mPaint);
-        mTriangle.setShapeSize(150);
+        mTriangle.setColor(color);
+        mTriangle.setSize(size);
+        mTriangle.setStrokeWidth(strokewidth);
         return mTriangle;
     }
 
-    private static Line createLine(Paint paint) {
+    private static Line createLine(int color, float size, float strokewidth) {
         Line mLine = new Line(new DrawLineStrategy());
-        Paint mPaint = new Paint(paint);
+        Paint mPaint = new Paint(initializePaint());
         mLine.setObjectPaint(mPaint);
+        mLine.setColor(color);
+        mLine.setStrokeWidth(strokewidth);
         return mLine;
     }
 
-    private static Circle createCircle(Paint paint) {
+    public static Circle createCircle(int color, float size, float strokewidth) {
         Circle mCircle = new Circle(new DrawCircleStrategy());
-        Paint mPaint = new Paint(paint);
+        Paint mPaint = new Paint(initializePaint());
         mCircle.setObjectPaint(mPaint);
-        mCircle.setShapeSize(150);
-        mCircle.setRadius( mCircle.getShapeSize() / 2);
+        mCircle.setColor(color);
+        mCircle.setSize(size);
+        mCircle.setStrokeWidth(strokewidth);
+        mCircle.setRadius( mCircle.getSize() / 2);
         return mCircle;
     }
 
-    private static Quadrangle createQuadrangle(Paint paint) {
+    private static Quadrangle createQuadrangle(int color, float size, float strokewidth) {
         Quadrangle mSquare = new Quadrangle(new DrawQuadrangleStrategy());
-        Paint mPaint = new Paint(paint);
+        Paint mPaint = new Paint(initializePaint());
         mSquare.setObjectPaint(mPaint);
-        mSquare.setShapeSize(150);
-        mSquare.setLength(mSquare.getShapeSize());
-        mSquare.setHeight(mSquare.getShapeSize());
+        mSquare.setColor(color);
+        mSquare.setSize(size);
+        mSquare.setStrokeWidth(strokewidth);
+        mSquare.setLength(mSquare.getSize());
+        mSquare.setHeight(mSquare.getSize());
         return mSquare;
+    }
+
+    public static Paint initializePaint() {
+        Paint mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setStyle(Paint.Style.STROKE);
+        return mPaint;
     }
 
 }
