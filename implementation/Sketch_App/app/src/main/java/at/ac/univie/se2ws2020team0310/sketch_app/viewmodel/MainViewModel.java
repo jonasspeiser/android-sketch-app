@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.TextDecorator;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 
 public class MainViewModel extends ViewModel {
 
@@ -17,7 +18,7 @@ public class MainViewModel extends ViewModel {
     private float selectedSize;
     private float selectedStrokeWidth;
 
-    private TextDecorator textDecorator;
+    private TextDecorator textDecorator;    // TODO initialize it in Constructor, add getter/setter
 
 // Constructor
     public MainViewModel() {
@@ -54,32 +55,15 @@ public class MainViewModel extends ViewModel {
 
 // Other Methods
 
-    public void selectLine() {
-        sketch.selectLine(this.selectedColor, this.selectedSize, this.selectedStrokeWidth);
-    }
-
-    public void selectCircle() {
-        sketch.selectCircle(this.selectedColor, this.selectedSize, this.selectedStrokeWidth);
-    }
-
-    public void selectQuadrangle() {
-        sketch.selectQuadrangle(this.selectedColor, this.selectedSize, this.selectedStrokeWidth);
-    }
-
-    public void selectTriangle() {
-        sketch.selectTriangle(this.selectedColor, this.selectedSize, this.selectedStrokeWidth);
-    }
-
-    public void selectText() {
-        sketch.selectText(this.selectedColor, this.selectedSize, this.selectedStrokeWidth);
-    }
-
     public boolean layerIsEmpty() {return sketch.layerIsEmpty();}
 
     public void buttonClick() {
-        textDecorator.buttonClick();
+        textDecorator.buttonClick();    // textDecorator is not initialized, hence the app crashes here
     }
 
 
+    public void selectGraphicalElement(EGraphicalElementType type) {
+        sketch.selectGraphicalElement(type, this.selectedColor, this.selectedSize, this.selectedStrokeWidth);
+    }
 }
 
