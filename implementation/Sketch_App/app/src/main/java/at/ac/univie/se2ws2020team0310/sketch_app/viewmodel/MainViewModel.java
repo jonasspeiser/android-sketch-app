@@ -76,8 +76,9 @@ public class MainViewModel extends ViewModel {
 
     public boolean layerIsEmpty() {return sketch.layerIsEmpty();}
 
-    public void buttonClick() {
+    public TextDecorator buttonClick() {
         textDecorator.buttonClick();
+        return null;
     }
 
 
