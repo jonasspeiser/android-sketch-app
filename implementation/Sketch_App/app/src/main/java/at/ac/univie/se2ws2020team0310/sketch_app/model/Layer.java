@@ -89,9 +89,17 @@ public class Layer {
         }
     }
 
-    public void changeTextSize(float textsize) {
+    public void changeSize(float size) {
         try {
-            getLastElement().setTextSize(textsize);
+            getLastElement().setSize(size);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setCoordinates(float x, float y) {
+        try {
+            getLastElement().setCoordinates(x, y);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -99,7 +107,7 @@ public class Layer {
 
     public void changeCoordinates(float x, float y) {
         try {
-            getLastElement().setCoordinates(x, y);
+            getLastElement().changeCoordinates(x, y);
         } catch (Exception e) {
             e.printStackTrace();
         }

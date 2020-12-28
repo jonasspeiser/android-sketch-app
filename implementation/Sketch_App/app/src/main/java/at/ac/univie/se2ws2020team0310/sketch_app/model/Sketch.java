@@ -1,9 +1,7 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
-import android.graphics.Paint;
 import android.util.Log;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +12,7 @@ public class Sketch {
 
 // Attributes
 
+    private static final Sketch sketch = new Sketch();
     private final Layer[] layers;
     private Layer selectedLayer;
 
@@ -21,7 +20,7 @@ public class Sketch {
 
 // Constructor
 
-    public Sketch() {
+    private Sketch() {
         this.layers = new Layer[3];
         for (int i = 0; i < 3; i++) {
             layers[i] = new Layer();
@@ -30,6 +29,10 @@ public class Sketch {
     }
 
 // Getters and Setters
+
+    public static Sketch getSketch() {
+        return sketch;
+    }
 
     public Layer getSelectedLayer() {
         return this.selectedLayer;
@@ -80,8 +83,12 @@ public class Sketch {
         this.getSelectedLayer().changeStrokeWidth(strokewidth);
     }
 
-    public void changeTextSize(int textsize) {
-        this.getSelectedLayer().changeTextSize(textsize);
+    public void changeSize(int size) {
+        this.getSelectedLayer().changeSize(size);
+    }
+
+    public void setCoordinates(float x, float y) {
+        this.getSelectedLayer().setCoordinates(x, y);
     }
 
     public void changeCoordinates(float x, float y) {
@@ -95,53 +102,6 @@ public class Sketch {
     public void clear() {
         for (Layer layer : layers) {
             layer.clear();
-        }
-    }
-
-    public void selectLine(Paint selectedPaint) {
-
-        try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.LINE, selectedPaint));
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-
-    }
-
-    public void selectCircle(Paint selectedPaint) {
-        try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.CIRCLE, selectedPaint));
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-    }
-
-    public void selectQuadrangle(Paint selectedPaint) {
-
-        // use a Factory to create the Quadrangle as a GraphicalElement
-        try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.QUADRANGLE, selectedPaint));
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-    }
-
-    public void selectTriangle(Paint selectedPaint) {
-
-        try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.TRIANGLE, selectedPaint));
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-
-    }
-
-    public void selectText(Paint selectedPaint) {
-
-        try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.TEXT_FIELD, selectedPaint));
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
         }
     }
 
@@ -166,6 +126,14 @@ public class Sketch {
             }
             return false;
         }
+
+    public void selectGraphicalElement(EGraphicalElementType type, int color, float size, float strokeWidth) {
+        try {
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(type, color, size, strokeWidth));
+        } catch (AppException e) {
+            Log.e("CanvasView", e.getMessage());
+        }
     }
+}
 
 

@@ -29,11 +29,37 @@ public class Quadrangle extends GraphicalElement {
         this.height = height;
     }
 
+    @Override
+    public void setSize(float size) {
+        super.setSize(size);
+        setLength(size);
+        setHeight(size);
+    }
+
 // Other Methods
 
     public boolean isWithinElement(float x, float y) {
-        // TODO: implement method body
-        return false;
-    }
+        //coordinates of point A (top left)
+        float xTopLeft = this.xPosition;
+        float yTopLeft = this.yPosition;
 
+        //coordinates of point B (top right)
+        float xTopRight = this.xPosition + this.length;
+        float yTopRight = this.yPosition;
+
+        //coordinates of point C (bottom left)
+        float xBottomLeft = this.xPosition;
+        float yBottomLeft = this.yPosition + this.height;
+
+        //coordinates of point D (bottom right)
+        float xBottomRight = this.xPosition + this.length;
+        float yBottomRight = this.yPosition + this.height;
+
+        if (x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight) {
+            // means that coordinates are within circle
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
+import android.graphics.Rect;
+
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 
 public class Text extends GraphicalElement {
@@ -25,15 +27,41 @@ public class Text extends GraphicalElement {
         this.userText = userText;
     }
 
-    public void setSize(float textsize) { // Overrides super.setSize(float size)
-        this.getObjectPaint().setTextSize(textsize);
+    @Override
+    public void setSize(float size) {
+        super.setSize(size);
+        setTextSize(size);
     }
 
 // Other Methods
 
+    public void setTextSize(float textSize) {
+        getObjectPaint().setTextSize(textSize);
+    }
+    
     public boolean isWithinElement(float x, float y) {
         // TODO: implement method body
-        return false;
-    }
+        /*
+        Rect bounds = new Rect();
 
+        getObjectPaint().getTextBounds(userText, 0, userText.length(), bounds);
+        float width = bounds.width();
+        float height = bounds.height();
+
+        // coordinates of top left
+        float xTopLeft = this.xPosition;
+        float yTopLeft = this.yPosition;
+
+        //coordinates of bottom right
+        float xBottomRight = this.xPosition + width;
+        float yBottomRight = this.yPosition + height;
+
+        if (x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight) {
+            // means that coordinates are within circle
+            return true;
+        } else {
+     */
+            return false;
+        }
 }
+

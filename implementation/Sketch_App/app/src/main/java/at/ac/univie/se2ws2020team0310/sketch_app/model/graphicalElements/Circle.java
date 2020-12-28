@@ -13,12 +13,20 @@ public class Circle extends GraphicalElement {
 
     }
 
+// Getters and Setters
+
     public float getRadius() {
         return radius;
     }
 
     public void setRadius(float radius) {
         this.radius = radius;
+    }
+
+    @Override
+    public void setSize(float size) {
+        super.setSize(size);
+        setRadius(size / 2);
     }
 
     public boolean isWithinElement(float x, float y) {

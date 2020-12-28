@@ -2,6 +2,7 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 
@@ -11,7 +12,7 @@ public abstract class GraphicalElement {
 
     private final DrawStrategy drawStrategy;
 
-    protected float xPosition, yPosition, shapeSize;
+    protected float xPosition, yPosition, size;
 
     protected Paint objectPaint;
 
@@ -44,12 +45,12 @@ public abstract class GraphicalElement {
         this.yPosition = yPosition;
     }
 
-    public float getShapeSize() {
-        return shapeSize;
+    public float getSize() {
+        return size;
     }
 
-    public void setShapeSize(float shapeSize) {
-        this.shapeSize = shapeSize;
+    public void setSize(float size) {
+        this.size = size;
     }
 
     public Paint getObjectPaint() {
@@ -64,7 +65,17 @@ public abstract class GraphicalElement {
         drawStrategy.draw(canvas, this);
     }
 
+
+    //method for freehand
+    public Path getPath() {
+        return null;
+    }
+
 // Other Methods
+
+    public void changeCoordinates(float x, float y) {
+        this.setCoordinates(x, y);
+    }
 
     public void setColor(int color) {
         getObjectPaint().setColor(color);
@@ -72,14 +83,6 @@ public abstract class GraphicalElement {
 
     public void setStrokeWidth(float strokeWidth) {
         getObjectPaint().setStrokeWidth(strokeWidth);
-    }
-
-    public void setTextSize(float textSize) {
-        getObjectPaint().setTextSize(textSize);
-    }
-
-    public void setSize(float size) {
-        shapeSize = size;
     }
 
     public abstract boolean isWithinElement(float x, float y);

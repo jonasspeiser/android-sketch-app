@@ -1,6 +1,8 @@
 package at.ac.univie.se2ws2020team0310.ske_app.model;
 
 import android.graphics.Paint;
+
+import at.ac.univie.se2ws2020team0310.ske_app.BuildConfig;
 import at.ac.univie.se2ws2020team0310.ske_app.model.AppException;
 import at.ac.univie.se2ws2020team0310.ske_app.model.draw.DrawCircleStrategy;
 import at.ac.univie.se2ws2020team0310.ske_app.model.draw.DrawLineStrategy;
