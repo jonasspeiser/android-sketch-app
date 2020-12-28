@@ -59,7 +59,6 @@ public final class GraphicalElementFactory {
         mText.setColor(Color.BLACK);
         mText.setSize(size);
         mText.setStrokeWidth(strokewidth);
-        mText.setTextSize(mText.getSize() / 3);
         return mText;
     }
 
@@ -89,7 +88,6 @@ public final class GraphicalElementFactory {
         mCircle.setColor(color);
         mCircle.setSize(size);
         mCircle.setStrokeWidth(strokewidth);
-        mCircle.setRadius( mCircle.getSize() / 2);
         return mCircle;
     }
 
@@ -100,8 +98,6 @@ public final class GraphicalElementFactory {
         mSquare.setColor(color);
         mSquare.setSize(size);
         mSquare.setStrokeWidth(strokewidth);
-        mSquare.setLength(mSquare.getSize());
-        mSquare.setHeight(mSquare.getSize());
         return mSquare;
     }
 

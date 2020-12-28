@@ -25,11 +25,17 @@ public class Text extends GraphicalElement {
         this.userText = userText;
     }
 
-    public void setSize(float textsize) { // Overrides super.setSize(float size)
-        this.getObjectPaint().setTextSize(textsize);
+    @Override
+    public void setSize(float size) {
+        super.setSize(size);
+        setTextSize(size);
     }
 
 // Other Methods
+
+    public void setTextSize(float textSize) {
+        getObjectPaint().setTextSize(textSize);
+    }
 
     public boolean isWithinElement(float x, float y) {
         // TODO: implement method body

@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onProgressChanged(SeekBar sizeSeekBar, int progress, boolean fromUser) {
                 mainViewModel.setSelectedSize(progress);
-                canvasView.changeElementTextSize(progress);
+                canvasView.changeElementSize(progress);
                 //TODO: change object size
             }
 

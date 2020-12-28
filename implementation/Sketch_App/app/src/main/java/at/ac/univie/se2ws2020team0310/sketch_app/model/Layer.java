@@ -89,9 +89,9 @@ public class Layer {
         }
     }
 
-    public void changeTextSize(float textsize) {
+    public void changeSize(float size) {
         try {
-            getLastElement().setTextSize(textsize);
+            getLastElement().setSize(size);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -119,8 +119,8 @@ public class CanvasView extends View {
         invalidate();
     }
 
-    public void changeElementTextSize(int textsize) {
-        canvasViewModel.changeElementTextSize(textsize);
+    public void changeElementSize(int size) {
+        canvasViewModel.changeElementSize(size);
         invalidate();
     }
 
