@@ -13,11 +13,12 @@ public class Triangle extends GraphicalElement {
         return (float) ((x1*(y2-y3)+x2*(y3-y1)+x3*(y1-y2)) / 2.0);
     }
 
-    public GraphicalElement graphicalElement;
+    public GraphicalElement graphicalElement;   // TODO initialize it or add setter
 
     public boolean isWithinElement(float x, float y) {
         // TODO: implement method body
 
+        // Defensive Programming can be used to check if we are using valid xPos, yPos and graphicalElement attributes
         //top
         float xTop = this.xPosition;
         float yTop = this.yPosition;

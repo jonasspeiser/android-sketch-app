@@ -22,6 +22,7 @@ import androidx.databinding.DataBindingUtil;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.R;
 import at.ac.univie.se2ws2020team0310.sketch_app.databinding.ActivityMainBinding;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
 import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.MainViewModel;
 import petrov.kristiyan.colorpicker.ColorPicker;
@@ -164,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                 showTextEntryField();
                 showTextStyleButtons();
 
-                mainViewModel.selectText();
+                mainViewModel.selectGraphicalElement(EGraphicalElementType.TEXT_FIELD);
                 Toast textToast = Toast.makeText(getApplicationContext(), "Text selected", Toast.LENGTH_LONG);
                 textToast.show();
                 return true;
@@ -177,25 +178,25 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.lineId:
-                mainViewModel.selectLine();
+                mainViewModel.selectGraphicalElement(EGraphicalElementType.LINE);
                 Toast lineToast = Toast.makeText(getApplicationContext(), "Line selected", Toast.LENGTH_LONG);
                 lineToast.show();
                 return true;
 
             case R.id.circleId:
-                mainViewModel.selectCircle();
+                mainViewModel.selectGraphicalElement(EGraphicalElementType.CIRCLE);
                 Toast circleToast = Toast.makeText(getApplicationContext(), "Circle selected", Toast.LENGTH_LONG);
                 circleToast.show();
                 return true;
 
             case R.id.squareId:
-                mainViewModel.selectQuadrangle();
+                mainViewModel.selectGraphicalElement(EGraphicalElementType.QUADRANGLE);
                 Toast quadrangleToast = Toast.makeText(getApplicationContext(), "Quadrangle selected", Toast.LENGTH_LONG);
                 quadrangleToast.show();
                 return true;
 
             case R.id.triangleId:
-                mainViewModel.selectTriangle();
+                mainViewModel.selectGraphicalElement(EGraphicalElementType.TRIANGLE);
                 Toast triangleToast = Toast.makeText(getApplicationContext(), "Triangle selected", Toast.LENGTH_LONG);
                 triangleToast.show();
                 return true;
@@ -216,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
     // TODO: Funktionalität in Methode im ViewModel auslagern (ab hier bis unten)
     public void onClickDoneButton(View view) {
 
-        mainViewModel.selectText();
+        mainViewModel.selectGraphicalElement(EGraphicalElementType.TEXT_FIELD);
         Text mText = (Text) canvasView.getCanvasViewModel().getSelectedGraphicalElement();
         mText.setUserText(getEnteredText());
 

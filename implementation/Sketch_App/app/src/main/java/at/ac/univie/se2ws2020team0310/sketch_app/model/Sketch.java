@@ -105,53 +105,6 @@ public class Sketch {
         }
     }
 
-    public void selectLine(int color, float size, float strokewidth) {
-
-        try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.LINE, color, size, strokewidth));
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-
-    }
-
-    public void selectCircle(int color, float size, float strokewidth) {
-        try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.CIRCLE, color, size, strokewidth));
-        } catch (Exception e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-    }
-
-    public void selectQuadrangle(int color, float size, float strokewidth) {
-
-        // use a Factory to create the Quadrangle as a GraphicalElement
-        try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.QUADRANGLE, color, size, strokewidth));
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-    }
-
-    public void selectTriangle(int color, float size, float strokewidth) {
-
-        try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.TRIANGLE, color, size, strokewidth));
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-
-    }
-
-    public void selectText(int color, float size, float strokewidth) {
-
-        try {
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(EGraphicalElementType.TEXT_FIELD, color, size, strokewidth));
-        } catch (AppException e) {
-            Log.e("CanvasView", e.getMessage());
-        }
-    }
-
     public void resetSelection() {
         this.setSelectedGraphicalElement(null);
     }
@@ -173,6 +126,14 @@ public class Sketch {
             }
             return false;
         }
+
+    public void selectGraphicalElement(EGraphicalElementType type, int color, float size, float strokeWidth) {
+        try {
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(type, color, size, strokeWidth));
+        } catch (AppException e) {
+            Log.e("CanvasView", e.getMessage());
+        }
     }
+}
 
 
