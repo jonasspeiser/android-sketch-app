@@ -18,19 +18,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.R;
+import at.ac.univie.se2ws2020team0310.sketch_app.databinding.ActivityMainBinding;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
-import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.AppViewModel;
 import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class MainActivity extends AppCompatActivity {
 
+    ActivityMainBinding binding;
+
     private CanvasView canvasView;
-
-    private AppViewModel appViewModel;
-
     static private Paint selectedPaint;
+
 
     public static Paint getSelectedPaint() {
         return MainActivity.selectedPaint;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -56,15 +57,13 @@ public class MainActivity extends AppCompatActivity {
         SetSizeSeekBarBehavior();
         SetColorPickerBehavior();
 
-
         // Set the SeekBarChangeListeners
         sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             public void onProgressChanged(SeekBar sizeSeekBar, int progress, boolean fromUser) {
                 selectedPaint.setTextSize(progress);
-                canvasView.getAppViewModel().getLastElement().getObjectPaint().setTextSize(progress);
+                canvasView.changeElementTextSize(progress);
                 //TODO: change object size
-                canvasView.invalidate();
             }
 
             public void onStartTrackingTouch(SeekBar sizeSeekBar) {
@@ -79,8 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
                 selectedPaint.setStrokeWidth(progress);
-                canvasView.getAppViewModel().getLastElement().getObjectPaint().setStrokeWidth(progress);
-                canvasView.invalidate();
+                canvasView.changeElementStrokeWidth(progress);
             }
 
             public void onStartTrackingTouch(SeekBar strokeWidthSeekBar) {
@@ -100,11 +98,11 @@ public class MainActivity extends AppCompatActivity {
             if (sizeSeekBar.getVisibility() == SeekBar.VISIBLE) {
                 sizeSeekBar.setVisibility(SeekBar.INVISIBLE);
             } else {
-                if (canvasView.getAppViewModel().getSelectedGraphicalElement() == null) {
+                if (canvasView.getAppViewModel().layerIsEmpty()) {
                     Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                     error.show();
                 }
-                if (canvasView.getAppViewModel().getSelectedGraphicalElement() != null) {
+                if (!canvasView.getAppViewModel().layerIsEmpty()) {
                     sizeSeekBar.setVisibility(SeekBar.VISIBLE);
                 }
             }
@@ -118,11 +116,11 @@ public class MainActivity extends AppCompatActivity {
             if(strokeWidthSeekBar.getVisibility()==SeekBar.VISIBLE){
                 strokeWidthSeekBar.setVisibility(SeekBar.INVISIBLE);
             }else{
-                if (canvasView.getAppViewModel().getSelectedGraphicalElement() == null) {
+                if (canvasView.getAppViewModel().layerIsEmpty()) {
                     Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                     error.show();
                 }
-                if (canvasView.getAppViewModel().getSelectedGraphicalElement() != null) {
+                if (!canvasView.getAppViewModel().layerIsEmpty()) {
                     strokeWidthSeekBar.setVisibility(SeekBar.VISIBLE);
                 }
             }
@@ -131,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void SetColorPickerBehavior(){
         findViewById(R.id.colorSelectorButton).setOnClickListener(v -> {
-            if (canvasView.getAppViewModel().getSelectedGraphicalElement() == null) {
+            if (canvasView.getAppViewModel().layerIsEmpty()) {
                 Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                 error.show();
             } else {
@@ -141,8 +139,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onChooseColor(int position, int color) {
                         selectedPaint.setColor(color);
-                        canvasView.getAppViewModel().getLastElement().setColor(color); //TODO: in ViewModel: Der Regler soll machen: onChange notify. Wir brauchen einen Observer, der den Wert dieses Reglers abgreift
-                        canvasView.invalidate();
+                        canvasView.changeElementColor(color); //TODO: in ViewModel: Der Regler soll machen: onChange notify. Wir brauchen einen Observer, der den Wert dieses Reglers abgreift
                     }
 
                     @Override
@@ -156,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
         initializePaint();
     }
 
-
     public void initializePaint() {
         Paint mPaint = new Paint();
         mPaint.setColor(Color.BLACK);
@@ -164,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
         mPaint.setStrokeWidth(15);
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(50);
-
         MainActivity.setSelectedPaint(mPaint);
 
     }
@@ -185,8 +180,7 @@ public class MainActivity extends AppCompatActivity {
                 showTextEntryField();
                 showTextStyleButtons();
 
-                canvasView.getAppViewModel().selectText();
-
+                canvasView.getAppViewModel().selectText(selectedPaint);
                 Toast textToast = Toast.makeText(getApplicationContext(), "Text selected", Toast.LENGTH_LONG);
                 textToast.show();
                 return true;
@@ -199,30 +193,34 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.lineId:
-                canvasView.getAppViewModel().selectLine();
+                canvasView.getAppViewModel().selectLine(selectedPaint);
                 Toast lineToast = Toast.makeText(getApplicationContext(), "Line selected", Toast.LENGTH_LONG);
                 lineToast.show();
                 return true;
 
             case R.id.circleId:
-                canvasView.getAppViewModel().selectCircle();
+                canvasView.getAppViewModel().selectCircle(selectedPaint);
                 Toast circleToast = Toast.makeText(getApplicationContext(), "Circle selected", Toast.LENGTH_LONG);
                 circleToast.show();
                 return true;
 
             case R.id.squareId:
-                canvasView.getAppViewModel().selectQuadrangle();
+                canvasView.getAppViewModel().selectQuadrangle(selectedPaint);
                 Toast quadrangleToast = Toast.makeText(getApplicationContext(), "Quadrangle selected", Toast.LENGTH_LONG);
                 quadrangleToast.show();
                 return true;
 
             case R.id.triangleId:
-                canvasView.getAppViewModel().selectTriangle();
+                canvasView.getAppViewModel().selectTriangle(selectedPaint);
                 Toast triangleToast = Toast.makeText(getApplicationContext(), "Triangle selected", Toast.LENGTH_LONG);
                 triangleToast.show();
                 return true;
 
             case R.id.deleteId:
+                canvasView.deleteElement();
+                return true;
+
+            case R.id.clearId:
                 canvasView.clear();
                 return true;
 
@@ -234,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
     // TODO: Move this to CanvasView or in another class?
     public void onClickDoneButton(View view) {
 
-        canvasView.getAppViewModel().selectText();
+        canvasView.getAppViewModel().selectText(selectedPaint);
         Text mText = (Text) canvasView.getAppViewModel().getSelectedGraphicalElement();
         mText.setUserText(getEnteredText());
 
@@ -293,7 +291,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        // Hide the Soft Keyboard
+    // Hide the Soft Keyboard
     // solution from: https://stackoverflow.com/questions/4165414/how-to-hide-soft-keyboard-on-android-after-clicking-outside-edittext
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {

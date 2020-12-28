@@ -3,25 +3,30 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.view.draw.IDrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 
 public abstract class GraphicalElement {
 
 // Attributes
 
-    //TODO: Klassendiagramm "Color" zu Paint-Objekt ändern
-    private final IDrawStrategy drawStrategy;
+    private final DrawStrategy drawStrategy;
 
     protected float xPosition, yPosition, shapeSize;
 
     protected Paint objectPaint;
 
-    public GraphicalElement(IDrawStrategy drawStrategy) { //Konstruktor
+// Constructor
+
+    public GraphicalElement(DrawStrategy drawStrategy) { //Konstruktor
         this.drawStrategy = drawStrategy;
     }
 
 // Getters and Setters
 
+    public void setCoordinates(float x, float y) {
+        this.xPosition = x;
+        this.yPosition = y;
+    }
 
     public float getxPosition() {
         return xPosition;
@@ -69,7 +74,13 @@ public abstract class GraphicalElement {
         getObjectPaint().setStrokeWidth(strokeWidth);
     }
 
+    public void setTextSize(float textSize) {
+        getObjectPaint().setTextSize(textSize);
+    }
+
     public void setSize(float size) {
         shapeSize = size;
     }
+
+    public abstract boolean isWithinElement(float x, float y);
 }

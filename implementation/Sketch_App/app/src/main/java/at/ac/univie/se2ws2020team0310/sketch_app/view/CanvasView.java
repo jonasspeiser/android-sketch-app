@@ -3,8 +3,6 @@ package at.ac.univie.se2ws2020team0310.sketch_app.view;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -14,11 +12,9 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.model.AppException;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.Layer;
 import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.AppViewModel;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
-import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.GraphicalElementFactory;
 
 public class CanvasView extends View {
 
@@ -58,46 +54,34 @@ public class CanvasView extends View {
         mCanvas = new Canvas(mBitmap);
     }
 
-
-
     // draw the element at the position of the user's touch
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         float touchX = event.getX();
         float touchY = event.getY();
 
-        //TODO: Für Implementierung von Freehand-Drawing:
-        // if-statement einfügen, damit der nächste Absatz nur aufgerufen wird,
-        // wenn zuvor eine Shape im Menü angewählt wurde.
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                appViewModel.onTouchDown(touchX, touchY);
+                if (appViewModel.elementsToDraw()) {
+                    invalidate();
+                    return true;
+                } else {
+                    Log.w("CanvasView", "No object selected");
+                    return false;
+                }
 
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (appViewModel.getSelectedGraphicalElement() != null) {
-                appViewModel.storeElement();
-
-                // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
-                appViewModel.getLastElement().setxPosition(touchX);
-                appViewModel.getLastElement().setyPosition(touchY);
-
+            case MotionEvent.ACTION_MOVE:
+                appViewModel.onTouchMove(touchX, touchY);
                 invalidate();
                 return true;
-            }
-            else {
-                Log.w("CanvasView", "No object selected");
+
+            case MotionEvent.ACTION_UP:
+                appViewModel.onTouchUp();
+                return true;
+
+            default:
                 return false;
-            }
-
-        }
-
-        if (event.getAction() == MotionEvent.ACTION_MOVE) {
-            // füge Klickposition (touchX, touchY) an das letzte Objekt in drawnShapes
-            appViewModel.getLastElement().setxPosition(touchX);
-            appViewModel.getLastElement().setyPosition(touchY);
-
-            invalidate();
-            return true;
-
-        } else {
-            return false;
         }
     }
 
@@ -113,6 +97,26 @@ public class CanvasView extends View {
 
     public void clear() {
         appViewModel.clear();
+        invalidate();
+    }
+
+    public void deleteElement() {
+        appViewModel.deleteElement();
+        invalidate();
+    }
+
+    public void changeElementColor(int color) {
+        appViewModel.changeColor(color);
+        invalidate();
+    }
+
+    public void changeElementStrokeWidth(int strokewidth) {
+        appViewModel.changeStrokeWidth(strokewidth);
+        invalidate();
+    }
+
+    public void changeElementTextSize(int textsize) {
+        appViewModel.changeTextSize(textsize);
         invalidate();
     }
 

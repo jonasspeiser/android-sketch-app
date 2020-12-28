@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Sketch_App</string>
+    <string name="enter_text_here">Enter Text here</string>
+    <string name="done">Done</string>
+    <string name="menu_icon_text_title">Text</string>
+    <string name="menu_icon_finger_title">Finger</string>
+    <string name="menu_icon_line_title">Line</string>
+    <string name="menu_icon_circle_title">Circle</string>
+    <string name="menu_icon_square_title">Square</string>
+    <string name="menu_icon_triangle_title">Triangle</string>
+    <string name="option_menu_load">Load</string>
+    <string name="option_menu_save">Save</string>
+    <string name="option_menu_export">Export</string>
+    <string name="option_menu_delete">Delete</string>
+    <string name="floatingbutton_textSize">Text size button</string>
+    <string name="floatingbutton_lineWidth">Button line width</string>
+    <string name="floatingbutton_color">Button Color Picker</string>
+</resources>
