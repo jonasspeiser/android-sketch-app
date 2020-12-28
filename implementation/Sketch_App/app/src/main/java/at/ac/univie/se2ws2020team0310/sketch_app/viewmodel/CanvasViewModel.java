@@ -18,8 +18,6 @@ public class CanvasViewModel extends ViewModel {
     private boolean moveElement;
     private Path path;
 
-    private TextDecorator textDecorator;
-
 // Constructors
 
     public CanvasViewModel() {
@@ -134,8 +132,6 @@ public class CanvasViewModel extends ViewModel {
             path.lineTo(touchX, touchY);
         }
     }
-    public buttonClick() {
-        textDecorator.buttonClick();
-    }
+
 
 }

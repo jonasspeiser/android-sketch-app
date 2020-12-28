@@ -20,12 +20,13 @@ public class MainViewModel extends ViewModel {
 
     private TextDecorator textDecorator;    // TODO initialize it in Constructor, add getter/setter
 
-// Constructor
+    // Constructor
     public MainViewModel() {
         this.sketch = Sketch.getSketch();
         this.selectedColor = Color.BLACK;
         this.selectedSize = 150;
         this.selectedStrokeWidth = 15;
+        textDecorator = new TextDecorator();
     }
 // Getters and Setters
 
@@ -51,6 +52,14 @@ public class MainViewModel extends ViewModel {
 
     public void setSelectedStrokeWidth(float selectedStrokeWidth) {
         this.selectedStrokeWidth = selectedStrokeWidth;
+    }
+
+    public TextDecorator getTextDecorator() {
+        return textDecorator;
+    }
+
+    public void setTextDecorator(TextDecorator textDecorator) {
+        this.textDecorator = textDecorator;
     }
 
 // Other Methods
