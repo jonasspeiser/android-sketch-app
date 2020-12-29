@@ -1,8 +1,6 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -207,6 +205,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.clearId:
                 canvasView.clear();
                 return true;
+
+            case R.id.editModeId:
+                mainViewModel.toggleEditMode();
 
             default:
                 return super.onOptionsItemSelected(item);

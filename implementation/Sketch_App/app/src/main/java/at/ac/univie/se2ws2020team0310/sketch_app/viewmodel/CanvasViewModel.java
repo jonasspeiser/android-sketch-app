@@ -10,7 +10,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Freehand;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
-public class CanvasViewModel extends ViewModel {
+public class  CanvasViewModel extends ViewModel {
 
 // Attributes
 

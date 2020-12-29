@@ -19,6 +19,8 @@ public class MainViewModel extends BaseObservable {
     private float selectedSize;
     private float selectedStrokeWidth;
 
+    private boolean editModeOn;
+
     private TextDecorator textDecorator;    // TODO initialize it in Constructor, add getter/setter
 
 // Constructor
@@ -27,6 +29,7 @@ public class MainViewModel extends BaseObservable {
         this.selectedColor = Color.BLACK;
         this.selectedSize = 150;
         this.selectedStrokeWidth = 15;
+        this.editModeOn = false;
     }
 // Getters and Setters
 
@@ -65,6 +68,11 @@ public class MainViewModel extends BaseObservable {
 
     public void selectGraphicalElement(EGraphicalElementType type) {
         sketch.selectGraphicalElement(type, this.selectedColor, this.selectedSize, this.selectedStrokeWidth);
+    }
+
+    public void toggleEditMode(){
+        this.editModeOn = !this.editModeOn;
+        sketch.setEditModeTurnedOn(this.editModeOn);
     }
 }
 

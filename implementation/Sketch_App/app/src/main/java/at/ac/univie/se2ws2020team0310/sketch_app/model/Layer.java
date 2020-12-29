@@ -1,13 +1,8 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
-import android.graphics.Paint;
-import android.util.Log;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
 public class Layer {
@@ -15,6 +10,8 @@ public class Layer {
 // Attributes
 
     private final List<GraphicalElement> drawnElements;
+    private final List<Integer> editableElementsIndices;
+    private int movableElementIndex;
 
     private boolean visible;
 
@@ -22,6 +19,7 @@ public class Layer {
 
     public Layer() {
         this.drawnElements = new ArrayList<>();
+        this.editableElementsIndices = new ArrayList<>();
         this.visible = true;
     }
 
@@ -47,8 +45,10 @@ public class Layer {
 
     public void storeElement(GraphicalElement selectedGraphicalElement) {
         drawnElements.add(selectedGraphicalElement);
+        makeEditable(selectedGraphicalElement);
+        makeMovable(selectedGraphicalElement);
     }
-
+/*
     public GraphicalElement getLastElement() {
         GraphicalElement lastElement = null;
         try {
@@ -59,47 +59,68 @@ public class Layer {
         return lastElement;
     }
 
+ */
+
     public void clear() {
         drawnElements.clear();
+        resetEditableElements();
     }
 
-    public void editElement(GraphicalElement graphicalElement) {
+
+
+    /**
+     * Checks, whether the provided coordinates are within a graphical element and if so, makes that element editable.
+     *
+     * @param x value on the x-axes
+     * @param y value on the y-axes
+     * @return returns true if the provided coordinates are within an already drawn element
+     */
+    public boolean makeElementOnPositionEditable(float x, float y) {
+        for (GraphicalElement graphicalElement : getDrawnElements()) {
+            if (graphicalElement.isWithinElement(x, y)) {
+                makeEditable(graphicalElement);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks, whether the provided coordinates are within a graphical element and if so, makes that element movable.
+     *
+     * @param x value on the x-axes
+     * @param y value on the y-axes
+     * @return returns true if the provided coordinates are within an already drawn element
+     */
+    public boolean makeElementOnPositionMovable(float x, float y) {
+        for (GraphicalElement graphicalElement : getDrawnElements()) {
+            if (graphicalElement.isWithinElement(x, y)) {
+                makeMovable(graphicalElement);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void makeMovable(GraphicalElement graphicalElement) {
+        if (drawnElements.contains(graphicalElement)) {
+            int index = drawnElements.indexOf(graphicalElement);
+            this.movableElementIndex = index;
+        }
+    }
+
+    public void makeEditable(GraphicalElement graphicalElement) {
         // TODO: Hier muss statt des if noch ein try-catch Block mit eigener Exception her ("Element not found")
         if (drawnElements.contains(graphicalElement)) {
-            // moves the element which was given as a parameter to the last index in the list
-            // it can now be edited, as the last List element will always be edited with user input
             int index = drawnElements.indexOf(graphicalElement);
-            Collections.rotate(drawnElements.subList(index, drawnElements.size()),-1);
-        }
-    };
-
-    public void changeColor(int color) {
-        try {
-            getLastElement().setColor(color);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void changeStrokeWidth(float strokewidth) {
-        try {
-            getLastElement().setStrokeWidth(strokewidth);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void changeSize(float size) {
-        try {
-            getLastElement().setSize(size);
-        } catch (Exception e) {
-            e.printStackTrace();
+            editableElementsIndices.add(index);
         }
     }
 
     public void setCoordinates(float x, float y) {
         try {
-            getLastElement().setCoordinates(x, y);
+            int index = this.movableElementIndex;
+            drawnElements.get(index).setCoordinates(x, y);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -107,17 +128,53 @@ public class Layer {
 
     public void changeCoordinates(float x, float y) {
         try {
-            getLastElement().changeCoordinates(x, y);
+            int index = this.movableElementIndex;
+            drawnElements.get(index).changeCoordinates(x, y);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    };
+    }
 
-    public void deleteLastElement() {
-        drawnElements.remove(getLastElement());
-    };
+    public void changeColor(int color) {
+        try {
+            for (int index : editableElementsIndices) {
+                drawnElements.get(index).setColor(color);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeStrokeWidth(float strokewidth) {
+        try {
+            for (int index : editableElementsIndices) {
+                drawnElements.get(index).setStrokeWidth(strokewidth);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeSize(float size) {
+        try {
+            for (int index : editableElementsIndices) {
+                drawnElements.get(index).setSize(size);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
+    public void deleteElement() {
+        for (int index : editableElementsIndices) {
+            drawnElements.remove(index);
+            resetEditableElements();
+        }
+    }
 
+    public void resetEditableElements() {
+        editableElementsIndices.clear();
+    }
 
 }

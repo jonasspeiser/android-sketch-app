@@ -13,10 +13,13 @@ public class Sketch {
 // Attributes
 
     private static final Sketch sketch = new Sketch();
+
     private final Layer[] layers;
     private Layer selectedLayer;
 
     private GraphicalElement selectedGraphicalElement;
+
+    private boolean editModeTurnedOn;
 
 // Constructor
 
@@ -65,6 +68,15 @@ public class Sketch {
         return  visibleElements;
     }
 
+    public boolean isEditModeTurnedOn() {
+        return editModeTurnedOn;
+    }
+
+    public void setEditModeTurnedOn(boolean editModeTurnedOn) {
+        this.editModeTurnedOn = editModeTurnedOn;
+    }
+
+
 // Other Methods
 
     public boolean layerIsEmpty() {
@@ -92,11 +104,13 @@ public class Sketch {
     }
 
     public void changeCoordinates(float x, float y) {
-        this.getSelectedLayer().changeCoordinates(x, y);
+        if(!isEditModeTurnedOn()) {
+            this.getSelectedLayer().changeCoordinates(x, y);
+        }
     }
 
     public void deleteElement() {
-        selectedLayer.deleteLastElement();
+        selectedLayer.deleteElement();
     }
 
     public void clear() {
@@ -110,25 +124,25 @@ public class Sketch {
     }
 
     /**
-     * Checks, whether the provided coordinates are within a graphical element of the selected layer and if so, makes that element editable.
-     *
-     * @param x value on the x-axes
-     * @param y value on the y-axes
-     * @return returns true if the provided coordinates are within an element
+     * Checks, wether there is an Element on touch position.
+     * When Edit Mode is on, adds that Element to the User-Selection of editable Elements.
+     * Else let's user move that element.
+     * @param x
+     * @param y
+     * @return returns true if there is an Element at the given coordinates
      */
-    public boolean isWithinElement(float x, float y) {
-        // TODO: We need a better name, as this method not only checks, whether a touch falls within an element, but also sets the found element "editable"
-        for (GraphicalElement graphicalElement : selectedLayer.getDrawnElements()) {
-               if (graphicalElement.isWithinElement(x, y)) {
-                    selectedLayer.editElement(graphicalElement);
-                    return true;
-                }
-            }
-            return false;
+    public boolean isWithinElement(float x, float y) {  // TODO: Rename Method!
+        if (isEditModeTurnedOn()) {
+            return selectedLayer.makeElementOnPositionEditable(x, y);
+        } else {
+            selectedLayer.resetEditableElements();
+            return selectedLayer.makeElementOnPositionMovable(x, y);
         }
+    }
 
     public void selectGraphicalElement(EGraphicalElementType type, int color, float size, float strokeWidth) {
         try {
+            selectedLayer.resetEditableElements();
             this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(type, color, size, strokeWidth));
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());

@@ -35,6 +35,15 @@
         android:title="@string/menu_icon_triangle_title"
         app:showAsAction="always" />
     <item
+        android:id="@+id/editModeId"
+        android:title="Toggle edit mode"/>
+    <item
+        android:id="@+id/deleteId"
+        android:title="@string/option_menu_delete"/>
+    <item
+        android:id="@+id/clearId"
+        android:title="Clear" />
+    <item
         android:id="@+id/loadId"
         android:title="@string/option_menu_load" />
     <item
@@ -43,11 +52,6 @@
     <item
         android:id="@+id/exportId"
         android:title="@string/option_menu_export"/>
-    <item
-        android:id="@+id/deleteId"
-        android:title="@string/option_menu_delete"/>
-    <item
-        android:id="@+id/clearId"
-        android:title="Clear" />
+
 
 </menu>
