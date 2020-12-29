@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         SeekBar sizeSeekBar = findViewById(R.id.sizeSeekBar);
         SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
+        Switch switchLayer1 = findViewById(R.id.switchLayer1);
+        Switch switchLayer2 = findViewById(R.id.switchLayer2);
+        Switch switchLayer3 = findViewById(R.id.switchLayer3);
         canvasView = findViewById(R.id.canvasView);
         mainViewModel = new MainViewModel();
 
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         SetStrokeWidthSeekBarBehavior();
         SetSizeSeekBarBehavior();
         SetColorPickerBehavior();
+        setLayerVisibility();
 
         // Set the SeekBarChangeListeners
         sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -84,6 +89,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void setLayerVisibility() {
+        Switch switchLayer1 = findViewById(R.id.switchLayer1);
+        Switch switchLayer2 = findViewById(R.id.switchLayer2);
+        Switch switchLayer3 = findViewById(R.id.switchLayer3);
+
+        findViewById(R.id.layerswitchbutton).setOnClickListener(v -> {
+            if(switchLayer1.getVisibility() == Switch.VISIBLE) {
+                switchLayer1.setVisibility(Switch.INVISIBLE);
+                switchLayer2.setVisibility(Switch.INVISIBLE);
+                switchLayer3.setVisibility(Switch.INVISIBLE);
+            } else {
+                switchLayer1.setVisibility(Switch.VISIBLE);
+                switchLayer2.setVisibility(Switch.VISIBLE);
+                switchLayer3.setVisibility(Switch.VISIBLE);
+            }
+        });
     }
 
     public void SetSizeSeekBarBehavior() {
