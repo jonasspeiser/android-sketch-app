@@ -15,6 +15,7 @@ public class Layer {
 // Attributes
 
     private final List<GraphicalElement> drawnElements;
+    private final List<Integer> editableElements;
 
     private boolean visible;
 
@@ -22,6 +23,7 @@ public class Layer {
 
     public Layer() {
         this.drawnElements = new ArrayList<>();
+        this.editableElements = new ArrayList<>();
         this.visible = true;
     }
 
@@ -61,6 +63,19 @@ public class Layer {
 
     public void clear() {
         drawnElements.clear();
+    }
+
+    // TODO: Change methods from here on downwards
+
+    // TODO: We need a better name, as this method not only checks, whether a touch falls within an element, but also sets the found element "editable"
+    public boolean isWithinElement(float x, float y) {
+        for (GraphicalElement graphicalElement : getDrawnElements()) {
+            if (graphicalElement.isWithinElement(x, y)) {
+                editElement(graphicalElement);
+                return true;
+            }
+        }
+        return false;
     }
 
     public void editElement(GraphicalElement graphicalElement) {

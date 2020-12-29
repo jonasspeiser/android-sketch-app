@@ -13,6 +13,7 @@ public class Sketch {
 // Attributes
 
     private static final Sketch sketch = new Sketch();
+
     private final Layer[] layers;
     private Layer selectedLayer;
 
@@ -117,14 +118,7 @@ public class Sketch {
      * @return returns true if the provided coordinates are within an element
      */
     public boolean isWithinElement(float x, float y) {
-        // TODO: We need a better name, as this method not only checks, whether a touch falls within an element, but also sets the found element "editable"
-        for (GraphicalElement graphicalElement : selectedLayer.getDrawnElements()) {
-               if (graphicalElement.isWithinElement(x, y)) {
-                    selectedLayer.editElement(graphicalElement);
-                    return true;
-                }
-            }
-            return false;
+            return selectedLayer.isWithinElement(x, y);
         }
 
     public void selectGraphicalElement(EGraphicalElementType type, int color, float size, float strokeWidth) {
