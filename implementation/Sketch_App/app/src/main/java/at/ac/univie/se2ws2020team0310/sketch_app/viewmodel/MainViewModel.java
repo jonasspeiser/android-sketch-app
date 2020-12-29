@@ -3,8 +3,10 @@ package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 import android.graphics.Color;
 
 import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 import androidx.lifecycle.ViewModel;
 
+import at.ac.univie.se2ws2020team0310.sketch_app.BR;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.TextDecorator;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
@@ -53,8 +55,10 @@ public class MainViewModel extends BaseObservable {
         return selectedStrokeWidth;
     }
 
+    @Bindable
     public void setSelectedStrokeWidth(float selectedStrokeWidth) {
         this.selectedStrokeWidth = selectedStrokeWidth;
+        notifyPropertyChanged(BR.selectedStrokeWidth);
     }
 
 // Other Methods

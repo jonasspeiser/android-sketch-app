@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
 // Attributes
 
     ActivityMainBinding binding;
-
     private CanvasView canvasView;
     private MainViewModel mainViewModel;
 

@@ -4,6 +4,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/toggleEdit"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="@string/menu_icon_toggleEdit_title"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/textId"
         android:icon="@drawable/menu_icon_text"
         android:title="@string/menu_icon_text_title"
