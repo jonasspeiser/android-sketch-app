@@ -97,7 +97,7 @@ public class Sketch {
     }
 
     public void deleteElement() {
-        selectedLayer.deleteLastElement();
+        selectedLayer.deleteElement();
     }
 
     public void clear() {
@@ -110,13 +110,7 @@ public class Sketch {
         this.setSelectedGraphicalElement(null);
     }
 
-    /**
-     * Checks, whether the provided coordinates are within a graphical element of the selected layer and if so, makes that element editable.
-     *
-     * @param x value on the x-axes
-     * @param y value on the y-axes
-     * @return returns true if the provided coordinates are within an element
-     */
+
     public boolean isWithinElement(float x, float y) {
             return selectedLayer.isWithinElement(x, y);
         }

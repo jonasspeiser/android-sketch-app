@@ -1,13 +1,8 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
-import android.graphics.Paint;
-import android.util.Log;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
 public class Layer {
@@ -15,7 +10,7 @@ public class Layer {
 // Attributes
 
     private final List<GraphicalElement> drawnElements;
-    private final List<Integer> editableElements;
+    private final List<Integer> editableElementsIndices;
 
     private boolean visible;
 
@@ -23,7 +18,7 @@ public class Layer {
 
     public Layer() {
         this.drawnElements = new ArrayList<>();
-        this.editableElements = new ArrayList<>();
+        this.editableElementsIndices = new ArrayList<>();
         this.visible = true;
     }
 
@@ -50,7 +45,7 @@ public class Layer {
     public void storeElement(GraphicalElement selectedGraphicalElement) {
         drawnElements.add(selectedGraphicalElement);
     }
-
+/*
     public GraphicalElement getLastElement() {
         GraphicalElement lastElement = null;
         try {
@@ -61,14 +56,23 @@ public class Layer {
         return lastElement;
     }
 
+ */
+
     public void clear() {
         drawnElements.clear();
     }
 
-    // TODO: Change methods from here on downwards
 
-    // TODO: We need a better name, as this method not only checks, whether a touch falls within an element, but also sets the found element "editable"
+
+    /**
+     * Checks, whether the provided coordinates are within a graphical element and if so, makes that element editable.
+     *
+     * @param x value on the x-axes
+     * @param y value on the y-axes
+     * @return returns true if the provided coordinates are within an already drawn element
+     */
     public boolean isWithinElement(float x, float y) {
+        // TODO: We need a better name, as this method not only checks, whether a touch falls within an element, but also sets the found element "editable"
         for (GraphicalElement graphicalElement : getDrawnElements()) {
             if (graphicalElement.isWithinElement(x, y)) {
                 editElement(graphicalElement);
@@ -78,19 +82,22 @@ public class Layer {
         return false;
     }
 
+
+    // TODO: Change methods from here on downwards
+
     public void editElement(GraphicalElement graphicalElement) {
         // TODO: Hier muss statt des if noch ein try-catch Block mit eigener Exception her ("Element not found")
         if (drawnElements.contains(graphicalElement)) {
-            // moves the element which was given as a parameter to the last index in the list
-            // it can now be edited, as the last List element will always be edited with user input
             int index = drawnElements.indexOf(graphicalElement);
-            Collections.rotate(drawnElements.subList(index, drawnElements.size()),-1);
+            editableElementsIndices.add(index);
         }
     };
 
     public void changeColor(int color) {
         try {
-            getLastElement().setColor(color);
+            for (int index : editableElementsIndices) {
+                drawnElements.get(index).setColor(color);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,7 +105,9 @@ public class Layer {
 
     public void changeStrokeWidth(float strokewidth) {
         try {
-            getLastElement().setStrokeWidth(strokewidth);
+            for (int index : editableElementsIndices) {
+                drawnElements.get(index).setStrokeWidth(strokewidth);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -106,7 +115,9 @@ public class Layer {
 
     public void changeSize(float size) {
         try {
-            getLastElement().setSize(size);
+            for (int index : editableElementsIndices) {
+                drawnElements.get(index).setSize(size);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -114,7 +125,9 @@ public class Layer {
 
     public void setCoordinates(float x, float y) {
         try {
-            getLastElement().setCoordinates(x, y);
+            for (int index : editableElementsIndices) {
+                drawnElements.get(index).setCoordinates(x, y);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -122,15 +135,19 @@ public class Layer {
 
     public void changeCoordinates(float x, float y) {
         try {
-            getLastElement().changeCoordinates(x, y);
+            for (int index : editableElementsIndices) {
+                drawnElements.get(index).changeCoordinates(x, y);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     };
 
-    public void deleteLastElement() {
-        drawnElements.remove(getLastElement());
-    };
+    public void deleteElement() {
+        for (int index : editableElementsIndices) {
+            drawnElements.remove(index);
+        }
+    }
 
 
 
