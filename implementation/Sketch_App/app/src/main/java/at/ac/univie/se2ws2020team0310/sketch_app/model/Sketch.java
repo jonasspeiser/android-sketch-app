@@ -19,6 +19,8 @@ public class Sketch {
 
     private GraphicalElement selectedGraphicalElement;
 
+    private boolean editModeTurnedOn;
+
 // Constructor
 
     private Sketch() {
@@ -66,6 +68,15 @@ public class Sketch {
         return  visibleElements;
     }
 
+    public boolean isEditModeTurnedOn() {
+        return editModeTurnedOn;
+    }
+
+    public void setEditModeTurnedOn(boolean editModeTurnedOn) {
+        this.editModeTurnedOn = editModeTurnedOn;
+    }
+
+
 // Other Methods
 
     public boolean layerIsEmpty() {
@@ -93,7 +104,9 @@ public class Sketch {
     }
 
     public void changeCoordinates(float x, float y) {
-        this.getSelectedLayer().changeCoordinates(x, y);
+        if(!isEditModeTurnedOn()) {
+            this.getSelectedLayer().changeCoordinates(x, y);
+        }
     }
 
     public void deleteElement() {
@@ -110,13 +123,26 @@ public class Sketch {
         this.setSelectedGraphicalElement(null);
     }
 
-
-    public boolean isWithinElement(float x, float y) {
-            return selectedLayer.isWithinElement(x, y);
+    /**
+     * Checks, wether there is an Element on touch position.
+     * When Edit Mode is on, adds that Element to the User-Selection of editable Elements.
+     * Else let's user move that element.
+     * @param x
+     * @param y
+     * @return returns true if there is an Element at the given coordinates
+     */
+    public boolean isWithinElement(float x, float y) {  // TODO: Rename Method!
+        if (isEditModeTurnedOn()) {
+            return selectedLayer.makeElementOnPositionEditable(x, y);
+        } else {
+            selectedLayer.resetEditableElements();
+            return selectedLayer.makeElementOnPositionMovable(x, y);
         }
+    }
 
     public void selectGraphicalElement(EGraphicalElementType type, int color, float size, float strokeWidth) {
         try {
+            selectedLayer.resetEditableElements();
             this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(type, color, size, strokeWidth));
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());

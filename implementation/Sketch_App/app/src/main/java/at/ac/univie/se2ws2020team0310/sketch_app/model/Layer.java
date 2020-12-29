@@ -11,6 +11,7 @@ public class Layer {
 
     private final List<GraphicalElement> drawnElements;
     private final List<Integer> editableElementsIndices;
+    private int movableElementIndex;
 
     private boolean visible;
 
@@ -44,6 +45,8 @@ public class Layer {
 
     public void storeElement(GraphicalElement selectedGraphicalElement) {
         drawnElements.add(selectedGraphicalElement);
+        makeEditable(selectedGraphicalElement);
+        makeMovable(selectedGraphicalElement);
     }
 /*
     public GraphicalElement getLastElement() {
@@ -60,6 +63,7 @@ public class Layer {
 
     public void clear() {
         drawnElements.clear();
+        resetEditableElements();
     }
 
 
@@ -71,27 +75,65 @@ public class Layer {
      * @param y value on the y-axes
      * @return returns true if the provided coordinates are within an already drawn element
      */
-    public boolean isWithinElement(float x, float y) {
-        // TODO: We need a better name, as this method not only checks, whether a touch falls within an element, but also sets the found element "editable"
+    public boolean makeElementOnPositionEditable(float x, float y) {
         for (GraphicalElement graphicalElement : getDrawnElements()) {
             if (graphicalElement.isWithinElement(x, y)) {
-                editElement(graphicalElement);
+                makeEditable(graphicalElement);
                 return true;
             }
         }
         return false;
     }
 
+    /**
+     * Checks, whether the provided coordinates are within a graphical element and if so, makes that element movable.
+     *
+     * @param x value on the x-axes
+     * @param y value on the y-axes
+     * @return returns true if the provided coordinates are within an already drawn element
+     */
+    public boolean makeElementOnPositionMovable(float x, float y) {
+        for (GraphicalElement graphicalElement : getDrawnElements()) {
+            if (graphicalElement.isWithinElement(x, y)) {
+                makeMovable(graphicalElement);
+                return true;
+            }
+        }
+        return false;
+    }
 
-    // TODO: Change methods from here on downwards
+    public void makeMovable(GraphicalElement graphicalElement) {
+        if (drawnElements.contains(graphicalElement)) {
+            int index = drawnElements.indexOf(graphicalElement);
+            this.movableElementIndex = index;
+        }
+    }
 
-    public void editElement(GraphicalElement graphicalElement) {
+    public void makeEditable(GraphicalElement graphicalElement) {
         // TODO: Hier muss statt des if noch ein try-catch Block mit eigener Exception her ("Element not found")
         if (drawnElements.contains(graphicalElement)) {
             int index = drawnElements.indexOf(graphicalElement);
             editableElementsIndices.add(index);
         }
-    };
+    }
+
+    public void setCoordinates(float x, float y) {
+        try {
+            int index = this.movableElementIndex;
+            drawnElements.get(index).setCoordinates(x, y);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeCoordinates(float x, float y) {
+        try {
+            int index = this.movableElementIndex;
+            drawnElements.get(index).changeCoordinates(x, y);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void changeColor(int color) {
         try {
@@ -123,33 +165,16 @@ public class Layer {
         }
     }
 
-    public void setCoordinates(float x, float y) {
-        try {
-            for (int index : editableElementsIndices) {
-                drawnElements.get(index).setCoordinates(x, y);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void changeCoordinates(float x, float y) {
-        try {
-            for (int index : editableElementsIndices) {
-                drawnElements.get(index).changeCoordinates(x, y);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    };
 
     public void deleteElement() {
         for (int index : editableElementsIndices) {
             drawnElements.remove(index);
+            resetEditableElements();
         }
     }
 
-
-
+    public void resetEditableElements() {
+        editableElementsIndices.clear();
+    }
 
 }
