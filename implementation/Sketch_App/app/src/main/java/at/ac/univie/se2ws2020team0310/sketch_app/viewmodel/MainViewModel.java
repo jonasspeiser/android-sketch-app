@@ -2,13 +2,14 @@ package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
 import android.graphics.Color;
 
+import androidx.databinding.BaseObservable;
 import androidx.lifecycle.ViewModel;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.TextDecorator;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 
-public class MainViewModel extends ViewModel {
+public class MainViewModel extends BaseObservable {
 
 // Attributes
 
