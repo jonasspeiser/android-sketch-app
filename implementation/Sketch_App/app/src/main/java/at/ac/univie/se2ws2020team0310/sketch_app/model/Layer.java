@@ -10,7 +10,7 @@ public class Layer {
 // Attributes
 
     private final List<GraphicalElement> drawnElements;
-    private final List<Integer> editableElementsIndices;
+    private final List<Integer> editableElementsIndices; // TODO: Mit Iterator implementieren
     private int movableElementIndex;
 
     private boolean visible;
@@ -59,8 +59,8 @@ public class Layer {
     /**
      * Checks, whether the provided coordinates are within a graphical element and if so, makes that element editable.
      *
-     * @param x value on the x-axes
-     * @param y value on the y-axes
+     * @param x coordinate on the x-axes
+     * @param y coordinate on the y-axes
      * @return returns true if the provided coordinates are within an already drawn element
      */
     public boolean makeElementOnPositionEditable(float x, float y) {
@@ -76,8 +76,8 @@ public class Layer {
     /**
      * Checks, whether the provided coordinates are within a graphical element and if so, makes that element movable.
      *
-     * @param x value on the x-axes
-     * @param y value on the y-axes
+     * @param x coordinate on the x-axes
+     * @param y coordinate on the y-axes
      * @return returns true if the provided coordinates are within an already drawn element
      */
     public boolean makeElementOnPositionMovable(float x, float y) {
@@ -97,7 +97,7 @@ public class Layer {
         }
     }
 
-    public void makeEditable(GraphicalElement graphicalElement) {
+    public void makeEditable(GraphicalElement graphicalElement) { // TODO: Mit Iterator implementieren
         // TODO: Hier muss statt des if noch ein try-catch Block mit eigener Exception her ("Element not found")
         if (drawnElements.contains(graphicalElement)) {
             int index = drawnElements.indexOf(graphicalElement);
@@ -123,7 +123,7 @@ public class Layer {
         }
     }
 
-    public void changeColor(int color) {
+    public void changeColor(int color) {        // TODO: Mit Iterator implementieren
         try {
             for (int index : editableElementsIndices) {
                 drawnElements.get(index).setColor(color);
