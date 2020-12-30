@@ -63,6 +63,10 @@ public class MainViewModel extends BaseObservable {
 
 // Other Methods
 
+    public void selectLayer(int layerNumber) {
+        sketch.setSelectedLayer(layerNumber);
+    }
+
     public void setLayerVisibility(int layerNumber, boolean isVisible) {
         sketch.setLayerVisibility(layerNumber, isVisible);
     }
