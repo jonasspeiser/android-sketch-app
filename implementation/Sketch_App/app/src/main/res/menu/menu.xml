@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/toggleEdit"
+        android:id="@+id/editModeId"
         android:icon="@android:drawable/ic_menu_edit"
         android:title="@string/menu_icon_toggleEdit_title"
         app:showAsAction="always"/>
@@ -40,9 +40,6 @@
         android:icon="@drawable/menu_icon_triangle"
         android:title="@string/menu_icon_triangle_title"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/editModeId"
-        android:title="Toggle edit mode"/>
     <item
         android:id="@+id/deleteId"
         android:title="@string/option_menu_delete"/>

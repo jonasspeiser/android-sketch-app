@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     private CanvasView canvasView;
     private MainViewModel mainViewModel;
-    private boolean editMode;
 
 // Methods
 
@@ -46,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         SeekBar sizeSeekBar = findViewById(R.id.sizeSeekBar);
         SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
-        editMode = true;
         Switch switchLayer1 = findViewById(R.id.switchLayer1);
         Switch switchLayer2 = findViewById(R.id.switchLayer2);
         Switch switchLayer3 = findViewById(R.id.switchLayer3);
@@ -184,13 +182,6 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO:Edit Mode implementation!
         switch (item.getItemId()) {
-            case R.id.toggleEdit:
-                if(editMode==true){
-                    editMode = false;
-                }else{
-                    editMode = true;
-                }
-                return true;
 
             case R.id.textId:
                 showTextEntryField();
@@ -241,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.editModeId:
                 mainViewModel.toggleEditMode();
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
