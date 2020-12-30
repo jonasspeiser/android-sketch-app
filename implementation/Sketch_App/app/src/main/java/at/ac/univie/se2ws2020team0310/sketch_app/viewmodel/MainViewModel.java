@@ -63,6 +63,10 @@ public class MainViewModel extends BaseObservable {
 
 // Other Methods
 
+    public void setLayerVisibility(int layerNumber, boolean isVisible) {
+        sketch.setLayerVisibility(layerNumber, isVisible);
+    }
+
     public boolean layerIsEmpty() {return sketch.layerIsEmpty();}
 
     public void buttonClick() {

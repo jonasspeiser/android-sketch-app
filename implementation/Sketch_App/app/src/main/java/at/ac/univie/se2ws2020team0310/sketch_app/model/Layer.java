@@ -48,18 +48,6 @@ public class Layer {
         makeEditable(selectedGraphicalElement);
         makeMovable(selectedGraphicalElement);
     }
-/*
-    public GraphicalElement getLastElement() {
-        GraphicalElement lastElement = null;
-        try {
-            lastElement = drawnElements.get(drawnElements.size() - 1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return lastElement;
-    }
-
- */
 
     public void clear() {
         drawnElements.clear();

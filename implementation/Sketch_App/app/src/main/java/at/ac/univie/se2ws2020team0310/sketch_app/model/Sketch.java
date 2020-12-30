@@ -79,6 +79,10 @@ public class Sketch {
 
 // Other Methods
 
+    public void setLayerVisibility(int layerNumber, boolean isVisible) {
+        layers[layerNumber].setVisible(isVisible);
+    }
+
     public boolean layerIsEmpty() {
         return selectedLayer.isEmpty();
     }
