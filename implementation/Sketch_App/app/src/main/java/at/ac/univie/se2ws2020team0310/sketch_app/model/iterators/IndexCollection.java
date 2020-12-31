@@ -15,7 +15,7 @@ public class IndexCollection implements IterableCollection {
 // Other Methods
 
     @Override
-    public Object get(int index) {
+    public Integer get(int index) {
         int item = collectedIndices.get(index);
         return item;
     }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.ElementCollection;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IndexCollection;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.Iterator;
 
@@ -11,7 +12,7 @@ public class Layer {
 
 // Attributes
 
-    private final List<GraphicalElement> drawnElements;
+    private final ElementCollection drawnElements;
     private final IndexCollection editableElementsIndices;
     private int movableElementIndex;
 
@@ -20,7 +21,7 @@ public class Layer {
 // Constructors
 
     public Layer() {
-        this.drawnElements = new ArrayList<>();
+        this.drawnElements = new ElementCollection();
         this.editableElementsIndices = new IndexCollection();
         this.visible = true;
     }
@@ -29,10 +30,6 @@ public class Layer {
 
     public boolean isEmpty() {
         return (drawnElements.size() <= 0);
-    }
-
-    public List<GraphicalElement> getDrawnElements() {
-        return drawnElements;
     }
 
     public boolean isVisible() {
@@ -66,7 +63,9 @@ public class Layer {
      * @return returns true if the provided coordinates are within an already drawn element
      */
     public boolean makeElementOnPositionEditable(float x, float y) {
-        for (GraphicalElement graphicalElement : getDrawnElements()) {
+        Iterator elementsIterator = drawnElements.createIterator();
+        while (elementsIterator.hasMore()) {
+            GraphicalElement graphicalElement = (GraphicalElement) elementsIterator.getNext();
             if (graphicalElement.isWithinElement(x, y)) {
                 makeEditable(graphicalElement);
                 return true;
@@ -74,6 +73,7 @@ public class Layer {
         }
         return false;
     }
+
 
     /**
      * Checks, whether the provided coordinates are within a graphical element and if so, makes that element movable.
@@ -83,7 +83,9 @@ public class Layer {
      * @return returns true if the provided coordinates are within an already drawn element
      */
     public boolean makeElementOnPositionMovable(float x, float y) {
-        for (GraphicalElement graphicalElement : getDrawnElements()) {
+        Iterator elementsIterator = drawnElements.createIterator();
+        while (elementsIterator.hasMore()) {
+            GraphicalElement graphicalElement = (GraphicalElement) elementsIterator.getNext();
             if (graphicalElement.isWithinElement(x, y)) {
                 makeMovable(graphicalElement);
                 return true;
@@ -125,7 +127,7 @@ public class Layer {
         }
     }
 
-    public void changeColor(int color) {        // TODO: Mit Iterator implementieren
+    public void changeColor(int color) {
         try {
             Iterator indexIterator = editableElementsIndices.createIterator();
             while (indexIterator.hasMore()) {
@@ -173,6 +175,10 @@ public class Layer {
 
     public void resetEditableElements() {
         editableElementsIndices.clear();
+    }
+
+    public Iterator createIterator() {
+        return drawnElements.createIterator();
     }
 
 }

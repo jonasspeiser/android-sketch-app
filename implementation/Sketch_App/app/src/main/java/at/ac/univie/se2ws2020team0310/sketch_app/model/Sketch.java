@@ -8,6 +8,7 @@ import java.util.List;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.Iterator;
 
 public class Sketch {
 
@@ -63,7 +64,10 @@ public class Sketch {
         List<GraphicalElement> visibleElements = new ArrayList<>();
         for (Layer layer : layers) {
             if (layer.isVisible()) {
-                visibleElements.addAll(layer.getDrawnElements());
+                Iterator elementsIterator = layer.createIterator();
+                while(elementsIterator.hasMore()) {
+                    visibleElements.add((GraphicalElement) elementsIterator.getNext());
+                }
             }
         }
         return  visibleElements;
