@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IndexCollection;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.Iterator;
 
 public class Layer {
 
 // Attributes
 
     private final List<GraphicalElement> drawnElements;
-    private final List<Integer> editableElementsIndices; // TODO: Mit Iterator implementieren
+    private final IndexCollection editableElementsIndices;
     private int movableElementIndex;
 
     private boolean visible;
@@ -19,7 +21,7 @@ public class Layer {
 
     public Layer() {
         this.drawnElements = new ArrayList<>();
-        this.editableElementsIndices = new ArrayList<>();
+        this.editableElementsIndices = new IndexCollection();
         this.visible = true;
     }
 
@@ -125,7 +127,9 @@ public class Layer {
 
     public void changeColor(int color) {        // TODO: Mit Iterator implementieren
         try {
-            for (int index : editableElementsIndices) {
+            Iterator indexIterator = editableElementsIndices.createIterator();
+            while (indexIterator.hasMore()) {
+                int index = (int) indexIterator.getNext();
                 drawnElements.get(index).setColor(color);
             }
         } catch (Exception e) {
@@ -135,7 +139,9 @@ public class Layer {
 
     public void changeStrokeWidth(float strokewidth) {
         try {
-            for (int index : editableElementsIndices) {
+            Iterator indexIterator = editableElementsIndices.createIterator();
+            while (indexIterator.hasMore()) {
+                int index = (int) indexIterator.getNext();
                 drawnElements.get(index).setStrokeWidth(strokewidth);
             }
         } catch (Exception e) {
@@ -145,7 +151,9 @@ public class Layer {
 
     public void changeSize(float size) {
         try {
-            for (int index : editableElementsIndices) {
+            Iterator indexIterator = editableElementsIndices.createIterator();
+            while (indexIterator.hasMore()) {
+                int index = (int) indexIterator.getNext();
                 drawnElements.get(index).setSize(size);
             }
         } catch (Exception e) {
@@ -155,7 +163,9 @@ public class Layer {
 
 
     public void deleteElement() {
-        for (int index : editableElementsIndices) {
+        Iterator indexIterator = editableElementsIndices.createIterator();
+        while (indexIterator.hasMore()) {
+            int index = (int) indexIterator.getNext();
             drawnElements.remove(index);
             resetEditableElements();
         }

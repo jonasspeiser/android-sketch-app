@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.BuildConfig;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawCircleStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawFreehandStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawLineStrategy;
