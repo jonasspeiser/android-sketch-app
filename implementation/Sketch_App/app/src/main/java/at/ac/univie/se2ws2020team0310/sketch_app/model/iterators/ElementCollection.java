@@ -6,7 +6,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Graphic
 
 public class ElementCollection implements IterableCollection{
 
-    // Attributes
+// Attributes
     ArrayList<GraphicalElement> collectedElements;
 
 // Constructor
@@ -38,19 +38,28 @@ public class ElementCollection implements IterableCollection{
         return new ElementCollectionIterator(collectedElements);
     }
 
+    @Override
     public int size() {
         return collectedElements.size();
     }
 
+    @Override
     public void remove(int index) {
         collectedElements.remove(index);
     }
 
-    public int indexOf(GraphicalElement item) {
+    @Override
+    public void remove(Object item) {
+        collectedElements.remove(item);
+    }
+
+    @Override
+    public int indexOf(Object item) {
         return collectedElements.indexOf(item);
     }
 
-    public boolean contains(GraphicalElement item) {
+    @Override
+    public boolean contains(Object item) {
         return collectedElements.contains(item);
     }
 }

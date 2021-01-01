@@ -8,7 +8,10 @@ import java.util.List;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IterableCollection;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.Iterator;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.LayerCollection;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.LayerCollectionIterator;
 
 public class Sketch {
 
@@ -16,7 +19,7 @@ public class Sketch {
 
     private static final Sketch sketch = new Sketch();
 
-    private final Layer[] layers;
+    private IterableCollection layers;
     private Layer selectedLayer;
 
     private GraphicalElement selectedGraphicalElement;
@@ -26,11 +29,8 @@ public class Sketch {
 // Constructor
 
     private Sketch() {
-        this.layers = new Layer[3];
-        for (int i = 0; i < 3; i++) {
-            layers[i] = new Layer();
-        }
-        this.selectedLayer = layers[0];
+        this.layers = new LayerCollection();
+        this.selectedLayer = (Layer) layers.get(0);
     }
 
 // Getters and Setters
@@ -45,7 +45,7 @@ public class Sketch {
 
     public void setSelectedLayer(int layerNumber) {
         try {
-            this.selectedLayer = layers[layerNumber];
+            this.selectedLayer = (Layer) layers.get(layerNumber);
         }
         catch (ArrayIndexOutOfBoundsException e) {
             Log.e("Sketch", e.getMessage());
@@ -62,7 +62,9 @@ public class Sketch {
 
     public List<GraphicalElement> getDrawnElements() {
         List<GraphicalElement> visibleElements = new ArrayList<>();
-        for (Layer layer : layers) {
+        Iterator layersIterator = layers.createIterator();
+        while (layersIterator.hasMore()) {
+            Layer layer = (Layer) layersIterator.getNext();
             if (layer.isVisible()) {
                 Iterator elementsIterator = layer.createIterator();
                 while(elementsIterator.hasMore()) {
@@ -85,7 +87,8 @@ public class Sketch {
 // Other Methods
 
     public void setLayerVisibility(int layerNumber, boolean isVisible) {
-        layers[layerNumber].setVisible(isVisible);
+        Layer layer = (Layer) layers.get(layerNumber);
+        layer.setVisible(isVisible);
     }
 
     public boolean layerIsEmpty() {
@@ -123,7 +126,9 @@ public class Sketch {
     }
 
     public void clear() {
-        for (Layer layer : layers) {
+        Iterator layersIterator = layers.createIterator();
+        while (layersIterator.hasMore()) {
+            Layer layer = (Layer) layersIterator.getNext();
             layer.clear();
         }
     }

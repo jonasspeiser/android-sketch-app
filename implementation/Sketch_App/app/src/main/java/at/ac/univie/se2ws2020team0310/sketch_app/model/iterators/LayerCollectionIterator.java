@@ -1,11 +1,13 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.iterators;
 
-public class ArrayIterator implements Iterator {
+import at.ac.univie.se2ws2020team0310.sketch_app.model.Layer;
 
-    Object[] items;
+public class LayerCollectionIterator implements Iterator {
+
+    Layer[] items;
     int position = 0;
 
-    public ArrayIterator(Object[] items) {
+    public LayerCollectionIterator(Layer[] items) {
         this.items = items;
     }
 
@@ -18,6 +20,6 @@ public class ArrayIterator implements Iterator {
 
     @Override
     public boolean hasMore() {
-        return (position < items.length || items[position] == null);
+        return (position < (items.length - 1) || items[position] == null);
     }
 }

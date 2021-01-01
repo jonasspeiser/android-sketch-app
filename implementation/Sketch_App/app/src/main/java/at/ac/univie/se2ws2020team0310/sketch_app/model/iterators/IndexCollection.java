@@ -31,6 +31,31 @@ public class IndexCollection implements IterableCollection {
     }
 
     @Override
+    public int size() {
+        return collectedIndices.size();
+    }
+
+    @Override
+    public void remove(int index) {
+        collectedIndices.remove(index);
+    }
+
+    @Override
+    public void remove(Object item) {
+        collectedIndices.remove(item);
+    }
+
+    @Override
+    public int indexOf(Object item) {
+        return collectedIndices.indexOf(item);
+    }
+
+    @Override
+    public boolean contains(Object item) {
+        return collectedIndices.contains(item);
+    }
+
+    @Override
     public Iterator createIterator() {
         return new IndexCollectionIterator(collectedIndices);
     }

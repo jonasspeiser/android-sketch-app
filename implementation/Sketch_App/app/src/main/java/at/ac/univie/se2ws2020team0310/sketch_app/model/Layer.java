@@ -6,14 +6,15 @@ import java.util.List;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.ElementCollection;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IndexCollection;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IterableCollection;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.Iterator;
 
 public class Layer {
 
 // Attributes
 
-    private final ElementCollection drawnElements;
-    private final IndexCollection editableElementsIndices;
+    private final IterableCollection drawnElements;
+    private final IterableCollection editableElementsIndices;
     private int movableElementIndex;
 
     private boolean visible;
@@ -95,24 +96,28 @@ public class Layer {
     }
 
     public void makeMovable(GraphicalElement graphicalElement) {
-        if (drawnElements.contains(graphicalElement)) {
+        try {
             int index = drawnElements.indexOf(graphicalElement);
             this.movableElementIndex = index;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public void makeEditable(GraphicalElement graphicalElement) { // TODO: Mit Iterator implementieren
-        // TODO: Hier muss statt des if noch ein try-catch Block mit eigener Exception her ("Element not found")
-        if (drawnElements.contains(graphicalElement)) {
+    public void makeEditable(GraphicalElement graphicalElement) {
+        try {
             int index = drawnElements.indexOf(graphicalElement);
             editableElementsIndices.add(index);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public void setCoordinates(float x, float y) {
         try {
             int index = this.movableElementIndex;
-            drawnElements.get(index).setCoordinates(x, y);
+            GraphicalElement currentElement = (GraphicalElement)drawnElements.get(index);
+            currentElement.setCoordinates(x, y);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,7 +126,8 @@ public class Layer {
     public void changeCoordinates(float x, float y) {
         try {
             int index = this.movableElementIndex;
-            drawnElements.get(index).changeCoordinates(x, y);
+            GraphicalElement currentElement = (GraphicalElement)drawnElements.get(index);
+            currentElement.changeCoordinates(x, y);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,7 +138,8 @@ public class Layer {
             Iterator indexIterator = editableElementsIndices.createIterator();
             while (indexIterator.hasMore()) {
                 int index = (int) indexIterator.getNext();
-                drawnElements.get(index).setColor(color);
+                GraphicalElement currentElement = (GraphicalElement)drawnElements.get(index);
+                currentElement.setColor(color);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -144,7 +151,8 @@ public class Layer {
             Iterator indexIterator = editableElementsIndices.createIterator();
             while (indexIterator.hasMore()) {
                 int index = (int) indexIterator.getNext();
-                drawnElements.get(index).setStrokeWidth(strokewidth);
+                GraphicalElement currentElement = (GraphicalElement)drawnElements.get(index);
+                currentElement.setStrokeWidth(strokewidth);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -156,7 +164,8 @@ public class Layer {
             Iterator indexIterator = editableElementsIndices.createIterator();
             while (indexIterator.hasMore()) {
                 int index = (int) indexIterator.getNext();
-                drawnElements.get(index).setSize(size);
+                GraphicalElement currentElement = (GraphicalElement)drawnElements.get(index);
+                currentElement.setSize(size);
             }
         } catch (Exception e) {
             e.printStackTrace();
