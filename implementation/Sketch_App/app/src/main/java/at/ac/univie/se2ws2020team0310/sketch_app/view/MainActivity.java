@@ -251,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.triangleId:
                 mainViewModel.selectGraphicalElement(EGraphicalElementType.TRIANGLE);
-               showToast("Triangle selected");
+                showToast("Triangle selected");
                 return true;
 
             case R.id.deleteId:
@@ -264,6 +264,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.editModeId:
                 mainViewModel.toggleEditMode();
+                showToast("Edit mode: " + (mainViewModel.isEditModeOn() ? "ON" : "OFF"));
                 return true;
 
             default:

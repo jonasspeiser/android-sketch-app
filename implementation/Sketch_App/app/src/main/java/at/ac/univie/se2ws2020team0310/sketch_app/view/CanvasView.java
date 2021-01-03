@@ -1,36 +1,25 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.media.Image;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URI;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
-import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.CanvasViewModel;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
+import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.CanvasViewModel;
 
 public class CanvasView extends View {
 
@@ -80,8 +69,7 @@ public class CanvasView extends View {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                canvasViewModel.freehandBehaviourOnTouchDown(touchX, touchY);
-                canvasViewModel.elementsBehaviourOnTouchDown(touchX, touchY);
+                canvasViewModel.onTouchDown(touchX, touchY);
                 if (canvasViewModel.elementsToDraw()) {
                     invalidate();
                     return true;
@@ -91,14 +79,12 @@ public class CanvasView extends View {
                 }
 
             case MotionEvent.ACTION_MOVE:
-                canvasViewModel.freehandBehaviourOnTouchMove(touchX, touchY);
-                canvasViewModel.elementsBehaviourOnTouchMove(touchX, touchY);
+                canvasViewModel.onTouchMove(touchX, touchY);
                 invalidate();
                 return true;
 
             case MotionEvent.ACTION_UP:
-                canvasViewModel.freehandBehaviourOnTouchUp(touchX, touchY);
-                canvasViewModel.elementsBehaviourOnTouchUp();
+                canvasViewModel.onTouchUp();
                 return true;
 
             default:
@@ -115,19 +101,6 @@ public class CanvasView extends View {
             graphicalElement.draw(canvas);
         }
     }
-
-//    public Bitmap createBitmap() throws FileNotFoundException {
-//        Bitmap toDisk = null;
-//            toDisk = Bitmap.createBitmap(this.getHeight(),this.getWidth(), Bitmap.Config.ARGB_8888);
-//            mCanvas.setBitmap(toDisk);
-//            return toDisk;
-//    }
-
-//    public void saveBitmap() throws FileNotFoundException {
-//        Bitmap bitmap = ;
-//        File file = new File(Environment.getExternalStorageDirectory() + "/example.png");
-//        bitmap.compress(Bitmap.CompressFormat.JPEG,100, new FileOutputStream(file));
-//    }
 
     public void clear() {
         canvasViewModel.clearSketch();
@@ -154,32 +127,32 @@ public class CanvasView extends View {
         invalidate();
     }
 
-//    public void saveToInternalStorage(){
-//        File dir = new File("/sdcard/Pictures/");
-//        if (!dir.exists()) {
-//            dir.mkdirs();
-//        }
-//
-//        File output = new File(dir, "tempFile.jpg");
-//        OutputStream os = null;
-//
-//        try {
-//            os = new FileOutputStream(output);
-//            Sketch.compress(Bitmap.CompressFormat.JPEG, 100, os);
-//            os.flush();
-//            os.close();
-//
-//            //this code will scan the image so that it will appear in your gallery when you open next time
-//            MediaScannerConnection.scanFile(this.getContext(), new String[] { output.toString() }, null,
-//                    new MediaScannerConnection.OnScanCompletedListener() {
-//                        public void onScanCompleted(String path, Uri uri) {
-//                            Log.d("appname", "image is saved in gallery and gallery is refreshed.");
-//                        }
-//                    }
-//            );
-//        } catch (Exception e) {
-//        }
-//    }
+    public void saveToInternalStorage(){
+        File dir = new File("/sdcard/Pictures/");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        File output = new File(dir, "tempFile.jpg");
+        OutputStream os = null;
+
+        try {
+            os = new FileOutputStream(output);
+            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+            os.flush();
+            os.close();
+
+            //this code will scan the image so that it will appear in your gallery when you open next time
+            MediaScannerConnection.scanFile(this.getContext(), new String[] { output.toString() }, null,
+                    new MediaScannerConnection.OnScanCompletedListener() {
+                        public void onScanCompleted(String path, Uri uri) {
+                            Log.d("appname", "image is saved in gallery and gallery is refreshed.");
+                        }
+                    }
+            );
+        } catch (Exception e) {
+        }
+    }
 
     /*public void saveImage() throws IOException {
         String fileName = "Pikasso" + System.currentTimeMillis();

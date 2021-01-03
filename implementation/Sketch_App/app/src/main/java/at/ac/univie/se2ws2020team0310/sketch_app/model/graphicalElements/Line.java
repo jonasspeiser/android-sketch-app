@@ -37,7 +37,7 @@ public class Line extends GraphicalElement {
     }
 
     @Override
-    public void changeCoordinates(float x, float y) {
+    public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
 
     }
 
@@ -47,4 +47,8 @@ public class Line extends GraphicalElement {
         return false;
     }
 
+    @Override
+    protected String getName() {
+        return "Line";
+    }
 }

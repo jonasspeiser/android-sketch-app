@@ -86,5 +86,10 @@ public class MainViewModel extends BaseObservable {
         this.editModeOn = !this.editModeOn;
         sketch.setEditModeTurnedOn(this.editModeOn);
     }
+
+    public boolean isEditModeOn() {
+        return editModeOn;
+    }
+
 }
 

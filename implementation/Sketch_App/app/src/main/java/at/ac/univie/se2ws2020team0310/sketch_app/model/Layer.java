@@ -1,7 +1,6 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.util.Log;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.ElementCollection;
@@ -10,6 +9,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IterableCollect
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.Iterator;
 
 public class Layer {
+    private static final String LAYER_TAG = "Layer";
 
 // Attributes
 
@@ -69,9 +69,11 @@ public class Layer {
             GraphicalElement graphicalElement = (GraphicalElement) elementsIterator.getNext();
             if (graphicalElement.isWithinElement(x, y)) {
                 makeEditable(graphicalElement);
+                Log.i(LAYER_TAG, "Selected editable element: " + graphicalElement);
                 return true;
             }
         }
+        Log.d(LAYER_TAG, "No element to edit was selected");
         return false;
     }
 
@@ -89,9 +91,11 @@ public class Layer {
             GraphicalElement graphicalElement = (GraphicalElement) elementsIterator.getNext();
             if (graphicalElement.isWithinElement(x, y)) {
                 makeMovable(graphicalElement);
+                Log.i(LAYER_TAG, "Selected movable element: " + graphicalElement);
                 return true;
             }
         }
+        Log.d(LAYER_TAG, "No element to move was selected");
         return false;
     }
 
@@ -123,11 +127,11 @@ public class Layer {
         }
     }
 
-    public void changeCoordinates(float x, float y) {
+    public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
         try {
             int index = this.movableElementIndex;
             GraphicalElement currentElement = (GraphicalElement)drawnElements.get(index);
-            currentElement.changeCoordinates(x, y);
+            currentElement.changeCoordinates(x, y, lastTouchX, lastTouchY);
         } catch (Exception e) {
             e.printStackTrace();
         }

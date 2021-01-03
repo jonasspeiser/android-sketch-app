@@ -115,9 +115,9 @@ public class Sketch {
         this.getSelectedLayer().setCoordinates(x, y);
     }
 
-    public void changeCoordinates(float x, float y) {
+    public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
         if(!isEditModeTurnedOn()) {
-            this.getSelectedLayer().changeCoordinates(x, y);
+            this.getSelectedLayer().changeCoordinates(x, y, lastTouchX, lastTouchY);
         }
     }
 
