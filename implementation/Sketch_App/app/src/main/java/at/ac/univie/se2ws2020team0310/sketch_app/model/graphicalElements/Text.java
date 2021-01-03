@@ -61,5 +61,10 @@ public class Text extends GraphicalElement {
      */
             return false;
         }
+
+    @Override
+    protected String getName() {
+        return "Text";
+    }
 }
 

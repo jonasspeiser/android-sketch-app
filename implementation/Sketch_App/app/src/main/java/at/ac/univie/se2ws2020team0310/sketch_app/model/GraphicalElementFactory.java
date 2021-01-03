@@ -107,7 +107,7 @@ public final class GraphicalElementFactory {
         return mSquare;
     }
 
-    private static Freehand  createFreehand(int color, float size, float strokewidth) { // TODo
+    private static Freehand createFreehand(int color, float size, float strokeWidth) {
         Freehand freehand = new Freehand(new DrawFreehandStrategy());
         Paint mPaint = new Paint(initializePaint());
         Path path = new Path();
@@ -115,7 +115,7 @@ public final class GraphicalElementFactory {
         freehand.setObjectPaint(mPaint);
         freehand.setColor(color);
         freehand.setSize(size);
-        freehand.setStrokeWidth(strokewidth);
+        freehand.setStrokeWidth(strokeWidth);
 
         return freehand;
     }

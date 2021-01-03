@@ -55,4 +55,9 @@ public class Quadrangle extends GraphicalElement {
             return false;
         }
     }
+
+    @Override
+    protected String getName() {
+        return "Quadrangle";
+    }
 }
