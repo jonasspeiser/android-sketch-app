@@ -1,34 +1,25 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.media.Image;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URI;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.CanvasViewModel;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
+import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.CanvasViewModel;
 
 public class CanvasView extends View {
 
@@ -78,8 +69,7 @@ public class CanvasView extends View {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                canvasViewModel.freehandBehaviourOnTouchDown(touchX, touchY);
-                canvasViewModel.elementsBehaviourOnTouchDown(touchX, touchY);
+                canvasViewModel.onTouchDown(touchX, touchY);
                 if (canvasViewModel.elementsToDraw()) {
                     invalidate();
                     return true;
@@ -89,14 +79,12 @@ public class CanvasView extends View {
                 }
 
             case MotionEvent.ACTION_MOVE:
-                canvasViewModel.freehandBehaviourOnTouchMove(touchX, touchY);
-                canvasViewModel.elementsBehaviourOnTouchMove(touchX, touchY);
+                canvasViewModel.onTouchMove(touchX, touchY);
                 invalidate();
                 return true;
 
             case MotionEvent.ACTION_UP:
-                canvasViewModel.freehandBehaviourOnTouchUp(touchX, touchY);
-                canvasViewModel.elementsBehaviourOnTouchUp();
+                canvasViewModel.onTouchUp();
                 return true;
 
             default:
