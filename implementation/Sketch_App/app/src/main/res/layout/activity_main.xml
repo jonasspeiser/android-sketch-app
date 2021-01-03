@@ -207,48 +207,13 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.976" />
 
-        <Switch
-            android:id="@+id/switchLayer1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Layer 1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.707"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.47" />
-
-        <Switch
-            android:id="@+id/switchLayer2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Layer 2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.707"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.515" />
-
-        <Switch
-            android:id="@+id/switchLayer3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Layer 3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.707"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.56" />
-
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:checkedButton="@+id/layer1selector"
             app:layout_constraintHorizontal_bias="0.50"
-            app:layout_constraintVertical_bias="0.52"
+            app:layout_constraintVertical_bias="0.50"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -258,22 +223,55 @@
                 android:id="@+id/layer1selector"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="SetLayerVisibility" />
+                android:onClick="onRadioButtonClicked" />
 
             <RadioButton
                 android:id="@+id/layer2selector"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="SetLayerVisibility"
+                android:onClick="onRadioButtonClicked"
                  />
 
             <RadioButton
                 android:id="@+id/layer3selector"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="SetLayerVisibility"
+                android:onClick="onRadioButtonClicked"
                 />
         </RadioGroup>
+
+        <ToggleButton
+            android:id="@+id/switchLayer3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.712"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.553" />
+
+        <ToggleButton
+            android:id="@+id/switchLayer1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.712"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.437" />
+
+        <ToggleButton
+            android:id="@+id/switchLayer2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.712"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.494" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
