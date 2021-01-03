@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         Switch switchLayer1 = findViewById(R.id.switchLayer1);
         Switch switchLayer2 = findViewById(R.id.switchLayer2);
         Switch switchLayer3 = findViewById(R.id.switchLayer3);
+        RadioButton layer1selector = findViewById(R.id.layer1selector);
+        RadioButton layer2selector = findViewById(R.id.layer1selector);
+        RadioButton layer3selector = findViewById(R.id.layer1selector);
         canvasView = findViewById(R.id.canvasView);
         mainViewModel = new MainViewModel();
 
@@ -95,16 +99,25 @@ public class MainActivity extends AppCompatActivity {
         Switch switchLayer1 = findViewById(R.id.switchLayer1);
         Switch switchLayer2 = findViewById(R.id.switchLayer2);
         Switch switchLayer3 = findViewById(R.id.switchLayer3);
+        RadioButton layer1selector = findViewById(R.id.layer1selector);
+        RadioButton layer2selector = findViewById(R.id.layer2selector);
+        RadioButton layer3selector = findViewById(R.id.layer3selector);
 
         findViewById(R.id.layerswitchbutton).setOnClickListener(v -> {
             if(switchLayer1.getVisibility() == Switch.VISIBLE) {
                 switchLayer1.setVisibility(Switch.INVISIBLE);
                 switchLayer2.setVisibility(Switch.INVISIBLE);
                 switchLayer3.setVisibility(Switch.INVISIBLE);
+                layer1selector.setVisibility(RadioButton.INVISIBLE);
+                layer2selector.setVisibility(RadioButton.INVISIBLE);
+                layer3selector.setVisibility(RadioButton.INVISIBLE);
             } else {
                 switchLayer1.setVisibility(Switch.VISIBLE);
                 switchLayer2.setVisibility(Switch.VISIBLE);
                 switchLayer3.setVisibility(Switch.VISIBLE);
+                layer1selector.setVisibility(RadioButton.VISIBLE);
+                layer2selector.setVisibility(RadioButton.VISIBLE);
+                layer3selector.setVisibility(RadioButton.VISIBLE);
             }
         });
     }

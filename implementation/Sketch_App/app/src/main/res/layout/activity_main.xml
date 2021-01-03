@@ -23,6 +23,19 @@
         <!--Constrained the height to at maximum the screen size.-->
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/layerswitchbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#000000"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.949"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_view" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/sizeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,8 +46,10 @@
             app:backgroundTint="@color/design_default_color_on_secondary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.955"
+            app:layout_constraintHorizontal_bias="0.954"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.987"
             app:srcCompat="@drawable/size_icon" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -45,28 +60,29 @@
             android:contentDescription="@string/floatingbutton_lineWidth"
             android:focusable="false"
             app:backgroundTint="@color/design_default_color_on_secondary"
-            app:layout_constraintBottom_toTopOf="@+id/sizeButton"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.955"
+            app:layout_constraintHorizontal_bias="0.954"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.976"
+            app:layout_constraintVertical_bias="0.711"
             app:srcCompat="@drawable/menu_icon_stroke_width" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/colorSelectorButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:clickable="true"
             android:contentDescription="@string/floatingbutton_color"
             android:focusable="false"
             app:backgroundTint="@color/design_default_color_on_secondary"
-            app:layout_constraintBottom_toTopOf="@+id/strokeWidthButton"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.955"
+            app:layout_constraintHorizontal_bias="0.949"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.976"
+            app:layout_constraintVertical_bias="0.613"
             app:srcCompat="@drawable/menu_icon_colors" />
 
         <androidx.appcompat.widget.Toolbar
@@ -195,47 +211,70 @@
             android:id="@+id/switchLayer1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="408dp"
-            android:text="Layer 2"
-            app:layout_constraintEnd_toEndOf="@+id/layerswitchbutton"
-            app:layout_constraintHorizontal_bias="0.742"
-            app:layout_constraintStart_toStartOf="@+id/canvasView"
-            app:layout_constraintTop_toTopOf="@+id/toolbar" />
-
-        <Switch
-            android:id="@+id/switchLayer3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="444dp"
-            android:text="Layer 3"
-            app:layout_constraintEnd_toEndOf="@+id/boldButton"
-            app:layout_constraintHorizontal_bias="0.745"
+            android:text="Layer 1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.707"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.47" />
 
         <Switch
             android:id="@+id/switchLayer2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="372dp"
-            android:text="Layer 1"
+            android:text="Layer 2"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.697"
+            app:layout_constraintHorizontal_bias="0.707"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.515" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/layerswitchbutton"
+        <Switch
+            android:id="@+id/switchLayer3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="320dp"
-            android:backgroundTint="#000000"
-            android:clickable="true"
-            app:layout_constraintBottom_toTopOf="@+id/colorSelectorButton"
-            app:layout_constraintStart_toStartOf="@+id/canvasView"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.936"
-            app:srcCompat="@android:drawable/ic_menu_view" />
+            android:text="Layer 3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.707"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.56" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintHorizontal_bias="0.50"
+            app:layout_constraintVertical_bias="0.52"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioButton
+                android:id="@+id/layer1selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked" />
+
+            <RadioButton
+                android:id="@+id/layer2selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                 />
+
+            <RadioButton
+                android:id="@+id/layer3selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                />
+        </RadioGroup>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
