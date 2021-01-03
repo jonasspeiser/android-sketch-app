@@ -233,8 +233,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.saveId:
             case R.id.loadId:
             case R.id.exportId:
-                canvasView.saveToInternalStorage();
-               return true;
 
             case R.id.lineId:
                 mainViewModel.selectGraphicalElement(EGraphicalElementType.LINE);
