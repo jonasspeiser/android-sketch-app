@@ -44,14 +44,7 @@ public class Freehand extends GraphicalElement {
         RectF rectangle = new RectF(x - 3, y - 3, x + 3, y + 1);
         tempPath.addRect(rectangle, Path.Direction.CW); // add rect to temp path
         tempPath.op(getObjectPath(), Path.Op.DIFFERENCE); // get difference with our PathToCheck
-        if (tempPath.isEmpty()) // if out path cover temp path we get empty path in result
-        {
-            Log.d("Freehand", "Path contains this point");
-            return true;
-        }
-
-        Log.d("Freehand", "Path doesn't contain this point");
-        return false;
+        return tempPath.isEmpty(); // if our path covers temp path, we get empty path in result
     }
 
     @Override
