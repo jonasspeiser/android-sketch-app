@@ -258,20 +258,20 @@
                 android:id="@+id/layer1selector"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked" />
+                android:onClick="SetLayerVisibility" />
 
             <RadioButton
                 android:id="@+id/layer2selector"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
+                android:onClick="SetLayerVisibility"
                  />
 
             <RadioButton
                 android:id="@+id/layer3selector"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
+                android:onClick="SetLayerVisibility"
                 />
         </RadioGroup>
 

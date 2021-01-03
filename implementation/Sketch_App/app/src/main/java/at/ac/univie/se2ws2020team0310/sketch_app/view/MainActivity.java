@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         SetStrokeWidthSeekBarBehavior();
         SetSizeSeekBarBehavior();
         SetColorPickerBehavior();
-        setLayerVisibility();
+        SetLayerSelectionVisibility();
 
         // Set the SeekBarChangeListeners
         sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -95,7 +95,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void setLayerVisibility() {
+    public void SetLayerVisibility(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
+
+        switch(view.getId()) {
+            case R.id.layer1selector:
+                if (checked)
+                    mainViewModel.selectLayer(1);
+                    break;
+            case R.id.layer2selector:
+                if (checked)
+                    mainViewModel.selectLayer(2);
+                break;
+            case R.id.layer3selector:
+                if (checked)
+                    mainViewModel.selectLayer(3);
+                    break;
+        }
+    }
+
+    public void SetLayerSelectionVisibility() {
         Switch switchLayer1 = findViewById(R.id.switchLayer1);
         Switch switchLayer2 = findViewById(R.id.switchLayer2);
         Switch switchLayer3 = findViewById(R.id.switchLayer3);
