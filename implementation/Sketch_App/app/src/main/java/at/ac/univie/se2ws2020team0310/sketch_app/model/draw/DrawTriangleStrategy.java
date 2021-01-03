@@ -13,6 +13,7 @@ public class DrawTriangleStrategy implements DrawStrategy {
         float x = graphicalElement.getxPosition();
         float y = graphicalElement.getyPosition();
 
+
         Path path = new Path();
         path.moveTo(x, y - halfWidth); // Top
         path.lineTo(x - halfWidth, y + halfWidth); // Bottom left

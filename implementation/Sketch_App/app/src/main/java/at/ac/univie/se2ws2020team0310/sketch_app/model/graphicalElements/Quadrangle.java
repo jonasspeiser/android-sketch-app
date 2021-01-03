@@ -8,6 +8,7 @@ public class Quadrangle extends GraphicalElement {
     private float length;
     private float height;
 
+// Constructor
     public Quadrangle(DrawStrategy drawStrategy) {
         super(drawStrategy);
     }
@@ -48,11 +49,10 @@ public class Quadrangle extends GraphicalElement {
         float xBottomRight = this.xPosition + this.length;
         float yBottomRight = this.yPosition + this.height;
 
-        if (x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight) {
+        if (x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight)
             // Means that coordinates are within quadrangle
             return true;
-        } else {
+        else
             return false;
-        }
     }
 }

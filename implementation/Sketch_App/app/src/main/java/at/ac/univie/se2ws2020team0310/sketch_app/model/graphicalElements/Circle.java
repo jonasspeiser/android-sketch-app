@@ -28,6 +28,8 @@ public class Circle extends GraphicalElement {
         setRadius(size / 2);
     }
 
+    // Other Methods
+
     public boolean isWithinElement(float x, float y) {
         double dx = Math.pow(x - this.xPosition, 2);
         double dy = Math.pow(y - this.yPosition, 2);
