@@ -101,15 +101,15 @@ public class MainActivity extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.layer1selector:
                 if (checked)
-                    mainViewModel.selectLayer(1);
+                    mainViewModel.selectLayer(0);
                     break;
             case R.id.layer2selector:
                 if (checked)
-                    mainViewModel.selectLayer(2);
+                    mainViewModel.selectLayer(1);
                 break;
             case R.id.layer3selector:
                 if (checked)
-                    mainViewModel.selectLayer(3);
+                    mainViewModel.selectLayer(2);
                     break;
         }
     }
