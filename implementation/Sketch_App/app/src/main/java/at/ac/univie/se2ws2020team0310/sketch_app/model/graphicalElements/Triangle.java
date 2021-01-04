@@ -37,7 +37,7 @@ public class Triangle extends GraphicalElement {
 
         if (w1 >= 0 && w2 >= 0 && (w1 + w2) <= 1)
             return true;
-            // Means that coordinates are within quadrangle
+            // Means that coordinates are within triangle
         else
             return false;
     }
