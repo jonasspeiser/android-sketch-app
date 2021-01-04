@@ -20,6 +20,6 @@ public class LayerCollectionIterator implements Iterator {
 
     @Override
     public boolean hasMore() {
-        return (position < (items.length - 1) || items[position] == null);
+        return (position < (items.length) && items[position] != null);
     }
 }

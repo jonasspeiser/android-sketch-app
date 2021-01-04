@@ -41,4 +41,9 @@ public class Circle extends GraphicalElement {
             return false;
         }
     }
+
+    @Override
+    protected String getName() {
+        return "Circle";
+    }
 }

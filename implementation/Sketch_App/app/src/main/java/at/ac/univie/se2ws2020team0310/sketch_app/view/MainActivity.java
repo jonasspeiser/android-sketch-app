@@ -9,11 +9,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     private CanvasView canvasView;
     private MainViewModel mainViewModel;
+    ToggleButton switchLayer1;
+    ToggleButton switchLayer2;
+    ToggleButton switchLayer3;
+    RadioButton layer1selector;
+    RadioButton layer2selector;
+    RadioButton layer3selector;
 
 // Methods
 
@@ -48,14 +56,14 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         SeekBar sizeSeekBar = findViewById(R.id.sizeSeekBar);
         SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
-        Switch switchLayer1 = findViewById(R.id.switchLayer1);
-        Switch switchLayer2 = findViewById(R.id.switchLayer2);
-        Switch switchLayer3 = findViewById(R.id.switchLayer3);
-        RadioButton layer1selector = findViewById(R.id.layer1selector);
-        RadioButton layer2selector = findViewById(R.id.layer1selector);
-        RadioButton layer3selector = findViewById(R.id.layer1selector);
         canvasView = findViewById(R.id.canvasView);
         mainViewModel = new MainViewModel();
+        switchLayer1=(ToggleButton)findViewById(R.id.switchLayer1);
+        switchLayer2=(ToggleButton)findViewById(R.id.switchLayer2);
+        switchLayer3=(ToggleButton)findViewById(R.id.switchLayer3);
+        layer1selector=(RadioButton)findViewById(R.id.layer1selector);
+        layer2selector=(RadioButton)findViewById(R.id.layer2selector);
+        layer3selector=(RadioButton)findViewById(R.id.layer3selector);
 
         // Defining the logic on when the SeekBars/ColorPicker should be displayed
         SetStrokeWidthSeekBarBehavior();
@@ -69,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar sizeSeekBar, int progress, boolean fromUser) {
                 mainViewModel.setSelectedSize(progress);
                 canvasView.changeElementSize(progress);
-                //TODO: change object size
             }
 
             public void onStartTrackingTouch(SeekBar sizeSeekBar) {
@@ -95,31 +102,84 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        switchLayer1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast layer0visibility;
+                if (isChecked) {
+                    mainViewModel.setLayerVisibility(0,true);
+                    layer0visibility = Toast.makeText(getApplicationContext(), "Layer 0 visible", Toast.LENGTH_LONG);
+                } else {
+                    mainViewModel.setLayerVisibility(0, false);
+                    layer0visibility = Toast.makeText(getApplicationContext(), "Layer 0 invisible", Toast.LENGTH_LONG);
+                }
+                layer0visibility.show();
+                refreshScreen();
+            }
+        });
+
+        switchLayer2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast layer1visibility;
+                if (isChecked) {
+                    mainViewModel.setLayerVisibility(1,true);
+                    layer1visibility = Toast.makeText(getApplicationContext(), "Layer 1 visible", Toast.LENGTH_LONG);
+                } else {
+                    mainViewModel.setLayerVisibility(1, false);
+                    layer1visibility = Toast.makeText(getApplicationContext(), "Layer 1 invisible", Toast.LENGTH_LONG);
+                }
+                layer1visibility.show();
+                refreshScreen();
+            }
+        });
+
+        switchLayer3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Toast layer2visibility;
+                if (isChecked) {
+                    mainViewModel.setLayerVisibility(2,true);
+                    layer2visibility = Toast.makeText(getApplicationContext(), "Layer 1 visible", Toast.LENGTH_LONG);
+                } else {
+                    mainViewModel.setLayerVisibility(2, false);
+                    layer2visibility = Toast.makeText(getApplicationContext(), "Layer 1 invisible", Toast.LENGTH_LONG);
+                }
+                layer2visibility.show();
+                refreshScreen();
+            }
+        });
     }
 
-    public void SetLayerVisibility(View view) {
+    public void onRadioButtonClicked(View view) {
         boolean checked = ((RadioButton) view).isChecked();
 
         switch(view.getId()) {
             case R.id.layer1selector:
                 if (checked)
                     mainViewModel.selectLayer(0);
+                    Toast layer0 = Toast.makeText(getApplicationContext(), "Layer 0 selected", Toast.LENGTH_LONG);
+                    layer0.show();
                     break;
             case R.id.layer2selector:
                 if (checked)
                     mainViewModel.selectLayer(1);
-                break;
-            case R.id.layer3selector:
-                if (checked)
-                    mainViewModel.selectLayer(2);
+                    Toast layer1 = Toast.makeText(getApplicationContext(), "Layer 1 selected", Toast.LENGTH_LONG);
+                    layer1.show();
                     break;
+            case R.id.layer3selector:
+                if(checked)
+                    mainViewModel.selectLayer(2);
+                    Toast layer2 = Toast.makeText(getApplicationContext(), "Layer 2 selected", Toast.LENGTH_LONG);
+                    layer2.show();
+                break;
         }
     }
 
     public void SetLayerSelectionVisibility() {
-        Switch switchLayer1 = findViewById(R.id.switchLayer1);
-        Switch switchLayer2 = findViewById(R.id.switchLayer2);
-        Switch switchLayer3 = findViewById(R.id.switchLayer3);
+        ToggleButton switchLayer1 = findViewById(R.id.switchLayer1);
+        ToggleButton switchLayer2 = findViewById(R.id.switchLayer2);
+        ToggleButton switchLayer3 = findViewById(R.id.switchLayer3);
         RadioButton layer1selector = findViewById(R.id.layer1selector);
         RadioButton layer2selector = findViewById(R.id.layer2selector);
         RadioButton layer3selector = findViewById(R.id.layer3selector);
@@ -233,8 +293,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.saveId:
             case R.id.loadId:
             case R.id.exportId:
-                canvasView.saveToInternalStorage();
-               return true;
 
             case R.id.lineId:
                 mainViewModel.selectGraphicalElement(EGraphicalElementType.LINE);
@@ -253,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.triangleId:
                 mainViewModel.selectGraphicalElement(EGraphicalElementType.TRIANGLE);
-               showToast("Triangle selected");
+                showToast("Triangle selected");
                 return true;
 
             case R.id.deleteId:
@@ -266,6 +324,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.editModeId:
                 mainViewModel.toggleEditMode();
+                showToast("Edit mode: " + (mainViewModel.isEditModeOn() ? "ON" : "OFF"));
                 return true;
 
             default:
@@ -280,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
         Text mText = (Text) canvasView.getCanvasViewModel().getSelectedGraphicalElement();
         mText.setUserText(getEnteredText());
 
-        canvasView.invalidate();
+        refreshScreen();
 
         hideTextEntryField();
         hideTextStyleButtons();
@@ -346,5 +405,9 @@ public class MainActivity extends AppCompatActivity {
     public void showToast(String text){
         Toast textToast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
         textToast.show();
+    }
+
+    public void refreshScreen() {
+        canvasView.invalidate();
     }
 }

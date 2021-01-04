@@ -41,4 +41,9 @@ public class Triangle extends GraphicalElement {
         else
             return false;
     }
+
+    @Override
+    protected String getName() {
+        return "Triangle";
+    }
 }
