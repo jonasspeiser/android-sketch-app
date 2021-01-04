@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar sizeSeekBar, int progress, boolean fromUser) {
                 mainViewModel.setSelectedSize(progress);
                 canvasView.changeElementSize(progress);
-                //TODO: change object size
             }
 
             public void onStartTrackingTouch(SeekBar sizeSeekBar) {
@@ -115,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                     layer0visibility = Toast.makeText(getApplicationContext(), "Layer 0 invisible", Toast.LENGTH_LONG);
                 }
                 layer0visibility.show();
+                refreshScreen();
             }
         });
 
@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     layer1visibility = Toast.makeText(getApplicationContext(), "Layer 1 invisible", Toast.LENGTH_LONG);
                 }
                 layer1visibility.show();
+                refreshScreen();
             }
         });
 
@@ -145,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     layer2visibility = Toast.makeText(getApplicationContext(), "Layer 1 invisible", Toast.LENGTH_LONG);
                 }
                 layer2visibility.show();
+                refreshScreen();
             }
         });
     }
@@ -337,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
         Text mText = (Text) canvasView.getCanvasViewModel().getSelectedGraphicalElement();
         mText.setUserText(getEnteredText());
 
-        canvasView.invalidate();
+        refreshScreen();
 
         hideTextEntryField();
         hideTextStyleButtons();
@@ -403,5 +405,9 @@ public class MainActivity extends AppCompatActivity {
     public void showToast(String text){
         Toast textToast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
         textToast.show();
+    }
+
+    public void refreshScreen() {
+        canvasView.invalidate();
     }
 }

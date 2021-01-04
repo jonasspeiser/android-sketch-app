@@ -97,7 +97,7 @@ public class CanvasView extends View {
         mCanvas = canvas;
         super.onDraw(mCanvas);
 
-        for (GraphicalElement graphicalElement : canvasViewModel.getDrawnElements()) {
+        for (GraphicalElement graphicalElement : canvasViewModel.getDrawnElements()) { // TODO: Logik -> das muss ins ViewModel
             graphicalElement.draw(canvas);
         }
     }
