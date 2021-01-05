@@ -1,6 +1,7 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 
@@ -12,13 +13,15 @@ import at.ac.univie.se2ws2020team0310.sketch_app.BR;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.TextDecorator;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IterableCollection;
 
 public class MainViewModel extends BaseObservable {
 
 // Attributes
 
     public String imgSaved;
-    private Sketch sketch;
+
+    private static Sketch sketch;
 
     private int selectedColor;
     private float selectedSize;
@@ -30,13 +33,17 @@ public class MainViewModel extends BaseObservable {
 
 // Constructor
     public MainViewModel() {
-        this.sketch = Sketch.getSketch();
+        sketch = Sketch.getSketch();
         this.selectedColor = Color.BLACK;
         this.selectedSize = 150;
         this.selectedStrokeWidth = 15;
         this.editModeOn = false;
     }
 // Getters and Setters
+
+    public static void setSketch(Sketch sketch) {
+        MainViewModel.sketch = sketch;
+    }
 
     public int getSelectedColor() {
         return selectedColor;
@@ -98,6 +105,15 @@ public class MainViewModel extends BaseObservable {
 
     public boolean isEditModeOn() {
         return editModeOn;
+    }
+
+    public void saveSketch(Context context) {
+        sketch.saveToFile(context);
+    }
+
+    public void loadSketch(Context context) {
+        IterableCollection loadedLayers = Sketch.readFromFile(context);
+        sketch.setLayers(loadedLayers);
     }
 
 }

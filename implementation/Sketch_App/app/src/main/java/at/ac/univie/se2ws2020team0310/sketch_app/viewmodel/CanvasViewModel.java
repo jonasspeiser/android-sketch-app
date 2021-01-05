@@ -16,16 +16,22 @@ public class CanvasViewModel extends ViewModel {
 
 // Attributes
 
-    private final Sketch sketch;
+    private static Sketch sketch;
     private boolean moveElement;
     private Path path;
     private float lastTouchX;
     private float lastTouchY;
 
+// Getters and Setters
+
+    public static void setSketch(Sketch sketch) {
+        CanvasViewModel.sketch = sketch;
+    }
+
 // Constructors
 
     public CanvasViewModel() {
-        this.sketch = Sketch.getSketch();
+        sketch = Sketch.getSketch();
         this.moveElement = false;
         this.lastTouchX = -1;
         this.lastTouchY = -1;

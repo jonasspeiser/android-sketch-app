@@ -308,8 +308,12 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.saveId:
+                mainViewModel.saveSketch(getApplicationContext());
+                return true;
 
             case R.id.loadId:
+                mainViewModel.loadSketch(getApplicationContext());
+                return true;
 
             case R.id.exportId:
                 //ToDo move to ViewModel

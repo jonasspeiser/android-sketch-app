@@ -1,10 +1,21 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -38,6 +49,10 @@ public class Sketch {
     }
 
 // Getters and Setters
+
+    public void setLayers(IterableCollection layers) {
+        this.layers = layers;
+    }
 
     public static Sketch getSketch() {
         return sketch;
@@ -174,6 +189,35 @@ public class Sketch {
             return false;
         }
     }
+
+    // Based on: https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable/15011927#15011927
+    // Constant with a file name
+    public static String fileName = "MyObject";
+
+    // Serializes an object and saves it to a file
+    public void saveToFile(Context context) {
+
+        SharedPreferences appSharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(layers);
+        prefsEditor.putString("MyObject", json);
+        prefsEditor.commit();
+    }
+
+
+    // Creates an object by reading it from a file
+    public static IterableCollection readFromFile(Context context) {
+        SharedPreferences appSharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        String json = appSharedPrefs.getString("MyObject", "");
+        LayerCollection storedLayers = gson.fromJson(json, LayerCollection.class);
+
+        return storedLayers;
+    }
+
 }
 
 
