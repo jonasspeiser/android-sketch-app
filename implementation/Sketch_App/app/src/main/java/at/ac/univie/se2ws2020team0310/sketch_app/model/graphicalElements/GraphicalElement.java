@@ -80,6 +80,7 @@ public abstract class GraphicalElement {
 // Other Methods
 
     // change coordinates and update Path, if applicable
+    // TODO: Sollte das nicht eher in die Klasse Freehand?
     public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
         this.setCoordinates(x, y);
         if (getPath() != null && lastTouchX > 0 && lastTouchY > 0) {
