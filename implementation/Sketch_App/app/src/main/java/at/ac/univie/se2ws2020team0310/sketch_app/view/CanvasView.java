@@ -134,28 +134,10 @@ public class CanvasView extends View {
 
     public void saveToInternalStorage() {
 
-   /* this.setDrawingCacheEnabled(true);
-
-        String imgSaved = MediaStore.Images.Media.insertImage(
-                getContentResolver(), this.getDrawingCache(),
-                UUID.randomUUID().toString()+".png", "drawing");
-
-        if(imgSaved!=null){
-            Toast savedToast = Toast.makeText(getApplicationContext(),
-                    "Drawing saved to Gallery!", Toast.LENGTH_SHORT);
-            savedToast.show();
-        }
-        else{
-            Toast unsavedToast = Toast.makeText(getApplicationContext(),
-                    "Oops! Image could not be saved.", Toast.LENGTH_SHORT);
-            unsavedToast.show();*/
     }
+
+
 }
-/*    }
-
-
-
-    }*/
   /*      AlertDialog.Builder saveDialog = new AlertDialog.Builder();
         saveDialog.setTitle("Save drawing");
         saveDialog.setMessage("Save drawing to device Gallery?");

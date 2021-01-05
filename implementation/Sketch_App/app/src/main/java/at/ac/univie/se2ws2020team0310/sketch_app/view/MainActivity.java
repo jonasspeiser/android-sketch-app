@@ -304,36 +304,41 @@ public class MainActivity extends AppCompatActivity {
             case R.id.loadId:
 
             case R.id.exportId:
+                //ToDo move to ViewModel
+                //ToDO Anonymus onClickListener
+                //ToDo Success Toast Message wird nicht gezeigt
+                //In Anlehnung an https://code.tutsplus.com/tutorials/android-sdk-create-a-drawing-app-essential-functionality--mobile-19328
 
+                //Show window to user in order to confirm export to gallery
                 AlertDialog.Builder saveDialog = new AlertDialog.Builder(this);
-                saveDialog.setTitle("Save drawing");
-                saveDialog.setMessage("Save drawing to device Gallery?");
+                saveDialog.setTitle("Save sketch");
+                saveDialog.setMessage("Save sketch to device Gallery?");
                 saveDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int which){
-                        //save drawing
                     }
                 });
-                saveDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+                saveDialog.setNegativeButton("No", new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int which){
                         dialog.cancel();
                     }
                 });
                 saveDialog.show();
-
+        //set canvas color to white, since JPG has troubles with transparent canvas
         canvasView.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        //gather content from canvas
         canvasView.setDrawingCacheEnabled(true);
-
         String imgSaved = MediaStore.Images.Media.insertImage(
                 getContentResolver(), canvasView.getDrawingCache(),
-                UUID.randomUUID().toString() + ".png", "drawing");
+                //create random UUID so we get something back, if save was successful and we can display toast message
+                UUID.randomUUID().toString() + ".JPG", "sketch");
 
         if (imgSaved != null) {
             Toast savedToast = Toast.makeText(getApplicationContext(),
-                    "Drawing saved to Gallery!", Toast.LENGTH_SHORT);
+                    "Sketch saved to Gallery!", Toast.LENGTH_SHORT);
             savedToast.show();
         } else {
             Toast unsavedToast = Toast.makeText(getApplicationContext(),
-                    "Oops! Image could not be saved.", Toast.LENGTH_SHORT);
+                    "Error", Toast.LENGTH_SHORT);
             unsavedToast.show();
             canvasView.saveToInternalStorage();
             getContentResolver();
@@ -361,11 +366,32 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.deleteId:
-                canvasView.deleteElement();
+               canvasView.clear();
                 return true;
 
             case R.id.clearId:
-                canvasView.clear();
+                //ToDo move to ViewModel
+                //ToDO Anonymus onClickListener
+                //ToDO "clear" löscht Freehand meistens, bevor es confirmed ist
+                //ToDo Success Toast Message wird nicht gezeigt
+                //In Anlehnung an https://code.tutsplus.com/tutorials/android-sdk-create-a-drawing-app-essential-functionality--mobile-19328
+                //Show window to user in order to confirm that the sketch should be deleted
+                canvasView.deleteElement();
+                AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
+                newDialog.setTitle("New Sketch");
+                newDialog.setMessage("Start from scratch?");
+                newDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int which){
+                        canvasView.clear();
+                        dialog.dismiss();
+                    }
+                });
+                newDialog.setNegativeButton("No", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int which){
+                        dialog.cancel();
+                    }
+                });
+                newDialog.show();
                 return true;
 
             case R.id.editModeId:
