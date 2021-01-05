@@ -26,6 +26,7 @@ public class Triangle extends GraphicalElement {
         float xBottomRight = this.xPosition + this.getSize() / 2;
         float yBottomRight = this.yPosition + this.getSize() / 2;
 
+        //In Anlehnung an: https://github.com/SebLague/Gamedev-Maths/blob/master/PointInTriangle.cs
         //0.0001 dummy needed, so there is no NaN Error
         double s1 = yBottomRight - yBottomLeft  + 0.0001;
         double s2 = xBottomRight - xBottomLeft;

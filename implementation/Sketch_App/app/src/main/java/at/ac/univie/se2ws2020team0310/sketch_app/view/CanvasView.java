@@ -1,15 +1,19 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -17,6 +21,7 @@ import androidx.annotation.RequiresApi;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.UUID;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.CanvasViewModel;
@@ -29,7 +34,7 @@ public class CanvasView extends View {
     private Canvas mCanvas;
     private final CanvasViewModel canvasViewModel = new CanvasViewModel();
 
-// Constructors
+    // Constructors
     public CanvasView(Context context) {
         super(context);
     }
@@ -127,58 +132,43 @@ public class CanvasView extends View {
         invalidate();
     }
 
-    public void saveToInternalStorage(){
-        File dir = new File("/sdcard/Pictures/");
-        if (!dir.exists()) {
-            dir.mkdirs();
+    public void saveToInternalStorage() {
+
+   /* this.setDrawingCacheEnabled(true);
+
+        String imgSaved = MediaStore.Images.Media.insertImage(
+                getContentResolver(), this.getDrawingCache(),
+                UUID.randomUUID().toString()+".png", "drawing");
+
+        if(imgSaved!=null){
+            Toast savedToast = Toast.makeText(getApplicationContext(),
+                    "Drawing saved to Gallery!", Toast.LENGTH_SHORT);
+            savedToast.show();
         }
-
-        File output = new File(dir, "tempFile.jpg");
-        OutputStream os = null;
-
-        try {
-            os = new FileOutputStream(output);
-            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
-            os.flush();
-            os.close();
-
-            //this code will scan the image so that it will appear in your gallery when you open next time
-            MediaScannerConnection.scanFile(this.getContext(), new String[] { output.toString() }, null,
-                    new MediaScannerConnection.OnScanCompletedListener() {
-                        public void onScanCompleted(String path, Uri uri) {
-                            Log.d("appname", "image is saved in gallery and gallery is refreshed.");
-                        }
-                    }
-            );
-        } catch (Exception e) {
-        }
+        else{
+            Toast unsavedToast = Toast.makeText(getApplicationContext(),
+                    "Oops! Image could not be saved.", Toast.LENGTH_SHORT);
+            unsavedToast.show();*/
     }
+}
+/*    }
 
-    /*public void saveImage() throws IOException {
-        String fileName = "Pikasso" + System.currentTimeMillis();
 
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.Images.Media.TITLE, fileName);
-        values.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis());
-        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
-
-        // get a URI for the location to save the file
-        Uri uri = getContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-
-        OutputStream outputStream =
-                getContext().getContentResolver().openOutputStream(uri);
-
-                // copy bitmap to output string created before
-                mCanvas.compress(Bitmap.CompressFormat.JPEG,100,outputStream); // this is our image
-
-                outputStream.flush();
-                outputStream.close();
-
-        Toast message = new Toast.makeText(getContext(), "Image Saved", Toast.LENGTH_LONG);
-            message.setGravity(Gravity.CENTER, message.getXOffset() /2,
-                message.getYOffset() /2);
-            message.show();
 
     }*/
+  /*      AlertDialog.Builder saveDialog = new AlertDialog.Builder();
+        saveDialog.setTitle("Save drawing");
+        saveDialog.setMessage("Save drawing to device Gallery?");
+        saveDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+                //save drawing
+            }
+        });
+        saveDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+                dialog.cancel();
+            }
+        });
+        saveDialog.show();*/
 
-}
+

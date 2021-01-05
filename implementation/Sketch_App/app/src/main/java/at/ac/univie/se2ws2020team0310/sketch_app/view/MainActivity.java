@@ -1,7 +1,13 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
+import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,9 +26,12 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.UUID;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.R;
 import at.ac.univie.se2ws2020team0310.sketch_app.databinding.ActivityMainBinding;
@@ -291,8 +300,45 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.saveId:
+
             case R.id.loadId:
+
             case R.id.exportId:
+
+                AlertDialog.Builder saveDialog = new AlertDialog.Builder(this);
+                saveDialog.setTitle("Save drawing");
+                saveDialog.setMessage("Save drawing to device Gallery?");
+                saveDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int which){
+                        //save drawing
+                    }
+                });
+                saveDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int which){
+                        dialog.cancel();
+                    }
+                });
+                saveDialog.show();
+
+        canvasView.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        canvasView.setDrawingCacheEnabled(true);
+
+        String imgSaved = MediaStore.Images.Media.insertImage(
+                getContentResolver(), canvasView.getDrawingCache(),
+                UUID.randomUUID().toString() + ".png", "drawing");
+
+        if (imgSaved != null) {
+            Toast savedToast = Toast.makeText(getApplicationContext(),
+                    "Drawing saved to Gallery!", Toast.LENGTH_SHORT);
+            savedToast.show();
+        } else {
+            Toast unsavedToast = Toast.makeText(getApplicationContext(),
+                    "Oops! Image could not be saved.", Toast.LENGTH_SHORT);
+            unsavedToast.show();
+            canvasView.saveToInternalStorage();
+            getContentResolver();
+            return true;
+        }
 
             case R.id.lineId:
                 mainViewModel.selectGraphicalElement(EGraphicalElementType.LINE);
