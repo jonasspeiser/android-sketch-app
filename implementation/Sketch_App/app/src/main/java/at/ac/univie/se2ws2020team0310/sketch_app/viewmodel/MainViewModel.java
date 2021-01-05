@@ -1,5 +1,7 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
+import android.content.ContentResolver;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 
 import androidx.databinding.BaseObservable;
@@ -15,6 +17,7 @@ public class MainViewModel extends BaseObservable {
 
 // Attributes
 
+    public String imgSaved;
     private Sketch sketch;
 
     private int selectedColor;
@@ -62,6 +65,12 @@ public class MainViewModel extends BaseObservable {
     }
 
 // Other Methods
+
+    public void exportCanvas() {
+
+    }
+
+
 
     public void selectLayer(int layerNumber) {
         sketch.setSelectedLayer(layerNumber);

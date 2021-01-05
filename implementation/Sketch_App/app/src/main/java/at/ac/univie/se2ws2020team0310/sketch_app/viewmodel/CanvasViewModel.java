@@ -1,5 +1,7 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
+import android.content.ContentResolver;
+import android.graphics.Bitmap;
 import android.graphics.Path;
 
 import androidx.lifecycle.ViewModel;
@@ -151,5 +153,9 @@ public class CanvasViewModel extends ViewModel {
 
     public void onTouchUp() {
         elementsBehaviourOnTouchUp();
+    }
+
+    public boolean export(ContentResolver contentResolver, Bitmap drawingCache) {
+        return sketch.export(contentResolver, drawingCache);
     }
 }

@@ -1,9 +1,13 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
+import android.content.ContentResolver;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
@@ -162,6 +166,16 @@ public class Sketch {
             Log.e("CanvasView", e.getMessage());
         }
     }
+
+    public boolean export(ContentResolver contentResolver, Bitmap DrawingCache) {
+        if(MediaStore.Images.Media.insertImage(contentResolver,DrawingCache, UUID.randomUUID().toString()+".png","drawing")!=null){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
+
+
 
 

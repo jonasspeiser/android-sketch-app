@@ -1,6 +1,7 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
@@ -132,25 +133,7 @@ public class CanvasView extends View {
         invalidate();
     }
 
-    public void saveToInternalStorage() {
-
+    public boolean saveToInternalStorage(ContentResolver contentResolver) {
+        return canvasViewModel.export(contentResolver, this.getDrawingCache());
     }
-
-
 }
-  /*      AlertDialog.Builder saveDialog = new AlertDialog.Builder();
-        saveDialog.setTitle("Save drawing");
-        saveDialog.setMessage("Save drawing to device Gallery?");
-        saveDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int which){
-                //save drawing
-            }
-        });
-        saveDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int which){
-                dialog.cancel();
-            }
-        });
-        saveDialog.show();*/
-
-

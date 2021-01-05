@@ -1,6 +1,7 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     RadioButton layer1selector;
     RadioButton layer2selector;
     RadioButton layer3selector;
+    ContentResolver contentResolver;
 
 // Methods
 
@@ -73,12 +75,18 @@ public class MainActivity extends AppCompatActivity {
         layer1selector=(RadioButton)findViewById(R.id.layer1selector);
         layer2selector=(RadioButton)findViewById(R.id.layer2selector);
         layer3selector=(RadioButton)findViewById(R.id.layer3selector);
+        contentResolver=getContentResolver();
 
         // Defining the logic on when the SeekBars/ColorPicker should be displayed
         SetStrokeWidthSeekBarBehavior();
         SetSizeSeekBarBehavior();
         SetColorPickerBehavior();
         SetLayerSelectionVisibility();
+
+        //set canvas color to white, since JPG has troubles with transparent canvas
+        canvasView.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        //gather content from canvas
+        canvasView.setDrawingCacheEnabled(true);
 
         // Set the SeekBarChangeListeners
         sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -307,9 +315,7 @@ public class MainActivity extends AppCompatActivity {
                 //ToDo move to ViewModel
                 //ToDO Anonymus onClickListener
                 //ToDo Success Toast Message wird nicht gezeigt
-                //TODo Felix soll diesen Satz löschen!
-                //In Anlehnung an https://code.tutsplus.com/tutorials/android-sdk-create-a-drawing-app-essential-functionality--mobile-19328
-
+                //TODo Felix soll diesen Satz löschen!!!!!
                 //Show window to user in order to confirm export to gallery
                 AlertDialog.Builder saveDialog = new AlertDialog.Builder(this);
                 saveDialog.setTitle("Save sketch");
@@ -324,27 +330,16 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 saveDialog.show();
-        //set canvas color to white, since JPG has troubles with transparent canvas
-        canvasView.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-        //gather content from canvas
-        canvasView.setDrawingCacheEnabled(true);
-        String imgSaved = MediaStore.Images.Media.insertImage(
-                getContentResolver(), canvasView.getDrawingCache(),
-                //create random UUID so we get something back, if save was successful and we can display toast message
-                UUID.randomUUID().toString() + ".JPG", "sketch");
-
-        if (imgSaved != null) {
-            Toast savedToast = Toast.makeText(getApplicationContext(),
-                    "Sketch saved to Gallery!", Toast.LENGTH_SHORT);
-            savedToast.show();
-        } else {
-            Toast unsavedToast = Toast.makeText(getApplicationContext(),
-                    "Error", Toast.LENGTH_SHORT);
-            unsavedToast.show();
-            canvasView.saveToInternalStorage();
-            getContentResolver();
-            return true;
-        }
+                if(canvasView.saveToInternalStorage(contentResolver)==true){
+                    Toast savedToast = Toast.makeText(getApplicationContext(),
+                            "Sketch saved to Gallery!", Toast.LENGTH_SHORT);
+                    savedToast.show();
+                } else {
+                    Toast notSavedToast = Toast.makeText(getApplicationContext(),
+                            "Saving not successful, please try again.", Toast.LENGTH_SHORT);
+                    notSavedToast.show();
+                }
+                return true;
 
             case R.id.lineId:
                 mainViewModel.selectGraphicalElement(EGraphicalElementType.LINE);
@@ -463,7 +458,6 @@ public class MainActivity extends AppCompatActivity {
     public void onClickStyleButtons(View view) {
         mainViewModel.buttonClick();
     }
-
 
     // Hide the Soft Keyboard
     // solution from: https://stackoverflow.com/questions/4165414/how-to-hide-soft-keyboard-on-android-after-clicking-outside-edittext
