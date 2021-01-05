@@ -5,27 +5,32 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IterableCollection;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.Iterator;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.LayerCollection;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.LayerCollectionIterator;
 
 public class Sketch {
 
 // Attributes
 
     private static final Sketch sketch = new Sketch();
-    private final Layer[] layers;
+
+    private IterableCollection layers;
     private Layer selectedLayer;
 
     private GraphicalElement selectedGraphicalElement;
 
+    private boolean editModeTurnedOn;
+
 // Constructor
 
     private Sketch() {
-        this.layers = new Layer[3];
-        for (int i = 0; i < 3; i++) {
-            layers[i] = new Layer();
-        }
-        this.selectedLayer = layers[0];
+        this.layers = new LayerCollection();
+        this.selectedLayer = (Layer) layers.get(0);
     }
 
 // Getters and Setters
@@ -40,7 +45,7 @@ public class Sketch {
 
     public void setSelectedLayer(int layerNumber) {
         try {
-            this.selectedLayer = layers[layerNumber];
+            this.selectedLayer = (Layer) layers.get(layerNumber);
         }
         catch (ArrayIndexOutOfBoundsException e) {
             Log.e("Sketch", e.getMessage());
@@ -57,15 +62,34 @@ public class Sketch {
 
     public List<GraphicalElement> getDrawnElements() {
         List<GraphicalElement> visibleElements = new ArrayList<>();
-        for (Layer layer : layers) {
+        Iterator layersIterator = layers.createIterator();
+        while (layersIterator.hasMore()) {
+            Layer layer = (Layer) layersIterator.getNext();
             if (layer.isVisible()) {
-                visibleElements.addAll(layer.getDrawnElements());
+                Iterator elementsIterator = layer.createIterator();
+                while(elementsIterator.hasMore()) {
+                    visibleElements.add((GraphicalElement) elementsIterator.getNext());
+                }
             }
         }
         return  visibleElements;
     }
 
+    public boolean isEditModeTurnedOn() {
+        return editModeTurnedOn;
+    }
+
+    public void setEditModeTurnedOn(boolean editModeTurnedOn) {
+        this.editModeTurnedOn = editModeTurnedOn;
+    }
+
+
 // Other Methods
+
+    public void setLayerVisibility(int layerNumber, boolean isVisible) {
+        Layer layer = (Layer) layers.get(layerNumber);
+        layer.setVisible(isVisible);
+    }
 
     public boolean layerIsEmpty() {
         return selectedLayer.isEmpty();
@@ -91,16 +115,20 @@ public class Sketch {
         this.getSelectedLayer().setCoordinates(x, y);
     }
 
-    public void changeCoordinates(float x, float y) {
-        this.getSelectedLayer().changeCoordinates(x, y);
+    public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
+        if(!isEditModeTurnedOn()) {
+            this.getSelectedLayer().changeCoordinates(x, y, lastTouchX, lastTouchY);
+        }
     }
 
     public void deleteElement() {
-        selectedLayer.deleteLastElement();
+        selectedLayer.deleteElement();
     }
 
     public void clear() {
-        for (Layer layer : layers) {
+        Iterator layersIterator = layers.createIterator();
+        while (layersIterator.hasMore()) {
+            Layer layer = (Layer) layersIterator.getNext();
             layer.clear();
         }
     }
@@ -110,25 +138,25 @@ public class Sketch {
     }
 
     /**
-     * Checks, whether the provided coordinates are within a graphical element of the selected layer and if so, makes that element editable.
-     *
-     * @param x value on the x-axes
-     * @param y value on the y-axes
-     * @return returns true if the provided coordinates are within an element
+     * Checks, wether there is an Element on touch position.
+     * When Edit Mode is on, adds that Element to the User-Selection of editable Elements.
+     * Else let's user move that element.
+     * @param x
+     * @param y
+     * @return returns true if there is an Element at the given coordinates
      */
-    public boolean isWithinElement(float x, float y) {
-        // TODO: We need a better name, as this method not only checks, whether a touch falls within an element, but also sets the found element "editable"
-        for (GraphicalElement graphicalElement : selectedLayer.getDrawnElements()) {
-               if (graphicalElement.isWithinElement(x, y)) {
-                    selectedLayer.editElement(graphicalElement);
-                    return true;
-                }
-            }
-            return false;
+    public boolean isWithinElement(float x, float y) {  // TODO: Rename Method!
+        if (isEditModeTurnedOn()) {
+            return selectedLayer.makeElementOnPositionEditable(x, y);
+        } else {
+            selectedLayer.resetEditableElements();
+            return selectedLayer.makeElementOnPositionMovable(x, y);
         }
+    }
 
     public void selectGraphicalElement(EGraphicalElementType type, int color, float size, float strokeWidth) {
         try {
+            selectedLayer.resetEditableElements();
             this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(type, color, size, strokeWidth));
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());

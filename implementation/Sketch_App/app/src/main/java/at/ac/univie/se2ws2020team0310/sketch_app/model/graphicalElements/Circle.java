@@ -10,7 +10,6 @@ public class Circle extends GraphicalElement {
 // Constructor
     public Circle(DrawStrategy drawStrategy) {
         super(drawStrategy);
-
     }
 
 // Getters and Setters
@@ -29,15 +28,22 @@ public class Circle extends GraphicalElement {
         setRadius(size / 2);
     }
 
+    // Other Methods
+
     public boolean isWithinElement(float x, float y) {
         double dx = Math.pow(x - this.xPosition, 2);
         double dy = Math.pow(y - this.yPosition, 2);
 
         if (dx + dy < Math.pow(this.radius, 2)) {
-            // means that coordinates are within circle
+            // Means that coordinates are within circle
             return true;
         } else {
             return false;
         }
+    }
+
+    @Override
+    protected String getName() {
+        return "Circle";
     }
 }

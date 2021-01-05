@@ -28,8 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/size_icon"
-        android:onClick="@={viewModel."/>
+        app:srcCompat="@drawable/size_icon"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/strokeWidthButton"
@@ -74,8 +73,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.715"
-        tools:visibility="invisible"
-        android:progress="@={viewModel.strokeWidthSeekBarValue}"/>
+        android:progress="@{viewModel.strokeWidthSeekBarValue}"/>
 
     <SeekBar
         android:id="@+id/sizeSeekBar"
@@ -90,7 +88,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.809"
         tools:visibility="invisible"
-        android:progress="@={viewModel.sizeSeekBarValue}"/>
+        android:progress="@{viewModel.sizeSeekBarValue}"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

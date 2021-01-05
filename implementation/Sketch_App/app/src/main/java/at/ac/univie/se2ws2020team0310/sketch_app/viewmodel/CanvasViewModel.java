@@ -17,12 +17,16 @@ public class CanvasViewModel extends ViewModel {
     private final Sketch sketch;
     private boolean moveElement;
     private Path path;
+    private float lastTouchX;
+    private float lastTouchY;
 
 // Constructors
 
     public CanvasViewModel() {
         this.sketch = Sketch.getSketch();
         this.moveElement = false;
+        this.lastTouchX = -1;
+        this.lastTouchY = -1;
     }
 
 // Other Methods
@@ -56,8 +60,8 @@ public class CanvasViewModel extends ViewModel {
     }
 
     /** write given coordinates (x, y) to the last selected graphical element */
-    public void changeElementCoordinates(float x, float y) {
-        sketch.changeCoordinates(x, y);
+    public void changeElementCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
+        sketch.changeCoordinates(x, y, lastTouchX, lastTouchY);
     }
 
     public void deleteElement(){sketch.deleteElement();}
@@ -79,7 +83,7 @@ public class CanvasViewModel extends ViewModel {
         return this.getDrawnElements() != null;
     }
 
-    public void elementsBehaviourOnTouchDown(float x, float y) {
+    private void elementsBehaviourOnTouchDown(float x, float y) {
         // behaviour for drawing a new element
         if (this.getSelectedGraphicalElement() != null) {
             this.storeElement();
@@ -87,51 +91,65 @@ public class CanvasViewModel extends ViewModel {
             this.moveElement = true;
         }
         // behaviour for touching an existing element
-        if (this.getSelectedGraphicalElement() == null && this.getDrawnElements() != null) {
-            if (this.isWithinElement(x, y)) {
-                this.moveElement = true;
-            }
+        if (this.getSelectedGraphicalElement() == null && this.getDrawnElements() != null
+                && this.isWithinElement(x, y)) {
+            this.moveElement = true;
         }
+        // saving these coordinates as the last point touched
+        this.lastTouchX = x;
+        this.lastTouchY = y;
     }
 
-    public void elementsBehaviourOnTouchMove(float x, float y) {
+    private void elementsBehaviourOnTouchMove(float x, float y) {
         // behaviour for drawing a new element
         if (this.getSelectedGraphicalElement() != null) {
             this.setElementCoordinates(x, y);
         }
         // behaviour for touching an existing element
         if (this.moveElement) {
-            this.changeElementCoordinates(x, y);
+            this.changeElementCoordinates(x, y, this.lastTouchX, this.lastTouchY);
         }
+        this.lastTouchX = x;
+        this.lastTouchY = y;
     }
 
-    public void elementsBehaviourOnTouchUp() {
+    private void elementsBehaviourOnTouchUp() {
         this.resetSelection();
         this.moveElement = false;
+        this.lastTouchX = -1;
+        this.lastTouchY = -1;
     }
 
-    public void freehandBehaviourOnTouchDown(float touchX, float touchY) {
+    public void onTouchDown(float touchX, float touchY) {
+        elementsBehaviourOnTouchDown(touchX, touchY);
+        freehandBehaviourOnTouchDown(touchX, touchY);
+    }
+
+    private void freehandBehaviourOnTouchDown(float touchX, float touchY) {
         path = null;
-        if (getSelectedGraphicalElement() != null){
+        if (getSelectedGraphicalElement() != null) {
             path = getSelectedGraphicalElement().getPath();
         }
-
         if (path != null) {
             path.moveTo(touchX, touchY); // start ist hier
         }
     }
 
-    public void freehandBehaviourOnTouchMove(float touchX, float touchY) {
+    public void onTouchMove(float touchX, float touchY) {
+        if (getSelectedGraphicalElement() != null && getSelectedGraphicalElement().isFreehand()) {
+            freehandBehaviourOnTouchMove(touchX, touchY);
+        } else {
+            elementsBehaviourOnTouchMove(touchX, touchY);
+        }
+    }
+
+    private void freehandBehaviourOnTouchMove(float touchX, float touchY) {
         if (path != null) {
             path.lineTo(touchX, touchY);
         }
     }
 
-    public void freehandBehaviourOnTouchUp(float touchX, float touchY) {
-        if (path != null) {
-            path.lineTo(touchX, touchY);
-        }
+    public void onTouchUp() {
+        elementsBehaviourOnTouchUp();
     }
-
-
 }

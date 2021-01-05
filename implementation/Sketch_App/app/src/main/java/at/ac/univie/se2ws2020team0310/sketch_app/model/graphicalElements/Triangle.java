@@ -1,48 +1,49 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawTriangleStrategy;
 
 public class Triangle extends GraphicalElement {
 
+// Constructor
     public Triangle(DrawStrategy drawStrategy) {
         super(drawStrategy);
     }
 
-    public float area(float x1, float y1, float x2, float y2, float x3, float y3) {
-        return (float) ((x1*(y2-y3)+x2*(y3-y1)+x3*(y1-y2)) / 2.0);
-    }
-
+//Other methods
 
     public boolean isWithinElement(float x, float y) {
-        // TODO: implement method body
+        // TODO: Methode sollte vereinfacht werden
 
-        // Defensive Programming can be used to check if we are using valid xPos, yPos and graphicalElement attributes
-        //top
+        // Coordinates of point A (Bottom Left)
+        float xBottomLeft = this.xPosition - this.getSize() / 2;
+        float yBottomLeft = this.yPosition + this.getSize() / 2;
+
+        // Coordinates of point B (Top)
         float xTop = this.xPosition;
-        float yTop = this.yPosition;
+        float yTop = this.yPosition - this.getSize() / 2;
 
-        // bottom left
-        float xBottomLeft = this.xPosition - this.getSize()/2;
-        float yBottomLeft = this.yPosition + this.getSize()/2;
+        // Coordinates of point C (Bottom Right)
+        float xBottomRight = this.xPosition + this.getSize() / 2;
+        float yBottomRight = this.yPosition + this.getSize() / 2;
 
-        //bottom right
-        float xBottomRight = this.xPosition + this.getSize()/2;
-        float yBottomRight = this.yPosition + this.getSize()/2;
+        //0.0001 dummy needed, so there is no NaN Error
+        double s1 = yBottomRight - yBottomLeft  + 0.0001;
+        double s2 = xBottomRight - xBottomLeft;
+        double s3 = yTop - yBottomLeft;
+        double s4 = y - yBottomLeft;
 
-        float A = area(xBottomLeft, yBottomLeft, xTop, yTop, xBottomRight, yBottomRight);
+        double w1 = (xBottomLeft * s1 + s4 * s2 - x * s1) / (s3 * s2 - (xTop - xBottomLeft) * s1);
+        double w2 = (s4 - w1 * s3) / s1;
 
-        float A1 = area(x, y, xTop, yTop, xBottomRight, yBottomRight);
-
-        float A2 = area(xBottomLeft, yBottomLeft, x, y, xBottomRight, yBottomRight);
-
-        float A3 = area(xBottomLeft, yBottomLeft, xTop, yTop, x, y);
-
-
-        if (A == A1+A2+A3) {
+        if (w1 >= 0 && w2 >= 0 && (w1 + w2) <= 1)
             return true;
-        } else {
+            // Means that coordinates are within triangle
+        else
             return false;
-        }
+    }
+
+    @Override
+    protected String getName() {
+        return "Triangle";
     }
 }

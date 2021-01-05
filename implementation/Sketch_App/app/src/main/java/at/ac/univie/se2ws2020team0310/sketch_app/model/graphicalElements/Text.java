@@ -7,11 +7,9 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 public class Text extends GraphicalElement {
 
 // Attributes
-
     private String userText;
 
 // Constructor
-
     public Text(DrawStrategy drawStrategy) {
         super(drawStrategy);
         userText = "";
@@ -63,5 +61,10 @@ public class Text extends GraphicalElement {
      */
             return false;
         }
+
+    @Override
+    protected String getName() {
+        return "Text";
+    }
 }
 

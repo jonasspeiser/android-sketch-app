@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 
+
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 
 public abstract class GraphicalElement {
@@ -71,10 +72,19 @@ public abstract class GraphicalElement {
         return null;
     }
 
+    // check if this element is a Freehand drawing
+    public boolean isFreehand() {
+        return false;
+    }
+
 // Other Methods
 
-    public void changeCoordinates(float x, float y) {
+    // change coordinates and update Path, if applicable
+    public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
         this.setCoordinates(x, y);
+        if (getPath() != null && lastTouchX > 0 && lastTouchY > 0) {
+            getPath().offset(x - lastTouchX, y - lastTouchY);
+        }
     }
 
     public void setColor(int color) {
@@ -86,4 +96,11 @@ public abstract class GraphicalElement {
     }
 
     public abstract boolean isWithinElement(float x, float y);
+    protected abstract String getName();
+
+    // toString() used for logging and identifying GraphicalElements
+    @Override
+    public String toString() {
+        return getName() + " (" + this.xPosition + ", " + this.yPosition + ")";
+    }
 }

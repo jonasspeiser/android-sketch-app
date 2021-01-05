@@ -2,13 +2,16 @@ package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
 import android.graphics.Color;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 import androidx.lifecycle.ViewModel;
 
+import at.ac.univie.se2ws2020team0310.sketch_app.BR;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.TextDecorator;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 
-public class MainViewModel extends ViewModel {
+public class MainViewModel extends BaseObservable {
 
 // Attributes
 
@@ -18,14 +21,17 @@ public class MainViewModel extends ViewModel {
     private float selectedSize;
     private float selectedStrokeWidth;
 
+    private boolean editModeOn;
+
     private TextDecorator textDecorator;    // TODO initialize it in Constructor, add getter/setter
 
-    // Constructor
+// Constructor
     public MainViewModel() {
         this.sketch = Sketch.getSketch();
         this.selectedColor = Color.BLACK;
         this.selectedSize = 150;
         this.selectedStrokeWidth = 15;
+        this.editModeOn = false;
         textDecorator = new TextDecorator();
     }
 // Getters and Setters
@@ -50,8 +56,10 @@ public class MainViewModel extends ViewModel {
         return selectedStrokeWidth;
     }
 
+    @Bindable
     public void setSelectedStrokeWidth(float selectedStrokeWidth) {
         this.selectedStrokeWidth = selectedStrokeWidth;
+        notifyPropertyChanged(BR.selectedStrokeWidth);
     }
 
     public TextDecorator getTextDecorator() {
@@ -64,6 +72,14 @@ public class MainViewModel extends ViewModel {
 
 // Other Methods
 
+    public void selectLayer(int layerNumber) {
+        sketch.setSelectedLayer(layerNumber);
+    }
+
+    public void setLayerVisibility(int layerNumber, boolean isVisible) {
+        sketch.setLayerVisibility(layerNumber, isVisible);
+    }
+
     public boolean layerIsEmpty() {return sketch.layerIsEmpty();}
 
     public void buttonClick() {
@@ -74,5 +90,15 @@ public class MainViewModel extends ViewModel {
     public void selectGraphicalElement(EGraphicalElementType type) {
         sketch.selectGraphicalElement(type, this.selectedColor, this.selectedSize, this.selectedStrokeWidth);
     }
+
+    public void toggleEditMode(){
+        this.editModeOn = !this.editModeOn;
+        sketch.setEditModeTurnedOn(this.editModeOn);
+    }
+
+    public boolean isEditModeOn() {
+        return editModeOn;
+    }
+
 }
 
