@@ -307,6 +307,7 @@ public class MainActivity extends AppCompatActivity {
                 //ToDo move to ViewModel
                 //ToDO Anonymus onClickListener
                 //ToDo Success Toast Message wird nicht gezeigt
+                //TODo Felix soll diesen Satz löschen!
                 //In Anlehnung an https://code.tutsplus.com/tutorials/android-sdk-create-a-drawing-app-essential-functionality--mobile-19328
 
                 //Show window to user in order to confirm export to gallery
@@ -374,6 +375,7 @@ public class MainActivity extends AppCompatActivity {
                 //ToDO Anonymus onClickListener
                 //ToDO "clear" löscht Freehand meistens, bevor es confirmed ist
                 //ToDo Success Toast Message wird nicht gezeigt
+                //TODo Felix soll diesen Satz löschen!
                 //In Anlehnung an https://code.tutsplus.com/tutorials/android-sdk-create-a-drawing-app-essential-functionality--mobile-19328
                 //Show window to user in order to confirm that the sketch should be deleted
                 canvasView.deleteElement();
