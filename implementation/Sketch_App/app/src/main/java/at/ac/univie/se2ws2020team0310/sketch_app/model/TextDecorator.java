@@ -5,7 +5,7 @@ import android.graphics.Paint;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
 
-public class TextDecorator extends Text {
+public class TextDecorator extends GraphicalElementDecorator {
 
     public TextDecorator(DrawStrategy drawStrategy) {
         super(drawStrategy);

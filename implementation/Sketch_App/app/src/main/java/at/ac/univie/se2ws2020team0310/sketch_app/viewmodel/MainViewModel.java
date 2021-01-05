@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import at.ac.univie.se2ws2020team0310.sketch_app.BR;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.TextDecorator;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 
 public class MainViewModel extends BaseObservable {
@@ -25,14 +26,15 @@ public class MainViewModel extends BaseObservable {
 
     private TextDecorator textDecorator;    // TODO initialize it in Constructor, add getter/setter
 
-// Constructor
+    // Constructor
     public MainViewModel() {
         this.sketch = Sketch.getSketch();
         this.selectedColor = Color.BLACK;
         this.selectedSize = 150;
         this.selectedStrokeWidth = 15;
         this.editModeOn = false;
-        textDecorator = new TextDecorator();
+        // TODO implement constructor
+        this.textDecorator = new TextDecorator();
     }
 // Getters and Setters
 
