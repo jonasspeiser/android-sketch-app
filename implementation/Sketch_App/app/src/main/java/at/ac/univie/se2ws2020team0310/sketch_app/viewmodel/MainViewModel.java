@@ -4,12 +4,10 @@ import android.graphics.Color;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-import androidx.lifecycle.ViewModel;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.BR;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.TextDecorator;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 
 public class MainViewModel extends BaseObservable {
@@ -24,7 +22,7 @@ public class MainViewModel extends BaseObservable {
 
     private boolean editModeOn;
 
-    private TextDecorator textDecorator;    // TODO initialize it in Constructor, add getter/setter
+    // private TextDecorator textDecorator;    // TODO initialize it in Constructor, add getter/setter
 
     // Constructor
     public MainViewModel() {
@@ -34,7 +32,7 @@ public class MainViewModel extends BaseObservable {
         this.selectedStrokeWidth = 15;
         this.editModeOn = false;
         // TODO implement constructor
-        this.textDecorator = new TextDecorator();
+        // löschen this.textDecorator = new TextDecorator(new DrawTextStrategy());
     }
 // Getters and Setters
 
@@ -64,13 +62,13 @@ public class MainViewModel extends BaseObservable {
         notifyPropertyChanged(BR.selectedStrokeWidth);
     }
 
-    public TextDecorator getTextDecorator() {
+    /*public TextDecorator getTextDecorator() {
         return textDecorator;
     }
 
     public void setTextDecorator(TextDecorator textDecorator) {
         this.textDecorator = textDecorator;
-    }
+    }*/
 
 // Other Methods
 
@@ -84,8 +82,10 @@ public class MainViewModel extends BaseObservable {
 
     public boolean layerIsEmpty() {return sketch.layerIsEmpty();}
 
-    public void buttonClick() {
-        textDecorator.buttonClick();    // textDecorator is not initialized, hence the app crashes here
+    public void onClickStyleButtons() {
+        //textDecorator.buttonClick();    // textDecorator is not initialized, hence the app crashes here
+        TextDecorator textDecorator = new TextDecorator(sketch.getSelectedGraphicalElement());
+        textDecorator.onClickStyleButtons();
     }
 
 

@@ -22,8 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 
-import java.io.IOException;
-
 import at.ac.univie.se2ws2020team0310.sketch_app.R;
 import at.ac.univie.se2ws2020team0310.sketch_app.databinding.ActivityMainBinding;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
@@ -335,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
     // TODO: Funktionalität in Methode im ViewModel auslagern (ab hier bis unten)
     public void onClickDoneButton(View view) {
 
-        mainViewModel.selectGraphicalElement(EGraphicalElementType.TEXT_FIELD);
+        //mainViewModel.selectGraphicalElement(EGraphicalElementType.TEXT_FIELD);
         Text mText = (Text) canvasView.getCanvasViewModel().getSelectedGraphicalElement();
         mText.setUserText(getEnteredText());
 
@@ -387,7 +385,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickStyleButtons(View view) {
-        mainViewModel.buttonClick();
+        mainViewModel.onClickStyleButtons();
     }
 
 
