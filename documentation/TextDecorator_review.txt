@@ -1,0 +1,27 @@
+TextDecorator review points:
+- implement the Decorator pattern schema: the GraphicalElementDecorator abstract class will be a child of our abstract GraphicalElement class, not of the Text concrete class
+- class GraphicalElementDecorator should contain a reference to the actual decorated GraphicalElement and use it in the Constructor:
+
+	private GraphicalElement element;
+
+    public GraphicalElementDecorator(GraphicalElement element) {
+        super(element.getDrawStrategy());
+        this.element = element;
+    }
+
+    public GraphicalElement getElement() {
+        return element;
+    }
+	
+- the concrete TextDecorator class will be a child of the abstract GraphicalElementDecorator
+- the methods to override (like isWithinElement) should use the decorated element's methods: 
+	// use isWithinElement method from the decorated element
+	@Override
+	public boolean isWithinElement(float x, float y) {
+		return getElement().isWithinElement(x, y);
+	}
+- TextDecorator for underline should be renamed to TextDecoratorUnderline or similar name
+- 2 more TextDecorators are required for Bold and Italic
+- MainViewModel should create a TextDecorator for each "buttonClick"
+- rename "buttonClick" method to "onClickUnderlineButton", "onClickBoldButton" etc.
+- check GraphicalElementDeco branch for more details
