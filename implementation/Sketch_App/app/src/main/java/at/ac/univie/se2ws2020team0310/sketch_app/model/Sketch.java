@@ -208,7 +208,7 @@ public class Sketch {
 
 
     // Creates an object by reading it from a file
-    public static IterableCollection readFromFile(Context context) {
+    public static LayerCollection readFromFile(Context context) {
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
         Gson gson = new Gson();
