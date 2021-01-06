@@ -112,8 +112,16 @@ public class MainViewModel extends BaseObservable {
     }
 
     public void loadSketch(Context context) {
-        IterableCollection loadedLayers = Sketch.readFromFile(context);
-        sketch.setLayers(loadedLayers);
+        Sketch loadedSketch = Sketch.readFromFile(context);
+
+        // Right now the new Sketch only gets loaded into the viewmodel, not into the model
+        //TODO: realize this with an Observer: the viewModels always check which sketch-object is loaded in Sketch class
+        setSketch(loadedSketch);
+        CanvasViewModel.setSketch(loadedSketch);
+
+        // The selected Layer doesn't get stored properly, therefore we reselect one manually
+        // TODO: fix this (e.g. by only storing the selected layernumber in Sketch instead of a whole object
+        selectLayer(0);
     }
 
 }

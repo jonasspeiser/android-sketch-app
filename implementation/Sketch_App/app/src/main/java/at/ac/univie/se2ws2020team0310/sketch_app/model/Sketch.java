@@ -193,11 +193,17 @@ public class Sketch {
         }
     }
 
-    // Based on: https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable/15011927#15011927
+
     // Constant with a file name
     public static String fileName = "MyObject";
 
-    // Serializes an object and saves it to a file
+    /** Serializes the current sketch object and saves it to a file
+     *
+     * Based on: https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable/15011927#15011927
+     * in combination with: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
+     *
+     * @param context The application context (activity.getApplicationContext())
+     */
     public void saveToFile(Context context) {
 
         SharedPreferences appSharedPrefs = PreferenceManager
@@ -211,14 +217,21 @@ public class Sketch {
         builder.registerTypeAdapter(DrawStrategy.class, new GsonInterfaceAdapter());
         Gson gson = builder.create();
 
-        String json = gson.toJson(layers);
+        String json = gson.toJson(this);
         prefsEditor.putString("MyObject", json);
         prefsEditor.commit();
     }
 
 
-    // Creates an object by reading it from a file
-    public static LayerCollection readFromFile(Context context) {
+    /** Creates a sketch object by reading it from a file
+     *
+     * Based on: https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable/15011927#15011927
+     * in combination with: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
+     *
+     * @param context The application context (activity.getApplicationContext())
+     * @return The stored sketch object
+     */
+    public static Sketch readFromFile(Context context) {
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
@@ -230,9 +243,9 @@ public class Sketch {
         Gson gson = builder.create();
 
         String json = appSharedPrefs.getString("MyObject", "");
-        LayerCollection storedLayers = gson.fromJson(json, LayerCollection.class);
+        Sketch storedSketch = gson.fromJson(json, Sketch.class);
 
-        return storedLayers;
+        return storedSketch;
     }
 /*
     public Gson registerGsonAdapter() {
