@@ -10,7 +10,6 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
 public class DrawTextStrategy implements DrawStrategy {
     @Override
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
-        Log.d("DrawTextStrategy", graphicalElement + ": isUnderlineText? " + graphicalElement.getObjectPaint().isUnderlineText());
         canvas.drawText(((Text) graphicalElement).getUserText(), graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
     }
 }

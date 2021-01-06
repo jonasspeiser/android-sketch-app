@@ -24,7 +24,7 @@ public class TextDecorator extends GraphicalElementDecorator {
         return "Text";
     }
 
-    public void onClickStyleButtons() {
+    public void onClickUnderlineButton() {
         getElement().getObjectPaint().setUnderlineText(true);
     }
 

@@ -82,10 +82,9 @@ public class MainViewModel extends BaseObservable {
 
     public boolean layerIsEmpty() {return sketch.layerIsEmpty();}
 
-    public void onClickStyleButtons() {
-        //textDecorator.buttonClick();    // textDecorator is not initialized, hence the app crashes here
+    public void onClickUnderlineButton() {
         TextDecorator textDecorator = new TextDecorator(sketch.getSelectedGraphicalElement());
-        textDecorator.onClickStyleButtons();
+        textDecorator.onClickUnderlineButton();
     }
 
 
