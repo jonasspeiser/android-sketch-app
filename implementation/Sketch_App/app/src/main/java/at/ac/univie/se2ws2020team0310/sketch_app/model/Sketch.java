@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -21,12 +22,14 @@ import java.util.List;
 import java.util.UUID;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IterableCollection;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.Iterator;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.LayerCollection;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.LayerCollectionIterator;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.storage.GsonInterfaceAdapter;
 
 public class Sketch {
 
@@ -200,7 +203,14 @@ public class Sketch {
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
         SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
-        Gson gson = new Gson();
+
+        //Create our gson instance
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(IterableCollection.class, new GsonInterfaceAdapter());
+        builder.registerTypeAdapter(GraphicalElement.class, new GsonInterfaceAdapter());
+        builder.registerTypeAdapter(DrawStrategy.class, new GsonInterfaceAdapter());
+        Gson gson = builder.create();
+
         String json = gson.toJson(layers);
         prefsEditor.putString("MyObject", json);
         prefsEditor.commit();
@@ -211,13 +221,29 @@ public class Sketch {
     public static LayerCollection readFromFile(Context context) {
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
-        Gson gson = new Gson();
+
+        //Create our gson instance
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(IterableCollection.class, new GsonInterfaceAdapter());
+        builder.registerTypeAdapter(GraphicalElement.class, new GsonInterfaceAdapter());
+        builder.registerTypeAdapter(DrawStrategy.class, new GsonInterfaceAdapter());
+        Gson gson = builder.create();
+
         String json = appSharedPrefs.getString("MyObject", "");
         LayerCollection storedLayers = gson.fromJson(json, LayerCollection.class);
 
         return storedLayers;
     }
+/*
+    public Gson registerGsonAdapter() {
+        //Create our gson instance
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(IterableCollection.class, new GsonInterfaceAdapter());
+        Gson gson = builder.create();
+        return gson;
+    }
 
+ */
 }
 
 

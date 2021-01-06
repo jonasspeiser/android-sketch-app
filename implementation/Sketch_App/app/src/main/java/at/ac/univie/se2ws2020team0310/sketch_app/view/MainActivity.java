@@ -313,6 +313,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.loadId:
                 mainViewModel.loadSketch(getApplicationContext());
+                refreshScreen();
                 return true;
 
             case R.id.exportId:
