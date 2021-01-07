@@ -134,12 +134,8 @@ public class CanvasView extends View {
         invalidate();
     }
 
-    public boolean saveToInternalStorageJPEG(Context context, ContentResolver contentResolver) throws IOException {
-        return canvasViewModel.exportJPEG(context, contentResolver, this.getDrawingCache());
-    }
-
-    public boolean saveToInternalStoragePNG(Context context, ContentResolver contentResolver) throws IOException {
-        return canvasViewModel.exportPNG(context, contentResolver, this.getDrawingCache());
+    public void export(Context context, ContentResolver contentResolver,  String fileFormat) throws IOException {
+        canvasViewModel.export(context, contentResolver, fileFormat, this.getDrawingCache());
     }
 
 }

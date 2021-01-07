@@ -186,18 +186,17 @@ public class Sketch {
         }
     }
 
-    public boolean exportPNG(Context context,ContentResolver contentResolver,Bitmap DrawingCache) throws IOException{
-        FileOutputStream fileOutputStream=context.openFileOutput("YourFileName.jpg",Context.MODE_PRIVATE);
-        DrawingCache.compress(Bitmap.CompressFormat.JPEG,100,fileOutputStream);
+    //Use Template Method for division of file exporting into similar and differing parts
+    public void export(Context context, ContentResolver contentResolver, String fileFormat, Bitmap drawingCache) throws IOException {
+        FileOutputStream fileOutputStream=context.openFileOutput("file" + System.currentTimeMillis() + "." + fileFormat,Context.MODE_PRIVATE);
+        if(fileFormat == "JPEG"){
+            drawingCache.compress(Bitmap.CompressFormat.JPEG,100,fileOutputStream);
+            Log.d("JPEGExport","Successfully exported as JPEG");
+            } else {
+            drawingCache.compress(Bitmap.CompressFormat.PNG, 100,fileOutputStream);
+            Log.d("PNGExport","Succesfully exported as PNG");
+        }
         fileOutputStream.close();
-        return true;
-    }
-
-    public boolean exportJPEG(Context context,ContentResolver contentResolver,Bitmap DrawingCache) throws IOException {
-        FileOutputStream fileOutputStream=context.openFileOutput("YourFileName.jpg",Context.MODE_PRIVATE);
-        DrawingCache.compress(Bitmap.CompressFormat.JPEG,100,fileOutputStream);
-        fileOutputStream.close();
-        return true;
     }
 
 //    public boolean exportJPEG(ContentResolver contentResolver, Bitmap DrawingCache) {

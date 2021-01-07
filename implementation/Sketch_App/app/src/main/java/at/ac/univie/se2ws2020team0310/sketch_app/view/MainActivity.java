@@ -1,6 +1,7 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -316,44 +317,34 @@ public class MainActivity extends AppCompatActivity {
                 //ToDo Success Toast Message wird nicht gezeigt
                 //TODo Felix soll diesen Satz löschen!!!!!
                 //Show window to user in order to confirm export to gallery
-                AlertDialog.Builder saveDialog = new AlertDialog.Builder(this);
-                saveDialog.setTitle("Save sketch");
-                saveDialog.setMessage("Save sketch to device Gallery?");
-                saveDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int which){
+                AlertDialog.Builder exportDialogue = new AlertDialog.Builder(MainActivity.this);
+                exportDialogue.setTitle("Save sketch");
+                CharSequence[] fileFormats = new CharSequence[]{"JPEG","PNG"};
+                exportDialogue.setItems(fileFormats, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                try {
+                                    canvasView.export(MainActivity.this, contentResolver, "JPEG");
+                                    showToast("JPEG Export selected");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            case 1:
+                                try {
+                                    canvasView.export(MainActivity.this, contentResolver, "PNG");
+                                    showToast("PNG Export selected");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                        }
                     }
                 });
-                saveDialog.setNegativeButton("No", new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int which){
-                        dialog.cancel();
-                    }
-                });
-                saveDialog.show();
-                try {
-                    if(canvasView.saveToInternalStorageJPEG(MainActivity.this,contentResolver)==true){
-                        Toast savedToast = Toast.makeText(getApplicationContext(),
-                                "Sketch saved to Gallery!", Toast.LENGTH_SHORT);
-                        savedToast.show();
-                    } else {
-                        Toast notSavedToast = Toast.makeText(getApplicationContext(),
-                                "Saving not successful, please try again.", Toast.LENGTH_SHORT);
-                        notSavedToast.show();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    canvasView.saveToInternalStorageJPEG(MainActivity.this,contentResolver);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    canvasView.saveToInternalStoragePNG(MainActivity.this,contentResolver);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                AlertDialog exportDialogueObject = exportDialogue.create();
+                exportDialogueObject.show();
                 return true;
 
             case R.id.lineId:
