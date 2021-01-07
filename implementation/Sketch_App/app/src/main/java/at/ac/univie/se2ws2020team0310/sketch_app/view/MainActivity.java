@@ -415,7 +415,7 @@ public class MainActivity extends AppCompatActivity {
     // TODO: Funktionalität in Methode im ViewModel auslagern (ab hier bis unten)
     public void onClickDoneButton(View view) {
 
-        mainViewModel.selectGraphicalElement(EGraphicalElementType.TEXT_FIELD);
+        //mainViewModel.selectGraphicalElement(EGraphicalElementType.TEXT_FIELD);
         Text mText = (Text) canvasView.getCanvasViewModel().getSelectedGraphicalElement();
         mText.setUserText(getEnteredText());
 
@@ -466,8 +466,14 @@ public class MainActivity extends AppCompatActivity {
         italicText.setVisibility(View.GONE);
     }
 
-    public void onClickStyleButtons(View view) {
-        mainViewModel.buttonClick();
+    public void onClickItalicButton(View view) {
+        mainViewModel.onClickItalicButton();
+    }
+    public void onClickBoldButton(View view) {
+        mainViewModel.onClickBoldButton();
+    }
+    public void onClickUnderlineButton(View view) {
+        mainViewModel.onClickUnderlineButton();
     }
 
     // Hide the Soft Keyboard

@@ -96,6 +96,10 @@ public abstract class GraphicalElement {
         getObjectPaint().setStrokeWidth(strokeWidth);
     }
 
+    public DrawStrategy getDrawStrategy() {
+        return this.drawStrategy;
+    }
+
     public abstract boolean isWithinElement(float x, float y);
     protected abstract String getName();
 

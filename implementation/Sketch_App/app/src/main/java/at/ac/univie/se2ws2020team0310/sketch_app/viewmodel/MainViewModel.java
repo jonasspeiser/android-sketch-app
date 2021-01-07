@@ -7,7 +7,6 @@ import android.graphics.Color;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-import androidx.lifecycle.ViewModel;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.BR;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
@@ -29,9 +28,7 @@ public class MainViewModel extends BaseObservable {
 
     private boolean editModeOn;
 
-    private TextDecorator textDecorator;    // TODO initialize it in Constructor, add getter/setter
-
-// Constructor
+    // Constructor
     public MainViewModel() {
         sketch = Sketch.getSketch();
         this.selectedColor = Color.BLACK;
@@ -71,6 +68,7 @@ public class MainViewModel extends BaseObservable {
         notifyPropertyChanged(BR.selectedStrokeWidth);
     }
 
+
 // Other Methods
 
     public void exportCanvas() {
@@ -89,10 +87,21 @@ public class MainViewModel extends BaseObservable {
 
     public boolean layerIsEmpty() {return sketch.layerIsEmpty();}
 
-    public void buttonClick() {
-        textDecorator.buttonClick();    // textDecorator is not initialized, hence the app crashes here
+
+    public void onClickItalicButton() {
+        TextDecorator textDecorator = new TextDecorator(sketch.getSelectedGraphicalElement());
+        textDecorator.onClickItalicButton();
     }
 
+    public void onClickBoldButton() {
+        TextDecorator textDecorator = new TextDecorator(sketch.getSelectedGraphicalElement());
+        textDecorator.onClickBoldButton();
+    }
+
+    public void onClickUnderlineButton() {
+        TextDecorator textDecorator = new TextDecorator(sketch.getSelectedGraphicalElement());
+        textDecorator.onClickUnderlineButton();
+    }
 
     public void selectGraphicalElement(EGraphicalElementType type) {
         sketch.selectGraphicalElement(type, this.selectedColor, this.selectedSize, this.selectedStrokeWidth);
