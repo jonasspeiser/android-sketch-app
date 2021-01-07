@@ -1,15 +1,16 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Path;
 
 import androidx.lifecycle.ViewModel;
 
+import java.io.IOException;
 import java.util.List;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Freehand;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
 public class CanvasViewModel extends ViewModel {
@@ -161,7 +162,12 @@ public class CanvasViewModel extends ViewModel {
         elementsBehaviourOnTouchUp();
     }
 
-    public boolean export(ContentResolver contentResolver, Bitmap drawingCache) {
-        return sketch.export(contentResolver, drawingCache);
+    public boolean exportPNG(Context context, ContentResolver contentResolver, Bitmap drawingCache) throws IOException {
+        return sketch.exportPNG(context, contentResolver, drawingCache);
     }
+
+    public boolean exportJPEG(Context context, ContentResolver contentResolver, Bitmap drawingCache) throws IOException {
+        return sketch.exportJPEG(context, contentResolver, drawingCache);
+    }
+
 }

@@ -21,6 +21,7 @@ import androidx.annotation.RequiresApi;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.UUID;
 
@@ -133,7 +134,12 @@ public class CanvasView extends View {
         invalidate();
     }
 
-    public boolean saveToInternalStorage(ContentResolver contentResolver) {
-        return canvasViewModel.export(contentResolver, this.getDrawingCache());
+    public boolean saveToInternalStorageJPEG(Context context, ContentResolver contentResolver) throws IOException {
+        return canvasViewModel.exportJPEG(context, contentResolver, this.getDrawingCache());
     }
+
+    public boolean saveToInternalStoragePNG(Context context, ContentResolver contentResolver) throws IOException {
+        return canvasViewModel.exportPNG(context, contentResolver, this.getDrawingCache());
+    }
+
 }

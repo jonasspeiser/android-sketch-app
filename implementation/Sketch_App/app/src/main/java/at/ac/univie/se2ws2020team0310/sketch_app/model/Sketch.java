@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -185,14 +186,27 @@ public class Sketch {
         }
     }
 
-    public boolean export(ContentResolver contentResolver, Bitmap DrawingCache) {
-        if(MediaStore.Images.Media.insertImage(contentResolver,DrawingCache, UUID.randomUUID().toString()+".png","drawing")!=null){
-            return true;
-        } else {
-            return false;
-        }
+    public boolean exportPNG(Context context,ContentResolver contentResolver,Bitmap DrawingCache) throws IOException{
+        FileOutputStream fileOutputStream=context.openFileOutput("YourFileName.jpg",Context.MODE_PRIVATE);
+        DrawingCache.compress(Bitmap.CompressFormat.JPEG,100,fileOutputStream);
+        fileOutputStream.close();
+        return true;
     }
 
+    public boolean exportJPEG(Context context,ContentResolver contentResolver,Bitmap DrawingCache) throws IOException {
+        FileOutputStream fileOutputStream=context.openFileOutput("YourFileName.jpg",Context.MODE_PRIVATE);
+        DrawingCache.compress(Bitmap.CompressFormat.JPEG,100,fileOutputStream);
+        fileOutputStream.close();
+        return true;
+    }
+
+//    public boolean exportJPEG(ContentResolver contentResolver, Bitmap DrawingCache) {
+//        if(MediaStore.Images.Media.insertImage(contentResolver,DrawingCache, UUID.randomUUID().toString()+".png","drawing")!=null){
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
     // Constant with a file name
     public static String fileName = "MyObject";

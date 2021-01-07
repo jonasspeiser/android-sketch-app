@@ -2,13 +2,9 @@ package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
 import android.app.AlertDialog;
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,8 +27,6 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.UUID;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.R;
 import at.ac.univie.se2ws2020team0310.sketch_app.databinding.ActivityMainBinding;
@@ -335,14 +329,30 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 saveDialog.show();
-                if(canvasView.saveToInternalStorage(contentResolver)==true){
-                    Toast savedToast = Toast.makeText(getApplicationContext(),
-                            "Sketch saved to Gallery!", Toast.LENGTH_SHORT);
-                    savedToast.show();
-                } else {
-                    Toast notSavedToast = Toast.makeText(getApplicationContext(),
-                            "Saving not successful, please try again.", Toast.LENGTH_SHORT);
-                    notSavedToast.show();
+                try {
+                    if(canvasView.saveToInternalStorageJPEG(MainActivity.this,contentResolver)==true){
+                        Toast savedToast = Toast.makeText(getApplicationContext(),
+                                "Sketch saved to Gallery!", Toast.LENGTH_SHORT);
+                        savedToast.show();
+                    } else {
+                        Toast notSavedToast = Toast.makeText(getApplicationContext(),
+                                "Saving not successful, please try again.", Toast.LENGTH_SHORT);
+                        notSavedToast.show();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    canvasView.saveToInternalStorageJPEG(MainActivity.this,contentResolver);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    canvasView.saveToInternalStoragePNG(MainActivity.this,contentResolver);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
                 return true;
 
