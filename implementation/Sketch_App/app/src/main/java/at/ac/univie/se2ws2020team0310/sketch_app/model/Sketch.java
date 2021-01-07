@@ -2,15 +2,21 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -44,7 +50,6 @@ public class Sketch {
     private GraphicalElement selectedGraphicalElement;
 
     private boolean editModeTurnedOn;
-
 // Constructor
 
     private Sketch() {
@@ -186,18 +191,24 @@ public class Sketch {
         }
     }
 
-    //Use Template Method for division of file exporting into similar and differing parts
-    public void export(Context context, ContentResolver contentResolver, String fileFormat, Bitmap drawingCache) throws IOException {
-        FileOutputStream fileOutputStream=context.openFileOutput("file" + System.currentTimeMillis() + "." + fileFormat,Context.MODE_PRIVATE);
-        if(fileFormat == "JPEG"){
-            drawingCache.compress(Bitmap.CompressFormat.JPEG,100,fileOutputStream);
-            Log.d("JPEGExport","Successfully exported as JPEG");
-            } else {
-            drawingCache.compress(Bitmap.CompressFormat.PNG, 100,fileOutputStream);
-            Log.d("PNGExport","Succesfully exported as PNG");
+    //Use Template Method Pattern for division of file exporting into similar and differing parts
+    public boolean export(Context context, ContentResolver contentResolver, String fileFormat, Bitmap drawingCache) throws IOException {
+
+        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File saveImage = new File(path,(System.currentTimeMillis() + "." + fileFormat));
+        saveImage.createNewFile();  /// <--- add this line
+        FileOutputStream out = new FileOutputStream(saveImage);
+        if(fileFormat=="JPEG") {
+            drawingCache.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        } else {
+            drawingCache.compress(Bitmap.CompressFormat.PNG, 100, out);
         }
-        fileOutputStream.close();
+        out.close();
+        Log.d("Export","Export in " + fileFormat + " successful.");
+        MediaScannerConnection.scanFile(context, new String[]{saveImage.getPath()}, null, null);
+        return true;
     }
+
 
 //    public boolean exportJPEG(ContentResolver contentResolver, Bitmap DrawingCache) {
 //        if(MediaStore.Images.Media.insertImage(contentResolver,DrawingCache, UUID.randomUUID().toString()+".png","drawing")!=null){

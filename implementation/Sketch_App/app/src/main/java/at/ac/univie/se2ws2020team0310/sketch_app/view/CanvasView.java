@@ -134,8 +134,9 @@ public class CanvasView extends View {
         invalidate();
     }
 
-    public void export(Context context, ContentResolver contentResolver,  String fileFormat) throws IOException {
+    public boolean export(Context context, ContentResolver contentResolver,  String fileFormat) throws IOException {
         canvasViewModel.export(context, contentResolver, fileFormat, this.getDrawingCache());
+        return true;
     }
 
 }

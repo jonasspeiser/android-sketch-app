@@ -319,23 +319,28 @@ public class MainActivity extends AppCompatActivity {
                 //Show window to user in order to confirm export to gallery
                 AlertDialog.Builder exportDialogue = new AlertDialog.Builder(MainActivity.this);
                 exportDialogue.setTitle("Save sketch");
-                CharSequence[] fileFormats = new CharSequence[]{"JPEG","PNG"};
-                exportDialogue.setItems(fileFormats, new DialogInterface.OnClickListener() {
+                CharSequence[] fileFormatsSelection = new CharSequence[]{"JPEG","PNG"};
+                exportDialogue.setItems(fileFormatsSelection, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0:
                                 try {
-                                    canvasView.export(MainActivity.this, contentResolver, "JPEG");
-                                    showToast("JPEG Export selected");
+                                    if(canvasView.export(MainActivity.this, contentResolver, "JPEG")==true){
+                                        Toast jpegExport = Toast.makeText(getApplicationContext(), "JPEG Export successful!", Toast.LENGTH_LONG);
+                                        jpegExport.show();
+                                    };
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                                 break;
                             case 1:
                                 try {
-                                    canvasView.export(MainActivity.this, contentResolver, "PNG");
-                                    showToast("PNG Export selected");
+                                    if(canvasView.export(MainActivity.this, contentResolver, "PNG")==true){
+                                        Toast pngExport = Toast.makeText(getApplicationContext(), "PNG Export successful!", Toast.LENGTH_LONG);
+                                        pngExport.show();
+                                    };
+
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
