@@ -22,8 +22,6 @@ public class MainViewModel extends BaseObservable {
 
     private boolean editModeOn;
 
-    // private TextDecorator textDecorator;    // TODO initialize it in Constructor, add getter/setter
-
     // Constructor
     public MainViewModel() {
         this.sketch = Sketch.getSketch();
@@ -31,8 +29,6 @@ public class MainViewModel extends BaseObservable {
         this.selectedSize = 150;
         this.selectedStrokeWidth = 15;
         this.editModeOn = false;
-        // TODO implement constructor
-        // löschen this.textDecorator = new TextDecorator(new DrawTextStrategy());
     }
 // Getters and Setters
 
@@ -62,13 +58,6 @@ public class MainViewModel extends BaseObservable {
         notifyPropertyChanged(BR.selectedStrokeWidth);
     }
 
-    /*public TextDecorator getTextDecorator() {
-        return textDecorator;
-    }
-
-    public void setTextDecorator(TextDecorator textDecorator) {
-        this.textDecorator = textDecorator;
-    }*/
 
 // Other Methods
 
@@ -82,11 +71,21 @@ public class MainViewModel extends BaseObservable {
 
     public boolean layerIsEmpty() {return sketch.layerIsEmpty();}
 
+
+    public void onClickItalicButton() {
+        TextDecorator textDecorator = new TextDecorator(sketch.getSelectedGraphicalElement());
+        textDecorator.onClickItalicButton();
+    }
+
+    public void onClickBoldButton() {
+        TextDecorator textDecorator = new TextDecorator(sketch.getSelectedGraphicalElement());
+        textDecorator.onClickBoldButton();
+    }
+
     public void onClickUnderlineButton() {
         TextDecorator textDecorator = new TextDecorator(sketch.getSelectedGraphicalElement());
         textDecorator.onClickUnderlineButton();
     }
-
 
     public void selectGraphicalElement(EGraphicalElementType type) {
         sketch.selectGraphicalElement(type, this.selectedColor, this.selectedSize, this.selectedStrokeWidth);

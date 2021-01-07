@@ -1,10 +1,8 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
-import android.graphics.Paint;
+import android.graphics.Typeface;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
 
 public class TextDecorator extends GraphicalElementDecorator {
 
@@ -24,9 +22,15 @@ public class TextDecorator extends GraphicalElementDecorator {
         return "Text";
     }
 
+    public void onClickItalicButton() {
+        getElement().getObjectPaint().setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
+    }
+
+    public void onClickBoldButton() {
+        getElement().getObjectPaint().setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+    }
+
     public void onClickUnderlineButton() {
         getElement().getObjectPaint().setUnderlineText(true);
     }
-
-
 }

@@ -384,6 +384,12 @@ public class MainActivity extends AppCompatActivity {
         italicText.setVisibility(View.GONE);
     }
 
+    public void onClickItalicButton(View view) {
+        mainViewModel.onClickItalicButton();
+    }
+    public void onClickBoldButton(View view) {
+        mainViewModel.onClickBoldButton();
+    }
     public void onClickUnderlineButton(View view) {
         mainViewModel.onClickUnderlineButton();
     }
