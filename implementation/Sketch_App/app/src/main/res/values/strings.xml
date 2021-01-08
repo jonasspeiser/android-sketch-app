@@ -16,7 +16,7 @@
     <string name="floatingbutton_lineWidth">Button line width</string>
     <string name="floatingbutton_color">Button Color Picker</string>
     <string name="menu_icon_toggleEdit_title">menu_icon_toggleEdit_title</string>
-    <string name="button_italic" />
+    <string name="button_italic" >button_italic</string>
     <string name="button_bold">button_bold</string>
-    <string name="button_underline" />
+    <string name="button_underline">button_underline</string>
 </resources>
