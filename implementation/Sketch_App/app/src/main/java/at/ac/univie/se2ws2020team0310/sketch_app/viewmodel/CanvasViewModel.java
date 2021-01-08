@@ -163,8 +163,8 @@ public class CanvasViewModel extends ViewModel {
     }
 
     public boolean export(Context context,ContentResolver contentResolver,  String fileFormat, Bitmap drawingCache) throws IOException {
-        sketch.export(context, contentResolver, fileFormat, drawingCache);
-        return true;
+        sketch.export(context, contentResolver, fileFormat, drawingCache);  // TODO return sketch.export(...
+        return true;                                                        // remove return true
     }
 
 }

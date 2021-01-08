@@ -1,7 +1,6 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,7 +14,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
@@ -28,9 +26,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
-import java.io.IOException;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.IOException;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.R;
 import at.ac.univie.se2ws2020team0310.sketch_app.databinding.ActivityMainBinding;
@@ -329,6 +327,7 @@ public class MainActivity extends AppCompatActivity {
                         switch (which) {
                             case 0:
                                 try {
+                                    // TODO if export always returns true, make it a simple void method and remove if-check here
                                     if(canvasView.export(MainActivity.this, contentResolver, "JPEG")==true){
                                         Toast jpegExport = Toast.makeText(getApplicationContext(), "JPEG Export successful!", Toast.LENGTH_LONG);
                                         jpegExport.show();
@@ -339,6 +338,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case 1:
                                 try {
+                                    // TODO same as above
                                     if(canvasView.export(MainActivity.this, contentResolver, "PNG")==true){
                                         Toast pngExport = Toast.makeText(getApplicationContext(), "PNG Export successful!", Toast.LENGTH_LONG);
                                         pngExport.show();
@@ -408,6 +408,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.editModeId:
                 mainViewModel.toggleEditMode();
                 showToast("Edit mode: " + (mainViewModel.isEditModeOn() ? "ON" : "OFF"));
+                return true;
+
+            case R.id.newCombiShapeId:
+                showToast("Create new Combined Shape");
                 return true;
 
             default:
