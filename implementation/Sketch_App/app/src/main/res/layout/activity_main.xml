@@ -106,7 +106,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintVertical_bias="1.0"
-            tools:layout_editor_absoluteX="0dp" />
+            tools:layout_editor_absoluteX="77dp" />
 
         <SeekBar
             android:id="@+id/strokeWidthSeekBar"
@@ -163,51 +163,53 @@
             app:layout_constraintVertical_bias="0.792"
             tools:visibility="invisible" />
 
-        <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/italicButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
+            android:contentDescription="@string/button_italic"
             android:onClick="onClickItalicButton"
-            android:text="Italic"
             android:visibility="gone"
+            app:backgroundTint="@color/design_default_color_on_secondary"
             app:layout_constraintBottom_toTopOf="@+id/boldButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.955"
+            app:layout_constraintHorizontal_bias="0.949"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.976" />
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/italic" />
 
 
-        <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/boldButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
+            android:contentDescription="@string/button_bold"
             android:onClick="onClickBoldButton"
-            android:text="Bold"
             android:visibility="gone"
+            app:backgroundTint="@color/design_default_color_on_secondary"
             app:layout_constraintBottom_toTopOf="@+id/underlineButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.955"
+            app:layout_constraintHorizontal_bias="0.949"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.976" />
+            app:layout_constraintVertical_bias="0.976"
+            app:srcCompat="@drawable/bold"/>
 
-        <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/underlineButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
+            android:contentDescription="@string/button_underline"
             android:onClick="onClickUnderlineButton"
-            android:text="Underline"
             android:visibility="gone"
+            app:backgroundTint="@color/design_default_color_on_secondary"
             app:layout_constraintBottom_toTopOf="@+id/colorSelectorButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.961"
+            app:layout_constraintHorizontal_bias="0.949"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.312" />
+            app:srcCompat="@drawable/underline" />
 
         <RadioGroup
             android:layout_width="wrap_content"

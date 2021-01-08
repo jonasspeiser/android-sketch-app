@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
@@ -28,6 +29,8 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import java.io.IOException;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.R;
 import at.ac.univie.se2ws2020team0310.sketch_app.databinding.ActivityMainBinding;
@@ -447,9 +450,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showTextStyleButtons(){
-        Button underlineText = findViewById(R.id.underlineButton);
-        Button boldText = findViewById(R.id.boldButton);
-        Button italicText = findViewById(R.id.italicButton);
+        FloatingActionButton underlineText = findViewById(R.id.underlineButton);
+        FloatingActionButton boldText = findViewById(R.id.boldButton);
+        FloatingActionButton italicText = findViewById(R.id.italicButton);
 
         underlineText.setVisibility(View.VISIBLE);
         boldText.setVisibility(View.VISIBLE);
@@ -457,9 +460,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void hideTextStyleButtons() {
-        Button underlineText = findViewById(R.id.underlineButton);
-        Button boldText = findViewById(R.id.boldButton);
-        Button italicText = findViewById(R.id.italicButton);
+        FloatingActionButton underlineText = findViewById(R.id.underlineButton);
+        FloatingActionButton boldText = findViewById(R.id.boldButton);
+        FloatingActionButton italicText = findViewById(R.id.italicButton);
 
         underlineText.setVisibility(View.GONE);
         boldText.setVisibility(View.GONE);
