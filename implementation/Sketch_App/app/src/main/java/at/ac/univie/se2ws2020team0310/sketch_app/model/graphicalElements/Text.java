@@ -38,29 +38,21 @@ public class Text extends GraphicalElement {
     }
     
     public boolean isWithinElement(float x, float y) {
-        // TODO: implement method body
-        /*
-        Rect bounds = new Rect();
 
-        getObjectPaint().getTextBounds(userText, 0, userText.length(), bounds);
-        float width = bounds.width();
-        float height = bounds.height();
+        float textlength = getObjectPaint().measureText(userText);
+        float textsize = getObjectPaint().getTextSize();
 
-        // coordinates of top left
-        float xTopLeft = this.xPosition;
-        float yTopLeft = this.yPosition;
+        float xTopLeft = this.xPosition - textlength;
+        float yTopLeft = this.yPosition - textsize;
 
-        //coordinates of bottom right
-        float xBottomRight = this.xPosition + width;
-        float yBottomRight = this.yPosition + height;
+        float xBottomRight = this.xPosition + textlength;
+        float yBottomRight = this.yPosition;
 
-        if (x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight) {
-            // means that coordinates are within circle
+        if (x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight)
             return true;
-        } else {
-     */
+        else
             return false;
-        }
+    }
 
     @Override
     protected String getName() {
