@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
                         switch (which) {
                             case 0:
                                 try {
-                                    if(canvasView.export(MainActivity.this, contentResolver, "JPEG")==true){
+                                    if(canvasView.export(MainActivity.this, "JPEG")==true){
                                         Toast jpegExport = Toast.makeText(getApplicationContext(), "JPEG Export successful!", Toast.LENGTH_LONG);
                                         jpegExport.show();
                                     };
@@ -339,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case 1:
                                 try {
-                                    if(canvasView.export(MainActivity.this, contentResolver, "PNG")==true){
+                                    if(canvasView.export(MainActivity.this, "PNG")==true){
                                         Toast pngExport = Toast.makeText(getApplicationContext(), "PNG Export successful!", Toast.LENGTH_LONG);
                                         pngExport.show();
                                     };

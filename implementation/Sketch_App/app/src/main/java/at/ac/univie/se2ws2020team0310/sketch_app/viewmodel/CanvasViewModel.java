@@ -162,8 +162,8 @@ public class CanvasViewModel extends ViewModel {
         elementsBehaviourOnTouchUp();
     }
 
-    public boolean export(Context context,ContentResolver contentResolver,  String fileFormat, Bitmap drawingCache) throws IOException {
-        sketch.export(context, contentResolver, fileFormat, drawingCache);
+    public boolean export(Context context,  String fileFormat, Bitmap drawingCache) throws IOException {
+        sketch.export(context, fileFormat, drawingCache);
         return true;
     }
 
