@@ -16,7 +16,7 @@ import androidx.annotation.RequiresApi;
 import java.io.IOException;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.observers.CustomObserver;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObserver;
 import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.CanvasViewModel;
 
 public class CanvasView extends View implements CustomObserver {
@@ -107,37 +107,6 @@ public class CanvasView extends View implements CustomObserver {
             graphicalElement.draw(canvas);
         }
     }
-
-
-
-    // TODO: invalidate() immer über Observer Pattern vom ViewModel aus aufrufen -> weniger Methoden nötig
-/*
-    public void clear() {
-        canvasViewModel.clearSketch();
-        invalidate();
-    }
-
-    public void deleteElement() {
-        canvasViewModel.deleteElement();
-        invalidate();
-    }
-
-    public void changeElementColor(int color) {
-        canvasViewModel.changeElementColor(color);
-        invalidate();
-    }
-
-    public void changeElementStrokeWidth(int strokewidth) {
-        canvasViewModel.changeElementStrokeWidth(strokewidth);
-        invalidate();
-    }
-
-    public void changeElementSize(int size) {
-        canvasViewModel.changeElementSize(size);
-        invalidate();
-    }
-
- */
 
     public boolean export(Context context, ContentResolver contentResolver,  String fileFormat) throws IOException {
         canvasViewModel.export(context, contentResolver, fileFormat, this.getDrawingCache());

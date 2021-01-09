@@ -13,8 +13,8 @@ import java.util.List;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.observers.CustomObservable;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.observers.CustomObserver;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObservable;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObserver;
 
 public class CanvasViewModel extends ViewModel implements CustomObserver, CustomObservable {
 

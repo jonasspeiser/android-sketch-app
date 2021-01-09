@@ -2,32 +2,22 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.MediaScannerConnection;
-import android.net.Uri;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
@@ -36,9 +26,8 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Graphic
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IterableCollection;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.Iterator;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.LayerCollection;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.LayerCollectionIterator;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.observers.CustomObservable;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.observers.CustomObserver;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObservable;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObserver;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.storage.GsonInterfaceAdapter;
 
 public class Sketch implements CustomObservable {
