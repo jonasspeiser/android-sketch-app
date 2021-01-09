@@ -34,7 +34,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.R;
 import at.ac.univie.se2ws2020team0310.sketch_app.databinding.ActivityMainBinding;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
-import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.MainViewModel;
+import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.MainActivityViewModel;
 import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     private CanvasView canvasView;
-    private MainViewModel mainViewModel;
+    private MainActivityViewModel mainActivityViewModel;
     ToggleButton switchLayer1;
     ToggleButton switchLayer2;
     ToggleButton switchLayer3;
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         SeekBar sizeSeekBar = findViewById(R.id.sizeSeekBar);
         SeekBar strokeWidthSeekBar = findViewById(R.id.strokeWidthSeekBar);
         canvasView = findViewById(R.id.canvasView);
-        mainViewModel = new MainViewModel();
+        mainActivityViewModel = new MainActivityViewModel();
         switchLayer1=(ToggleButton)findViewById(R.id.switchLayer1);
         switchLayer2=(ToggleButton)findViewById(R.id.switchLayer2);
         switchLayer3=(ToggleButton)findViewById(R.id.switchLayer3);
@@ -88,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
         sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             public void onProgressChanged(SeekBar sizeSeekBar, int progress, boolean fromUser) {
-                mainViewModel.setSelectedSize(progress);
-                canvasView.changeElementSize(progress);
+                mainActivityViewModel.setSelectedSize(progress);
+                mainActivityViewModel.changeElementSize(progress);
             }
 
             public void onStartTrackingTouch(SeekBar sizeSeekBar) {
@@ -103,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
         strokeWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
-                mainViewModel.setSelectedStrokeWidth(progress);
-                canvasView.changeElementStrokeWidth(progress);
+                mainActivityViewModel.setSelectedStrokeWidth(progress);
+                mainActivityViewModel.changeElementStrokeWidth(progress);
             }
 
             public void onStartTrackingTouch(SeekBar strokeWidthSeekBar) {
@@ -120,10 +120,10 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Toast layer0visibility;
                 if (isChecked) {
-                    mainViewModel.setLayerVisibility(0,true);
+                    mainActivityViewModel.setLayerVisibility(0,true);
                     layer0visibility = Toast.makeText(getApplicationContext(), "Layer 0 visible", Toast.LENGTH_LONG);
                 } else {
-                    mainViewModel.setLayerVisibility(0, false);
+                    mainActivityViewModel.setLayerVisibility(0, false);
                     layer0visibility = Toast.makeText(getApplicationContext(), "Layer 0 invisible", Toast.LENGTH_LONG);
                 }
                 layer0visibility.show();
@@ -136,10 +136,10 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Toast layer1visibility;
                 if (isChecked) {
-                    mainViewModel.setLayerVisibility(1,true);
+                    mainActivityViewModel.setLayerVisibility(1,true);
                     layer1visibility = Toast.makeText(getApplicationContext(), "Layer 1 visible", Toast.LENGTH_LONG);
                 } else {
-                    mainViewModel.setLayerVisibility(1, false);
+                    mainActivityViewModel.setLayerVisibility(1, false);
                     layer1visibility = Toast.makeText(getApplicationContext(), "Layer 1 invisible", Toast.LENGTH_LONG);
                 }
                 layer1visibility.show();
@@ -152,10 +152,10 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Toast layer2visibility;
                 if (isChecked) {
-                    mainViewModel.setLayerVisibility(2,true);
+                    mainActivityViewModel.setLayerVisibility(2,true);
                     layer2visibility = Toast.makeText(getApplicationContext(), "Layer 1 visible", Toast.LENGTH_LONG);
                 } else {
-                    mainViewModel.setLayerVisibility(2, false);
+                    mainActivityViewModel.setLayerVisibility(2, false);
                     layer2visibility = Toast.makeText(getApplicationContext(), "Layer 1 invisible", Toast.LENGTH_LONG);
                 }
                 layer2visibility.show();
@@ -170,19 +170,19 @@ public class MainActivity extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.layer1selector:
                 if (checked)
-                    mainViewModel.selectLayer(0);
+                    mainActivityViewModel.selectLayer(0);
                     Toast layer0 = Toast.makeText(getApplicationContext(), "Layer 0 selected", Toast.LENGTH_LONG);
                     layer0.show();
                     break;
             case R.id.layer2selector:
                 if (checked)
-                    mainViewModel.selectLayer(1);
+                    mainActivityViewModel.selectLayer(1);
                     Toast layer1 = Toast.makeText(getApplicationContext(), "Layer 1 selected", Toast.LENGTH_LONG);
                     layer1.show();
                     break;
             case R.id.layer3selector:
                 if(checked)
-                    mainViewModel.selectLayer(2);
+                    mainActivityViewModel.selectLayer(2);
                     Toast layer2 = Toast.makeText(getApplicationContext(), "Layer 2 selected", Toast.LENGTH_LONG);
                     layer2.show();
                 break;
@@ -223,11 +223,11 @@ public class MainActivity extends AppCompatActivity {
             if (sizeSeekBar.getVisibility() == SeekBar.VISIBLE) {
                 sizeSeekBar.setVisibility(SeekBar.INVISIBLE);
             } else {
-                if (mainViewModel.layerIsEmpty()) {
+                if (mainActivityViewModel.layerIsEmpty()) {
                     Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                     error.show();
                 }
-                if (!mainViewModel.layerIsEmpty()) {
+                if (!mainActivityViewModel.layerIsEmpty()) {
                     sizeSeekBar.setVisibility(SeekBar.VISIBLE);
                 }
             }
@@ -241,11 +241,11 @@ public class MainActivity extends AppCompatActivity {
             if(strokeWidthSeekBar.getVisibility()==SeekBar.VISIBLE){
                 strokeWidthSeekBar.setVisibility(SeekBar.INVISIBLE);
             }else{
-                if (mainViewModel.layerIsEmpty()) {
+                if (mainActivityViewModel.layerIsEmpty()) {
                     Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                     error.show();
                 }
-                if (!mainViewModel.layerIsEmpty()) {
+                if (!mainActivityViewModel.layerIsEmpty()) {
                     strokeWidthSeekBar.setVisibility(SeekBar.VISIBLE);
                 }
             }
@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void SetColorPickerBehavior(){
         findViewById(R.id.colorSelectorButton).setOnClickListener(v -> {
-            if (mainViewModel.layerIsEmpty()) {
+            if (mainActivityViewModel.layerIsEmpty()) {
                 Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
                 error.show();
             } else {
@@ -263,8 +263,8 @@ public class MainActivity extends AppCompatActivity {
                 colorPicker.setOnChooseColorListener(new ColorPicker.OnChooseColorListener() {
                     @Override
                     public void onChooseColor(int position, int color) {
-                        mainViewModel.setSelectedColor(color);
-                        canvasView.changeElementColor(color); //TODO: in ViewModel: Der Regler soll machen: onChange notify. Wir brauchen einen Observer, der den Wert dieses Reglers abgreift
+                        mainActivityViewModel.setSelectedColor(color);
+                        mainActivityViewModel.changeElementColor(color);
                     }
 
                     @Override
@@ -294,22 +294,21 @@ public class MainActivity extends AppCompatActivity {
                 showTextEntryField();
                 showTextStyleButtons();
 
-                mainViewModel.selectGraphicalElement(EGraphicalElementType.TEXT_FIELD);
+                mainActivityViewModel.selectGraphicalElement(EGraphicalElementType.TEXT_FIELD);
                 showToast("Text selected");
                 return true;
 
             case R.id.fingerId:
-                mainViewModel.selectGraphicalElement(EGraphicalElementType.FREEHAND);
+                mainActivityViewModel.selectGraphicalElement(EGraphicalElementType.FREEHAND);
                 showToast("Freehand drawing selected");
                 return true;
 
             case R.id.saveId:
-                mainViewModel.saveSketch(getApplicationContext());
+                mainActivityViewModel.saveSketch(getApplicationContext());
                 return true;
 
             case R.id.loadId:
-                mainViewModel.loadSketch(getApplicationContext());
-                refreshScreen();
+                mainActivityViewModel.loadSketch(getApplicationContext());
                 return true;
 
             case R.id.exportId:
@@ -327,8 +326,7 @@ public class MainActivity extends AppCompatActivity {
                         switch (which) {
                             case 0:
                                 try {
-                                    // TODO if export always returns true, make it a simple void method and remove if-check here
-                                    if(canvasView.export(MainActivity.this, contentResolver, "JPEG")==true){
+                                    if(canvasView.export(MainActivity.this, "JPEG")==true){
                                         Toast jpegExport = Toast.makeText(getApplicationContext(), "JPEG Export successful!", Toast.LENGTH_LONG);
                                         jpegExport.show();
                                     };
@@ -338,8 +336,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case 1:
                                 try {
-                                    // TODO same as above
-                                    if(canvasView.export(MainActivity.this, contentResolver, "PNG")==true){
+                                    if(canvasView.export(MainActivity.this, "PNG")==true){
                                         Toast pngExport = Toast.makeText(getApplicationContext(), "PNG Export successful!", Toast.LENGTH_LONG);
                                         pngExport.show();
                                     };
@@ -356,27 +353,27 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.lineId:
-                mainViewModel.selectGraphicalElement(EGraphicalElementType.LINE);
+                mainActivityViewModel.selectGraphicalElement(EGraphicalElementType.LINE);
                 showToast("Line selected");
                 return true;
 
             case R.id.circleId:
-                mainViewModel.selectGraphicalElement(EGraphicalElementType.CIRCLE);
+                mainActivityViewModel.selectGraphicalElement(EGraphicalElementType.CIRCLE);
                 showToast("Circle selected");
                 return true;
 
             case R.id.squareId:
-                mainViewModel.selectGraphicalElement(EGraphicalElementType.QUADRANGLE);
+                mainActivityViewModel.selectGraphicalElement(EGraphicalElementType.QUADRANGLE);
                showToast("Quadrangle selected");
                 return true;
 
             case R.id.triangleId:
-                mainViewModel.selectGraphicalElement(EGraphicalElementType.TRIANGLE);
+                mainActivityViewModel.selectGraphicalElement(EGraphicalElementType.TRIANGLE);
                 showToast("Triangle selected");
                 return true;
 
             case R.id.deleteId:
-               canvasView.clear();
+                mainActivityViewModel.clearSketch();
                 return true;
 
             case R.id.clearId:
@@ -387,13 +384,13 @@ public class MainActivity extends AppCompatActivity {
                 //TODo Felix soll diesen Satz löschen!
                 //In Anlehnung an https://code.tutsplus.com/tutorials/android-sdk-create-a-drawing-app-essential-functionality--mobile-19328
                 //Show window to user in order to confirm that the sketch should be deleted
-                canvasView.deleteElement();
+                mainActivityViewModel.deleteElement();
                 AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
                 newDialog.setTitle("New Sketch");
                 newDialog.setMessage("Start from scratch?");
                 newDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int which){
-                        canvasView.clear();
+                        mainActivityViewModel.clearSketch();
                         dialog.dismiss();
                     }
                 });
@@ -406,8 +403,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.editModeId:
-                mainViewModel.toggleEditMode();
-                showToast("Edit mode: " + (mainViewModel.isEditModeOn() ? "ON" : "OFF"));
+                mainActivityViewModel.toggleEditMode();
+                showToast("Edit mode: " + (mainActivityViewModel.isEditModeOn() ? "ON" : "OFF"));
                 return true;
 
             case R.id.newCombiShapeId:
@@ -474,13 +471,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickItalicButton(View view) {
-        mainViewModel.onClickItalicButton();
+        mainActivityViewModel.onClickItalicButton();
     }
     public void onClickBoldButton(View view) {
-        mainViewModel.onClickBoldButton();
+        mainActivityViewModel.onClickBoldButton();
     }
     public void onClickUnderlineButton(View view) {
-        mainViewModel.onClickUnderlineButton();
+        mainActivityViewModel.onClickUnderlineButton();
     }
 
     // Hide the Soft Keyboard
@@ -499,7 +496,11 @@ public class MainActivity extends AppCompatActivity {
         textToast.show();
     }
 
+
+    //TODO: Can we get rid of this method? It would be better not to call a canvasView method directly from here
     public void refreshScreen() {
         canvasView.invalidate();
     }
+
+
 }
