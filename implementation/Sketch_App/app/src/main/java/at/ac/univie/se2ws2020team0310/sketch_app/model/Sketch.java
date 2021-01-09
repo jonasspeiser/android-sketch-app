@@ -64,6 +64,7 @@ public class Sketch implements CustomObservable {
 
     public void setLayers(IterableCollection layers) {
         this.layers = layers;
+        notifyObservers();
     }
 
     public static Sketch getSketch() {
@@ -259,14 +260,14 @@ public class Sketch implements CustomObservable {
     // Constant with a file name
     public static String fileName = "MyObject";
 
-    /** Serializes the current sketch object and saves it to a file
+    /** Serializes the current layers and saves them to a file
      *
      * Based on: https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable/15011927#15011927
      * in combination with: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
      *
      * @param context The application context (activity.getApplicationContext())
      */
-    public void saveToFile(Context context) {
+    public void saveLayersToFile(Context context) {
 
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
@@ -279,21 +280,20 @@ public class Sketch implements CustomObservable {
         builder.registerTypeAdapter(DrawStrategy.class, new GsonInterfaceAdapter());
         Gson gson = builder.create();
 
-        String json = gson.toJson(this);
+        String json = gson.toJson(this.layers);
         prefsEditor.putString("MyObject", json);
         prefsEditor.commit();
     }
 
 
-    /** Creates a sketch object by reading it from a file
+    /** Restores saved layers by reading them from a file and overwrites the current layers with their content
      *
      * Based on: https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable/15011927#15011927
      * in combination with: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
      *
      * @param context The application context (activity.getApplicationContext())
-     * @return The stored sketch object
      */
-    public static Sketch readFromFile(Context context) {
+    public void loadLayersFromFile(Context context) {
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
@@ -305,9 +305,9 @@ public class Sketch implements CustomObservable {
         Gson gson = builder.create();
 
         String json = appSharedPrefs.getString("MyObject", "");
-        Sketch storedSketch = gson.fromJson(json, Sketch.class);
+        LayerCollection storedLayers = gson.fromJson(json, LayerCollection.class);
 
-        return storedSketch;
+        setLayers(storedLayers);
     }
 
 

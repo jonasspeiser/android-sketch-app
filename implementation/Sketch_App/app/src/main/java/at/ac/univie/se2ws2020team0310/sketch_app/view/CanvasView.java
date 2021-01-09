@@ -108,7 +108,7 @@ public class CanvasView extends View implements CustomObserver {
         }
     }
 
-    public boolean export(Context context, ContentResolver contentResolver,  String fileFormat) throws IOException {
+    public boolean export(Context context, ContentResolver contentResolver,  String fileFormat) throws IOException {    // TODO: Move to MainActivityViewModel, here there should only be a method which passes the drawingCache
         canvasViewModel.export(context, contentResolver, fileFormat, this.getDrawingCache());
         return true;
     }
