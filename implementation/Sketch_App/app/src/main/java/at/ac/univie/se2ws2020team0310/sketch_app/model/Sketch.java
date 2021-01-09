@@ -39,7 +39,7 @@ public class Sketch implements CustomObservable {
     private ArrayList<CustomObserver> observers;
 
     private IterableCollection layers;
-    private Layer selectedLayer; // TODO: int statt Layerobjekt
+    private int selectedLayerIndex;
 
     private GraphicalElement selectedGraphicalElement;
 
@@ -54,7 +54,7 @@ public class Sketch implements CustomObservable {
     private Sketch() {
         this.observers = new ArrayList<>();
         this.layers = new LayerCollection();
-        this.selectedLayer = (Layer) layers.get(0);
+        this.selectedLayerIndex = 0;
         this.selectedColor = Color.BLACK;
         this.selectedSize = 150;
         this.selectedStrokeWidth = 15;
@@ -71,17 +71,11 @@ public class Sketch implements CustomObservable {
         return sketch;
     }
 
-    public Layer getSelectedLayer() {
-        return this.selectedLayer;
+    public int getSelectedLayerIndex() {
+        return selectedLayerIndex;
     }
-
-    public void setSelectedLayer(int layerNumber) {
-        try {
-            this.selectedLayer = (Layer) layers.get(layerNumber);
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
-            Log.e("Sketch", e.getMessage());
-        }
+    public void setSelectedLayerIndex(int layerNumber) {
+        this.selectedLayerIndex = layerNumber;
     }
 
     public GraphicalElement getSelectedGraphicalElement() {
@@ -123,12 +117,12 @@ public class Sketch implements CustomObservable {
             Layer layer = (Layer) layersIterator.getNext();
             if (layer.isVisible()) {
                 Iterator elementsIterator = layer.createIterator();
-                while(elementsIterator.hasMore()) {
+                while (elementsIterator.hasMore()) {
                     visibleElements.add((GraphicalElement) elementsIterator.getNext());
                 }
             }
         }
-        return  visibleElements;
+        return visibleElements;
     }
 
     public boolean isEditModeTurnedOn() {
@@ -142,6 +136,10 @@ public class Sketch implements CustomObservable {
 
 // Other Methods
 
+    public Layer getSelectedLayer() {
+        return ((Layer) layers.get(selectedLayerIndex));
+    }
+
     public void setLayerVisibility(int layerNumber, boolean isVisible) {
         Layer layer = (Layer) layers.get(layerNumber);
         layer.setVisible(isVisible);
@@ -149,45 +147,45 @@ public class Sketch implements CustomObservable {
     }
 
     public boolean layerIsEmpty() {
-        return selectedLayer.isEmpty();
+        return getSelectedLayer().isEmpty();
     }
 
     public void storeElement() {
-        this.getSelectedLayer().storeElement(this.getSelectedGraphicalElement());
+        getSelectedLayer().storeElement(this.getSelectedGraphicalElement());
         notifyObservers();
     }
 
     public void changeColor(int color) {
-        this.getSelectedLayer().changeColor(color);
+        getSelectedLayer().changeColor(color);
         notifyObservers();
     }
 
     public void changeStrokeWidth(float strokewidth) {
-        this.getSelectedLayer().changeStrokeWidth(strokewidth);
+        getSelectedLayer().changeStrokeWidth(strokewidth);
         notifyObservers();
     }
 
     public void changeSize(int size) {
-        this.getSelectedLayer().changeSize(size);
+        getSelectedLayer().changeSize(size);
         notifyObservers();
     }
 
     //TODO: Entscheidungslogik, ob set oder changeCoordinates aufgerufen wird, hier herein (eigene Methode, abhängig von isEditModeOn)
 
     public void setCoordinates(float x, float y) {
-        this.getSelectedLayer().setCoordinates(x, y);
+        getSelectedLayer().setCoordinates(x, y);
         notifyObservers();
     }
 
     public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
-        if(!isEditModeTurnedOn()) {
-            this.getSelectedLayer().changeCoordinates(x, y, lastTouchX, lastTouchY);
+        if (!isEditModeTurnedOn()) {
+            getSelectedLayer().changeCoordinates(x, y, lastTouchX, lastTouchY);
             notifyObservers();
         }
     }
 
     public void deleteElement() {
-        selectedLayer.deleteElement();
+        getSelectedLayer().deleteElement();
         notifyObservers();
     }
 
@@ -208,22 +206,23 @@ public class Sketch implements CustomObservable {
      * Checks, wether there is an Element on touch position.
      * When Edit Mode is on, adds that Element to the User-Selection of editable Elements.
      * Else let's user move that element.
+     *
      * @param x
      * @param y
      * @return returns true if there is an Element at the given coordinates
      */
     public boolean isWithinElement(float x, float y) {  // TODO: Rename Method!
         if (isEditModeTurnedOn()) {
-            return selectedLayer.makeElementOnPositionEditable(x, y);
+            return getSelectedLayer().makeElementOnPositionEditable(x, y);
         } else {
-            selectedLayer.resetEditableElements();
-            return selectedLayer.makeElementOnPositionMovable(x, y);
+            getSelectedLayer().resetEditableElements();
+            return getSelectedLayer().makeElementOnPositionMovable(x, y);
         }
     }
 
     public void selectGraphicalElement(EGraphicalElementType type) {
         try {
-            selectedLayer.resetEditableElements();
+            getSelectedLayer().resetEditableElements();
             this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(type, this.selectedColor, this.selectedSize, this.selectedStrokeWidth));
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());
@@ -234,16 +233,16 @@ public class Sketch implements CustomObservable {
     public boolean export(Context context, ContentResolver contentResolver, String fileFormat, Bitmap drawingCache) throws IOException {
 
         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        File saveImage = new File(path,(System.currentTimeMillis() + "." + fileFormat));
+        File saveImage = new File(path, (System.currentTimeMillis() + "." + fileFormat));
         saveImage.createNewFile();  /// <--- add this line
         FileOutputStream out = new FileOutputStream(saveImage);
-        if(fileFormat=="JPEG") {
+        if (fileFormat == "JPEG") {
             drawingCache.compress(Bitmap.CompressFormat.JPEG, 100, out);
         } else {
             drawingCache.compress(Bitmap.CompressFormat.PNG, 100, out);
         }
         out.close();
-        Log.d("Export","Export in " + fileFormat + " successful.");
+        Log.d("Export", "Export in " + fileFormat + " successful.");
         MediaScannerConnection.scanFile(context, new String[]{saveImage.getPath()}, null, null);
         return true;
     }
@@ -260,8 +259,9 @@ public class Sketch implements CustomObservable {
     // Constant with a file name
     public static String fileName = "MyObject";
 
-    /** Serializes the current layers and saves them to a file
-     *
+    /**
+     * Serializes the current layers and saves them to a file
+     * <p>
      * Based on: https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable/15011927#15011927
      * in combination with: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
      *
@@ -286,8 +286,9 @@ public class Sketch implements CustomObservable {
     }
 
 
-    /** Restores saved layers by reading them from a file and overwrites the current layers with their content
-     *
+    /**
+     * Restores saved layers by reading them from a file and overwrites the current layers with their content
+     * <p>
      * Based on: https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable/15011927#15011927
      * in combination with: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
      *
@@ -311,9 +312,6 @@ public class Sketch implements CustomObservable {
     }
 
 
-
-
-    //TODO: layers speichern, nicht ganzen Sketch
     //TODO : Creating gson instance auslagern (in eigene Methode, evtl in andere Klasse?)
 
 
@@ -336,7 +334,7 @@ public class Sketch implements CustomObservable {
     @Override
     public void removeObserver(CustomObserver observer) {
         int i = observers.indexOf(observer);
-        if(i >= 0) {
+        if (i >= 0) {
             observers.remove(i);
         }
     }

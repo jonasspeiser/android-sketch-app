@@ -309,7 +309,6 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.loadId:
                 mainActivityViewModel.loadSketch(getApplicationContext());
-                refreshScreen();
                 return true;
 
             case R.id.exportId:
@@ -493,7 +492,11 @@ public class MainActivity extends AppCompatActivity {
         textToast.show();
     }
 
+
+    //TODO: Can we get rid of this method? It would be better not to call a canvasView method directly from here
     public void refreshScreen() {
         canvasView.invalidate();
     }
+
+
 }

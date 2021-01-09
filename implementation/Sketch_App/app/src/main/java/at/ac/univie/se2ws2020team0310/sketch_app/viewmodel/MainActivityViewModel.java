@@ -92,7 +92,7 @@ public class MainActivityViewModel extends BaseObservable { // TODO: Muss diese 
 
 
     public void selectLayer(int layerNumber) {
-        sketch.setSelectedLayer(layerNumber);
+        sketch.setSelectedLayerIndex(layerNumber);
     }
 
     public void setLayerVisibility(int layerNumber, boolean isVisible) {
@@ -137,10 +137,6 @@ public class MainActivityViewModel extends BaseObservable { // TODO: Muss diese 
 
     public void loadSketch(Context context) {
         sketch.loadLayersFromFile(context);
-
-        // The selected Layer doesn't get stored properly, therefore we reselect one manually
-        // TODO: fix this (e.g. by only storing the selected layernumber in Sketch instead of a whole object
-        selectLayer(0);
     }
 
 }
