@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onProgressChanged(SeekBar sizeSeekBar, int progress, boolean fromUser) {
                 mainActivityViewModel.setSelectedSize(progress);
-                canvasView.changeElementSize(progress);
+                mainActivityViewModel.changeElementSize(progress);
             }
 
             public void onStartTrackingTouch(SeekBar sizeSeekBar) {
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onProgressChanged(SeekBar strokeWidthSeekBar, int progress, boolean fromUser) {
                 mainActivityViewModel.setSelectedStrokeWidth(progress);
-                canvasView.changeElementStrokeWidth(progress);
+                mainActivityViewModel.changeElementStrokeWidth(progress);
             }
 
             public void onStartTrackingTouch(SeekBar strokeWidthSeekBar) {
@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onChooseColor(int position, int color) {
                         mainActivityViewModel.setSelectedColor(color);
-                        canvasView.changeElementColor(color);
+                        mainActivityViewModel.changeElementColor(color);
                     }
 
                     @Override
@@ -374,7 +374,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.deleteId:
-               canvasView.clear();
+                mainActivityViewModel.clearSketch();
                 return true;
 
             case R.id.clearId:
@@ -385,13 +385,13 @@ public class MainActivity extends AppCompatActivity {
                 //TODo Felix soll diesen Satz löschen!
                 //In Anlehnung an https://code.tutsplus.com/tutorials/android-sdk-create-a-drawing-app-essential-functionality--mobile-19328
                 //Show window to user in order to confirm that the sketch should be deleted
-                canvasView.deleteElement();
+                mainActivityViewModel.deleteElement();
                 AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
                 newDialog.setTitle("New Sketch");
                 newDialog.setMessage("Start from scratch?");
                 newDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int which){
-                        canvasView.clear();
+                        mainActivityViewModel.clearSketch();
                         dialog.dismiss();
                     }
                 });

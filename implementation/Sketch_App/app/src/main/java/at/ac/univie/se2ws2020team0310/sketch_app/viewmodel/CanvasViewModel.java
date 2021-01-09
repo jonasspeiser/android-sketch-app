@@ -58,18 +58,6 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
         sketch.storeElement();
     }
 
-    public void changeElementColor(int color) {
-        sketch.changeColor(color);
-    }
-
-    public void changeElementStrokeWidth(int strokewidth) {
-        sketch.changeStrokeWidth((float) strokewidth);
-    }
-
-    public void changeElementSize(int size) {
-        sketch.changeSize(size);
-    }
-
     public void setElementCoordinates(float x, float y) {
         sketch.setCoordinates(x,y);
     }
@@ -77,12 +65,6 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
     /** write given coordinates (x, y) to the last selected graphical element */
     public void changeElementCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
         sketch.changeCoordinates(x, y, lastTouchX, lastTouchY);
-    }
-
-    public void deleteElement(){sketch.deleteElement();}
-
-    public void clearSketch() {
-        sketch.clear();
     }
 
     public void resetSelection() {

@@ -73,6 +73,23 @@ public class MainActivityViewModel extends BaseObservable { // TODO: Muss diese 
 
     }
 
+    public void changeElementColor(int color) {
+        sketch.changeColor(color);
+    }
+
+    public void changeElementStrokeWidth(int strokewidth) {
+        sketch.changeStrokeWidth((float) strokewidth);
+    }
+
+    public void changeElementSize(int size) {
+        sketch.changeSize(size);
+    }
+
+    public void deleteElement(){sketch.deleteElement();}
+
+    public void clearSketch() {
+        sketch.clear();
+    }
 
 
     public void selectLayer(int layerNumber) {
