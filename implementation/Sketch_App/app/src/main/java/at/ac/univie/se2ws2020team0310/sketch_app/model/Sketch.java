@@ -196,7 +196,7 @@ public class Sketch {
 
         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         File saveImage = new File(path,(System.currentTimeMillis() + "." + fileFormat));
-        saveImage.createNewFile();  /// <--- add this line
+        saveImage.createNewFile();
         FileOutputStream out = new FileOutputStream(saveImage);
         if(fileFormat=="JPEG") {
             drawingCache.compress(Bitmap.CompressFormat.JPEG, 100, out);
