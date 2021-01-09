@@ -21,6 +21,9 @@ import java.util.List;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.export.Export;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.export.ExportJPEG;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.export.ExportPNG;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IterableCollection;
@@ -230,23 +233,17 @@ public class Sketch implements CustomObservable {
     }
 
     //Use Template Method Pattern for division of file exporting into similar and differing parts
-    public boolean export(Context context, ContentResolver contentResolver, String fileFormat, Bitmap drawingCache) throws IOException {
+    public boolean export(Context context, String fileFormat, Bitmap drawingCache) throws IOException {
 
-        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        File saveImage = new File(path, (System.currentTimeMillis() + "." + fileFormat));
-        saveImage.createNewFile();  /// <--- add this line
-        FileOutputStream out = new FileOutputStream(saveImage);
-        if (fileFormat == "JPEG") {
-            drawingCache.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        if(fileFormat=="JPEG"){
+            Export exportJPEG = new ExportJPEG(context,fileFormat,drawingCache);
+            exportJPEG.exportImage(context,drawingCache,fileFormat);
         } else {
-            drawingCache.compress(Bitmap.CompressFormat.PNG, 100, out);
+            Export exportPNG = new ExportPNG(context,fileFormat,drawingCache);
+            exportPNG.exportImage(context, drawingCache, fileFormat);
         }
-        out.close();
-        Log.d("Export", "Export in " + fileFormat + " successful.");
-        MediaScannerConnection.scanFile(context, new String[]{saveImage.getPath()}, null, null);
         return true;
     }
-
 
 //    public boolean exportJPEG(ContentResolver contentResolver, Bitmap DrawingCache) {
 //        if(MediaStore.Images.Media.insertImage(contentResolver,DrawingCache, UUID.randomUUID().toString()+".png","drawing")!=null){
