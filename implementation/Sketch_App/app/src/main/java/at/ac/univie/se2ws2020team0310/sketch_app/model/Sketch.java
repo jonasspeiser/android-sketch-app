@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
@@ -36,25 +37,38 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IterableCollect
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.Iterator;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.LayerCollection;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.LayerCollectionIterator;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.observers.CustomObservable;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.observers.CustomObserver;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.storage.GsonInterfaceAdapter;
 
-public class Sketch {
+public class Sketch implements CustomObservable {
 
 // Attributes
 
     private static final Sketch sketch = new Sketch();
 
+    private ArrayList<CustomObserver> observers;
+
     private IterableCollection layers;
-    private Layer selectedLayer;
+    private Layer selectedLayer; // TODO: int statt Layerobjekt
 
     private GraphicalElement selectedGraphicalElement;
 
+    private int selectedColor;
+    private float selectedSize;
+    private float selectedStrokeWidth;
+
     private boolean editModeTurnedOn;
+
 // Constructor
 
     private Sketch() {
+        this.observers = new ArrayList<>();
         this.layers = new LayerCollection();
         this.selectedLayer = (Layer) layers.get(0);
+        this.selectedColor = Color.BLACK;
+        this.selectedSize = 150;
+        this.selectedStrokeWidth = 15;
     }
 
 // Getters and Setters
@@ -88,6 +102,30 @@ public class Sketch {
         this.selectedGraphicalElement = selectedGraphicalElement;
     }
 
+    public int getSelectedColor() {
+        return selectedColor;
+    }
+
+    public void setSelectedColor(int selectedColor) {
+        this.selectedColor = selectedColor;
+    }
+
+    public float getSelectedSize() {
+        return selectedSize;
+    }
+
+    public void setSelectedSize(float selectedSize) {
+        this.selectedSize = selectedSize;
+    }
+
+    public float getSelectedStrokeWidth() {
+        return selectedStrokeWidth;
+    }
+
+    public void setSelectedStrokeWidth(float selectedStrokeWidth) {
+        this.selectedStrokeWidth = selectedStrokeWidth;
+    }
+
     public List<GraphicalElement> getDrawnElements() {
         List<GraphicalElement> visibleElements = new ArrayList<>();
         Iterator layersIterator = layers.createIterator();
@@ -117,6 +155,7 @@ public class Sketch {
     public void setLayerVisibility(int layerNumber, boolean isVisible) {
         Layer layer = (Layer) layers.get(layerNumber);
         layer.setVisible(isVisible);
+        notifyObservers();
     }
 
     public boolean layerIsEmpty() {
@@ -125,32 +164,41 @@ public class Sketch {
 
     public void storeElement() {
         this.getSelectedLayer().storeElement(this.getSelectedGraphicalElement());
+        notifyObservers();
     }
 
     public void changeColor(int color) {
         this.getSelectedLayer().changeColor(color);
+        notifyObservers();
     }
 
     public void changeStrokeWidth(float strokewidth) {
         this.getSelectedLayer().changeStrokeWidth(strokewidth);
+        notifyObservers();
     }
 
     public void changeSize(int size) {
         this.getSelectedLayer().changeSize(size);
+        notifyObservers();
     }
+
+    //TODO: Entscheidungslogik, ob set oder changeCoordinates aufgerufen wird, hier herein (eigene Methode, abhängig von isEditModeOn)
 
     public void setCoordinates(float x, float y) {
         this.getSelectedLayer().setCoordinates(x, y);
+        notifyObservers();
     }
 
     public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
         if(!isEditModeTurnedOn()) {
             this.getSelectedLayer().changeCoordinates(x, y, lastTouchX, lastTouchY);
+            notifyObservers();
         }
     }
 
     public void deleteElement() {
         selectedLayer.deleteElement();
+        notifyObservers();
     }
 
     public void clear() {
@@ -159,6 +207,7 @@ public class Sketch {
             Layer layer = (Layer) layersIterator.getNext();
             layer.clear();
         }
+        notifyObservers();
     }
 
     public void resetSelection() {
@@ -182,10 +231,10 @@ public class Sketch {
         }
     }
 
-    public void selectGraphicalElement(EGraphicalElementType type, int color, float size, float strokeWidth) {
+    public void selectGraphicalElement(EGraphicalElementType type) {
         try {
             selectedLayer.resetEditableElements();
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(type, color, size, strokeWidth));
+            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(type, this.selectedColor, this.selectedSize, this.selectedStrokeWidth));
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());
         }
@@ -271,6 +320,14 @@ public class Sketch {
 
         return storedSketch;
     }
+
+
+
+
+    //TODO: layers speichern, nicht ganzen Sketch
+    //TODO : Creating gson instance auslagern (in eigene Methode, evtl in andere Klasse?)
+
+
 /*
     public Gson registerGsonAdapter() {
         //Create our gson instance
@@ -281,6 +338,27 @@ public class Sketch {
     }
 
  */
+
+    @Override
+    public void registerObserver(CustomObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(CustomObserver observer) {
+        int i = observers.indexOf(observer);
+        if(i >= 0) {
+            observers.remove(i);
+        }
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (CustomObserver observer : observers) {
+            observer.update();
+        }
+    }
+
 }
 
 

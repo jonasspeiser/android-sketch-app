@@ -8,15 +8,19 @@ import android.graphics.Path;
 import androidx.lifecycle.ViewModel;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.observers.CustomObservable;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.observers.CustomObserver;
 
-public class CanvasViewModel extends ViewModel {
+public class CanvasViewModel extends ViewModel implements CustomObserver, CustomObservable {
 
 // Attributes
 
+    private ArrayList<CustomObserver> observers;
     private static Sketch sketch;
     private boolean moveElement;
     private Path path;
@@ -33,6 +37,8 @@ public class CanvasViewModel extends ViewModel {
 
     public CanvasViewModel() {
         sketch = Sketch.getSketch();
+        sketch.registerObserver(this);
+        this.observers = new ArrayList<>();
         this.moveElement = false;
         this.lastTouchX = -1;
         this.lastTouchY = -1;
@@ -167,4 +173,28 @@ public class CanvasViewModel extends ViewModel {
         return true;
     }
 
+    @Override
+    public void update() {
+        notifyObservers();
+    }
+
+    @Override
+    public void registerObserver(CustomObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(CustomObserver observer) {
+        int i = observers.indexOf(observer);
+        if(i >= 0) {
+            observers.remove(i);
+        }
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (CustomObserver observer : observers) {
+            observer.update();
+        }
+    }
 }
