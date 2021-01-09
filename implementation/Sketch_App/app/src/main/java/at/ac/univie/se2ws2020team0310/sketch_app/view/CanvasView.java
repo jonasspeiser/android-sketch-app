@@ -1,34 +1,25 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
-import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
 import android.os.Build;
-import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.UUID;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObserver;
 import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.CanvasViewModel;
 
-public class CanvasView extends View {
+public class CanvasView extends View implements CustomObserver {
 
 // Attributes
 
@@ -39,19 +30,27 @@ public class CanvasView extends View {
     // Constructors
     public CanvasView(Context context) {
         super(context);
+        init();
     }
 
     public CanvasView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public CanvasView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public CanvasView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        init();
+    }
+
+    private void init(){
+        canvasViewModel.registerObserver(this);
     }
 
 // Getters and Setters
@@ -104,39 +103,18 @@ public class CanvasView extends View {
         mCanvas = canvas;
         super.onDraw(mCanvas);
 
-        for (GraphicalElement graphicalElement : canvasViewModel.getDrawnElements()) { // TODO: Logik -> das muss ins ViewModel
+        for (GraphicalElement graphicalElement : canvasViewModel.getDrawnElements()) { // TODO: Logik -> das muss ins Model
             graphicalElement.draw(canvas);
         }
     }
 
-    public void clear() {
-        canvasViewModel.clearSketch();
-        invalidate();
-    }
-
-    public void deleteElement() {
-        canvasViewModel.deleteElement();
-        invalidate();
-    }
-
-    public void changeElementColor(int color) {
-        canvasViewModel.changeElementColor(color);
-        invalidate();
-    }
-
-    public void changeElementStrokeWidth(int strokewidth) {
-        canvasViewModel.changeElementStrokeWidth(strokewidth);
-        invalidate();
-    }
-
-    public void changeElementSize(int size) {
-        canvasViewModel.changeElementSize(size);
-        invalidate();
-    }
-
-    public boolean export(Context context,  String fileFormat) throws IOException {
-        canvasViewModel.export(context, fileFormat, this.getDrawingCache());
+    public boolean export(Context context, ContentResolver contentResolver,  String fileFormat) throws IOException {    // TODO: Move to MainActivityViewModel, here there should only be a method which passes the drawingCache
+        canvasViewModel.export(context, contentResolver, fileFormat, this.getDrawingCache());
         return true;
     }
 
+    @Override
+    public void update() {
+        invalidate();
+    }
 }

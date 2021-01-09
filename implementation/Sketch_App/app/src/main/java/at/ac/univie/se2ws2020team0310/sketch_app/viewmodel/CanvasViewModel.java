@@ -8,15 +8,19 @@ import android.graphics.Path;
 import androidx.lifecycle.ViewModel;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObservable;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObserver;
 
-public class CanvasViewModel extends ViewModel {
+public class CanvasViewModel extends ViewModel implements CustomObserver, CustomObservable {
 
 // Attributes
 
+    private ArrayList<CustomObserver> observers;
     private static Sketch sketch;
     private boolean moveElement;
     private Path path;
@@ -33,6 +37,8 @@ public class CanvasViewModel extends ViewModel {
 
     public CanvasViewModel() {
         sketch = Sketch.getSketch();
+        sketch.registerObserver(this);
+        this.observers = new ArrayList<>();
         this.moveElement = false;
         this.lastTouchX = -1;
         this.lastTouchY = -1;
@@ -52,18 +58,6 @@ public class CanvasViewModel extends ViewModel {
         sketch.storeElement();
     }
 
-    public void changeElementColor(int color) {
-        sketch.changeColor(color);
-    }
-
-    public void changeElementStrokeWidth(int strokewidth) {
-        sketch.changeStrokeWidth((float) strokewidth);
-    }
-
-    public void changeElementSize(int size) {
-        sketch.changeSize(size);
-    }
-
     public void setElementCoordinates(float x, float y) {
         sketch.setCoordinates(x,y);
     }
@@ -71,12 +65,6 @@ public class CanvasViewModel extends ViewModel {
     /** write given coordinates (x, y) to the last selected graphical element */
     public void changeElementCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
         sketch.changeCoordinates(x, y, lastTouchX, lastTouchY);
-    }
-
-    public void deleteElement(){sketch.deleteElement();}
-
-    public void clearSketch() {
-        sketch.clear();
     }
 
     public void resetSelection() {
@@ -167,4 +155,28 @@ public class CanvasViewModel extends ViewModel {
         return true;
     }
 
+    @Override
+    public void update() {
+        notifyObservers();
+    }
+
+    @Override
+    public void registerObserver(CustomObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(CustomObserver observer) {
+        int i = observers.indexOf(observer);
+        if(i >= 0) {
+            observers.remove(i);
+        }
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (CustomObserver observer : observers) {
+            observer.update();
+        }
+    }
 }

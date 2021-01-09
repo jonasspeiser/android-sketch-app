@@ -12,6 +12,7 @@ import com.google.gson.JsonSerializer;
 import java.lang.reflect.Type;
 
 /** Custom serialize and deserialize methods for Gson-library.
+ *
  *  Solves a problem where Gson can't find Constructors for objects with an Interface-type.
  *  Can be used e.g. for storing and reading nested java-objects on the device,
  *  if the default Gson deserializer doesn't work as expected.

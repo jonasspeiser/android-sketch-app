@@ -1,9 +1,6 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
-import android.content.ContentResolver;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
@@ -12,9 +9,8 @@ import at.ac.univie.se2ws2020team0310.sketch_app.BR;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.TextDecorator;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IterableCollection;
 
-public class MainViewModel extends BaseObservable {
+public class MainActivityViewModel extends BaseObservable { // TODO: Muss diese Klasse nicht eher extends ViewModel haben?
 
 // Attributes
 
@@ -22,6 +18,7 @@ public class MainViewModel extends BaseObservable {
 
     private static Sketch sketch;
 
+    // TODO: Ist es wirklich nötig, diese Attribute in Sketch UND MainActivityViewModel zu haben?
     private int selectedColor;
     private float selectedSize;
     private float selectedStrokeWidth;
@@ -29,17 +26,14 @@ public class MainViewModel extends BaseObservable {
     private boolean editModeOn;
 
     // Constructor
-    public MainViewModel() {
+    public MainActivityViewModel() {
         sketch = Sketch.getSketch();
-        this.selectedColor = Color.BLACK;
-        this.selectedSize = 150;
-        this.selectedStrokeWidth = 15;
         this.editModeOn = false;
     }
 // Getters and Setters
 
     public static void setSketch(Sketch sketch) {
-        MainViewModel.sketch = sketch;
+        MainActivityViewModel.sketch = sketch;
     }
 
     public int getSelectedColor() {
@@ -48,6 +42,7 @@ public class MainViewModel extends BaseObservable {
 
     public void setSelectedColor(int selectedColor) {
         this.selectedColor = selectedColor;
+        sketch.setSelectedColor(selectedColor);
     }
 
     public float getSelectedSize() {
@@ -56,6 +51,7 @@ public class MainViewModel extends BaseObservable {
 
     public void setSelectedSize(float selectedSize) {
         this.selectedSize = selectedSize;
+        sketch.setSelectedSize(selectedSize);
     }
 
     public float getSelectedStrokeWidth() {
@@ -63,8 +59,9 @@ public class MainViewModel extends BaseObservable {
     }
 
     @Bindable
-    public void setSelectedStrokeWidth(float selectedStrokeWidth) {
+    public void setSelectedStrokeWidth(float selectedStrokeWidth) {     // TODO: Was genau tut das? Wieso gibts das nur bei Strokewidth?
         this.selectedStrokeWidth = selectedStrokeWidth;
+        sketch.setSelectedStrokeWidth(selectedStrokeWidth);
         notifyPropertyChanged(BR.selectedStrokeWidth);
     }
 
@@ -75,10 +72,27 @@ public class MainViewModel extends BaseObservable {
 
     }
 
+    public void changeElementColor(int color) {
+        sketch.changeColor(color);
+    }
+
+    public void changeElementStrokeWidth(int strokewidth) {
+        sketch.changeStrokeWidth((float) strokewidth);
+    }
+
+    public void changeElementSize(int size) {
+        sketch.changeSize(size);
+    }
+
+    public void deleteElement(){sketch.deleteElement();}
+
+    public void clearSketch() {
+        sketch.clear();
+    }
 
 
     public void selectLayer(int layerNumber) {
-        sketch.setSelectedLayer(layerNumber);
+        sketch.setSelectedLayerIndex(layerNumber);
     }
 
     public void setLayerVisibility(int layerNumber, boolean isVisible) {
@@ -104,9 +118,10 @@ public class MainViewModel extends BaseObservable {
     }
 
     public void selectGraphicalElement(EGraphicalElementType type) {
-        sketch.selectGraphicalElement(type, this.selectedColor, this.selectedSize, this.selectedStrokeWidth);
+        sketch.selectGraphicalElement(type);
     }
 
+    //TODO: Ist es wirklich nötig, Attribut EditMode in Sketch UND MainViewModel zu haben?
     public void toggleEditMode(){
         this.editModeOn = !this.editModeOn;
         sketch.setEditModeTurnedOn(this.editModeOn);
@@ -117,20 +132,11 @@ public class MainViewModel extends BaseObservable {
     }
 
     public void saveSketch(Context context) {
-        sketch.saveToFile(context);
+        sketch.saveLayersToFile(context);
     }
 
     public void loadSketch(Context context) {
-        Sketch loadedSketch = Sketch.readFromFile(context);
-
-        // Right now the new Sketch only gets loaded into the viewmodel, not into the model
-        //TODO: realize this with an Observer: the viewModels always check which sketch-object is loaded in Sketch class
-        setSketch(loadedSketch);
-        CanvasViewModel.setSketch(loadedSketch);
-
-        // The selected Layer doesn't get stored properly, therefore we reselect one manually
-        // TODO: fix this (e.g. by only storing the selected layernumber in Sketch instead of a whole object
-        selectLayer(0);
+        sketch.loadLayersFromFile(context);
     }
 
 }
