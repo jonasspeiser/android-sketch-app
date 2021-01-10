@@ -304,11 +304,11 @@ public class Sketch implements CustomObservable {
         Gson gson = builder.create();
 
         String json = appSharedPrefs.getString("SavedSketch" + saveslot, "");
-        LayerCollection storedLayers = gson.fromJson(json, LayerCollection.class);
 
-        if(storedLayers == null){
+        if(json == null || json.isEmpty()){
             throw new NullPointerException("Called saveslot is empty");
         } else {
+            LayerCollection storedLayers = gson.fromJson(json, LayerCollection.class);
             setLayers(storedLayers);
         }
     }
