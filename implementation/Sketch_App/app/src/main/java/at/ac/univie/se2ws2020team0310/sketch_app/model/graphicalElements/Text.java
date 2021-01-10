@@ -1,7 +1,5 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
-import android.graphics.Rect;
-
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 
 public class Text extends GraphicalElement {
@@ -13,6 +11,12 @@ public class Text extends GraphicalElement {
     public Text(DrawStrategy drawStrategy) {
         super(drawStrategy);
         userText = "";
+    }
+
+    public Text(Text copy) {
+        super(copy);
+        setUserText(copy.userText);
+        setTextSize(copy.objectPaint.getTextSize());
     }
 
 // Getters and Setters
@@ -55,8 +59,13 @@ public class Text extends GraphicalElement {
     }
 
     @Override
-    protected String getName() {
+    public String getName() {
         return "Text";
+    }
+
+    @Override
+    public GraphicalElement copy() {
+        return new Text(this);
     }
 }
 

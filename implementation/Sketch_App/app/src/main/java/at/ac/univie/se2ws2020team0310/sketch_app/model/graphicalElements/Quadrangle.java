@@ -13,6 +13,12 @@ public class Quadrangle extends GraphicalElement {
         super(drawStrategy);
     }
 
+    public Quadrangle(Quadrangle copy) {
+        super(copy);
+        setHeight(copy.height);
+        setLength(copy.length);
+    }
+
 // Getters and Setters
 
     public float getLength() {
@@ -57,7 +63,12 @@ public class Quadrangle extends GraphicalElement {
     }
 
     @Override
-    protected String getName() {
+    public String getName() {
         return "Quadrangle";
+    }
+
+    @Override
+    public GraphicalElement copy() {
+        return new Quadrangle(this);
     }
 }

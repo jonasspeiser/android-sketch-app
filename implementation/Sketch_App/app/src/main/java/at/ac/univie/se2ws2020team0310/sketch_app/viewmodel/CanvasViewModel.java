@@ -1,20 +1,17 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Path;
-
 import androidx.lifecycle.ViewModel;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObservable;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObserver;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CanvasViewModel extends ViewModel implements CustomObserver, CustomObservable {
 
@@ -22,7 +19,7 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
 
     private ArrayList<CustomObserver> observers;
     private static Sketch sketch;
-    private boolean moveElement;
+    private boolean isElementSelected;  // renamed from 'moveElement' because in Edit mode a selected Element cannot be moved
     private Path path;
     private float lastTouchX;
     private float lastTouchY;
@@ -39,7 +36,7 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
         sketch = Sketch.getSketch();
         sketch.registerObserver(this);
         this.observers = new ArrayList<>();
-        this.moveElement = false;
+        this.isElementSelected = false;
         this.lastTouchX = -1;
         this.lastTouchY = -1;
     }
@@ -59,10 +56,17 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
     }
 
     public void setElementCoordinates(float x, float y) {
-        sketch.setCoordinates(x,y);
+        sketch.setCoordinates(x, y);
     }
 
-    /** write given coordinates (x, y) to the last selected graphical element */
+    /**
+     * Write given coordinates (x, y) to the last selected graphical element
+     *
+     * @param x          coordinate x
+     * @param y          coordinate y
+     * @param lastTouchX coordinate x of last touch position
+     * @param lastTouchY coordinate y of last touch position
+     */
     public void changeElementCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
         sketch.changeCoordinates(x, y, lastTouchX, lastTouchY);
     }
@@ -71,26 +75,26 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
         sketch.resetSelection();
     }
 
-    public boolean isWithinElement(float x, float y) {
+    public boolean isWithinElement(float x, float y) throws AppException {
         // TODO: Bessere Namensalternativen (weil die Methode nicht nur true zurückgibt, sondern das Element auch editierbar macht)
         return sketch.isWithinElement(x, y);
     }
 
     public boolean elementsToDraw() {
-        return this.getDrawnElements() != null;
+        return this.getDrawnElements() != null && !this.getDrawnElements().isEmpty();
     }
 
-    private void elementsBehaviourOnTouchDown(float x, float y) {
+    private void elementsBehaviourOnTouchDown(float x, float y) throws AppException {
         // behaviour for drawing a new element
         if (this.getSelectedGraphicalElement() != null) {
             this.storeElement();
             this.setElementCoordinates(x, y);
-            this.moveElement = true;
+            this.isElementSelected = true;
         }
         // behaviour for touching an existing element
         if (this.getSelectedGraphicalElement() == null && this.getDrawnElements() != null
                 && this.isWithinElement(x, y)) {
-            this.moveElement = true;
+            this.isElementSelected = true;
         }
         // saving these coordinates as the last point touched
         this.lastTouchX = x;
@@ -103,7 +107,7 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
             this.setElementCoordinates(x, y);
         }
         // behaviour for touching an existing element
-        if (this.moveElement) {
+        if (this.isElementSelected) {
             this.changeElementCoordinates(x, y, this.lastTouchX, this.lastTouchY);
         }
         this.lastTouchX = x;
@@ -112,12 +116,12 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
 
     private void elementsBehaviourOnTouchUp() {
         this.resetSelection();
-        this.moveElement = false;
+        this.isElementSelected = false;
         this.lastTouchX = -1;
         this.lastTouchY = -1;
     }
 
-    public void onTouchDown(float touchX, float touchY) {
+    public void onTouchDown(float touchX, float touchY) throws AppException {
         elementsBehaviourOnTouchDown(touchX, touchY);
         freehandBehaviourOnTouchDown(touchX, touchY);
     }
@@ -128,7 +132,7 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
             path = getSelectedGraphicalElement().getPath();
         }
         if (path != null) {
-            path.moveTo(touchX, touchY); // start ist hier
+            path.moveTo(touchX, touchY); // start is here
         }
     }
 
@@ -150,7 +154,8 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
         elementsBehaviourOnTouchUp();
     }
 
-    public boolean export(Context context,  String fileFormat, Bitmap drawingCache) throws IOException {
+    public boolean export(Context context, String fileFormat, Bitmap drawingCache)
+            throws IOException {
         sketch.export(context, fileFormat, drawingCache);
         return true;
     }
@@ -168,7 +173,7 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
     @Override
     public void removeObserver(CustomObserver observer) {
         int i = observers.indexOf(observer);
-        if(i >= 0) {
+        if (i >= 0) {
             observers.remove(i);
         }
     }
