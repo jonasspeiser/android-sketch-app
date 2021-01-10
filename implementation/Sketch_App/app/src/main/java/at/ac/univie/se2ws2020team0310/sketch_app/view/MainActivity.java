@@ -371,6 +371,10 @@ public class MainActivity extends AppCompatActivity {
                 exportDialogueObject.show();
                 return true;
 
+            case R.id.deleteStorageId:
+                mainActivityViewModel.deleteSavedSketches(getApplicationContext());
+                return true;
+
             case R.id.lineId:
                 mainActivityViewModel.selectGraphicalElement(EGraphicalElementType.LINE);
                 showToast("Line selected");

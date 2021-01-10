@@ -60,13 +60,14 @@
         android:id="@+id/clearId"
         android:title="@string/clear" />
     <item
-        android:id="@+id/loadId"
-        android:title="@string/option_menu_load" />
-    <item
         android:id="@+id/saveId"
         android:title="@string/option_menu_save" />
     <item
+        android:id="@+id/loadId"
+        android:title="@string/option_menu_load" />
+    <item
         android:id="@+id/exportId"
         android:title="@string/option_menu_export"/>
+
 
 </menu>
