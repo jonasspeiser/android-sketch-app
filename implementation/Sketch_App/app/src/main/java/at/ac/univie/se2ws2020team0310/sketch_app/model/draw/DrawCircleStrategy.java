@@ -9,6 +9,6 @@ public class DrawCircleStrategy implements DrawStrategy {
 
     @Override
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
-        canvas.drawCircle(graphicalElement.getxPosition(), graphicalElement.getyPosition(),((Circle) graphicalElement).getRadius(), graphicalElement.getObjectPaint());
+        canvas.drawCircle(graphicalElement.getXPosition(), graphicalElement.getYPosition(),((Circle) graphicalElement).getRadius(), graphicalElement.getObjectPaint());
     }
 }

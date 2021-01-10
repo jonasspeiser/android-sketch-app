@@ -7,8 +7,21 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Graphic
 public class TextDecorator extends GraphicalElementDecorator {
 
 
+    /**
+     * Constructor of a TextDecorator for a different GraphicalElement
+     * @param element   the element to decorate
+     */
     public TextDecorator(GraphicalElement element) {
         super(element);
+    }
+
+    /**
+     * Copy Constructor for a TextDecorator with a copy of the decorated GraphicalElement
+     * The decorated element has also to be copied, in order to keep the original decorated element intact
+     * @param copy  the decorator to copy from
+     */
+    public TextDecorator(TextDecorator copy) {
+        super(copy.getElement().copy());
     }
 
     // use isWithinElement method from the decorated element
@@ -20,6 +33,11 @@ public class TextDecorator extends GraphicalElementDecorator {
     @Override
     public String getName() {
         return "Text";
+    }
+
+    @Override
+    public GraphicalElement copy() {
+        return new TextDecorator(this);
     }
 
     public void onClickItalicButton() {

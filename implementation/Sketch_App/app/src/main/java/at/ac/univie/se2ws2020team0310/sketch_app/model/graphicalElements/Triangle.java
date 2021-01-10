@@ -9,6 +9,10 @@ public class Triangle extends GraphicalElement {
         super(drawStrategy);
     }
 
+    public Triangle(Triangle copy) {
+        super(copy);
+    }
+
 //Other methods
 
     public boolean isWithinElement(float x, float y) {
@@ -46,5 +50,10 @@ public class Triangle extends GraphicalElement {
     @Override
     public String getName() {
         return "Triangle";
+    }
+
+    @Override
+    public GraphicalElement copy() {
+        return new Triangle(this);
     }
 }

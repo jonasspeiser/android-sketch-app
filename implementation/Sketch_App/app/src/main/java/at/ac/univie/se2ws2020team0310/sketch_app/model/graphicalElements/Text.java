@@ -13,6 +13,12 @@ public class Text extends GraphicalElement {
         userText = "";
     }
 
+    public Text(Text copy) {
+        super(copy);
+        setUserText(copy.userText);
+        setTextSize(copy.objectPaint.getTextSize());
+    }
+
 // Getters and Setters
 
     public String getUserText() {
@@ -55,6 +61,11 @@ public class Text extends GraphicalElement {
     @Override
     public String getName() {
         return "Text";
+    }
+
+    @Override
+    public GraphicalElement copy() {
+        return new Text(this);
     }
 }
 

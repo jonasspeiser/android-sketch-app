@@ -4,6 +4,7 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 import android.graphics.Path;
 import android.graphics.RectF;
 
+import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 
 public class Freehand extends GraphicalElement {
@@ -15,6 +16,10 @@ public class Freehand extends GraphicalElement {
         super(drawStrategy);
     }
 
+    public Freehand(Freehand copy) {
+        super(copy);
+        setObjectPath(new Path(copy.objectPath));
+    }
 
 // Methods
     public Path getObjectPath() {
@@ -50,6 +55,11 @@ public class Freehand extends GraphicalElement {
         return "Freehand Drawing";
     }
 
+    @Override
+    public GraphicalElement copy() {
+        return new Freehand(this);
+    }
+
     /**
      * Update current coordinates and Path, in order to move the Freehand drawing to the new position
      * @param x the new coordinate x
@@ -58,7 +68,7 @@ public class Freehand extends GraphicalElement {
      * @param lastTouchY    the previous coordinate y (used for Freehand drawing)
      */
     @Override
-    public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
+    public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) throws AppException {
         super.changeCoordinates(x, y, lastTouchX, lastTouchY);
         if (getPath() != null && lastTouchX > 0 && lastTouchY > 0) {
             getPath().offset(x - lastTouchX, y - lastTouchY);

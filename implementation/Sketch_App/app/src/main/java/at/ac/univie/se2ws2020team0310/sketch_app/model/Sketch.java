@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.ElementNotFoundException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.export.Export;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.export.ExportJPEG;
@@ -28,6 +29,8 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.LayerCollection
 import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObservable;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObserver;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.storage.GsonInterfaceAdapter;
+
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class Sketch implements CustomObservable {
 
@@ -228,7 +231,7 @@ public class Sketch implements CustomObservable {
      * @param y coordinate y
      * @return returns true if there is an Element at the given coordinates
      */
-    public boolean isWithinElement(float x, float y) {  // TODO: Rename Method!
+    public boolean isWithinElement(float x, float y) throws AppException {  // TODO: Rename Method!
         if (isCombineShapesModeOn() && getCurrentCombinedShape() != null) {
             return getSelectedLayer().addElementToCombinedShape(x, y, getCurrentCombinedShape());
         } else if (isEditModeTurnedOn()) {
@@ -239,6 +242,10 @@ public class Sketch implements CustomObservable {
         }
     }
 
+    /**
+     * Create and select a new GraphicalElement with the given type
+     * @param type  the type of the GraphicalElement
+     */
     public void selectGraphicalElement(EGraphicalElementType type) {
         try {
             getSelectedLayer().resetEditableElements();
@@ -246,6 +253,16 @@ public class Sketch implements CustomObservable {
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());
         }
+    }
+
+
+    /**
+     * Create and select a new GraphicalElement as a copy of the given one as parameter
+     * @param element   the element to copy from
+     */
+    public void selectGraphicalElement(GraphicalElement element) {
+        getSelectedLayer().resetEditableElements();
+        setSelectedGraphicalElement(GraphicalElementFactory.createElement(element));
     }
 
     //Use Template Method Pattern for division of file exporting into similar and differing parts
@@ -373,6 +390,42 @@ public class Sketch implements CustomObservable {
 
     public void setCombineShapesModeOn(boolean combineShapesModeOn) {
         this.combineShapesModeOn = combineShapesModeOn;
+    }
+
+    /**
+     * Remove the given GraphicalElement from the Sketch, by searching it through its Layers
+     * @param graphicalElement  the element to remove
+     * @throws ElementNotFoundException if the element was not found in any Layer
+     */
+    public void removeElement(GraphicalElement graphicalElement) throws ElementNotFoundException {
+        Iterator layersIterator = layers.createIterator();
+        boolean foundElement = false;
+        while (layersIterator.hasMore()) {
+            Layer layer = (Layer) layersIterator.getNext();
+            // check if the Layer contains the element, then remove it
+            if (layer.containsElement(graphicalElement)) {
+                foundElement = true;
+                layer.removeElement(graphicalElement);
+                break;
+            }
+        }
+        if (!foundElement) {
+            throw new ElementNotFoundException(graphicalElement);
+        }
+    }
+
+    /**
+     * Remove Graphical Elements from Sketch
+     * @param elements  elements to remove
+     */
+    public void removeElements(List<GraphicalElement> elements) {
+        for (GraphicalElement element : elements) {
+            try {
+                removeElement(element);
+            } catch (ElementNotFoundException e) {
+                Log.w("Sketch", "Cannot remove element from Sketch: " + e.getLocalizedMessage());
+            }
+        }
     }
 }
 

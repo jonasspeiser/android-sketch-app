@@ -30,7 +30,6 @@ public final class GraphicalElementFactory {
         // empty constructor
     }
 
-    //Implementation of FREEHAND and COMPOSITE_SHAPE until DEAD
     public static GraphicalElement createElement(EGraphicalElementType type, int color, float size, float strokewidth) throws AppException {
         switch (type) {
             case LINE:
@@ -50,6 +49,15 @@ public final class GraphicalElementFactory {
             default:
                 throw new AppException("Unknown type: " + type);
         }
+    }
+
+    /**
+     * Create a new GraphicalElement as a copy of the given element
+     * @param element   the element to copy from
+     * @return          a fresh copy of the element
+     */
+    public static GraphicalElement createElement(GraphicalElement element) {
+        return element.copy();
     }
 
     private static Text createText(int color, float size, float strokewidth) {

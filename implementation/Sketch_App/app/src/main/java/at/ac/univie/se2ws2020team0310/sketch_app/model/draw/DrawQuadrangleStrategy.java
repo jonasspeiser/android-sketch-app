@@ -9,6 +9,6 @@ public class DrawQuadrangleStrategy implements DrawStrategy {
 
     @Override
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
-        canvas.drawRect(graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getxPosition() + ((Quadrangle) graphicalElement).getLength(), graphicalElement.getyPosition() + ((Quadrangle) graphicalElement).getHeight(), graphicalElement.getObjectPaint());
+        canvas.drawRect(graphicalElement.getXPosition(), graphicalElement.getYPosition(), graphicalElement.getXPosition() + ((Quadrangle) graphicalElement).getLength(), graphicalElement.getYPosition() + ((Quadrangle) graphicalElement).getHeight(), graphicalElement.getObjectPaint());
     }
 }
