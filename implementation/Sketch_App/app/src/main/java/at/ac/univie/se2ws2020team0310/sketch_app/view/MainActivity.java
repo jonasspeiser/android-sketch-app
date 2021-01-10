@@ -292,17 +292,123 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.saveId:
-                mainActivityViewModel.saveSketch(getApplicationContext(), 1); // TODO: Saveslot je nach Userwahl übergeben
+                AlertDialog.Builder saveDialogue = new AlertDialog.Builder(MainActivity.this);
+                saveDialogue.setTitle("Save to Slot");
+                CharSequence[] saveSlotSelection = new CharSequence[]{"1","2","3","4","5"};
+                saveDialogue.setItems(saveSlotSelection, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                try {
+                                    mainActivityViewModel.saveSketch(getApplicationContext(), 1);{
+                                        showToast("Sketch saved to slot 1");
+                                    };
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            case 1:
+                                try {
+                                    mainActivityViewModel.saveSketch(getApplicationContext(), 2);{
+                                        showToast("Sketch saved to slot 2");
+                                    };
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            case 2:
+                                try {
+                                    mainActivityViewModel.saveSketch(getApplicationContext(), 3);{
+                                        showToast("Sketch saved to slot 3");
+                                    };
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            case 3:
+                                try {
+                                    mainActivityViewModel.saveSketch(getApplicationContext(), 4);{
+                                        showToast("Sketch saved to slot 4");
+                                    };
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            case 4:
+                                try {
+                                    mainActivityViewModel.saveSketch(getApplicationContext(), 5);{
+                                        showToast("Sketch saved to slot 5");
+                                    };
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                        }
+                    }
+                });
+                AlertDialog saveDialogueObject = saveDialogue.create();
+                saveDialogueObject.show();
                 return true;
 
             case R.id.loadId:
-                try {
-                    mainActivityViewModel.loadSketch(getApplicationContext(), 1); // TODO: Saveslot je nach Userwahl übergeben
-                } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
-                    e.printStackTrace();
-                    showToast("Selected Saveslot is empty");
-                }
-
+                AlertDialog.Builder loadDialogue = new AlertDialog.Builder(MainActivity.this);
+                loadDialogue.setTitle("Open from Slot");
+                CharSequence[] loadSlotSelection = new CharSequence[]{"1","2","3","4","5"};
+                loadDialogue.setItems(loadSlotSelection, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                try {
+                                    mainActivityViewModel.loadSketch(getApplicationContext(), 1); // TODO: Saveslot je nach Userwahl übergeben
+                                    showToast("Sketch opened from slot 1");
+                                } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
+                                    e.printStackTrace();
+                                    showToast("Selected Saveslot is empty");
+                                }
+                                break;
+                            case 1:
+                                try {
+                                    mainActivityViewModel.loadSketch(getApplicationContext(), 2); // TODO: Saveslot je nach Userwahl übergeben
+                                    showToast("Sketch opened from slot 2");
+                                } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
+                                    e.printStackTrace();
+                                    showToast("Selected Saveslot is empty");
+                                }
+                                break;
+                            case 2:
+                                try {
+                                    mainActivityViewModel.loadSketch(getApplicationContext(), 3); // TODO: Saveslot je nach Userwahl übergeben
+                                    showToast("Sketch opened from slot 3");
+                                } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
+                                    e.printStackTrace();
+                                    showToast("Selected Saveslot is empty");
+                                }
+                                break;
+                            case 3:
+                                try {
+                                    mainActivityViewModel.loadSketch(getApplicationContext(), 4); // TODO: Saveslot je nach Userwahl übergeben
+                                    showToast("Sketch opened from slot 4");
+                                } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
+                                    e.printStackTrace();
+                                    showToast("Selected Saveslot is empty");
+                                }
+                                break;
+                            case 4:
+                                try {
+                                    mainActivityViewModel.loadSketch(getApplicationContext(), 5); // TODO: Saveslot je nach Userwahl übergeben
+                                    showToast("Sketch opened from slot 5");
+                                } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
+                                    e.printStackTrace();
+                                    showToast("Selected Saveslot is empty");
+                                }
+                                break;
+                        }
+                    }
+                });
+                AlertDialog loadDialogueObject = loadDialogue.create();
+                loadDialogueObject.show();
                 return true;
 
             case R.id.exportId:
