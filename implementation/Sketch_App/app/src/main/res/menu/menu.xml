@@ -18,7 +18,7 @@
         android:id="@+id/fingerId"
         android:icon="@drawable/menu_icon_finger"
         android:title="@string/menu_icon_finger_title"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/lineId"
         android:icon="@drawable/menu_icon_line"
