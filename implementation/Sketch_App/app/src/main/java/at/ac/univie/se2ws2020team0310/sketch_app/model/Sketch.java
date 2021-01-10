@@ -291,6 +291,7 @@ public class Sketch implements CustomObservable {
      *
      * @param context The application context (activity.getApplicationContext())
      * @param saveslot A number between 1 and 5
+     * @throws NullPointerException When trying to load a non-existent file
      */
     public void loadLayersFromFile(Context context, int saveslot) throws NullPointerException {
         SharedPreferences appSharedPrefs = PreferenceManager
