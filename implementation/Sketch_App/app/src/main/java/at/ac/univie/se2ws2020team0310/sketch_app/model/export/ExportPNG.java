@@ -11,22 +11,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class ExportPNG extends Export {
-
-    public FileOutputStream out;
-    public File saveImage;
-
+    //ToDo warum werden im Konstruktor Argumente übergeben, die nicht verwendet werden?
     public ExportPNG(Context context,String fileFormat,Bitmap drawingCache) {
-    };
 
-    @Override
-    public boolean exportPreparation(Context context, Bitmap drawingCache, String fileFormat) throws IOException {
-        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        this.saveImage = new File(path,(System.currentTimeMillis() + "." + fileFormat));
-        this.saveImage.createNewFile();
-        this.out = new FileOutputStream(saveImage);
-        Log.d("Export","preparation " + fileFormat + " successful.");
-        return true;
-    }
+    };
 
     @Override
     public boolean compressImage(Bitmap drawingCache, String fileFormat) throws IOException {
@@ -35,11 +23,4 @@ public class ExportPNG extends Export {
         return true;
     }
 
-    @Override
-    public boolean exportingImage(String fileFormat, Context context) throws IOException {
-        this.out.close();
-        Log.d("Exporting","Exporting in " + fileFormat + " successful.");
-        MediaScannerConnection.scanFile(context, new String[]{this.saveImage.getPath()}, null, null);
-        return true;
-    }
 }

@@ -150,12 +150,16 @@ public class MainActivityViewModel extends BaseObservable {
         return sketch.isEditModeTurnedOn();
     }
 
-    public void saveSketch(Context context) {
-        sketch.saveLayersToFile(context);
+    public void saveSketch(Context context, int saveslot) {
+        sketch.saveLayersToFile(context, saveslot);
     }
 
-    public void loadSketch(Context context) {
-        sketch.loadLayersFromFile(context);
+    public void loadSketch(Context context, int saveslot) throws NullPointerException {
+        sketch.loadLayersFromFile(context, saveslot);
+    }
+
+    public void deleteSavedSketch(Context context, int saveslot){
+        sketch.deleteSavedSketch(context, saveslot);
     }
 
     /**

@@ -122,15 +122,13 @@ public class MainActivity extends AppCompatActivity {
         switchLayer1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast layer0visibility;
                 if (isChecked) {
                     mainActivityViewModel.setLayerVisibility(0,true);
-                    layer0visibility = Toast.makeText(getApplicationContext(), "Layer 0 visible", Toast.LENGTH_LONG);
+                    showToast("Layer 0 visible");
                 } else {
                     mainActivityViewModel.setLayerVisibility(0, false);
-                    layer0visibility = Toast.makeText(getApplicationContext(), "Layer 0 invisible", Toast.LENGTH_LONG);
+                    showToast("Layer 0 invisible");
                 }
-                layer0visibility.show();
                 refreshScreen();
             }
         });
@@ -138,15 +136,13 @@ public class MainActivity extends AppCompatActivity {
         switchLayer2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast layer1visibility;
                 if (isChecked) {
                     mainActivityViewModel.setLayerVisibility(1,true);
-                    layer1visibility = Toast.makeText(getApplicationContext(), "Layer 1 visible", Toast.LENGTH_LONG);
+                    showToast("Layer 1 visible");
                 } else {
                     mainActivityViewModel.setLayerVisibility(1, false);
-                    layer1visibility = Toast.makeText(getApplicationContext(), "Layer 1 invisible", Toast.LENGTH_LONG);
+                    showToast("Layer 1 invisible");
                 }
-                layer1visibility.show();
                 refreshScreen();
             }
         });
@@ -154,15 +150,13 @@ public class MainActivity extends AppCompatActivity {
         switchLayer3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast layer2visibility;
                 if (isChecked) {
                     mainActivityViewModel.setLayerVisibility(2,true);
-                    layer2visibility = Toast.makeText(getApplicationContext(), "Layer 1 visible", Toast.LENGTH_LONG);
+                    showToast("Layer 2 visible");
                 } else {
                     mainActivityViewModel.setLayerVisibility(2, false);
-                    layer2visibility = Toast.makeText(getApplicationContext(), "Layer 1 invisible", Toast.LENGTH_LONG);
+                    showToast("Layer 2 invisible");
                 }
-                layer2visibility.show();
                 refreshScreen();
             }
         });
@@ -175,20 +169,17 @@ public class MainActivity extends AppCompatActivity {
             case R.id.layer1selector:
                 if (checked)
                     mainActivityViewModel.selectLayer(0);
-                    Toast layer0 = Toast.makeText(getApplicationContext(), "Layer 0 selected", Toast.LENGTH_LONG);
-                    layer0.show();
+                    showToast("Layer 0 selected");
                     break;
             case R.id.layer2selector:
                 if (checked)
                     mainActivityViewModel.selectLayer(1);
-                    Toast layer1 = Toast.makeText(getApplicationContext(), "Layer 1 selected", Toast.LENGTH_LONG);
-                    layer1.show();
+                    showToast("Layer 1 selected");
                     break;
             case R.id.layer3selector:
                 if(checked)
                     mainActivityViewModel.selectLayer(2);
-                    Toast layer2 = Toast.makeText(getApplicationContext(), "Layer 2 selected", Toast.LENGTH_LONG);
-                    layer2.show();
+                showToast("Layer 2 selected");
                 break;
         }
     }
@@ -228,8 +219,7 @@ public class MainActivity extends AppCompatActivity {
                 sizeSeekBar.setVisibility(SeekBar.INVISIBLE);
             } else {
                 if (mainActivityViewModel.layerIsEmpty()) {
-                    Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
-                    error.show();
+                    showToast("No graphical element selected");
                 }
                 if (!mainActivityViewModel.layerIsEmpty()) {
                     sizeSeekBar.setVisibility(SeekBar.VISIBLE);
@@ -246,8 +236,7 @@ public class MainActivity extends AppCompatActivity {
                 strokeWidthSeekBar.setVisibility(SeekBar.INVISIBLE);
             }else{
                 if (mainActivityViewModel.layerIsEmpty()) {
-                    Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
-                    error.show();
+                    showToast("No graphical element selected");
                 }
                 if (!mainActivityViewModel.layerIsEmpty()) {
                     strokeWidthSeekBar.setVisibility(SeekBar.VISIBLE);
@@ -259,8 +248,7 @@ public class MainActivity extends AppCompatActivity {
     public void SetColorPickerBehavior(){
         findViewById(R.id.colorSelectorButton).setOnClickListener(v -> {
             if (mainActivityViewModel.layerIsEmpty()) {
-                Toast error = Toast.makeText(getApplicationContext(), "No graphical element selected", Toast.LENGTH_LONG);
-                error.show();
+                showToast("No graphical element selected");
             } else {
                 ColorPicker colorPicker = new ColorPicker(MainActivity.this);
                 colorPicker.show();
@@ -332,11 +320,17 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.saveId:
-                mainActivityViewModel.saveSketch(getApplicationContext());
+                mainActivityViewModel.saveSketch(getApplicationContext(), 1); // TODO: Saveslot je nach Userwahl übergeben
                 return true;
 
             case R.id.loadId:
-                mainActivityViewModel.loadSketch(getApplicationContext());
+                try {
+                    mainActivityViewModel.loadSketch(getApplicationContext(), 1); // TODO: Saveslot je nach Userwahl übergeben
+                } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
+                    e.printStackTrace();
+                    showToast("Selected Saveslot is empty");
+                }
+
                 return true;
 
             case R.id.exportId:
@@ -355,8 +349,7 @@ public class MainActivity extends AppCompatActivity {
                             case 0:
                                 try {
                                     if(canvasView.export(MainActivity.this, "JPEG")==true){
-                                        Toast jpegExport = Toast.makeText(getApplicationContext(), "JPEG Export successful!", Toast.LENGTH_LONG);
-                                        jpegExport.show();
+                                        showToast("JPEG Export successful!");
                                     };
                                 } catch (IOException e) {
                                     e.printStackTrace();
@@ -365,9 +358,7 @@ public class MainActivity extends AppCompatActivity {
                             case 1:
                                 try {
                                     if(canvasView.export(MainActivity.this, "PNG")==true){
-                                        Toast pngExport = Toast.makeText(getApplicationContext(), "PNG Export successful!", Toast.LENGTH_LONG);
-                                        pngExport.show();
-                                    };
+                                        showToast("PNG Export successful!");                                    };
 
                                 } catch (IOException e) {
                                     e.printStackTrace();

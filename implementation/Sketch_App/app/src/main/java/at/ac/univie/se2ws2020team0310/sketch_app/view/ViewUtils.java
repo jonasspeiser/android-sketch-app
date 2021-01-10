@@ -16,7 +16,7 @@ public final class ViewUtils {
      * @param text      the text to display in the Toast
      */
     public static void showToast(Context context, String text){
-        Toast textToast = Toast.makeText(context, text, Toast.LENGTH_LONG);
+        Toast textToast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
         textToast.show();
     }
 }

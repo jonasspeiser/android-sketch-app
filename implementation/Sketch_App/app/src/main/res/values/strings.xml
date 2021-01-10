@@ -15,13 +15,13 @@
     <string name="floatingbutton_textSize">Text size button</string>
     <string name="floatingbutton_lineWidth">Button line width</string>
     <string name="floatingbutton_color">Button Color Picker</string>
+    <string name="floatingbutton_italic">Italic Button</string>
+    <string name="floatingbutton_bold">Bold Button</string>
+    <string name="floatingbutton_underline">Underline Button</string>
     <string name="menu_icon_toggleEdit_title">Edit</string>
-    <string name="button_italic" >Italic</string>
-    <string name="button_bold">Bold</string>
-    <string name="button_underline">Underline</string>
-    <string name="combi_shapes">Combined Shapes</string>
+    <string name="option_menu_combi_shapes">Combined Shapes</string>
+    <string name="option_menu_combi_shape_new">New</string>
     <string name="clear">Clear</string>
-    <string name="option_combi_shape_new">New</string>
     <string name="ok">OK</string>
     <string name="save">Save</string>
 </resources>

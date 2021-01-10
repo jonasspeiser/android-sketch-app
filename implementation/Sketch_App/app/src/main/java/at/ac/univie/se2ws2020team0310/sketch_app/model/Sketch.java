@@ -6,14 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.util.Log;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.ElementNotFoundException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
@@ -29,8 +21,11 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.LayerCollection
 import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObservable;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObserver;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.storage.GsonInterfaceAdapter;
-
-import static android.webkit.ConsoleMessage.MessageLevel.LOG;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Sketch implements CustomObservable {
 
@@ -80,6 +75,7 @@ public class Sketch implements CustomObservable {
     public int getSelectedLayerIndex() {
         return selectedLayerIndex;
     }
+
     public void setSelectedLayerIndex(int layerNumber) {
         this.selectedLayerIndex = layerNumber;
     }
@@ -145,7 +141,6 @@ public class Sketch implements CustomObservable {
         this.editModeTurnedOn = editModeTurnedOn;
     }
 
-
 // Other Methods
 
     public Layer getSelectedLayer() {
@@ -190,12 +185,13 @@ public class Sketch implements CustomObservable {
     }
 
     /**
-     * Change Element coordinates means move the Element to a new Position
-     * Occurs only if Edit Mode is turned off
-     * @param x coordinate x
-     * @param y coordinate y
-     * @param lastTouchX    coordinate x of last touch position
-     * @param lastTouchY    coordinate y of last touch position
+     * Change Element coordinates means move the Element to a new Position Occurs only if Edit Mode
+     * is turned off
+     *
+     * @param x          coordinate x
+     * @param y          coordinate y
+     * @param lastTouchX coordinate x of last touch position
+     * @param lastTouchY coordinate y of last touch position
      */
     public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
         if (!isEditModeTurnedOn()) {
@@ -223,9 +219,8 @@ public class Sketch implements CustomObservable {
     }
 
     /**
-     * Checks, whether there is an Element on touch position.
-     * When Edit Mode is on, adds that Element to the User-Selection of editable Elements.
-     * Else let's user move that element.
+     * Checks, whether there is an Element on touch position. When Edit Mode is on, adds that
+     * Element to the User-Selection of editable Elements. Else let's user move that element.
      *
      * @param x coordinate x
      * @param y coordinate y
@@ -244,12 +239,15 @@ public class Sketch implements CustomObservable {
 
     /**
      * Create and select a new GraphicalElement with the given type
-     * @param type  the type of the GraphicalElement
+     *
+     * @param type the type of the GraphicalElement
      */
     public void selectGraphicalElement(EGraphicalElementType type) {
         try {
             getSelectedLayer().resetEditableElements();
-            this.setSelectedGraphicalElement(GraphicalElementFactory.createElement(type, this.selectedColor, this.selectedSize, this.selectedStrokeWidth));
+            this.setSelectedGraphicalElement(GraphicalElementFactory
+                    .createElement(type, this.selectedColor, this.selectedSize,
+                            this.selectedStrokeWidth));
         } catch (AppException e) {
             Log.e("CanvasView", e.getMessage());
         }
@@ -258,7 +256,8 @@ public class Sketch implements CustomObservable {
 
     /**
      * Create and select a new GraphicalElement as a copy of the given one as parameter
-     * @param element   the element to copy from
+     *
+     * @param element the element to copy from
      */
     public void selectGraphicalElement(GraphicalElement element) {
         getSelectedLayer().resetEditableElements();
@@ -266,13 +265,14 @@ public class Sketch implements CustomObservable {
     }
 
     //Use Template Method Pattern for division of file exporting into similar and differing parts
-    public boolean export(Context context, String fileFormat, Bitmap drawingCache) throws IOException {
+    public boolean export(Context context, String fileFormat, Bitmap drawingCache)
+            throws IOException {
 
-        if(fileFormat=="JPEG"){
-            Export exportJPEG = new ExportJPEG(context,fileFormat,drawingCache);
-            exportJPEG.exportImage(context,drawingCache,fileFormat);
+        if (fileFormat == "JPEG") {
+            Export exportJPEG = new ExportJPEG(context, fileFormat, drawingCache);
+            exportJPEG.exportImage(context, drawingCache, fileFormat);
         } else {
-            Export exportPNG = new ExportPNG(context,fileFormat,drawingCache);
+            Export exportPNG = new ExportPNG(context, fileFormat, drawingCache);
             exportPNG.exportImage(context, drawingCache, fileFormat);
         }
         return true;
@@ -286,8 +286,6 @@ public class Sketch implements CustomObservable {
 //        }
 //    }
 
-    // Constant with a file name
-    public static String fileName = "MyObject";
 
     /**
      * Serializes the current layers and saves them to a file
@@ -295,9 +293,10 @@ public class Sketch implements CustomObservable {
      * Based on: https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable/15011927#15011927
      * in combination with: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
      *
-     * @param context The application context (activity.getApplicationContext())
+     * @param context  The application context (activity.getApplicationContext())
+     * @param saveslot A number between 1 and 5
      */
-    public void saveLayersToFile(Context context) {
+    public void saveLayersToFile(Context context, int saveslot) {
 
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
@@ -310,21 +309,25 @@ public class Sketch implements CustomObservable {
         builder.registerTypeAdapter(DrawStrategy.class, new GsonInterfaceAdapter());
         Gson gson = builder.create();
 
+        String filename = "SavedSketch" + saveslot;
         String json = gson.toJson(this.layers);
-        prefsEditor.putString("MyObject", json);
+        prefsEditor.putString(filename, json);
         prefsEditor.commit();
     }
 
 
     /**
-     * Restores saved layers by reading them from a file and overwrites the current layers with their content
+     * Restores saved layers by reading them from a file and overwrites the current layers with
+     * their content
      * <p>
      * Based on: https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable/15011927#15011927
      * in combination with: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
      *
-     * @param context The application context (activity.getApplicationContext())
+     * @param context  The application context (activity.getApplicationContext())
+     * @param saveslot A number between 1 and 5
+     * @throws NullPointerException When trying to load a non-existent file
      */
-    public void loadLayersFromFile(Context context) {
+    public void loadLayersFromFile(Context context, int saveslot) throws NullPointerException {
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
@@ -335,12 +338,19 @@ public class Sketch implements CustomObservable {
         builder.registerTypeAdapter(DrawStrategy.class, new GsonInterfaceAdapter());
         Gson gson = builder.create();
 
-        String json = appSharedPrefs.getString("MyObject", "");
-        LayerCollection storedLayers = gson.fromJson(json, LayerCollection.class);
+        String json = appSharedPrefs.getString("SavedSketch" + saveslot, "");
 
-        setLayers(storedLayers);
+        if (json == null || json.isEmpty()) {
+            throw new NullPointerException("Called saveslot is empty");
+        } else {
+            LayerCollection storedLayers = gson.fromJson(json, LayerCollection.class);
+            setLayers(storedLayers);
+        }
     }
 
+    public void deleteSavedSketch(Context context, int saveslot) {
+        // TODO implement
+    }
 
     //TODO : Creating gson instance auslagern (in eigene Methode, evtl in andere Klasse?)
 
@@ -394,7 +404,8 @@ public class Sketch implements CustomObservable {
 
     /**
      * Remove the given GraphicalElement from the Sketch, by searching it through its Layers
-     * @param graphicalElement  the element to remove
+     *
+     * @param graphicalElement the element to remove
      * @throws ElementNotFoundException if the element was not found in any Layer
      */
     public void removeElement(GraphicalElement graphicalElement) throws ElementNotFoundException {
@@ -416,7 +427,8 @@ public class Sketch implements CustomObservable {
 
     /**
      * Remove Graphical Elements from Sketch
-     * @param elements  elements to remove
+     *
+     * @param elements elements to remove
      */
     public void removeElements(List<GraphicalElement> elements) {
         for (GraphicalElement element : elements) {

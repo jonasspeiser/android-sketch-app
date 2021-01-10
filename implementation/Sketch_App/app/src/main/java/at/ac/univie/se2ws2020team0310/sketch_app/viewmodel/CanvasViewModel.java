@@ -3,18 +3,15 @@ package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Path;
-
 import androidx.lifecycle.ViewModel;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObservable;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObserver;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CanvasViewModel extends ViewModel implements CustomObserver, CustomObservable {
 

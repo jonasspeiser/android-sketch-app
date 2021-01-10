@@ -44,12 +44,12 @@
     <item
         android:id="@+id/combiShapeId"
         android:icon="@drawable/combi_shape_icon"
-        android:title="@string/combi_shapes"
+        android:title="@string/option_menu_combi_shapes"
         app:showAsAction="ifRoom">
         <menu>
             <item
                 android:id="@+id/newCombiShapeId"
-                android:title="@string/option_combi_shape_new"/>
+                android:title="@string/option_menu_combi_shape_new"/>
         </menu>
     </item>
 

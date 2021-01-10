@@ -8,16 +8,13 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-
-import java.io.IOException;
-
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObserver;
 import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.CanvasViewModel;
+import java.io.IOException;
 
 public class CanvasView extends View implements CustomObserver {
 
