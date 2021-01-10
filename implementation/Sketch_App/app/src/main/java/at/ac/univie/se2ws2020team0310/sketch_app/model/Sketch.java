@@ -314,8 +314,17 @@ public class Sketch implements CustomObservable {
         }
     }
 
-    public void deleteSavedSketch(Context context, int saveslot){
-        // TODO implement
+
+    // as seen at: https://stackoverflow.com/questions/6125296/delete-sharedpreferences-file
+    public void deleteSavedSketches(Context context){
+        File dir = new File(context.getFilesDir().getParent() + "/shared_prefs/");
+        String[] children = dir.list();
+        for (String child : children) {
+            // clear each preference file
+            context.getSharedPreferences(child.replace(".xml", ""), Context.MODE_PRIVATE).edit().clear().commit();
+            //delete the file
+            new File(dir, child).delete();
+        }
     }
 
 

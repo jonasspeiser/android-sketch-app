@@ -140,7 +140,7 @@ public class MainActivityViewModel extends BaseObservable { // TODO: Muss diese 
     }
 
     public void deleteSavedSketch(Context context, int saveslot){
-        sketch.deleteSavedSketch(context, saveslot);
+        sketch.deleteSavedSketches(context, saveslot);
     }
 
 }
