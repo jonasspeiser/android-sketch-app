@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 
-
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 
 public abstract class GraphicalElement {
@@ -19,7 +18,7 @@ public abstract class GraphicalElement {
 
 // Constructor
 
-    public GraphicalElement(DrawStrategy drawStrategy) { //Konstruktor
+    protected GraphicalElement(DrawStrategy drawStrategy) { //Konstruktor
         this.drawStrategy = drawStrategy;
     }
 
@@ -66,26 +65,33 @@ public abstract class GraphicalElement {
         drawStrategy.draw(canvas, this);
     }
 
-
-    //method for freehand
+    /**
+     * Method for retrieving the current Path of a Freehand drawing
+     * @return  the current Freehand Path or null, if another Element was selected
+     */
     public Path getPath() {
         return null;
     }
 
-    // check if this element is a Freehand drawing
+    /**
+     * Check if this element is a Freehand drawing
+     * @return  true, only if it is a Freehand drawing
+     */
     public boolean isFreehand() {
         return false;
     }
 
 // Other Methods
 
-    // change coordinates and update Path, if applicable
-    // TODO: Sollte das nicht eher in die Klasse Freehand?
+    /**
+     * Update current coordinates
+     * @param x the new coordinate x
+     * @param y the new coordinate y
+     * @param lastTouchX    the previous coordinate x (used only for Freehand drawing)
+     * @param lastTouchY    the previous coordinate y (used only for Freehand drawing)
+     */
     public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
         this.setCoordinates(x, y);
-        if (getPath() != null && lastTouchX > 0 && lastTouchY > 0) {
-            getPath().offset(x - lastTouchX, y - lastTouchY);
-        }
     }
 
     public void setColor(int color) {
@@ -100,10 +106,24 @@ public abstract class GraphicalElement {
         return this.drawStrategy;
     }
 
+    /**
+     * Check if the given coordinates are within the current GraphicalElement
+     * @param x coordinate x
+     * @param y coordinate y
+     * @return  true, if the GraphicalElement contains this position
+     */
     public abstract boolean isWithinElement(float x, float y);
-    protected abstract String getName();
 
-    // toString() used for logging and identifying GraphicalElements
+    /**
+     * Get the name of the GraphicalElement
+     * @return  the name
+     */
+    public abstract String getName();
+
+    /**
+     * Method used for logging and identifying GraphicalElements
+     * @return a String representation of the current GraphicalElement
+     */
     @Override
     public String toString() {
         return getName() + " (" + this.xPosition + ", " + this.yPosition + ")";

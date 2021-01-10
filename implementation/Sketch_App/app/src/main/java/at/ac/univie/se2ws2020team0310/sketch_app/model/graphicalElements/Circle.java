@@ -43,7 +43,7 @@ public class Circle extends GraphicalElement {
     }
 
     @Override
-    protected String getName() {
+    public String getName() {
         return "Circle";
     }
 }

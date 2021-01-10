@@ -18,7 +18,7 @@ public class TextDecorator extends GraphicalElementDecorator {
     }
 
     @Override
-    protected String getName() {
+    public String getName() {
         return "Text";
     }
 

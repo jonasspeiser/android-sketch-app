@@ -1,20 +1,15 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.media.MediaScannerConnection;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +19,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.export.Export;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.export.ExportJPEG;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.export.ExportPNG;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IterableCollection;
@@ -45,12 +41,14 @@ public class Sketch implements CustomObservable {
     private int selectedLayerIndex;
 
     private GraphicalElement selectedGraphicalElement;
+    private CombinedShape currentCombinedShape;
 
     private int selectedColor;
     private float selectedSize;
     private float selectedStrokeWidth;
 
     private boolean editModeTurnedOn;
+    private boolean combineShapesModeOn;
 
 // Constructor
 
@@ -61,6 +59,8 @@ public class Sketch implements CustomObservable {
         this.selectedColor = Color.BLACK;
         this.selectedSize = 150;
         this.selectedStrokeWidth = 15;
+        this.currentCombinedShape = null;
+        this.combineShapesModeOn = false;
     }
 
 // Getters and Setters
@@ -128,6 +128,12 @@ public class Sketch implements CustomObservable {
         return visibleElements;
     }
 
+    public void toggleEditMode() {
+        if (!isCombineShapesModeOn()) {
+            this.setEditModeTurnedOn(!this.editModeTurnedOn);
+        }
+    }
+
     public boolean isEditModeTurnedOn() {
         return editModeTurnedOn;
     }
@@ -180,6 +186,14 @@ public class Sketch implements CustomObservable {
         notifyObservers();
     }
 
+    /**
+     * Change Element coordinates means move the Element to a new Position
+     * Occurs only if Edit Mode is turned off
+     * @param x coordinate x
+     * @param y coordinate y
+     * @param lastTouchX    coordinate x of last touch position
+     * @param lastTouchY    coordinate y of last touch position
+     */
     public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
         if (!isEditModeTurnedOn()) {
             getSelectedLayer().changeCoordinates(x, y, lastTouchX, lastTouchY);
@@ -206,16 +220,18 @@ public class Sketch implements CustomObservable {
     }
 
     /**
-     * Checks, wether there is an Element on touch position.
+     * Checks, whether there is an Element on touch position.
      * When Edit Mode is on, adds that Element to the User-Selection of editable Elements.
      * Else let's user move that element.
      *
-     * @param x
-     * @param y
+     * @param x coordinate x
+     * @param y coordinate y
      * @return returns true if there is an Element at the given coordinates
      */
     public boolean isWithinElement(float x, float y) {  // TODO: Rename Method!
-        if (isEditModeTurnedOn()) {
+        if (isCombineShapesModeOn() && getCurrentCombinedShape() != null) {
+            return getSelectedLayer().addElementToCombinedShape(x, y, getCurrentCombinedShape());
+        } else if (isEditModeTurnedOn()) {
             return getSelectedLayer().makeElementOnPositionEditable(x, y);
         } else {
             getSelectedLayer().resetEditableElements();
@@ -343,6 +359,21 @@ public class Sketch implements CustomObservable {
         }
     }
 
+    public CombinedShape getCurrentCombinedShape() {
+        return currentCombinedShape;
+    }
+
+    public void setCurrentCombinedShape(CombinedShape currentCombinedShape) {
+        this.currentCombinedShape = currentCombinedShape;
+    }
+
+    public boolean isCombineShapesModeOn() {
+        return combineShapesModeOn;
+    }
+
+    public void setCombineShapesModeOn(boolean combineShapesModeOn) {
+        this.combineShapesModeOn = combineShapesModeOn;
+    }
 }
 
 

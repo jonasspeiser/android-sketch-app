@@ -2,6 +2,7 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
 import android.util.Log;
 
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.ElementCollection;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IndexCollection;
@@ -194,4 +195,24 @@ public class Layer {
         return drawnElements.createIterator();
     }
 
+    /**
+     * Check if there is a GraphicalElement at the position (x, y) and if true, add to the current Combined Shape
+     * @param x the coordinate x
+     * @param y the coordinate y
+     * @param currentCombinedShape  the curent Combined Shape
+     * @return  true, if an Element was found at position (x, y) and added to the Combined Shape
+     */
+    public boolean addElementToCombinedShape(float x, float y, CombinedShape currentCombinedShape) {
+        Iterator elementsIterator = drawnElements.createIterator();
+        while (elementsIterator.hasMore()) {
+            GraphicalElement graphicalElement = (GraphicalElement) elementsIterator.getNext();
+            if (graphicalElement.isWithinElement(x, y)) {
+                currentCombinedShape.add(graphicalElement);
+                Log.i(LAYER_TAG, "Selected Element for Combined Shape: " + graphicalElement);
+                return true;
+            }
+        }
+        Log.d(LAYER_TAG, "No element to add to the Combined Shape was selected");
+        return false;
+    }
 }

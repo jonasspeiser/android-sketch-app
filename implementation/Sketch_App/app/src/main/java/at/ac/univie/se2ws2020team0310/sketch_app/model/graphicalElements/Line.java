@@ -72,7 +72,7 @@ public class Line extends GraphicalElement {
     }
 
     @Override
-    protected String getName() {
+    public String getName() {
         return "Line";
     }
 }

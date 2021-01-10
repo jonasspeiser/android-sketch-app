@@ -57,7 +57,7 @@ public class Quadrangle extends GraphicalElement {
     }
 
     @Override
-    protected String getName() {
+    public String getName() {
         return "Quadrangle";
     }
 }
