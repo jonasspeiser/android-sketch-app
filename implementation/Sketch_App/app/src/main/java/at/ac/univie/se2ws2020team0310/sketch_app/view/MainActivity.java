@@ -357,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
                             case 3:
                                 try {
                                     mainActivityViewModel.saveSketch(getApplicationContext(), 4);{
-                                        showToast("Sketch saved to slot4");
+                                        showToast("Sketch saved to slot 4");
                                     };
                                 } catch (Exception e) {
                                     e.printStackTrace();
