@@ -292,11 +292,17 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.saveId:
-                mainActivityViewModel.saveSketch(getApplicationContext());
+                mainActivityViewModel.saveSketch(getApplicationContext(), 1); // TODO: Saveslot je nach Userwahl übergeben
                 return true;
 
             case R.id.loadId:
-                mainActivityViewModel.loadSketch(getApplicationContext());
+                try {
+                    mainActivityViewModel.loadSketch(getApplicationContext(), 1); // TODO: Saveslot je nach Userwahl übergeben
+                } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
+                    e.printStackTrace();
+                    showToast("Selected Saveslot is empty");
+                }
+
                 return true;
 
             case R.id.exportId:
@@ -335,6 +341,10 @@ public class MainActivity extends AppCompatActivity {
                 });
                 AlertDialog exportDialogueObject = exportDialogue.create();
                 exportDialogueObject.show();
+                return true;
+
+            case R.id.deleteStorageId:
+                mainActivityViewModel.deleteSavedSketches(getApplicationContext());
                 return true;
 
             case R.id.lineId:

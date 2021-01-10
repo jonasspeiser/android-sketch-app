@@ -57,6 +57,7 @@ public final class GraphicalElementFactory {
         return null;
     }
 
+    //TODO: color wird nicht genutzt, strokeWidth ist für Text eig irrelevant
     private static Text createText(int color, float size, float strokewidth) {
         Text mText = new Text(new DrawTextStrategy());
         Paint mPaint = new Paint(initializePaint());
@@ -78,6 +79,7 @@ public final class GraphicalElementFactory {
         return mTriangle;
     }
 
+    //TODO: size wird nicht genutzt
     private static Line createLine(int color, float size, float strokewidth) {
         Line mLine = new Line(new DrawLineStrategy());
         Paint mPaint = new Paint(initializePaint());
