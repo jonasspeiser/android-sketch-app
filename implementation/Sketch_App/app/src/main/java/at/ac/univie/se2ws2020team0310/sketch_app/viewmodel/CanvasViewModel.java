@@ -1,6 +1,5 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.viewmodel;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Path;
@@ -22,7 +21,7 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
 
     private ArrayList<CustomObserver> observers;
     private static Sketch sketch;
-    private boolean moveElement;
+    private boolean isElementSelected;  // renamed from 'moveElement' because in Edit mode a selected Element cannot be moved
     private Path path;
     private float lastTouchX;
     private float lastTouchY;
@@ -39,7 +38,7 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
         sketch = Sketch.getSketch();
         sketch.registerObserver(this);
         this.observers = new ArrayList<>();
-        this.moveElement = false;
+        this.isElementSelected = false;
         this.lastTouchX = -1;
         this.lastTouchY = -1;
     }
@@ -62,7 +61,13 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
         sketch.setCoordinates(x,y);
     }
 
-    /** write given coordinates (x, y) to the last selected graphical element */
+    /**
+     * Write given coordinates (x, y) to the last selected graphical element
+     * @param x coordinate x
+     * @param y coordinate y
+     * @param lastTouchX    coordinate x of last touch position
+     * @param lastTouchY    coordinate y of last touch position
+     */
     public void changeElementCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
         sketch.changeCoordinates(x, y, lastTouchX, lastTouchY);
     }
@@ -85,12 +90,12 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
         if (this.getSelectedGraphicalElement() != null) {
             this.storeElement();
             this.setElementCoordinates(x, y);
-            this.moveElement = true;
+            this.isElementSelected = true;
         }
         // behaviour for touching an existing element
         if (this.getSelectedGraphicalElement() == null && this.getDrawnElements() != null
                 && this.isWithinElement(x, y)) {
-            this.moveElement = true;
+            this.isElementSelected = true;
         }
         // saving these coordinates as the last point touched
         this.lastTouchX = x;
@@ -103,7 +108,7 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
             this.setElementCoordinates(x, y);
         }
         // behaviour for touching an existing element
-        if (this.moveElement) {
+        if (this.isElementSelected) {
             this.changeElementCoordinates(x, y, this.lastTouchX, this.lastTouchY);
         }
         this.lastTouchX = x;
@@ -112,7 +117,7 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
 
     private void elementsBehaviourOnTouchUp() {
         this.resetSelection();
-        this.moveElement = false;
+        this.isElementSelected = false;
         this.lastTouchX = -1;
         this.lastTouchY = -1;
     }

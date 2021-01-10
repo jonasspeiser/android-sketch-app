@@ -127,13 +127,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="31dp"
             android:ems="10"
+            android:hint="@string/enter_text_here"
             android:inputType="textPersonName"
-            android:text="@string/enter_text_here"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/colorSelectorButton"
+            app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/strokeWidthSeekBar" />
+            app:layout_constraintTop_toBottomOf="@+id/strokeWidthSeekBar"
+            app:layout_constraintVertical_bias="0.354" />
 
         <Button
             android:id="@+id/toggleText"
@@ -148,6 +150,34 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/strokeWidthSeekBar"
             app:layout_constraintVertical_bias="0.058" />
+
+        <Button
+            android:id="@+id/nameCombiShape"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onSetCombinedShapeName"
+            android:text="@string/ok"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/colorSelectorButton"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/strokeWidthSeekBar"
+            app:layout_constraintVertical_bias="0.058" />
+
+        <Button
+            android:id="@+id/saveCombiShape"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onSaveCombinedShape"
+            android:text="@string/save"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/colorSelectorButton"
+            app:layout_constraintHorizontal_bias="0.646"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/strokeWidthSeekBar"
+            app:layout_constraintVertical_bias="0.806" />
 
         <SeekBar
             android:id="@+id/sizeSeekBar"

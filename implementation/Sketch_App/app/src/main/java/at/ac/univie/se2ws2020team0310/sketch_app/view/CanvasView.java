@@ -1,6 +1,5 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -117,4 +116,9 @@ public class CanvasView extends View implements CustomObserver {
     public void update() {
         invalidate();
     }
+
+    public GraphicalElement getSelectedGraphicalElement() {
+        return canvasViewModel.getSelectedGraphicalElement();
+    }
+
 }

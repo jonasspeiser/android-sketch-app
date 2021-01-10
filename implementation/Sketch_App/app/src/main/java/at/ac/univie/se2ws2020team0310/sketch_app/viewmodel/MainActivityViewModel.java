@@ -5,9 +5,13 @@ import android.content.Context;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import at.ac.univie.se2ws2020team0310.sketch_app.BR;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.TextDecorator;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 
 public class MainActivityViewModel extends BaseObservable { // TODO: Muss diese Klasse nicht eher extends ViewModel haben?
@@ -23,15 +27,15 @@ public class MainActivityViewModel extends BaseObservable { // TODO: Muss diese 
     private float selectedSize;
     private float selectedStrokeWidth;
 
-    private boolean editModeOn;
+    private List<CombinedShape> combinedShapes;
 
     // Constructor
+
     public MainActivityViewModel() {
         sketch = Sketch.getSketch();
-        this.editModeOn = false;
+        combinedShapes = new ArrayList<>();
     }
 // Getters and Setters
-
     public static void setSketch(Sketch sketch) {
         MainActivityViewModel.sketch = sketch;
     }
@@ -66,8 +70,8 @@ public class MainActivityViewModel extends BaseObservable { // TODO: Muss diese 
     }
 
 
-// Other Methods
 
+// Other Methods
     public void exportCanvas() {
 
     }
@@ -121,14 +125,12 @@ public class MainActivityViewModel extends BaseObservable { // TODO: Muss diese 
         sketch.selectGraphicalElement(type);
     }
 
-    //TODO: Ist es wirklich nötig, Attribut EditMode in Sketch UND MainViewModel zu haben?
-    public void toggleEditMode(){
-        this.editModeOn = !this.editModeOn;
-        sketch.setEditModeTurnedOn(this.editModeOn);
+    public void toggleEditMode() {
+        sketch.toggleEditMode();
     }
 
     public boolean isEditModeOn() {
-        return editModeOn;
+        return sketch.isEditModeTurnedOn();
     }
 
     public void saveSketch(Context context) {
@@ -139,5 +141,40 @@ public class MainActivityViewModel extends BaseObservable { // TODO: Muss diese 
         sketch.loadLayersFromFile(context);
     }
 
+    /**
+     * Enable Combined Shapes mode: all selected Graphical Elements will be added to the current Combined Shape
+     * @param combinedShape the current Combined Shape
+     */
+    public void enableCombinedShapesMode(CombinedShape combinedShape) {
+        sketch.setCurrentCombinedShape(combinedShape);
+        sketch.setCombineShapesModeOn(true);
+        sketch.setEditModeTurnedOn(true);    // enable Edit Mode to prevent moving shapes at this point
+        combinedShapes.add(combinedShape);
+    }
+
+    /**
+     * Disable Combined Shapes mode: reset to initial values
+     */
+    public void disableCombinedShapesMode() {
+        sketch.setCurrentCombinedShape(null);
+        sketch.setCombineShapesModeOn(false);
+        sketch.setEditModeTurnedOn(false);
+    }
+
+    public CombinedShape getCurrentCombinedShape() {
+        return sketch.getCurrentCombinedShape();
+    }
+
+    public void resetSelection() {
+        sketch.resetSelection();
+    }
+
+    public void storeElement() {
+        sketch.storeElement();
+    }
+
+    public List<CombinedShape> getCombinedShapes() {
+        return combinedShapes;
+    }
 }
 

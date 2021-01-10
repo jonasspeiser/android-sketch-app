@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -32,6 +34,7 @@ import java.io.IOException;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.R;
 import at.ac.univie.se2ws2020team0310.sketch_app.databinding.ActivityMainBinding;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
 import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.MainActivityViewModel;
@@ -276,11 +279,35 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.clear();
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu,menu);
+        inflater.inflate(R.menu.menu, menu);
+
+        addCombinedShapesMenuItems(menu);
         return true;
+    }
+
+    /**
+     * For each saved Combined Shape, add a MenuItem under the SubMenu
+     * @param menu  the current Menu
+     */
+    private void addCombinedShapesMenuItems(Menu menu) {
+        SubMenu subMenu = menu.findItem(R.id.combiShapeId).getSubMenu();
+        for (CombinedShape combinedShape : mainActivityViewModel.getCombinedShapes()) {
+            // add each saved Combined Shape to the SubMenu
+            MenuItem menuItem = subMenu
+                    .add(Menu.NONE, combinedShape.getId(),
+                            Menu.NONE, combinedShape.getName());
+            menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    showToast("Combined Shape " + item.getItemId() + ": " + item.getTitle());
+                    return false;
+                }
+            });
+        }
     }
 
     //The implementation of the load, save and export-functions will be included for DEAD.
@@ -408,7 +435,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.newCombiShapeId:
-                showToast("Create new Combined Shape");
+                mainActivityViewModel.selectGraphicalElement(EGraphicalElementType.COMBINED_SHAPE);
+                showCombinedShapeNameTextForm();
+                showToast("Give a name to the new Combined Shape");
                 return true;
 
             default:
@@ -417,10 +446,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // TODO: Funktionalität in Methode im ViewModel auslagern (ab hier bis unten)
+    /**
+     *
+     * @param view required by Android interface
+     */
     public void onClickDoneButton(View view) {
 
-        //mainViewModel.selectGraphicalElement(EGraphicalElementType.TEXT_FIELD);
-        Text mText = (Text) canvasView.getCanvasViewModel().getSelectedGraphicalElement();
+        Text mText = (Text) canvasView.getSelectedGraphicalElement();
         mText.setUserText(getEnteredText());
 
         refreshScreen();
@@ -440,6 +472,8 @@ public class MainActivity extends AppCompatActivity {
 
         editText.setVisibility(View.VISIBLE);
         toggleText.setVisibility(View.VISIBLE);
+
+        editText.setText("", TextView.BufferType.EDITABLE);
     }
 
     public void hideTextEntryField() {
@@ -480,6 +514,64 @@ public class MainActivity extends AppCompatActivity {
         mainActivityViewModel.onClickUnderlineButton();
     }
 
+    public void showCombinedShapeNameTextForm(){
+        EditText editText = findViewById(R.id.editText);
+        Button nameCombinedShape = findViewById(R.id.nameCombiShape);
+
+        editText.setVisibility(View.VISIBLE);
+        nameCombinedShape.setVisibility(View.VISIBLE);
+
+        editText.setText("", TextView.BufferType.EDITABLE);
+    }
+
+    public void hideCombinedShapeNameTextForm(){
+        EditText editText = findViewById(R.id.editText);
+        Button nameCombinedShape = findViewById(R.id.nameCombiShape);
+
+        editText.setVisibility(View.GONE);
+        nameCombinedShape.setVisibility(View.GONE);
+    }
+
+    public void showCombinedShapeSaveButton() {
+        Button saveCombinedShape = findViewById(R.id.saveCombiShape);
+        saveCombinedShape.setVisibility(View.VISIBLE);
+    }
+
+    public void hideCombinedShapeSaveButton() {
+        Button saveCombinedShape = findViewById(R.id.saveCombiShape);
+        saveCombinedShape.setVisibility(View.GONE);
+    }
+
+    /**
+     * Method handler for setting the name of a new Combined Shape
+     * @param view required by Android interface
+     */
+    public void onSetCombinedShapeName(View view) {
+        CombinedShape combinedShape = (CombinedShape) canvasView.getSelectedGraphicalElement();
+        combinedShape.setName(getEnteredText());
+
+        mainActivityViewModel.storeElement();   // store the current Combined Shape
+        mainActivityViewModel.enableCombinedShapesMode(combinedShape);
+        mainActivityViewModel.resetSelection(); // reset selected graphical element
+
+        hideCombinedShapeNameTextForm();
+        showCombinedShapeSaveButton();
+        showToast("Select the Shapes to combine");
+    }
+
+    /**
+     * Method handler for saving a new Combined Shape with the selected Graphical Elements
+     * @param view required by Android interface
+     */
+    public void onSaveCombinedShape(View view) {
+        CombinedShape combinedShape = mainActivityViewModel.getCurrentCombinedShape();
+        showToast( "New Combined Shape saved: " + combinedShape.getName() + " (" + combinedShape.getElementsCount() + " elements)");
+
+        hideCombinedShapeSaveButton();
+        mainActivityViewModel.disableCombinedShapesMode();
+        invalidateOptionsMenu();
+    }
+
     // Hide the Soft Keyboard
     // solution from: https://stackoverflow.com/questions/4165414/how-to-hide-soft-keyboard-on-android-after-clicking-outside-edittext
     @Override
@@ -495,12 +587,9 @@ public class MainActivity extends AppCompatActivity {
         Toast textToast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
         textToast.show();
     }
-
-
     //TODO: Can we get rid of this method? It would be better not to call a canvasView method directly from here
+
     public void refreshScreen() {
         canvasView.invalidate();
     }
-
-
 }

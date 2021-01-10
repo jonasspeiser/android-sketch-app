@@ -44,7 +44,7 @@
     <item
         android:id="@+id/combiShapeId"
         android:icon="@drawable/combi_shape_icon"
-        android:title="@string/combi_shape"
+        android:title="@string/combi_shapes"
         app:showAsAction="ifRoom">
         <menu>
             <item
