@@ -7,7 +7,7 @@
         android:id="@+id/editModeId"
         android:icon="@android:drawable/ic_menu_edit"
         android:title="@string/menu_icon_toggleEdit_title"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/textId"
@@ -18,7 +18,7 @@
         android:id="@+id/fingerId"
         android:icon="@drawable/menu_icon_finger"
         android:title="@string/menu_icon_finger_title"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/lineId"
         android:icon="@drawable/menu_icon_line"
