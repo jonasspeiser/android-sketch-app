@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.loadId:
                 try {
-                    mainActivityViewModel.loadSketch(getApplicationContext(), 3); // TODO: Saveslot je nach Userwahl übergeben
+                    mainActivityViewModel.loadSketch(getApplicationContext(), 1); // TODO: Saveslot je nach Userwahl übergeben
                 } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
                     e.printStackTrace();
                     showToast("Selected Saveslot is empty");
