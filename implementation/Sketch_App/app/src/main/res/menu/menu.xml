@@ -47,14 +47,15 @@
         android:id="@+id/clearId"
         android:title="Clear" />
     <item
-        android:id="@+id/loadId"
-        android:title="@string/option_menu_load" />
-    <item
         android:id="@+id/saveId"
         android:title="@string/option_menu_save" />
     <item
+        android:id="@+id/loadId"
+        android:title="@string/option_menu_load" />
+    <item
         android:id="@+id/exportId"
         android:title="@string/option_menu_export"/>
-
-
+    <item
+        android:id="@+id/deleteStorageId"
+        android:title="Delete Savefiles"/>
 </menu>

@@ -139,8 +139,8 @@ public class MainActivityViewModel extends BaseObservable { // TODO: Muss diese 
         sketch.loadLayersFromFile(context, saveslot);
     }
 
-    public void deleteSavedSketch(Context context, int saveslot){
-        sketch.deleteSavedSketch(context, saveslot);
+    public void deleteSavedSketches(Context context){
+        sketch.deleteSavedSketches(context);
     }
 
 }
