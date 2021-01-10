@@ -253,8 +253,6 @@ public class Sketch implements CustomObservable {
 //        }
 //    }
 
-    // Constant with a file name
-    public static String fileName = "MyObject";
 
     /**
      * Serializes the current layers and saves them to a file
@@ -263,8 +261,9 @@ public class Sketch implements CustomObservable {
      * in combination with: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
      *
      * @param context The application context (activity.getApplicationContext())
+     * @param saveslot A number between 1 and 5
      */
-    public void saveLayersToFile(Context context) {
+    public void saveLayersToFile(Context context, int saveslot) {
 
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
@@ -277,8 +276,9 @@ public class Sketch implements CustomObservable {
         builder.registerTypeAdapter(DrawStrategy.class, new GsonInterfaceAdapter());
         Gson gson = builder.create();
 
+        String filename = "SavedSketch" + saveslot;
         String json = gson.toJson(this.layers);
-        prefsEditor.putString("MyObject", json);
+        prefsEditor.putString(filename, json);
         prefsEditor.commit();
     }
 
@@ -290,8 +290,9 @@ public class Sketch implements CustomObservable {
      * in combination with: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
      *
      * @param context The application context (activity.getApplicationContext())
+     * @param saveslot A number between 1 and 5
      */
-    public void loadLayersFromFile(Context context) {
+    public void loadLayersFromFile(Context context, int saveslot) throws NullPointerException {
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
@@ -302,10 +303,18 @@ public class Sketch implements CustomObservable {
         builder.registerTypeAdapter(DrawStrategy.class, new GsonInterfaceAdapter());
         Gson gson = builder.create();
 
-        String json = appSharedPrefs.getString("MyObject", "");
+        String json = appSharedPrefs.getString("SavedSketch" + saveslot, "");
         LayerCollection storedLayers = gson.fromJson(json, LayerCollection.class);
 
-        setLayers(storedLayers);
+        if(storedLayers == null){
+            throw new NullPointerException("Called saveslot is empty");
+        } else {
+            setLayers(storedLayers);
+        }
+    }
+
+    public void deleteSavedSketch(Context context, int saveslot){
+        // TODO implement
     }
 
 

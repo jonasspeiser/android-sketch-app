@@ -292,11 +292,17 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.saveId:
-                mainActivityViewModel.saveSketch(getApplicationContext());
+                mainActivityViewModel.saveSketch(getApplicationContext(), 1); // TODO: Saveslot je nach Userwahl übergeben
                 return true;
 
             case R.id.loadId:
-                mainActivityViewModel.loadSketch(getApplicationContext());
+                try {
+                    mainActivityViewModel.loadSketch(getApplicationContext(), 3); // TODO: Saveslot je nach Userwahl übergeben
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                    showToast("Selected Saveslot is empty");
+                }
+
                 return true;
 
             case R.id.exportId:
