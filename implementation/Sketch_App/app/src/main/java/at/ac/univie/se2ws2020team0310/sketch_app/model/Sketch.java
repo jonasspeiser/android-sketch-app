@@ -23,6 +23,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.
 import at.ac.univie.se2ws2020team0310.sketch_app.model.storage.GsonInterfaceAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -350,12 +351,13 @@ public class Sketch implements CustomObservable {
 
 
     // as seen at: https://stackoverflow.com/questions/6125296/delete-sharedpreferences-file
-    public void deleteSavedSketches(Context context){
+    public void deleteSavedSketches(Context context) {
         File dir = new File(context.getFilesDir().getParent() + "/shared_prefs/");
         String[] children = dir.list();
         for (String child : children) {
             // clear each preference file
-            context.getSharedPreferences(child.replace(".xml", ""), Context.MODE_PRIVATE).edit().clear().commit();
+            context.getSharedPreferences(child.replace(".xml", ""), Context.MODE_PRIVATE).edit()
+                    .clear().commit();
             //delete the file
             new File(dir, child).delete();
         }
