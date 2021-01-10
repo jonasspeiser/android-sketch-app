@@ -34,6 +34,7 @@ import java.io.IOException;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.R;
 import at.ac.univie.se2ws2020team0310.sketch_app.databinding.ActivityMainBinding;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
@@ -298,12 +299,12 @@ public class MainActivity extends AppCompatActivity {
         for (CombinedShape combinedShape : mainActivityViewModel.getCombinedShapes()) {
             // add each saved Combined Shape to the SubMenu
             MenuItem menuItem = subMenu
-                    .add(Menu.NONE, combinedShape.getId(),
-                            Menu.NONE, combinedShape.getName());
+                    .add(combinedShape.getName());
             menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
-                    showToast("Combined Shape " + item.getItemId() + ": " + item.getTitle());
+                    mainActivityViewModel.selectGraphicalElement(combinedShape);
+                    showToast("Combined Shape " + item.getTitle() + " selected");
                     return false;
                 }
             });
@@ -436,6 +437,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.newCombiShapeId:
                 mainActivityViewModel.selectGraphicalElement(EGraphicalElementType.COMBINED_SHAPE);
+                mainActivityViewModel.enableCombinedShapesMode((CombinedShape) canvasView.getSelectedGraphicalElement());
                 showCombinedShapeNameTextForm();
                 showToast("Give a name to the new Combined Shape");
                 return true;
@@ -547,11 +549,15 @@ public class MainActivity extends AppCompatActivity {
      * @param view required by Android interface
      */
     public void onSetCombinedShapeName(View view) {
-        CombinedShape combinedShape = (CombinedShape) canvasView.getSelectedGraphicalElement();
-        combinedShape.setName(getEnteredText());
+        String enteredText = getEnteredText();
+        if (enteredText.trim().isEmpty()) {
+            showToast("Name cannot be empty");
+            return;
+        }
+
+        mainActivityViewModel.setCurrentCombinedShapeName(enteredText);
 
         mainActivityViewModel.storeElement();   // store the current Combined Shape
-        mainActivityViewModel.enableCombinedShapesMode(combinedShape);
         mainActivityViewModel.resetSelection(); // reset selected graphical element
 
         hideCombinedShapeNameTextForm();
@@ -564,12 +570,16 @@ public class MainActivity extends AppCompatActivity {
      * @param view required by Android interface
      */
     public void onSaveCombinedShape(View view) {
-        CombinedShape combinedShape = mainActivityViewModel.getCurrentCombinedShape();
-        showToast( "New Combined Shape saved: " + combinedShape.getName() + " (" + combinedShape.getElementsCount() + " elements)");
-
-        hideCombinedShapeSaveButton();
+        try {
+            hideCombinedShapeSaveButton();
+            mainActivityViewModel.processCurrentCombinedShape();
+            CombinedShape combinedShape = mainActivityViewModel.getCurrentCombinedShape();
+            showToast( "New Combined Shape saved: " + combinedShape.getName() + " (" + combinedShape.getElementsCount() + " elements)");
+            invalidateOptionsMenu();
+        } catch (AppException e) {
+            showToast(e.getLocalizedMessage());
+        }
         mainActivityViewModel.disableCombinedShapesMode();
-        invalidateOptionsMenu();
     }
 
     // Hide the Soft Keyboard
@@ -583,9 +593,8 @@ public class MainActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-    public void showToast(String text){
-        Toast textToast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
-        textToast.show();
+    private void showToast(String text){
+        ViewUtils.showToast(getApplicationContext(), text);
     }
     //TODO: Can we get rid of this method? It would be better not to call a canvasView method directly from here
 
