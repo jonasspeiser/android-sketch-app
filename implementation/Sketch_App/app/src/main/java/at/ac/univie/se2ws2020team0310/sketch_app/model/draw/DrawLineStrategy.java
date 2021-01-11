@@ -18,7 +18,7 @@ public class DrawLineStrategy implements DrawStrategy {
     @Override
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
         Paint mPaint = initializePaint();
-        mPaint.setStrokeWidth(graphicalElement.getStrokewidth());
+        mPaint.setStrokeWidth(graphicalElement.getStrokeWidth());
         mPaint.setColor(graphicalElement.getColor());
 
         canvas.drawLine(((Line) graphicalElement).getStartX(), ((Line) graphicalElement).getStartY(), graphicalElement.getXPosition(), graphicalElement.getYPosition(), mPaint);

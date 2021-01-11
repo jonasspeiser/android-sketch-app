@@ -1,5 +1,7 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
+import android.graphics.Paint;
+
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 
 public class Text extends GraphicalElement {
@@ -15,11 +17,7 @@ public class Text extends GraphicalElement {
 
     public Text(Text copy) {
         super(copy);
-        setUserText(copy.userText);
-        /*
-        setTextSize(copy.objectPaint.getTextSize());
-
-         */
+        setUserText(copy.getUserText());
     }
 
 // Getters and Setters
@@ -32,24 +30,15 @@ public class Text extends GraphicalElement {
         this.userText = userText;
     }
 
-    @Override
-    public void setSize(float size) {
-        super.setSize(size);
-        setTextSize(size);
-    }
-
 // Other Methods
 
-    public void setTextSize(float textSize) {
-        /*getObjectPaint().setTextSize(textSize);
-
-         */
-    }
-    
     public boolean isWithinElement(float x, float y) {
-/*
-        float textlength = getObjectPaint().measureText(userText);
-        float textsize = getObjectPaint().getTextSize();
+
+        Paint mPaint = new Paint();
+        mPaint.setTextSize(getSize());
+
+        float textlength = mPaint.measureText(userText);
+        float textsize = getSize();
 
         float xTopLeft = this.xPosition - textlength;
         float yTopLeft = this.yPosition - textsize;
@@ -60,8 +49,6 @@ public class Text extends GraphicalElement {
         if (x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight)
             return true;
         else
-
- */
             return false;
     }
 

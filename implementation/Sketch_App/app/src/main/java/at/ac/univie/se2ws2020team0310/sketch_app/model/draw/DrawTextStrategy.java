@@ -19,8 +19,9 @@ public class DrawTextStrategy implements DrawStrategy {
     @Override
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
         Paint mPaint = initializePaint();
-        mPaint.setStrokeWidth(graphicalElement.getStrokewidth());
+        mPaint.setStrokeWidth(graphicalElement.getStrokeWidth());
         mPaint.setColor(graphicalElement.getColor());
+        mPaint.setTextSize(graphicalElement.getSize());
 
         canvas.drawText(((Text) graphicalElement).getUserText(), graphicalElement.getXPosition(), graphicalElement.getYPosition(), mPaint);
     }

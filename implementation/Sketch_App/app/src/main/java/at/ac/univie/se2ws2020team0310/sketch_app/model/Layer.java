@@ -3,7 +3,6 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model;
 import android.util.Log;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.ElementNotFoundException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.ElementCollection;
@@ -164,7 +163,7 @@ public class Layer {
             while (indexIterator.hasMore()) {
                 int index = (int) indexIterator.getNext();
                 GraphicalElement currentElement = (GraphicalElement) drawnElements.get(index);
-                currentElement.setStrokewidth(strokewidth);
+                currentElement.setStrokeWidth(strokewidth);
             }
         } catch (Exception e) {
             e.printStackTrace();

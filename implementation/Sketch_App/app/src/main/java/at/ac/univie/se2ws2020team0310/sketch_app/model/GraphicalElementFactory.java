@@ -65,7 +65,7 @@ public final class GraphicalElementFactory {
         Text mText = new Text(new DrawTextStrategy());
         mText.setColor(Color.BLACK);
         mText.setSize(size);
-        mText.setStrokewidth(strokewidth);
+        mText.setStrokeWidth(strokewidth);
         return mText;
     }
 
@@ -73,7 +73,7 @@ public final class GraphicalElementFactory {
         Triangle mTriangle = new Triangle(new DrawTriangleStrategy());
         mTriangle.setColor(color);
         mTriangle.setSize(size);
-        mTriangle.setStrokewidth(strokewidth);
+        mTriangle.setStrokeWidth(strokewidth);
         return mTriangle;
     }
 
@@ -81,7 +81,7 @@ public final class GraphicalElementFactory {
     private static Line createLine(int color, float size, float strokewidth) {
         Line mLine = new Line(new DrawLineStrategy());
         mLine.setColor(color);
-        mLine.setStrokewidth(strokewidth);
+        mLine.setStrokeWidth(strokewidth);
         return mLine;
     }
 
@@ -89,7 +89,7 @@ public final class GraphicalElementFactory {
         Circle mCircle = new Circle(new DrawCircleStrategy());
         mCircle.setColor(color);
         mCircle.setSize(size);
-        mCircle.setStrokewidth(strokewidth);
+        mCircle.setStrokeWidth(strokewidth);
         return mCircle;
     }
 
@@ -97,7 +97,7 @@ public final class GraphicalElementFactory {
         Quadrangle mSquare = new Quadrangle(new DrawQuadrangleStrategy());
         mSquare.setColor(color);
         mSquare.setSize(size);
-        mSquare.setStrokewidth(strokewidth);
+        mSquare.setStrokeWidth(strokewidth);
         return mSquare;
     }
 
@@ -107,7 +107,7 @@ public final class GraphicalElementFactory {
         freehand.setObjectPath(path);
         freehand.setColor(color);
         freehand.setSize(size);
-        freehand.setStrokewidth(strokeWidth);
+        freehand.setStrokeWidth(strokeWidth);
 
         return freehand;
     }

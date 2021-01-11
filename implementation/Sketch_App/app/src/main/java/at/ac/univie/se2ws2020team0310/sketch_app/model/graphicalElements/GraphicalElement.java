@@ -1,7 +1,6 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Path;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
@@ -17,7 +16,7 @@ public abstract class GraphicalElement implements Cloneable {
     protected float xPosition, yPosition, size;
 
     protected int color;
-    protected float strokewidth;
+    protected float strokeWidth;
 
 // Constructor
 
@@ -27,28 +26,27 @@ public abstract class GraphicalElement implements Cloneable {
 
     /**
      * Copy Constructor for GraphicalElements
-     * @param copy  the element to copy from
+     *
+     * @param copy the element to copy from
      */
     protected GraphicalElement(GraphicalElement copy) {
 
         this.drawStrategy = copy.drawStrategy;
-        /*
+
         setXPosition(copy.xPosition);
         setYPosition(copy.yPosition);
-        if (copy.objectPaint != null) {
-            setObjectPaint(new Paint(copy.objectPaint));
-            setColor(copy.objectPaint.getColor());
-            setStrokeWidth(copy.objectPaint.getStrokeWidth());
-        }
+        setColor(copy.color);
+        setStrokeWidth(copy.strokeWidth);
         setSize(copy.size);
 
-         */
+
     }
 
 // Getters and Setters
 
     /**
-     *  Set the coordinates of the new GraphicalElement
+     * Set the coordinates of the new GraphicalElement
+     *
      * @param x coordinate x
      * @param y coordinate y
      * @throws AppException Overriding classes may throw this exception
@@ -90,12 +88,12 @@ public abstract class GraphicalElement implements Cloneable {
         this.color = color;
     }
 
-    public float getStrokewidth() {
-        return strokewidth;
+    public float getStrokeWidth() {
+        return strokeWidth;
     }
 
-    public void setStrokewidth(float strokewidth) {
-        this.strokewidth = strokewidth;
+    public void setStrokeWidth(float strokeWidth) {
+        this.strokeWidth = strokeWidth;
     }
 
 
@@ -169,7 +167,8 @@ public abstract class GraphicalElement implements Cloneable {
 
     /**
      * Method used for creating a deep copy of the current GraphicalElement
-     * @return  a deep copy of the element
+     *
+     * @return a deep copy of the element
      */
     public abstract GraphicalElement copy();
 }

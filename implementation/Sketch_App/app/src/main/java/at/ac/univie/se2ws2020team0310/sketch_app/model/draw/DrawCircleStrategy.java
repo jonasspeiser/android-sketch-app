@@ -13,15 +13,13 @@ public class DrawCircleStrategy implements DrawStrategy {
         Paint mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
-        // for Text: mPaint.setStyle(Paint.Style.FILL);
-
         return mPaint;
     }
 
     @Override
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
         Paint mPaint = initializePaint();
-        mPaint.setStrokeWidth(graphicalElement.getStrokewidth());
+        mPaint.setStrokeWidth(graphicalElement.getStrokeWidth());
         mPaint.setColor(graphicalElement.getColor());
         canvas.drawCircle(graphicalElement.getXPosition(), graphicalElement.getYPosition(),((Circle) graphicalElement).getRadius(), mPaint);
     }
