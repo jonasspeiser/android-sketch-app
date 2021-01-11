@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -26,12 +28,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
-import java.io.IOException;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.IOException;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.R;
 import at.ac.univie.se2ws2020team0310.sketch_app.databinding.ActivityMainBinding;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
 import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.MainActivityViewModel;
@@ -264,11 +268,35 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.clear();
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu,menu);
+        inflater.inflate(R.menu.menu, menu);
+
+        addCombinedShapesMenuItems(menu);
         return true;
+    }
+
+    /**
+     * For each saved Combined Shape, add a MenuItem under the SubMenu
+     * @param menu  the current Menu
+     */
+    private void addCombinedShapesMenuItems(Menu menu) {
+        SubMenu subMenu = menu.findItem(R.id.combiShapeId).getSubMenu();
+        for (CombinedShape combinedShape : mainActivityViewModel.getCombinedShapes()) {
+            // add each saved Combined Shape to the SubMenu
+            MenuItem menuItem = subMenu
+                    .add(combinedShape.getName());
+            menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    mainActivityViewModel.selectGraphicalElement(combinedShape);
+                    showToast("Combined Shape " + item.getTitle() + " selected");
+                    return false;
+                }
+            });
+        }
     }
 
     //The implementation of the load, save and export-functions will be included for DEAD.
@@ -292,17 +320,123 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.saveId:
-                mainActivityViewModel.saveSketch(getApplicationContext(), 1); // TODO: Saveslot je nach Userwahl übergeben
+                AlertDialog.Builder saveDialogue = new AlertDialog.Builder(MainActivity.this);
+                saveDialogue.setTitle("Save to Slot");
+                CharSequence[] saveSlotSelection = new CharSequence[]{"1","2","3","4","5"};
+                saveDialogue.setItems(saveSlotSelection, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                try {
+                                    mainActivityViewModel.saveSketch(getApplicationContext(), 1);{
+                                        showToast("Sketch saved to slot 1");
+                                    };
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            case 1:
+                                try {
+                                    mainActivityViewModel.saveSketch(getApplicationContext(), 2);{
+                                        showToast("Sketch saved to slot 2");
+                                    };
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            case 2:
+                                try {
+                                    mainActivityViewModel.saveSketch(getApplicationContext(), 3);{
+                                        showToast("Sketch saved to slot 3");
+                                    };
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            case 3:
+                                try {
+                                    mainActivityViewModel.saveSketch(getApplicationContext(), 4);{
+                                        showToast("Sketch saved to slot 4");
+                                    };
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            case 4:
+                                try {
+                                    mainActivityViewModel.saveSketch(getApplicationContext(), 5);{
+                                        showToast("Sketch saved to slot 5");
+                                    };
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                        }
+                    }
+                });
+                AlertDialog saveDialogueObject = saveDialogue.create();
+                saveDialogueObject.show();
                 return true;
 
             case R.id.loadId:
-                try {
-                    mainActivityViewModel.loadSketch(getApplicationContext(), 1); // TODO: Saveslot je nach Userwahl übergeben
-                } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
-                    e.printStackTrace();
-                    showToast("Selected Saveslot is empty");
-                }
-
+                AlertDialog.Builder loadDialogue = new AlertDialog.Builder(MainActivity.this);
+                loadDialogue.setTitle("Open from Slot");
+                CharSequence[] loadSlotSelection = new CharSequence[]{"1","2","3","4","5"};
+                loadDialogue.setItems(loadSlotSelection, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                try {
+                                    mainActivityViewModel.loadSketch(getApplicationContext(), 1); // TODO: Saveslot je nach Userwahl übergeben
+                                    showToast("Sketch opened from slot 1");
+                                } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
+                                    e.printStackTrace();
+                                    showToast("Selected Saveslot is empty");
+                                }
+                                break;
+                            case 1:
+                                try {
+                                    mainActivityViewModel.loadSketch(getApplicationContext(), 2); // TODO: Saveslot je nach Userwahl übergeben
+                                    showToast("Sketch opened from slot 2");
+                                } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
+                                    e.printStackTrace();
+                                    showToast("Selected Saveslot is empty");
+                                }
+                                break;
+                            case 2:
+                                try {
+                                    mainActivityViewModel.loadSketch(getApplicationContext(), 3); // TODO: Saveslot je nach Userwahl übergeben
+                                    showToast("Sketch opened from slot 3");
+                                } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
+                                    e.printStackTrace();
+                                    showToast("Selected Saveslot is empty");
+                                }
+                                break;
+                            case 3:
+                                try {
+                                    mainActivityViewModel.loadSketch(getApplicationContext(), 4); // TODO: Saveslot je nach Userwahl übergeben
+                                    showToast("Sketch opened from slot 4");
+                                } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
+                                    e.printStackTrace();
+                                    showToast("Selected Saveslot is empty");
+                                }
+                                break;
+                            case 4:
+                                try {
+                                    mainActivityViewModel.loadSketch(getApplicationContext(), 5); // TODO: Saveslot je nach Userwahl übergeben
+                                    showToast("Sketch opened from slot 5");
+                                } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
+                                    e.printStackTrace();
+                                    showToast("Selected Saveslot is empty");
+                                }
+                                break;
+                        }
+                    }
+                });
+                AlertDialog loadDialogueObject = loadDialogue.create();
+                loadDialogueObject.show();
                 return true;
 
             case R.id.exportId:
@@ -403,16 +537,26 @@ public class MainActivity extends AppCompatActivity {
                 showToast("Edit mode: " + (mainActivityViewModel.isEditModeOn() ? "ON" : "OFF"));
                 return true;
 
+            case R.id.newCombiShapeId:
+                mainActivityViewModel.selectGraphicalElement(EGraphicalElementType.COMBINED_SHAPE);
+                mainActivityViewModel.enableCombinedShapesMode((CombinedShape) canvasView.getSelectedGraphicalElement());
+                showCombinedShapeNameTextForm();
+                showToast("Give a name to the new Combined Shape");
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     // TODO: Funktionalität in Methode im ViewModel auslagern (ab hier bis unten)
+    /**
+     *
+     * @param view required by Android interface
+     */
     public void onClickDoneButton(View view) {
 
-        //mainViewModel.selectGraphicalElement(EGraphicalElementType.TEXT_FIELD);
-        Text mText = (Text) canvasView.getCanvasViewModel().getSelectedGraphicalElement();
+        Text mText = (Text) canvasView.getSelectedGraphicalElement();
         mText.setUserText(getEnteredText());
 
         refreshScreen();
@@ -432,6 +576,8 @@ public class MainActivity extends AppCompatActivity {
 
         editText.setVisibility(View.VISIBLE);
         toggleText.setVisibility(View.VISIBLE);
+
+        editText.setText("", TextView.BufferType.EDITABLE);
     }
 
     public void hideTextEntryField() {
@@ -472,6 +618,72 @@ public class MainActivity extends AppCompatActivity {
         mainActivityViewModel.onClickUnderlineButton();
     }
 
+    public void showCombinedShapeNameTextForm(){
+        EditText editText = findViewById(R.id.editText);
+        Button nameCombinedShape = findViewById(R.id.nameCombiShape);
+
+        editText.setVisibility(View.VISIBLE);
+        nameCombinedShape.setVisibility(View.VISIBLE);
+
+        editText.setText("", TextView.BufferType.EDITABLE);
+    }
+
+    public void hideCombinedShapeNameTextForm(){
+        EditText editText = findViewById(R.id.editText);
+        Button nameCombinedShape = findViewById(R.id.nameCombiShape);
+
+        editText.setVisibility(View.GONE);
+        nameCombinedShape.setVisibility(View.GONE);
+    }
+
+    public void showCombinedShapeSaveButton() {
+        Button saveCombinedShape = findViewById(R.id.saveCombiShape);
+        saveCombinedShape.setVisibility(View.VISIBLE);
+    }
+
+    public void hideCombinedShapeSaveButton() {
+        Button saveCombinedShape = findViewById(R.id.saveCombiShape);
+        saveCombinedShape.setVisibility(View.GONE);
+    }
+
+    /**
+     * Method handler for setting the name of a new Combined Shape
+     * @param view required by Android interface
+     */
+    public void onSetCombinedShapeName(View view) {
+        String enteredText = getEnteredText();
+        if (enteredText.trim().isEmpty()) {
+            showToast("Name cannot be empty");
+            return;
+        }
+
+        mainActivityViewModel.setCurrentCombinedShapeName(enteredText);
+
+        mainActivityViewModel.storeElement();   // store the current Combined Shape
+        mainActivityViewModel.resetSelection(); // reset selected graphical element
+
+        hideCombinedShapeNameTextForm();
+        showCombinedShapeSaveButton();
+        showToast("Select the Shapes to combine");
+    }
+
+    /**
+     * Method handler for saving a new Combined Shape with the selected Graphical Elements
+     * @param view required by Android interface
+     */
+    public void onSaveCombinedShape(View view) {
+        try {
+            hideCombinedShapeSaveButton();
+            mainActivityViewModel.processCurrentCombinedShape();
+            CombinedShape combinedShape = mainActivityViewModel.getCurrentCombinedShape();
+            showToast( "New Combined Shape saved: " + combinedShape.getName() + " (" + combinedShape.getElementsCount() + " elements)");
+            invalidateOptionsMenu();
+        } catch (AppException e) {
+            showToast(e.getLocalizedMessage());
+        }
+        mainActivityViewModel.disableCombinedShapesMode();
+    }
+
     // Hide the Soft Keyboard
     // solution from: https://stackoverflow.com/questions/4165414/how-to-hide-soft-keyboard-on-android-after-clicking-outside-edittext
     @Override
@@ -483,16 +695,12 @@ public class MainActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-    public void showToast(String text){
-        Toast textToast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-        textToast.show();
+    private void showToast(String text){
+        ViewUtils.showToast(getApplicationContext(), text);
     }
-
-
     //TODO: Can we get rid of this method? It would be better not to call a canvasView method directly from here
+
     public void refreshScreen() {
         canvasView.invalidate();
     }
-
-
 }

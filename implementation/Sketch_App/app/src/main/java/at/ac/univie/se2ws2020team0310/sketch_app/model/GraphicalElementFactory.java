@@ -4,15 +4,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.BuildConfig;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawCircleStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawCombinedShapeStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawFreehandStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawLineStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawQuadrangleStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawTextStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawTriangleStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Circle;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Freehand;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
@@ -23,11 +24,12 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Triangl
 
 public final class GraphicalElementFactory {
 
+    private static int ELEMENT_ID = 1;  // static counter of Elements
+
     private GraphicalElementFactory() {
         // empty constructor
     }
 
-    //Implementation of FREEHAND and COMPOSITE_SHAPE until DEAD
     public static GraphicalElement createElement(EGraphicalElementType type, int color, float size, float strokewidth) throws AppException {
         switch (type) {
             case LINE:
@@ -36,8 +38,8 @@ public final class GraphicalElementFactory {
                 return createCircle(color, size, strokewidth);
             case FREEHAND:
                 return createFreehand(color, size, strokewidth);
-            case COMPOSITE_SHAPE:
-                break;
+            case COMBINED_SHAPE:
+                return createCombinedShape();
             case TRIANGLE:
                 return createTriangle(color, size, strokewidth);
             case QUADRANGLE:
@@ -47,14 +49,15 @@ public final class GraphicalElementFactory {
             default:
                 throw new AppException("Unknown type: " + type);
         }
+    }
 
-        // Defensive Programming
-        // assertions do not work in Android
-        // use BuildConfig.DEBUG parameter
-        if (BuildConfig.DEBUG) {
-            throw new AssertionError("We should never get here");
-        }
-        return null;
+    /**
+     * Create a new GraphicalElement as a copy of the given element
+     * @param element   the element to copy from
+     * @return          a fresh copy of the element
+     */
+    public static GraphicalElement createElement(GraphicalElement element) {
+        return element.copy();
     }
 
     //TODO: color wird nicht genutzt, strokeWidth ist für Text eig irrelevant
@@ -109,5 +112,24 @@ public final class GraphicalElementFactory {
         return freehand;
     }
 
+    /**
+     * Create an empty CombinedShape
+     * Attributes will be set at a later point
+     * @return  the new CombinedShape
+     */
+    private static CombinedShape createCombinedShape() {
+        // assign a different ID to each Combined Shape
+        CombinedShape combinedShape = new CombinedShape(new DrawCombinedShapeStrategy(), ELEMENT_ID);
+        ELEMENT_ID++;
+
+        return combinedShape;
+    }
+
+    public static Paint initializePaint() {
+        Paint mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setStyle(Paint.Style.STROKE);
+        return mPaint;
+    }
 
 }

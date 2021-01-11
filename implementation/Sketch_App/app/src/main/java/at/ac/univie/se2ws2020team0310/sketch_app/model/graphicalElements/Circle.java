@@ -12,6 +12,15 @@ public class Circle extends GraphicalElement {
         super(drawStrategy);
     }
 
+    /**
+     * Copy Constructor for Circle
+     * @param copy  the Circle to copy from
+     */
+    public Circle(Circle copy) {
+        super(copy);
+        setRadius(copy.radius);
+    }
+
 // Getters and Setters
 
     public float getRadius() {
@@ -43,7 +52,12 @@ public class Circle extends GraphicalElement {
     }
 
     @Override
-    protected String getName() {
+    public String getName() {
         return "Circle";
+    }
+
+    @Override
+    public GraphicalElement copy() {
+        return new Circle(this);
     }
 }

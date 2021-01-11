@@ -1,6 +1,5 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.view;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -9,15 +8,13 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-
-import java.io.IOException;
-
+import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObserver;
 import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.CanvasViewModel;
+import java.io.IOException;
 
 public class CanvasView extends View implements CustomObserver {
 
@@ -44,12 +41,13 @@ public class CanvasView extends View implements CustomObserver {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public CanvasView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public CanvasView(Context context, @Nullable AttributeSet attrs, int defStyleAttr,
+            int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
 
-    private void init(){
+    private void init() {
         canvasViewModel.registerObserver(this);
     }
 
@@ -67,35 +65,46 @@ public class CanvasView extends View implements CustomObserver {
         mCanvas = new Canvas(mBitmap);
     }
 
-    // draw the element at the position of the user's touch
+    /**
+     * Draw or update the element at the position of the user's touch
+     *
+     * @param event the user Touch Event
+     * @return true, in case the event action was handled without errors
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         float touchX = event.getX();
         float touchY = event.getY();
 
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                canvasViewModel.onTouchDown(touchX, touchY);
-                if (canvasViewModel.elementsToDraw()) {
+        try {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    canvasViewModel.onTouchDown(touchX, touchY);
+                    if (canvasViewModel.elementsToDraw()) {
+                        invalidate();
+                        return true;
+                    } else {
+                        throw new AppException("No object selected");
+                    }
+
+                case MotionEvent.ACTION_MOVE:
+                    canvasViewModel.onTouchMove(touchX, touchY);
                     invalidate();
                     return true;
-                } else {
-                    Log.w("CanvasView", "No object selected");
+
+                case MotionEvent.ACTION_UP:
+                    canvasViewModel.onTouchUp();
+                    return true;
+
+                default:
                     return false;
-                }
-
-            case MotionEvent.ACTION_MOVE:
-                canvasViewModel.onTouchMove(touchX, touchY);
-                invalidate();
-                return true;
-
-            case MotionEvent.ACTION_UP:
-                canvasViewModel.onTouchUp();
-                return true;
-
-            default:
-                return false;
+            }
+        } catch (AppException ex) {
+            // Error Handling: any AppException caused by user Touch actions will be caught and handled here
+            ViewUtils.showToast(getContext(), ex.getLocalizedMessage());
+            Log.w("CanvasView", ex.getLocalizedMessage());
         }
+        return false;
     }
 
     @Override
@@ -103,12 +112,14 @@ public class CanvasView extends View implements CustomObserver {
         mCanvas = canvas;
         super.onDraw(mCanvas);
 
-        for (GraphicalElement graphicalElement : canvasViewModel.getDrawnElements()) { // TODO: Logik -> das muss ins Model
+        for (GraphicalElement graphicalElement : canvasViewModel
+                .getDrawnElements()) { // TODO: Logik -> das muss ins Model
             graphicalElement.draw(canvas);
         }
     }
 
-    public boolean export(Context context,  String fileFormat) throws IOException {    // TODO: Move to MainActivityViewModel, here there should only be a method which passes the drawingCache
+    public boolean export(Context context, String fileFormat)
+            throws IOException {    // TODO: Move to MainActivityViewModel, here there should only be a method which passes the drawingCache
         canvasViewModel.export(context, fileFormat, this.getDrawingCache());
         return true;
     }
@@ -117,4 +128,9 @@ public class CanvasView extends View implements CustomObserver {
     public void update() {
         invalidate();
     }
+
+    public GraphicalElement getSelectedGraphicalElement() {
+        return canvasViewModel.getSelectedGraphicalElement();
+    }
+
 }

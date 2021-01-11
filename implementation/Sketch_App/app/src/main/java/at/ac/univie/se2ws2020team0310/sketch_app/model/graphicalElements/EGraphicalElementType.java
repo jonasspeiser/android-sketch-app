@@ -7,5 +7,5 @@ public enum EGraphicalElementType {
     LINE,
     TEXT_FIELD,
     FREEHAND,
-    COMPOSITE_SHAPE
+    COMBINED_SHAPE
 }

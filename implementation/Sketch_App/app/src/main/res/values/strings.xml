@@ -15,8 +15,13 @@
     <string name="floatingbutton_textSize">Text size button</string>
     <string name="floatingbutton_lineWidth">Button line width</string>
     <string name="floatingbutton_color">Button Color Picker</string>
-    <string name="menu_icon_toggleEdit_title">menu_icon_toggleEdit_title</string>
     <string name="floatingbutton_italic">Italic Button</string>
     <string name="floatingbutton_bold">Bold Button</string>
     <string name="floatingbutton_underline">Underline Button</string>
+    <string name="menu_icon_toggleEdit_title">Edit Mode</string>
+    <string name="option_menu_combi_shapes">Combined Shapes</string>
+    <string name="option_menu_combi_shape_new">New</string>
+    <string name="clear">Clear</string>
+    <string name="ok">OK</string>
+    <string name="save">Save</string>
 </resources>

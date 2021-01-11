@@ -9,7 +9,7 @@ public class DrawLineStrategy implements DrawStrategy {
     @Override
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
         /*
-        canvas.drawLine(((Line) graphicalElement).getStartX(), ((Line) graphicalElement).getStartY(), graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
+        canvas.drawLine(((Line) graphicalElement).getStartX(), ((Line) graphicalElement).getStartY(), graphicalElement.getXPosition(), graphicalElement.getYPosition(), graphicalElement.getObjectPaint());
 
          */
     }

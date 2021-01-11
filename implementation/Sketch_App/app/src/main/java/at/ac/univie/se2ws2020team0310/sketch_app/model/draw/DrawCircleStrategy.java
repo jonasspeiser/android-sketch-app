@@ -22,6 +22,6 @@ public class DrawCircleStrategy implements DrawStrategy {
         Paint mPaint = initializePaint();
         mPaint.setStrokeWidth(graphicalElement.getStrokewidth());
         mPaint.setColor(graphicalElement.getColor());
-        canvas.drawCircle(graphicalElement.getxPosition(), graphicalElement.getyPosition(),((Circle) graphicalElement).getRadius(), mPaint);
+        canvas.drawCircle(graphicalElement.getXPosition(), graphicalElement.getYPosition(),((Circle) graphicalElement).getRadius(), mPaint);
     }
 }

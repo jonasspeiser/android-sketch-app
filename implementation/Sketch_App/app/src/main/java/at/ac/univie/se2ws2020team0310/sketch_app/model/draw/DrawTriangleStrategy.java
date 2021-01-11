@@ -11,8 +11,8 @@ public class DrawTriangleStrategy implements DrawStrategy {
         /*
         // in Anlehnung an: https://kylewbanks.com/blog/drawing-triangles-rhombuses-and-other-shapes-on-android-canvas#:~:text=Simply%20call%20drawTriangle%20with%20the,the%20width%20of%20the%20triangle.&text=Not%20bad%2C%20with%20a%20little,for%20your%20triangle%20drawing%20needs.
         float halfWidth = graphicalElement.getSize() / 2;
-        float x = graphicalElement.getxPosition();
-        float y = graphicalElement.getyPosition();
+        float x = graphicalElement.getXPosition();
+        float y = graphicalElement.getYPosition();
 
 
         Path path = new Path();

@@ -17,10 +17,10 @@ public class ExportJPEG extends Export {
     };
 
     @Override
-    public boolean compressImage(Bitmap drawingCache, String fileFormat) throws IOException {
+    public void compressImage(Bitmap drawingCache, String fileFormat) throws IOException {
         drawingCache.compress(Bitmap.CompressFormat.JPEG, 100, this.out);
         Log.d("Compression","Compression in " + fileFormat + " successful.");
-        return true;
+
     }
 
 }
