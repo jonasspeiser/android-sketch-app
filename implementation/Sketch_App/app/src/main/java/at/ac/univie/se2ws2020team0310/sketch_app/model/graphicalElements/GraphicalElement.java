@@ -30,7 +30,9 @@ public abstract class GraphicalElement implements Cloneable {
      * @param copy  the element to copy from
      */
     protected GraphicalElement(GraphicalElement copy) {
+
         this.drawStrategy = copy.drawStrategy;
+        /*
         setXPosition(copy.xPosition);
         setYPosition(copy.yPosition);
         if (copy.objectPaint != null) {
@@ -39,6 +41,8 @@ public abstract class GraphicalElement implements Cloneable {
             setStrokeWidth(copy.objectPaint.getStrokeWidth());
         }
         setSize(copy.size);
+
+         */
     }
 
 // Getters and Setters
