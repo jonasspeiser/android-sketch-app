@@ -16,7 +16,10 @@ public class Text extends GraphicalElement {
     public Text(Text copy) {
         super(copy);
         setUserText(copy.userText);
+        /*
         setTextSize(copy.objectPaint.getTextSize());
+
+         */
     }
 
 // Getters and Setters

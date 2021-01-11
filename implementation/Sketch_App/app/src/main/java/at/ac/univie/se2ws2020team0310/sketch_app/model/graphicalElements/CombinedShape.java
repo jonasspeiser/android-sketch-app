@@ -179,9 +179,9 @@ public class CombinedShape extends GraphicalElement {
      * @param strokeWidth the stroke width to set
      */
     @Override
-    public void setStrokeWidth(float strokeWidth) {
+    public void setStrokewidth(float strokeWidth) {
         for (GraphicalElement element : this.elements) {
-            element.setStrokeWidth(strokeWidth);
+            element.setStrokewidth(strokeWidth);
         }
     }
 }
