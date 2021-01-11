@@ -15,7 +15,8 @@ public abstract class GraphicalElement {
 
     protected float xPosition, yPosition, size;
 
-    protected Paint objectPaint;
+    protected int color;
+    protected float strokewidth;
 
 // Constructor
 
@@ -54,13 +55,24 @@ public abstract class GraphicalElement {
         this.size = size;
     }
 
-    public Paint getObjectPaint() {
-        return objectPaint;
+    public int getColor() {
+        return color;
     }
 
-    public void setObjectPaint(Paint objectPaint) {
-        this.objectPaint = objectPaint;
+    public void setColor(int color) {
+        this.color = color;
     }
+
+    public float getStrokewidth() {
+        return strokewidth;
+    }
+
+    public void setStrokewidth(float strokewidth) {
+        this.strokewidth = strokewidth;
+    }
+
+
+// Other Methods
 
     public void draw(Canvas canvas) {
         drawStrategy.draw(canvas, this);
@@ -77,8 +89,6 @@ public abstract class GraphicalElement {
         return false;
     }
 
-// Other Methods
-
     // change coordinates and update Path, if applicable
     // TODO: Sollte das nicht eher in die Klasse Freehand?
     public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
@@ -86,14 +96,6 @@ public abstract class GraphicalElement {
         if (getPath() != null && lastTouchX > 0 && lastTouchY > 0) {
             getPath().offset(x - lastTouchX, y - lastTouchY);
         }
-    }
-
-    public void setColor(int color) {
-        getObjectPaint().setColor(color);
-    }
-
-    public void setStrokeWidth(float strokeWidth) {
-        getObjectPaint().setStrokeWidth(strokeWidth);
     }
 
     public DrawStrategy getDrawStrategy() {

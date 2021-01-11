@@ -156,7 +156,7 @@ public class Layer {
             while (indexIterator.hasMore()) {
                 int index = (int) indexIterator.getNext();
                 GraphicalElement currentElement = (GraphicalElement)drawnElements.get(index);
-                currentElement.setStrokeWidth(strokewidth);
+                currentElement.setStrokewidth(strokewidth);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -34,11 +34,13 @@ public class Text extends GraphicalElement {
 // Other Methods
 
     public void setTextSize(float textSize) {
-        getObjectPaint().setTextSize(textSize);
+        /*getObjectPaint().setTextSize(textSize);
+
+         */
     }
     
     public boolean isWithinElement(float x, float y) {
-
+/*
         float textlength = getObjectPaint().measureText(userText);
         float textsize = getObjectPaint().getTextSize();
 
@@ -51,6 +53,8 @@ public class Text extends GraphicalElement {
         if (x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight)
             return true;
         else
+
+ */
             return false;
     }
 

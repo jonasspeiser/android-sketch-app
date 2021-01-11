@@ -23,14 +23,25 @@ public class TextDecorator extends GraphicalElementDecorator {
     }
 
     public void onClickItalicButton() {
+        /*
         getElement().getObjectPaint().setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
+
+         */
     }
 
     public void onClickBoldButton() {
+        /*
         getElement().getObjectPaint().setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+
+         */
     }
 
     public void onClickUnderlineButton() {
+        /*
         getElement().getObjectPaint().setUnderlineText(true);
+
+         */
     }
+
+
 }

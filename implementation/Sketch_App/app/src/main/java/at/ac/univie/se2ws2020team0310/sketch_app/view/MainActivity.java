@@ -345,6 +345,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.deleteStorageId:
                 mainActivityViewModel.deleteSavedSketches(getApplicationContext());
+                showToast("All saved files are deleted");
                 return true;
 
             case R.id.lineId:

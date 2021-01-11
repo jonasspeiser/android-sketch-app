@@ -12,6 +12,9 @@ public class DrawTextStrategy implements DrawStrategy {
 
     @Override
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
+        /*
         canvas.drawText(((Text) graphicalElement).getUserText(), graphicalElement.getxPosition(), graphicalElement.getyPosition(), graphicalElement.getObjectPaint());
+
+         */
     }
 }

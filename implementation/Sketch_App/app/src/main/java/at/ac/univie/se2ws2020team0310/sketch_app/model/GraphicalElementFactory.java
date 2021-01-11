@@ -60,73 +60,54 @@ public final class GraphicalElementFactory {
     //TODO: color wird nicht genutzt, strokeWidth ist für Text eig irrelevant
     private static Text createText(int color, float size, float strokewidth) {
         Text mText = new Text(new DrawTextStrategy());
-        Paint mPaint = new Paint(initializePaint());
-        mPaint.setStyle(Paint.Style.FILL);
-        mText.setObjectPaint(mPaint);
         mText.setColor(Color.BLACK);
         mText.setSize(size);
-        mText.setStrokeWidth(strokewidth);
+        mText.setStrokewidth(strokewidth);
         return mText;
     }
 
     private static Triangle createTriangle(int color, float size, float strokewidth) {
         Triangle mTriangle = new Triangle(new DrawTriangleStrategy());
-        Paint mPaint = new Paint(initializePaint());
-        mTriangle.setObjectPaint(mPaint);
         mTriangle.setColor(color);
         mTriangle.setSize(size);
-        mTriangle.setStrokeWidth(strokewidth);
+        mTriangle.setStrokewidth(strokewidth);
         return mTriangle;
     }
 
     //TODO: size wird nicht genutzt
     private static Line createLine(int color, float size, float strokewidth) {
         Line mLine = new Line(new DrawLineStrategy());
-        Paint mPaint = new Paint(initializePaint());
-        mLine.setObjectPaint(mPaint);
         mLine.setColor(color);
-        mLine.setStrokeWidth(strokewidth);
+        mLine.setStrokewidth(strokewidth);
         return mLine;
     }
 
     public static Circle createCircle(int color, float size, float strokewidth) {
         Circle mCircle = new Circle(new DrawCircleStrategy());
-        Paint mPaint = new Paint(initializePaint());
-        mCircle.setObjectPaint(mPaint);
         mCircle.setColor(color);
         mCircle.setSize(size);
-        mCircle.setStrokeWidth(strokewidth);
+        mCircle.setStrokewidth(strokewidth);
         return mCircle;
     }
 
     private static Quadrangle createQuadrangle(int color, float size, float strokewidth) {
         Quadrangle mSquare = new Quadrangle(new DrawQuadrangleStrategy());
-        Paint mPaint = new Paint(initializePaint());
-        mSquare.setObjectPaint(mPaint);
         mSquare.setColor(color);
         mSquare.setSize(size);
-        mSquare.setStrokeWidth(strokewidth);
+        mSquare.setStrokewidth(strokewidth);
         return mSquare;
     }
 
     private static Freehand createFreehand(int color, float size, float strokeWidth) {
         Freehand freehand = new Freehand(new DrawFreehandStrategy());
-        Paint mPaint = new Paint(initializePaint());
         Path path = new Path();
         freehand.setObjectPath(path);
-        freehand.setObjectPaint(mPaint);
         freehand.setColor(color);
         freehand.setSize(size);
-        freehand.setStrokeWidth(strokeWidth);
+        freehand.setStrokewidth(strokeWidth);
 
         return freehand;
     }
 
-    public static Paint initializePaint() {
-        Paint mPaint = new Paint();
-        mPaint.setAntiAlias(true);
-        mPaint.setStyle(Paint.Style.STROKE);
-        return mPaint;
-    }
 
 }
