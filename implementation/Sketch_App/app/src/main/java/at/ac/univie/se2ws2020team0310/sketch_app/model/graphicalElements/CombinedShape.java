@@ -137,7 +137,8 @@ public class CombinedShape extends GraphicalElement {
 
     /**
      * The Combined Shape will use the x coordinate of the pivot or first element in the list, if applicable
-     * @return  the x coordinate
+     *
+     * @return the x coordinate
      */
     @Override
     public float getXPosition() {
@@ -150,7 +151,8 @@ public class CombinedShape extends GraphicalElement {
 
     /**
      * The Combined Shape will use the y coordinate of the pivot or first element in the list, if applicable
-     * @return  the y coordinate
+     *
+     * @return the y coordinate
      */
     @Override
     public float getYPosition() {
@@ -168,8 +170,10 @@ public class CombinedShape extends GraphicalElement {
      */
     @Override
     public void setColor(int color) {
-        for (GraphicalElement element : this.elements) {
-            element.setColor(color);
+        if (this.elements != null) {
+            for (GraphicalElement element : this.elements) {
+                element.setColor(color);
+            }
         }
     }
 
@@ -180,8 +184,24 @@ public class CombinedShape extends GraphicalElement {
      */
     @Override
     public void setStrokeWidth(float strokeWidth) {
-        for (GraphicalElement element : this.elements) {
-            element.setStrokeWidth(strokeWidth);
+        if (this.elements != null) {
+            for (GraphicalElement element : this.elements) {
+                element.setStrokeWidth(strokeWidth);
+            }
+        }
+    }
+
+    /**
+     * set the same size to each element
+     *
+     * @param size size to set
+     */
+    @Override
+    public void setSize(float size) {
+        if (this.elements != null) {
+            for (GraphicalElement element : this.elements) {
+                element.setSize(size);
+            }
         }
     }
 }
