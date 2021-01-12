@@ -14,6 +14,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.TextDecorator;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.ElementNotFoundException;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawTextStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
@@ -112,17 +113,17 @@ public class MainActivityViewModel extends BaseObservable {
 
 
     public void onClickItalicButton() {
-        TextDecorator textDecorator = new TextDecorator(sketch.getSelectedGraphicalElement());
+        TextDecorator textDecorator = new TextDecorator(new DrawTextStrategy());
         textDecorator.onClickItalicButton();
     }
 
     public void onClickBoldButton() {
-        TextDecorator textDecorator = new TextDecorator(sketch.getSelectedGraphicalElement());
+        TextDecorator textDecorator = new TextDecorator(new DrawTextStrategy());
         textDecorator.onClickBoldButton();
     }
 
     /*public void onClickUnderlineButton() {
-        TextDecorator textDecorator = new TextDecorator(sketch.getSelectedGraphicalElement());
+        TextDecorator textDecorator = new TextDecorator(new DrawTextStrategy());
         textDecorator.onClickUnderlineButton();
     }*/
 

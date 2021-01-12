@@ -19,7 +19,6 @@ import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -614,9 +613,9 @@ public class MainActivity extends AppCompatActivity {
     public void onClickBoldButton(View view) {
         mainActivityViewModel.onClickBoldButton();
     }
-    public void onClickUnderlineButton(View view) {
+    /*public void onClickUnderlineButton(View view) {
         mainActivityViewModel.onClickUnderlineButton();
-    }
+    }*/
 
     public void showCombinedShapeNameTextForm(){
         EditText editText = findViewById(R.id.editText);

@@ -10,9 +10,9 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
 
 public class TextDecorator extends GraphicalElementDecorator {
 
-    protected Boolean italic = false;
-    protected Boolean bold = false;
-    protected Boolean underline = false;
+    Boolean italic;
+    Boolean bold;
+    //Boolean underline = false;
 
 
     /**
@@ -51,7 +51,7 @@ public class TextDecorator extends GraphicalElementDecorator {
     }
     */
 
-    public void onClickItalicButton() {
+    public Boolean onClickItalicButton() {
         italic = true;
     }
         /*
@@ -90,7 +90,7 @@ public class TextDecorator extends GraphicalElementDecorator {
         if (italic == true) {
             mPaint.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
         }
-        if (bold == true) {
+        else if (bold == true) {
             mPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         }
         /*if (underline == true) {
