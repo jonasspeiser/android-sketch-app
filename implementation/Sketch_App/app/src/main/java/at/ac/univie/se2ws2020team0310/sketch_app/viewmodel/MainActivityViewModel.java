@@ -121,10 +121,10 @@ public class MainActivityViewModel extends BaseObservable {
         textDecorator.onClickBoldButton();
     }
 
-    public void onClickUnderlineButton() {
+    /*public void onClickUnderlineButton() {
         TextDecorator textDecorator = new TextDecorator(sketch.getSelectedGraphicalElement());
         textDecorator.onClickUnderlineButton();
-    }
+    }*/
 
     /**
      * Create and select a new GraphicalElement with the given type
