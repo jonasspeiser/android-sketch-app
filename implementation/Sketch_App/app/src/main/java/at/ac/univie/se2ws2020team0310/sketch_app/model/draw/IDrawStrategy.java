@@ -8,7 +8,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Graphic
 /**
  * Interface implementing the Strategy Pattern to draw different Graphical Elements
  */
-public interface DrawStrategy {
+public interface IDrawStrategy {
 
     Paint initializePaint();
 

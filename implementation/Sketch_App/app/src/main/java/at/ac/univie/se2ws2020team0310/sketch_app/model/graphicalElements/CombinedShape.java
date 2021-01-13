@@ -1,7 +1,7 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +15,11 @@ public class CombinedShape extends GraphicalElement {
     private String name;
     private GraphicalElement pivotElement;  // the pivot element, upon which the positioning and movement of the whole Combined Shape depends
 
-    public CombinedShape(DrawStrategy drawStrategy) {
+    public CombinedShape(IDrawStrategy drawStrategy) {
         this(drawStrategy, "CombiShape");
     }
 
-    public CombinedShape(DrawStrategy drawStrategy, String name) {
+    public CombinedShape(IDrawStrategy drawStrategy, String name) {
         super(drawStrategy);
         this.elements = new ArrayList<>();
         this.name = name;

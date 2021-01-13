@@ -1,14 +1,14 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 
 public class Line extends GraphicalElement {
 
 // Attributes
     private float startX, startY;
 
-    public Line(DrawStrategy drawStrategy) {
+    public Line(IDrawStrategy drawStrategy) {
         super(drawStrategy);
     }
 

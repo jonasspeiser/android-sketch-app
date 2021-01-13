@@ -8,7 +8,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.ElementNotFoundException;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.export.Export;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.export.ExportJPEG;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.export.ExportPNG;
@@ -307,7 +307,7 @@ public class Sketch implements CustomObservable {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(IterableCollection.class, new GsonInterfaceAdapter());
         builder.registerTypeAdapter(GraphicalElement.class, new GsonInterfaceAdapter());
-        builder.registerTypeAdapter(DrawStrategy.class, new GsonInterfaceAdapter());
+        builder.registerTypeAdapter(IDrawStrategy.class, new GsonInterfaceAdapter());
         Gson gson = builder.create();
 
         String filename = "SavedSketch" + saveslot;
@@ -336,7 +336,7 @@ public class Sketch implements CustomObservable {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(IterableCollection.class, new GsonInterfaceAdapter());
         builder.registerTypeAdapter(GraphicalElement.class, new GsonInterfaceAdapter());
-        builder.registerTypeAdapter(DrawStrategy.class, new GsonInterfaceAdapter());
+        builder.registerTypeAdapter(IDrawStrategy.class, new GsonInterfaceAdapter());
         Gson gson = builder.create();
 
         String json = appSharedPrefs.getString("SavedSketch" + saveslot, "");

@@ -7,7 +7,7 @@ import android.graphics.Path;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Freehand;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
-public class DrawFreehandStrategy implements DrawStrategy {
+public class DrawFreehandStrategy implements IDrawStrategy {
     @Override
     public Paint initializePaint() {
         Paint mPaint = new Paint();
