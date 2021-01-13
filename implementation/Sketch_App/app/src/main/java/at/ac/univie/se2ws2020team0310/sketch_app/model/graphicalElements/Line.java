@@ -71,7 +71,6 @@ public class Line extends GraphicalElement {
 
         if (distanceStartNew + distanceNewEnd == distanceStartEnd) {
             return true;
-            // Means that coordinates are within quadrangle
         }else {
             return false;
         }
