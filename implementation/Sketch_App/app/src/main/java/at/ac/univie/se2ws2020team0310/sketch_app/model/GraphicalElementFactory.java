@@ -1,9 +1,6 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Path;
-
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawCircleStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawCombinedShapeStrategy;
@@ -24,28 +21,27 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Triangl
 
 public final class GraphicalElementFactory {
 
-    private static int ELEMENT_ID = 1;  // static counter of Elements
-
     private GraphicalElementFactory() {
         // empty constructor
     }
 
-    public static GraphicalElement createElement(EGraphicalElementType type, int color, float size, float strokewidth) throws AppException {
+    public static GraphicalElement createElement(EGraphicalElementType type, int color, float size,
+            float strokeWidth) throws AppException {
         switch (type) {
             case LINE:
-                return createLine(color, size, strokewidth);
+                return createLine(color, strokeWidth);
             case CIRCLE:
-                return createCircle(color, size, strokewidth);
+                return createCircle(color, size, strokeWidth);
             case FREEHAND:
-                return createFreehand(color, size, strokewidth);
+                return createFreehand(color, size, strokeWidth);
             case COMBINED_SHAPE:
                 return createCombinedShape();
             case TRIANGLE:
-                return createTriangle(color, size, strokewidth);
+                return createTriangle(color, size, strokeWidth);
             case QUADRANGLE:
-                return createQuadrangle(color, size, strokewidth);
+                return createQuadrangle(color, size, strokeWidth);
             case TEXT_FIELD:
-                return createText(color, size, strokewidth);
+                return createText(color, size);
             default:
                 throw new AppException("Unknown type: " + type);
         }
@@ -53,19 +49,18 @@ public final class GraphicalElementFactory {
 
     /**
      * Create a new GraphicalElement as a copy of the given element
-     * @param element   the element to copy from
-     * @return          a fresh copy of the element
+     *
+     * @param element the element to copy from
+     * @return a fresh copy of the element
      */
     public static GraphicalElement createElement(GraphicalElement element) {
         return element.copy();
     }
 
-    //TODO: color wird nicht genutzt, strokeWidth ist für Text eig irrelevant
-    private static Text createText(int color, float size, float strokewidth) {
+    private static Text createText(int color, float size) {
         Text mText = new Text(new DrawTextStrategy());
-        mText.setColor(Color.BLACK);
+        mText.setColor(color);
         mText.setSize(size);
-        mText.setStrokeWidth(strokewidth);
         return mText;
     }
 
@@ -77,8 +72,7 @@ public final class GraphicalElementFactory {
         return mTriangle;
     }
 
-    //TODO: size wird nicht genutzt
-    private static Line createLine(int color, float size, float strokewidth) {
+    private static Line createLine(int color, float strokewidth) {
         Line mLine = new Line(new DrawLineStrategy());
         mLine.setColor(color);
         mLine.setStrokeWidth(strokewidth);
@@ -113,23 +107,12 @@ public final class GraphicalElementFactory {
     }
 
     /**
-     * Create an empty CombinedShape
-     * Attributes will be set at a later point
-     * @return  the new CombinedShape
+     * Create an empty CombinedShape Attributes will be set at a later point
+     *
+     * @return the new CombinedShape
      */
     private static CombinedShape createCombinedShape() {
-        // assign a different ID to each Combined Shape
-        CombinedShape combinedShape = new CombinedShape(new DrawCombinedShapeStrategy(), ELEMENT_ID);
-        ELEMENT_ID++;
-
-        return combinedShape;
-    }
-
-    public static Paint initializePaint() {
-        Paint mPaint = new Paint();
-        mPaint.setAntiAlias(true);
-        mPaint.setStyle(Paint.Style.STROKE);
-        return mPaint;
+        return new CombinedShape(new DrawCombinedShapeStrategy());
     }
 
 }
