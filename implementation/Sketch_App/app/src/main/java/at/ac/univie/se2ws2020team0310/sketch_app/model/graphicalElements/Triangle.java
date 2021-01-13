@@ -16,7 +16,6 @@ public class Triangle extends GraphicalElement {
 //Other methods
 
     public boolean isWithinElement(float x, float y) {
-        // TODO: Methode sollte vereinfacht werden
 
         // Coordinates of point A (Bottom Left)
         float xBottomLeft = this.xPosition - this.getSize() / 2;
@@ -30,21 +29,19 @@ public class Triangle extends GraphicalElement {
         float xBottomRight = this.xPosition + this.getSize() / 2;
         float yBottomRight = this.yPosition + this.getSize() / 2;
 
-        //In Anlehnung an: https://github.com/SebLague/Gamedev-Maths/blob/master/PointInTriangle.cs
+        //Based on: https://github.com/SebLague/Gamedev-Maths/blob/master/PointInTriangle.cs
         //0.0001 dummy needed, so there is no NaN Error
-        double s1 = yBottomRight - yBottomLeft  + 0.0001;
-        double s2 = xBottomRight - xBottomLeft;
-        double s3 = yTop - yBottomLeft;
-        double s4 = y - yBottomLeft;
+        double HeightDifferenceBottom = yBottomRight - yBottomLeft  + 0.0001;
+        double LengthsBottomEdge = xBottomRight - xBottomLeft;
+        double TriangleHeight = yTop - yBottomLeft;
+        double HeightDifferenceTouch = y - yBottomLeft;
 
-        double w1 = (xBottomLeft * s1 + s4 * s2 - x * s1) / (s3 * s2 - (xTop - xBottomLeft) * s1);
-        double w2 = (s4 - w1 * s3) / s1;
+        double WeightOfVector1 = (xBottomLeft * HeightDifferenceBottom + HeightDifferenceTouch * LengthsBottomEdge - x * HeightDifferenceBottom) /
+                (TriangleHeight * LengthsBottomEdge - (xTop - xBottomLeft) * HeightDifferenceBottom);
+        double WeightOfVector2 = (HeightDifferenceTouch - WeightOfVector1 * TriangleHeight) / HeightDifferenceBottom;
 
-        if (w1 >= 0 && w2 >= 0 && (w1 + w2) <= 1)
-            return true;
-            // Means that coordinates are within triangle
-        else
-            return false;
+        return WeightOfVector1 >= 0 && WeightOfVector2 >= 0
+                && (WeightOfVector1 + WeightOfVector2) <= 1;
     }
 
     @Override

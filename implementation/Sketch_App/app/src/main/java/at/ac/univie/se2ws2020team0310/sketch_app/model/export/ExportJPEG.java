@@ -20,7 +20,6 @@ public class ExportJPEG extends Export {
     public void compressImage(Bitmap drawingCache, String fileFormat) throws IOException {
         drawingCache.compress(Bitmap.CompressFormat.JPEG, 100, this.out);
         Log.d("Compression","Compression in " + fileFormat + " successful.");
-
     }
 
 }

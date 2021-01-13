@@ -40,11 +40,10 @@ public class Circle extends GraphicalElement {
     // Other Methods
 
     public boolean isWithinElement(float x, float y) {
-        double dx = Math.pow(x - this.xPosition, 2);
-        double dy = Math.pow(y - this.yPosition, 2);
+        double distanceX = Math.pow(x - this.xPosition, 2);
+        double distanceY = Math.pow(y - this.yPosition, 2);
 
-        if (dx + dy < Math.pow(this.radius, 2)) {
-            // Means that coordinates are within circle
+        if (distanceX + distanceY < Math.pow(this.radius, 2)) {
             return true;
         } else {
             return false;

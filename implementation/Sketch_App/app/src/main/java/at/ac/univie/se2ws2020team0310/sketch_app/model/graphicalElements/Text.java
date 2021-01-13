@@ -37,13 +37,13 @@ public class Text extends GraphicalElement {
         Paint mPaint = new Paint();
         mPaint.setTextSize(getSize());
 
-        float textlength = mPaint.measureText(userText);
-        float textsize = getSize();
+        float textLength = mPaint.measureText(userText);
+        float textSize = getSize();
 
-        float xTopLeft = this.xPosition - textlength;
-        float yTopLeft = this.yPosition - textsize;
+        float xTopLeft = this.xPosition - textLength;
+        float yTopLeft = this.yPosition - textSize;
 
-        float xBottomRight = this.xPosition + textlength;
+        float xBottomRight = this.xPosition + textLength;
         float yBottomRight = this.yPosition;
 
         if (x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight)

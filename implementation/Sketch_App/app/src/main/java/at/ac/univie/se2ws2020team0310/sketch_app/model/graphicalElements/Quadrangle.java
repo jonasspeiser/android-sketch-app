@@ -56,7 +56,6 @@ public class Quadrangle extends GraphicalElement {
         float yBottomRight = this.yPosition + this.height;
 
         if (x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight)
-            // Means that coordinates are within quadrangle
             return true;
         else
             return false;
