@@ -57,23 +57,18 @@ public class Line extends GraphicalElement {
     }
 
     public boolean isWithinElement(float x, float y) {
-        double xNewTouchAsDouble = (double) x;
-        double yNewTouchAsDouble = (double) y;
-        double startXAsDouble = (double) startX;
-        double startYAsDouble = (double) startY;
-        double xPositionAsDouble = (double) xPosition;
-        double yPositionAsDouble = (double) yPosition;
 
-        //Check for colinearity
-        int distanceStartNew = (int) Math.hypot(startXAsDouble - xNewTouchAsDouble, startYAsDouble - yNewTouchAsDouble);
-        int distanceNewEnd = (int) Math.hypot(xNewTouchAsDouble - xPositionAsDouble, yNewTouchAsDouble - yPositionAsDouble);
+        double startXAsDouble = startX;
+        double startYAsDouble = startY;
+        double xPositionAsDouble = xPosition;
+        double yPositionAsDouble = yPosition;
+
+        //Check for collinearity
+        int distanceStartNew = (int) Math.hypot(startXAsDouble - x, startYAsDouble - y);
+        int distanceNewEnd = (int) Math.hypot(x - xPositionAsDouble, y - yPositionAsDouble);
         int distanceStartEnd = (int) Math.hypot(startXAsDouble - xPositionAsDouble, startYAsDouble - yPositionAsDouble);
 
-        if (distanceStartNew + distanceNewEnd == distanceStartEnd) {
-            return true;
-        }else {
-            return false;
-        }
+        return distanceStartNew + distanceNewEnd == distanceStartEnd;
     }
 
     @Override
