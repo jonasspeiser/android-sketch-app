@@ -1,10 +1,9 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
+import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 import java.util.ArrayList;
 import java.util.List;
-
-import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 
 /**
  * Implementation of the Composite Pattern to create a new Shape consisting of a List of Graphical
@@ -14,18 +13,16 @@ public class CombinedShape extends GraphicalElement {
 
     private final List<GraphicalElement> elements;
     private String name;
-    private final int id;
     private GraphicalElement pivotElement;  // the pivot element, upon which the positioning and movement of the whole Combined Shape depends
 
-    public CombinedShape(DrawStrategy drawStrategy, int id) {
-        this(drawStrategy, "CombiShape", id);
+    public CombinedShape(IDrawStrategy drawStrategy) {
+        this(drawStrategy, "CombiShape");
     }
 
-    public CombinedShape(DrawStrategy drawStrategy, String name, int id) {
+    public CombinedShape(IDrawStrategy drawStrategy, String name) {
         super(drawStrategy);
         this.elements = new ArrayList<>();
         this.name = name;
-        this.id = id;
         this.pivotElement = null;
     }
 
@@ -42,7 +39,6 @@ public class CombinedShape extends GraphicalElement {
             this.elements.add(copyElement.copy());
         }
         this.name = copy.name;
-        this.id = copy.id;
         this.pivotElement = null;
     }
 
@@ -105,10 +101,6 @@ public class CombinedShape extends GraphicalElement {
         return this.elements.size();
     }
 
-    public int getId() {
-        return id;
-    }
-
     /**
      * Update the coordinates of the Combined Shape The same offset has to be applied to all
      * elements included in this Combined Shape, in order to display them correctly
@@ -136,7 +128,8 @@ public class CombinedShape extends GraphicalElement {
     }
 
     /**
-     * The Combined Shape will use the x coordinate of the pivot or first element in the list, if applicable
+     * The Combined Shape will use the x coordinate of the pivot or first element in the list, if
+     * applicable
      *
      * @return the x coordinate
      */
@@ -150,7 +143,8 @@ public class CombinedShape extends GraphicalElement {
     }
 
     /**
-     * The Combined Shape will use the y coordinate of the pivot or first element in the list, if applicable
+     * The Combined Shape will use the y coordinate of the pivot or first element in the list, if
+     * applicable
      *
      * @return the y coordinate
      */

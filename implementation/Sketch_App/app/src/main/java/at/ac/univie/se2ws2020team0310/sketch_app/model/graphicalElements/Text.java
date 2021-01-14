@@ -2,7 +2,7 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
 import android.graphics.Paint;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 
 public class Text extends GraphicalElement {
 
@@ -10,7 +10,7 @@ public class Text extends GraphicalElement {
     private String userText;
 
 // Constructor
-    public Text(DrawStrategy drawStrategy) {
+    public Text(IDrawStrategy drawStrategy) {
         super(drawStrategy);
         userText = "";
     }

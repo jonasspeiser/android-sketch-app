@@ -6,7 +6,7 @@ import android.graphics.Paint;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Quadrangle;
 
-public class DrawQuadrangleStrategy implements DrawStrategy {
+public class DrawQuadrangleStrategy implements IDrawStrategy {
 
     public Paint initializePaint(GraphicalElement graphicalElement) {
         Paint mPaint = new Paint();

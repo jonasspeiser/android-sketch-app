@@ -1,11 +1,11 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 
 public class Triangle extends GraphicalElement {
 
-    // Constructor
-    public Triangle(DrawStrategy drawStrategy) {
+// Constructor
+    public Triangle(IDrawStrategy drawStrategy) {
         super(drawStrategy);
     }
 
@@ -31,18 +31,14 @@ public class Triangle extends GraphicalElement {
 
         //Based on: https://github.com/SebLague/Gamedev-Maths/blob/master/PointInTriangle.cs
         //0.0001 dummy needed, so there is no NaN Error
-        double HeightDifferenceBottom = yBottomRight - yBottomLeft + 0.0001;
+        double HeightDifferenceBottom = yBottomRight - yBottomLeft  + 0.0001;
         double LengthsBottomEdge = xBottomRight - xBottomLeft;
         double TriangleHeight = yTop - yBottomLeft;
         double HeightDifferenceTouch = y - yBottomLeft;
 
-        double WeightOfVector1 =
-                (xBottomLeft * HeightDifferenceBottom + HeightDifferenceTouch * LengthsBottomEdge
-                        - x * HeightDifferenceBottom) /
-                        (TriangleHeight * LengthsBottomEdge
-                                - (xTop - xBottomLeft) * HeightDifferenceBottom);
-        double WeightOfVector2 =
-                (HeightDifferenceTouch - WeightOfVector1 * TriangleHeight) / HeightDifferenceBottom;
+        double WeightOfVector1 = (xBottomLeft * HeightDifferenceBottom + HeightDifferenceTouch * LengthsBottomEdge - x * HeightDifferenceBottom) /
+                (TriangleHeight * LengthsBottomEdge - (xTop - xBottomLeft) * HeightDifferenceBottom);
+        double WeightOfVector2 = (HeightDifferenceTouch - WeightOfVector1 * TriangleHeight) / HeightDifferenceBottom;
 
         return WeightOfVector1 >= 0 && WeightOfVector2 >= 0
                 && (WeightOfVector1 + WeightOfVector2) <= 1;

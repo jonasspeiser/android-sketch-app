@@ -1,6 +1,6 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 
 public class Circle extends GraphicalElement {
 
@@ -8,7 +8,7 @@ public class Circle extends GraphicalElement {
     private float radius;
 
 // Constructor
-    public Circle(DrawStrategy drawStrategy) {
+    public Circle(IDrawStrategy drawStrategy) {
         super(drawStrategy);
     }
 
