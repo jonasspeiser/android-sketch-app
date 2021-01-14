@@ -1,6 +1,6 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 
 public class Quadrangle extends GraphicalElement {
 
@@ -9,7 +9,7 @@ public class Quadrangle extends GraphicalElement {
     private float height;
 
 // Constructor
-    public Quadrangle(DrawStrategy drawStrategy) {
+    public Quadrangle(IDrawStrategy drawStrategy) {
         super(drawStrategy);
     }
 
@@ -56,7 +56,6 @@ public class Quadrangle extends GraphicalElement {
         float yBottomRight = this.yPosition + this.height;
 
         if (x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight)
-            // Means that coordinates are within quadrangle
             return true;
         else
             return false;

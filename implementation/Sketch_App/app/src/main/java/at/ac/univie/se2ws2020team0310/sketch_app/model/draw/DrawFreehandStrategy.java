@@ -7,7 +7,16 @@ import android.graphics.Path;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Freehand;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
-public class DrawFreehandStrategy implements DrawStrategy {
+public class DrawFreehandStrategy implements IDrawStrategy {
+
+    public Path initializePath(GraphicalElement graphicalElement) {
+        Path mPath = new Path();
+
+        mPath = ((Freehand) graphicalElement).getObjectPath();   // cast
+
+        return mPath;
+    }
+
     @Override
     public Paint initializePaint(GraphicalElement graphicalElement) {
         Paint mPaint = new Paint();
@@ -21,8 +30,9 @@ public class DrawFreehandStrategy implements DrawStrategy {
     @Override
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
         Paint mPaint = initializePaint(graphicalElement);
+        Path mPath = initializePath(graphicalElement);
 
-        Path path = ((Freehand) graphicalElement).getObjectPath();   // cast
-        canvas.drawPath(path, mPaint); //drawing
+        canvas.drawPath(mPath, mPaint); //drawing
+
     }
 }

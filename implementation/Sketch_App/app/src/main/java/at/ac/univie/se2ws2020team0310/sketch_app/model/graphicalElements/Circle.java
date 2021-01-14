@@ -1,6 +1,6 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 
 public class Circle extends GraphicalElement {
 
@@ -8,7 +8,7 @@ public class Circle extends GraphicalElement {
     private float radius;
 
 // Constructor
-    public Circle(DrawStrategy drawStrategy) {
+    public Circle(IDrawStrategy drawStrategy) {
         super(drawStrategy);
     }
 
@@ -40,11 +40,10 @@ public class Circle extends GraphicalElement {
     // Other Methods
 
     public boolean isWithinElement(float x, float y) {
-        double dx = Math.pow(x - this.xPosition, 2);
-        double dy = Math.pow(y - this.yPosition, 2);
+        double distanceX = Math.pow(x - this.xPosition, 2);
+        double distanceY = Math.pow(y - this.yPosition, 2);
 
-        if (dx + dy < Math.pow(this.radius, 2)) {
-            // Means that coordinates are within circle
+        if (distanceX + distanceY < Math.pow(this.radius, 2)) {
             return true;
         } else {
             return false;

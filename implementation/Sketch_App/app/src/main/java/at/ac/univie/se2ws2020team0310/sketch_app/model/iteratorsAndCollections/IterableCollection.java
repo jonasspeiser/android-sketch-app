@@ -1,6 +1,4 @@
-package at.ac.univie.se2ws2020team0310.sketch_app.model.iterators;
-
-import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
+package at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections;
 
 public interface IterableCollection {
 

@@ -4,14 +4,14 @@ import android.graphics.Canvas;
 import android.graphics.Path;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 
 public abstract class GraphicalElement implements Cloneable {
 
 
 // Attributes
 
-    private final DrawStrategy drawStrategy;
+    private final IDrawStrategy drawStrategy;
 
     protected float xPosition, yPosition, size;
 
@@ -20,7 +20,7 @@ public abstract class GraphicalElement implements Cloneable {
 
 // Constructor
 
-    protected GraphicalElement(DrawStrategy drawStrategy) { //Konstruktor
+    protected GraphicalElement(IDrawStrategy drawStrategy) { //Konstruktor
         this.drawStrategy = drawStrategy;
     }
 
@@ -135,7 +135,7 @@ public abstract class GraphicalElement implements Cloneable {
         this.setCoordinates(x, y);
     }
 
-    public DrawStrategy getDrawStrategy() {
+    public IDrawStrategy getDrawStrategy() {
         return this.drawStrategy;
     }
 

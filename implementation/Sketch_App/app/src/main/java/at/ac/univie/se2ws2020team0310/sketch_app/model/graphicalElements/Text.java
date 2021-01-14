@@ -2,7 +2,7 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
 import android.graphics.Paint;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 
 public class Text extends GraphicalElement {
 
@@ -10,7 +10,7 @@ public class Text extends GraphicalElement {
     private String userText;
 
 // Constructor
-    public Text(DrawStrategy drawStrategy) {
+    public Text(IDrawStrategy drawStrategy) {
         super(drawStrategy);
         userText = "";
     }
@@ -37,13 +37,13 @@ public class Text extends GraphicalElement {
         Paint mPaint = new Paint();
         mPaint.setTextSize(getSize());
 
-        float textlength = mPaint.measureText(userText);
-        float textsize = getSize();
+        float textLength = mPaint.measureText(userText);
+        float textSize = getSize();
 
-        float xTopLeft = this.xPosition - textlength;
-        float yTopLeft = this.yPosition - textsize;
+        float xTopLeft = this.xPosition - textLength;
+        float yTopLeft = this.yPosition - textSize;
 
-        float xBottomRight = this.xPosition + textlength;
+        float xBottomRight = this.xPosition + textLength;
         float yBottomRight = this.yPosition;
 
         if (x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight)

@@ -11,10 +11,9 @@ import java.util.List;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.BR;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.TextDecorator;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.decorators.BoldDecorator;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.ElementNotFoundException;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawTextStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
@@ -41,7 +40,8 @@ public class MainActivityViewModel extends BaseObservable {
         sketch = Sketch.getSketch();
         combinedShapes = new ArrayList<>();
     }
-// Getters and Setters
+
+    // Getters and Setters
     public static void setSketch(Sketch sketch) {
         MainActivityViewModel.sketch = sketch;
     }
@@ -76,8 +76,7 @@ public class MainActivityViewModel extends BaseObservable {
     }
 
 
-
-// Other Methods
+    // Other Methods
     public void exportCanvas() {
 
     }
@@ -94,7 +93,9 @@ public class MainActivityViewModel extends BaseObservable {
         sketch.changeSize(size);
     }
 
-    public void deleteElement(){sketch.deleteElement();}
+    public void deleteElement() {
+        sketch.deleteElement();
+    }
 
     public void clearSketch() {
         sketch.clear();
@@ -109,27 +110,27 @@ public class MainActivityViewModel extends BaseObservable {
         sketch.setLayerVisibility(layerNumber, isVisible);
     }
 
-    public boolean layerIsEmpty() {return sketch.layerIsEmpty();}
+    public boolean layerIsEmpty() {
+        return sketch.layerIsEmpty();
+    }
 
 
     public void onClickItalicButton() {
-        TextDecorator textDecorator = new TextDecorator(new DrawTextStrategy());
-        textDecorator.onClickItalicButton();
+        sketch.selectItalic();
     }
 
     public void onClickBoldButton() {
-        TextDecorator textDecorator = new TextDecorator(new DrawTextStrategy());
-        textDecorator.onClickBoldButton();
+        sketch.selectBold();
     }
 
-    /*public void onClickUnderlineButton() {
-        TextDecorator textDecorator = new TextDecorator(new DrawTextStrategy());
-        textDecorator.onClickUnderlineButton();
-    }*/
+    public void onClickUnderlineButton() {
+        sketch.selectUnderline();
+    }
 
     /**
      * Create and select a new GraphicalElement with the given type
-     * @param type  the type of the GraphicalElement
+     *
+     * @param type the type of the GraphicalElement
      */
     public void selectGraphicalElement(EGraphicalElementType type) {
         sketch.selectGraphicalElement(type);
@@ -137,7 +138,8 @@ public class MainActivityViewModel extends BaseObservable {
 
     /**
      * Create and select a new GraphicalElement as a copy of the given one as parameter
-     * @param element  the element to copy from
+     *
+     * @param element the element to copy from
      */
     public void selectGraphicalElement(GraphicalElement element) {
         sketch.selectGraphicalElement(element);
@@ -159,12 +161,13 @@ public class MainActivityViewModel extends BaseObservable {
         sketch.loadLayersFromFile(context, saveslot);
     }
 
-    public void deleteSavedSketches(Context context){
+    public void deleteSavedSketches(Context context) {
         sketch.deleteSavedSketches(context);
     }
 
     /**
      * Enable Combined Shapes mode: all selected Graphical Elements will be added to the current Combined Shape
+     *
      * @param combinedShape the current Combined Shape
      */
     public void enableCombinedShapesMode(CombinedShape combinedShape) {
@@ -202,6 +205,7 @@ public class MainActivityViewModel extends BaseObservable {
     /**
      * Check if the created Combined Shape contains at least one element
      * If the Combined Shape is empty, then remove its references
+     *
      * @throws AppException if the Combined Shape contains no elements
      */
     public void processCurrentCombinedShape() throws AppException {
@@ -227,6 +231,7 @@ public class MainActivityViewModel extends BaseObservable {
 
     /**
      * Sets the entered text as the name of the current Combined Shape
+     *
      * @param enteredText
      */
     public void setCurrentCombinedShapeName(String enteredText) {

@@ -6,7 +6,8 @@ import android.graphics.Path;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
-public class DrawTriangleStrategy implements DrawStrategy {
+public class DrawTriangleStrategy implements IDrawStrategy {
+
     @Override
     public Paint initializePaint(GraphicalElement graphicalElement) {
         Paint mPaint = new Paint();
@@ -14,7 +15,6 @@ public class DrawTriangleStrategy implements DrawStrategy {
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(graphicalElement.getStrokeWidth());
         mPaint.setColor(graphicalElement.getColor());
-
         return mPaint;
     }
 
@@ -24,21 +24,20 @@ public class DrawTriangleStrategy implements DrawStrategy {
         float x = graphicalElement.getXPosition();
         float y = graphicalElement.getYPosition();
 
-        Path path = new Path();
-        path.moveTo(x, y - halfWidth); // Top
-        path.lineTo(x - halfWidth, y + halfWidth); // Bottom left
-        path.lineTo(x + halfWidth, y + halfWidth); // Bottom right
-        path.lineTo(x, y - halfWidth); // Back to Top
-        path.close();
-
-        return path;
+        Path mPath = new Path();
+        mPath.moveTo(x, y - halfWidth); // Top
+        mPath.lineTo(x - halfWidth, y + halfWidth); // Bottom left
+        mPath.lineTo(x + halfWidth, y + halfWidth); // Bottom right
+        mPath.lineTo(x, y - halfWidth); // Back to Top
+        mPath.close();
+        return mPath;
     }
 
     @Override
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
         Paint mPaint = initializePaint(graphicalElement);
-        Path path = initializePath(graphicalElement);
+        Path mPath = initializePath(graphicalElement);
 
-        canvas.drawPath(path, mPaint);
+        canvas.drawPath(mPath, mPaint);
     }
 }

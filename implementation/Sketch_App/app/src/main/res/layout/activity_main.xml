@@ -258,11 +258,13 @@
             <RadioButton
                 android:id="@+id/layer1selector"
                 android:layout_width="wrap_content"
+                android:visibility="invisible"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked" />
 
             <RadioButton
                 android:id="@+id/layer2selector"
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
@@ -270,6 +272,7 @@
 
             <RadioButton
                 android:id="@+id/layer3selector"
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
@@ -282,6 +285,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:checked="true"
+            android:visibility="invisible"
             app:layout_constraintHorizontal_bias="0.712"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -289,22 +294,26 @@
 
         <ToggleButton
             android:id="@+id/switchLayer1"
+            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.712"
             app:layout_constraintStart_toStartOf="parent"
+            android:checked="true"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.437" />
 
         <ToggleButton
             android:id="@+id/switchLayer2"
+            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.712"
+            android:checked="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.494" />

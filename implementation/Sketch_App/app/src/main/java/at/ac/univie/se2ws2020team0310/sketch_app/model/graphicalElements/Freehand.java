@@ -5,14 +5,14 @@ import android.graphics.Path;
 import android.graphics.RectF;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 
 public class Freehand extends GraphicalElement {
 
 // Attributes
 
     private Path objectPath;
-    public Freehand(DrawStrategy drawStrategy) {
+    public Freehand(IDrawStrategy drawStrategy) {
         super(drawStrategy);
     }
 

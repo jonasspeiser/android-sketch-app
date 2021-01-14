@@ -6,23 +6,26 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.ElementNotFoundException;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.export.Export;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.export.ExportJPEG;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.export.ExportPNG;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IterableCollection;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.Iterator;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.LayerCollection;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections.IterableCollection;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections.Iterator;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections.LayerCollection;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObservable;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObserver;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.storage.GsonInterfaceAdapter;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -265,6 +268,21 @@ public class Sketch implements CustomObservable {
         setSelectedGraphicalElement(GraphicalElementFactory.createElement(element));
     }
 
+    public void selectBold() {
+        GraphicalElement boldText = GraphicalElementFactory.createBoldText(getSelectedGraphicalElement());
+        setSelectedGraphicalElement(boldText);
+    }
+
+    public void selectItalic() {
+        GraphicalElement italicText = GraphicalElementFactory.createItalicText(getSelectedGraphicalElement());
+        setSelectedGraphicalElement(italicText);
+    }
+
+    public void selectUnderline() {
+        GraphicalElement underlineText = GraphicalElementFactory.createUnderlineText(getSelectedGraphicalElement());
+        setSelectedGraphicalElement(underlineText);
+    }
+
     //Use Template Method Pattern for division of file exporting into similar and differing parts
     public boolean export(Context context, String fileFormat, Bitmap drawingCache)
             throws IOException {
@@ -307,7 +325,7 @@ public class Sketch implements CustomObservable {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(IterableCollection.class, new GsonInterfaceAdapter());
         builder.registerTypeAdapter(GraphicalElement.class, new GsonInterfaceAdapter());
-        builder.registerTypeAdapter(DrawStrategy.class, new GsonInterfaceAdapter());
+        builder.registerTypeAdapter(IDrawStrategy.class, new GsonInterfaceAdapter());
         Gson gson = builder.create();
 
         String filename = "SavedSketch" + saveslot;
@@ -336,7 +354,7 @@ public class Sketch implements CustomObservable {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(IterableCollection.class, new GsonInterfaceAdapter());
         builder.registerTypeAdapter(GraphicalElement.class, new GsonInterfaceAdapter());
-        builder.registerTypeAdapter(DrawStrategy.class, new GsonInterfaceAdapter());
+        builder.registerTypeAdapter(IDrawStrategy.class, new GsonInterfaceAdapter());
         Gson gson = builder.create();
 
         String json = appSharedPrefs.getString("SavedSketch" + saveslot, "");
