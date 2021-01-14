@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawTextStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
 public class TextDecorator extends GraphicalElementDecorator {
@@ -52,7 +53,8 @@ public class TextDecorator extends GraphicalElementDecorator {
     */
 
     public void onClickItalicButton() {
-        italic = true;
+        DrawTextStrategy.setItalic = true;
+        initializePaint();
     }
         /*
         getElement().getObjectPaint().setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
@@ -61,7 +63,7 @@ public class TextDecorator extends GraphicalElementDecorator {
 
 
     public void onClickBoldButton() {
-        bold = true;
+        DrawTextStrategy.setBold = true;
         /*
         getElement().getObjectPaint().setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
 
@@ -86,10 +88,10 @@ public class TextDecorator extends GraphicalElementDecorator {
         mPaint.setColor(graphicalElement.getColor());
         mPaint.setTextSize(graphicalElement.getSize());
 
-        if (italic = true) {
+        if (DrawTextStrategy.setItalic == true) {
             mPaint.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
         }
-        else if (bold == true) {
+        else if (DrawTextStrategy.setBold == true) {
             mPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         }
         return mPaint;

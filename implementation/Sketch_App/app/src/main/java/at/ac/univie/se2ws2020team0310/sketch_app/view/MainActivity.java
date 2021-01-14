@@ -36,6 +36,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.databinding.ActivityMainBinding
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
 import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.MainActivityViewModel;
 import petrov.kristiyan.colorpicker.ColorPicker;

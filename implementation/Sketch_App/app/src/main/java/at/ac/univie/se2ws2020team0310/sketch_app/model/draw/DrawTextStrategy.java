@@ -8,6 +8,13 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
 // TODO: Überarbeiten
 public class DrawTextStrategy implements DrawStrategy {
 
+
+    public static boolean setBold = false;
+    public static boolean setItalic = false;
+
+
+
+
     @Override
     public Paint initializePaint(GraphicalElement graphicalElement) {
         Paint mPaint = new Paint();
