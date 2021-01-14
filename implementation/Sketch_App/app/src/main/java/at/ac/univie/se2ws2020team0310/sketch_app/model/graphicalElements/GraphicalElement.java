@@ -3,9 +3,6 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 import android.graphics.Canvas;
 import android.graphics.Path;
 
-import java.util.List;
-
-import at.ac.univie.se2ws2020team0310.sketch_app.model.Coordinate;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 
@@ -111,7 +108,7 @@ public abstract class GraphicalElement implements Cloneable {
      *
      * @return the current Freehand Path or null, if another Element was selected
      */
-    public List<Coordinate> getPath() {
+    public Path getPath() {
         return null;
     }
 

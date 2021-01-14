@@ -4,9 +4,6 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 import android.graphics.Path;
 import android.graphics.RectF;
 
-import java.util.List;
-
-import at.ac.univie.se2ws2020team0310.sketch_app.model.Coordinate;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 
@@ -14,7 +11,7 @@ public class Freehand extends GraphicalElement {
 
 // Attributes
 
-    private List<Coordinate> objectPath;
+    private Path objectPath;
     public Freehand(DrawStrategy drawStrategy) {
         super(drawStrategy);
     }
@@ -25,16 +22,16 @@ public class Freehand extends GraphicalElement {
     }
 
 // Methods
-    public List<Coordinate> getObjectPath() {
+    public Path getObjectPath() {
         return objectPath;
     }
 
-    public void setObjectPath(List<Coordinate> objectPath) {
+    public void setObjectPath(Path objectPath) {
         this.objectPath = objectPath;
     }
 
     @Override
-    public List<Coordinate> getPath() {
+    public Path getPath() {
         return getObjectPath();
     }
 
