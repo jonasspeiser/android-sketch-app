@@ -8,18 +8,18 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Line;
 
 public class DrawLineStrategy implements DrawStrategy {
     @Override
-    public Paint initializePaint() {
+    public Paint initializePaint(GraphicalElement graphicalElement) {
         Paint mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(graphicalElement.getStrokeWidth());
+        mPaint.setColor(graphicalElement.getColor());
         return mPaint;
     }
 
     @Override
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
-        Paint mPaint = initializePaint();
-        mPaint.setStrokeWidth(graphicalElement.getStrokeWidth());
-        mPaint.setColor(graphicalElement.getColor());
+        Paint mPaint = initializePaint(graphicalElement);
 
         canvas.drawLine(((Line) graphicalElement).getStartX(), ((Line) graphicalElement).getStartY(), graphicalElement.getXPosition(), graphicalElement.getYPosition(), mPaint);
     }

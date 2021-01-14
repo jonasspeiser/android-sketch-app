@@ -12,7 +12,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Graphic
  */
 public class DrawCombinedShapeStrategy implements DrawStrategy {
     @Override
-    public Paint initializePaint() {
+    public Paint initializePaint(GraphicalElement graphicalElement) {
         return null;
     }
 

@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
 
 public class TextDecorator extends GraphicalElementDecorator {
 
@@ -19,9 +18,10 @@ public class TextDecorator extends GraphicalElementDecorator {
      * Constructor of a TextDecorator for a different GraphicalElement
      * @param drawStrategy   the element to decorate
      */
-    public TextDecorator(DrawStrategy drawStrategy) {
+    public TextDecorator (DrawStrategy drawStrategy) {
         super(drawStrategy);
     }
+
 
     //   /**
     //    * Copy Constructor for a TextDecorator with a copy of the decorated GraphicalElement
@@ -51,13 +51,14 @@ public class TextDecorator extends GraphicalElementDecorator {
     }
     */
 
-    public Boolean onClickItalicButton() {
+    public void onClickItalicButton() {
         italic = true;
     }
         /*
         getElement().getObjectPaint().setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
 
          */
+
 
     public void onClickBoldButton() {
         bold = true;
@@ -75,30 +76,27 @@ public class TextDecorator extends GraphicalElementDecorator {
     }*/
 
 
-    @Override
-    public Paint initializePaint() {
-        return null;
-    }
 
     @Override
-    public void draw(Canvas canvas, GraphicalElement element) {
-        Paint mPaint = initializePaint();
-        mPaint.setStrokeWidth(element.getStrokeWidth());
-        mPaint.setColor(element.getColor());
-        mPaint.setTextSize(element.getSize());
+    public Paint initializePaint(GraphicalElement graphicalElement) {
+        Paint mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setStrokeWidth(graphicalElement.getStrokeWidth());
+        mPaint.setColor(graphicalElement.getColor());
+        mPaint.setTextSize(graphicalElement.getSize());
 
-        if (italic == true) {
+        if (italic = true) {
             mPaint.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
         }
         else if (bold == true) {
             mPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         }
-        /*if (underline == true) {
-            setUnderlineText(true);
-        }
-         */
-
-        canvas.drawText(((Text) element).getUserText(), element.getXPosition(), element.getYPosition(), mPaint);
+        return mPaint;
     }
 
+    @Override
+    public void draw(Canvas canvas, GraphicalElement graphicalElement) {
+
+    }
 }
