@@ -79,7 +79,7 @@ public final class GraphicalElementFactory {
         return mLine;
     }
 
-    public static Circle createCircle(int color, float size, float strokewidth) {
+    private static Circle createCircle(int color, float size, float strokewidth) {
         Circle mCircle = new Circle(new DrawCircleStrategy());
         mCircle.setColor(color);
         mCircle.setSize(size);
