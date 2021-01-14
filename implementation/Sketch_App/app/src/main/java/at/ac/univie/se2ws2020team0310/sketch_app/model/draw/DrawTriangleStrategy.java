@@ -6,7 +6,7 @@ import android.graphics.Path;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
-public class DrawTriangleStrategy implements DrawStrategy {
+public class DrawTriangleStrategy implements IDrawStrategy {
 
     public Paint initializePaint(GraphicalElement graphicalElement) {
         Paint mPaint = new Paint();

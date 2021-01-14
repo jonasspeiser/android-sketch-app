@@ -7,7 +7,7 @@ import android.graphics.Path;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Freehand;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
-public class DrawFreehandStrategy implements DrawStrategy {
+public class DrawFreehandStrategy implements IDrawStrategy {
 
     public Path initializePath(GraphicalElement graphicalElement) {
         Path mPath = new Path();
