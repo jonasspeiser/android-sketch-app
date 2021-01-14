@@ -24,6 +24,5 @@ public class DrawFreehandStrategy implements DrawStrategy {
 
         Path path = ((Freehand) graphicalElement).getObjectPath();   // cast
         canvas.drawPath(path, mPaint); //drawing
-
     }
 }
