@@ -89,7 +89,6 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
         if (this.getSelectedGraphicalElement() != null) {
             this.storeElement();
             this.setElementCoordinates(x, y);
-            this.isElementSelected = true;
         }
         // behaviour for touching an existing element
         if (this.getSelectedGraphicalElement() == null && this.getDrawnElements() != null

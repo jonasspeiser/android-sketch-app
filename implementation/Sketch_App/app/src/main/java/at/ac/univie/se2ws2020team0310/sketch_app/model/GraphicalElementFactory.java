@@ -61,43 +61,43 @@ public final class GraphicalElementFactory {
     }
 
     //TODO: color wird nicht genutzt, strokeWidth ist für Text eig irrelevant
-    private static Text createText(int color, float size, float strokewidth) {
+    private static Text createText(int color, float size, float strokeWidth) {
         Text mText = new Text(new DrawTextStrategy());
         mText.setColor(Color.BLACK);
         mText.setSize(size);
-        mText.setStrokeWidth(strokewidth);
+        mText.setStrokeWidth(strokeWidth);
         return mText;
     }
 
-    private static Triangle createTriangle(int color, float size, float strokewidth) {
+    private static Triangle createTriangle(int color, float size, float strokeWidth) {
         Triangle mTriangle = new Triangle(new DrawTriangleStrategy());
         mTriangle.setColor(color);
         mTriangle.setSize(size);
-        mTriangle.setStrokeWidth(strokewidth);
+        mTriangle.setStrokeWidth(strokeWidth);
         return mTriangle;
     }
 
     //TODO: size wird nicht genutzt
-    private static Line createLine(int color, float size, float strokewidth) {
+    private static Line createLine(int color, float size, float strokeWidth) {
         Line mLine = new Line(new DrawLineStrategy());
         mLine.setColor(color);
-        mLine.setStrokeWidth(strokewidth);
+        mLine.setStrokeWidth(strokeWidth);
         return mLine;
     }
 
-    public static Circle createCircle(int color, float size, float strokewidth) {
+    public static Circle createCircle(int color, float size, float strokeWidth) {
         Circle mCircle = new Circle(new DrawCircleStrategy());
         mCircle.setColor(color);
         mCircle.setSize(size);
-        mCircle.setStrokeWidth(strokewidth);
+        mCircle.setStrokeWidth(strokeWidth);
         return mCircle;
     }
 
-    private static Quadrangle createQuadrangle(int color, float size, float strokewidth) {
+    private static Quadrangle createQuadrangle(int color, float size, float strokeWidth) {
         Quadrangle mSquare = new Quadrangle(new DrawQuadrangleStrategy());
         mSquare.setColor(color);
         mSquare.setSize(size);
-        mSquare.setStrokeWidth(strokewidth);
+        mSquare.setStrokeWidth(strokeWidth);
         return mSquare;
     }
 
