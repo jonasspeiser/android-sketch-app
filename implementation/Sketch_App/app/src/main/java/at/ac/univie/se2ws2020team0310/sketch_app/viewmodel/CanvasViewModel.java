@@ -128,10 +128,10 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
     private void freehandBehaviourOnTouchDown(float touchX, float touchY) {
         path = null;
         if (getSelectedGraphicalElement() != null) {
-            path = getSelectedGraphicalElement().getPath();
+            path = getSelectedGraphicalElement().getPath(); // getCoordinateList()
         }
         if (path != null) {
-            path.moveTo(touchX, touchY); // start is here
+            path.moveTo(touchX, touchY); // start is here   // list.add(x,y)
         }
     }
 
@@ -145,7 +145,7 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
 
     private void freehandBehaviourOnTouchMove(float touchX, float touchY) {
         if (path != null) {
-            path.lineTo(touchX, touchY);
+            path.lineTo(touchX, touchY);    // list.add(x,y)
         }
     }
 
