@@ -11,10 +11,6 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Graphic
  *  Each element included in the Combined Shape will be drawn according to its own Strategy
  */
 public class DrawCombinedShapeStrategy implements DrawStrategy {
-    @Override
-    public Paint initializePaint() {
-        return null;
-    }
 
     @Override
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
