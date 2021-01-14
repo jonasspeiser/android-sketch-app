@@ -5,6 +5,7 @@ import android.graphics.Paint;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
+
 // TODO: Überarbeiten
 public class DrawTextStrategy implements IDrawStrategy {
 
@@ -23,6 +24,7 @@ public class DrawTextStrategy implements IDrawStrategy {
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
         Paint mPaint = initializePaint(graphicalElement);
 
-        canvas.drawText(((Text) graphicalElement).getUserText(), graphicalElement.getXPosition(), graphicalElement.getYPosition(), mPaint);
+        canvas.drawText(((Text) graphicalElement).getUserText(), graphicalElement.getXPosition(),
+                graphicalElement.getYPosition(), mPaint);
     }
 }

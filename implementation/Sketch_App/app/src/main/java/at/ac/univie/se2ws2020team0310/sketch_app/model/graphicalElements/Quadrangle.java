@@ -4,11 +4,11 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 
 public class Quadrangle extends GraphicalElement {
 
-// Attributes
+    // Attributes
     private float length;
     private float height;
 
-// Constructor
+    // Constructor
     public Quadrangle(IDrawStrategy drawStrategy) {
         super(drawStrategy);
     }
@@ -55,10 +55,11 @@ public class Quadrangle extends GraphicalElement {
         float xBottomRight = this.xPosition + this.length;
         float yBottomRight = this.yPosition + this.height;
 
-        if (x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight)
+        if (x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     @Override

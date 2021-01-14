@@ -8,14 +8,16 @@ import android.widget.Toast;
  */
 public final class ViewUtils {
 
-    private ViewUtils() {}
+    private ViewUtils() {
+    }
 
     /**
      * Utility method for showing a Toast with a message within the current Context
-     * @param context   the current context
-     * @param text      the text to display in the Toast
+     *
+     * @param context the current context
+     * @param text    the text to display in the Toast
      */
-    public static void showToast(Context context, String text){
+    public static void showToast(Context context, String text) {
         Toast textToast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
         textToast.show();
     }

@@ -6,10 +6,10 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 
 public class Text extends GraphicalElement {
 
-// Attributes
+    // Attributes
     private String userText;
 
-// Constructor
+    // Constructor
     public Text(IDrawStrategy drawStrategy) {
         super(drawStrategy);
         userText = "";
@@ -46,10 +46,7 @@ public class Text extends GraphicalElement {
         float xBottomRight = this.xPosition + textLength;
         float yBottomRight = this.yPosition;
 
-        if (x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight)
-            return true;
-        else
-            return false;
+        return x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight;
     }
 
     @Override

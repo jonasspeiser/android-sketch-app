@@ -17,5 +17,6 @@ public class UnderlineDecorator extends DrawStrategyDecorator {
         Paint mPaint = getOldStrategy().initializePaint(graphicalElement);
 
         mPaint.setUnderlineText(true);
-        return mPaint;    }
+        return mPaint;
+    }
 }

@@ -23,7 +23,8 @@ public abstract class DrawStrategyDecorator implements IDrawStrategy {
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
         Paint mPaint = initializePaint(graphicalElement);
 
-        canvas.drawText(((Text) graphicalElement).getUserText(), graphicalElement.getXPosition(), graphicalElement.getYPosition(), mPaint);
+        canvas.drawText(((Text) graphicalElement).getUserText(), graphicalElement.getXPosition(),
+                graphicalElement.getYPosition(), mPaint);
     }
 
     public abstract Paint initializePaint(GraphicalElement graphicalElement);

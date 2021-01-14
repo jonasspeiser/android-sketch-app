@@ -269,17 +269,20 @@ public class Sketch implements CustomObservable {
     }
 
     public void selectBold() {
-        GraphicalElement boldText = GraphicalElementFactory.createBoldText(getSelectedGraphicalElement());
+        GraphicalElement boldText = GraphicalElementFactory
+                .createBoldText(getSelectedGraphicalElement());
         setSelectedGraphicalElement(boldText);
     }
 
     public void selectItalic() {
-        GraphicalElement italicText = GraphicalElementFactory.createItalicText(getSelectedGraphicalElement());
+        GraphicalElement italicText = GraphicalElementFactory
+                .createItalicText(getSelectedGraphicalElement());
         setSelectedGraphicalElement(italicText);
     }
 
     public void selectUnderline() {
-        GraphicalElement underlineText = GraphicalElementFactory.createUnderlineText(getSelectedGraphicalElement());
+        GraphicalElement underlineText = GraphicalElementFactory
+                .createUnderlineText(getSelectedGraphicalElement());
         setSelectedGraphicalElement(underlineText);
     }
 
@@ -287,7 +290,7 @@ public class Sketch implements CustomObservable {
     public boolean export(Context context, String fileFormat, Bitmap drawingCache)
             throws IOException {
 
-        if (fileFormat == "JPEG") {
+        if (fileFormat.equals("JPEG")) {
             Export exportJPEG = new ExportJPEG(context, fileFormat, drawingCache);
             exportJPEG.exportImage(context, drawingCache, fileFormat);
         } else {
@@ -296,15 +299,6 @@ public class Sketch implements CustomObservable {
         }
         return true;
     }
-
-//    public boolean exportJPEG(ContentResolver contentResolver, Bitmap DrawingCache) {
-//        if(MediaStore.Images.Media.insertImage(contentResolver,DrawingCache, UUID.randomUUID().toString()+".png","drawing")!=null){
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-
 
     /**
      * Serializes the current layers and saves them to a file

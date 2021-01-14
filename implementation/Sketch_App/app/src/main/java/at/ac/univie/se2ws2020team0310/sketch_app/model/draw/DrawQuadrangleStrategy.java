@@ -22,6 +22,9 @@ public class DrawQuadrangleStrategy implements IDrawStrategy {
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
         Paint mPaint = initializePaint(graphicalElement);
 
-        canvas.drawRect(graphicalElement.getXPosition(), graphicalElement.getYPosition(), graphicalElement.getXPosition() + ((Quadrangle) graphicalElement).getLength(), graphicalElement.getYPosition() + ((Quadrangle) graphicalElement).getHeight(), mPaint);
+        canvas.drawRect(graphicalElement.getXPosition(), graphicalElement.getYPosition(),
+                graphicalElement.getXPosition() + ((Quadrangle) graphicalElement).getLength(),
+                graphicalElement.getYPosition() + ((Quadrangle) graphicalElement).getHeight(),
+                mPaint);
     }
 }

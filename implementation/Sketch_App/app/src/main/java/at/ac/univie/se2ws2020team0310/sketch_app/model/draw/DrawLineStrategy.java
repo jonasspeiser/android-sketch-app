@@ -22,6 +22,8 @@ public class DrawLineStrategy implements IDrawStrategy {
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
         Paint mPaint = initializePaint(graphicalElement);
 
-        canvas.drawLine(((Line) graphicalElement).getStartX(), ((Line) graphicalElement).getStartY(), graphicalElement.getXPosition(), graphicalElement.getYPosition(), mPaint);
+        canvas.drawLine(((Line) graphicalElement).getStartX(),
+                ((Line) graphicalElement).getStartY(), graphicalElement.getXPosition(),
+                graphicalElement.getYPosition(), mPaint);
     }
 }

@@ -12,6 +12,7 @@ public class Freehand extends GraphicalElement {
 // Attributes
 
     private Path objectPath;
+
     public Freehand(IDrawStrategy drawStrategy) {
         super(drawStrategy);
     }
@@ -21,7 +22,7 @@ public class Freehand extends GraphicalElement {
         setObjectPath(new Path(copy.objectPath));
     }
 
-// Methods
+    // Methods
     public Path getObjectPath() {
         return objectPath;
     }
@@ -42,7 +43,7 @@ public class Freehand extends GraphicalElement {
 
     public boolean isWithinElement(float x, float y) {
         Path tempPath = new Path(); // Create temp Path
-        tempPath.moveTo(x,y); // Move cursor to point
+        tempPath.moveTo(x, y); // Move cursor to point
         // create rectangle
         RectF rectangle = new RectF(x - 3, y - 3, x + 3, y + 1);
         tempPath.addRect(rectangle, Path.Direction.CW); // add rect to temp path
@@ -61,14 +62,17 @@ public class Freehand extends GraphicalElement {
     }
 
     /**
-     * Update current coordinates and Path, in order to move the Freehand drawing to the new position
-     * @param x the new coordinate x
-     * @param y the new coordinate y
-     * @param lastTouchX    the previous coordinate x (used for Freehand drawing)
-     * @param lastTouchY    the previous coordinate y (used for Freehand drawing)
+     * Update current coordinates and Path, in order to move the Freehand drawing to the new
+     * position
+     *
+     * @param x          the new coordinate x
+     * @param y          the new coordinate y
+     * @param lastTouchX the previous coordinate x (used for Freehand drawing)
+     * @param lastTouchY the previous coordinate y (used for Freehand drawing)
      */
     @Override
-    public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) throws AppException {
+    public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY)
+            throws AppException {
         super.changeCoordinates(x, y, lastTouchX, lastTouchY);
         if (getPath() != null && lastTouchX > 0 && lastTouchY > 0) {
             getPath().offset(x - lastTouchX, y - lastTouchY);
