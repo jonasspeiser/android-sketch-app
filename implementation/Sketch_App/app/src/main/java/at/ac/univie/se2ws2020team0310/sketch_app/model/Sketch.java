@@ -15,9 +15,9 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.export.ExportPNG;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IterableCollection;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.Iterator;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.LayerCollection;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections.IterableCollection;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections.Iterator;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections.LayerCollection;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObservable;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObserver;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.storage.GsonInterfaceAdapter;
@@ -263,6 +263,11 @@ public class Sketch implements CustomObservable {
     public void selectGraphicalElement(GraphicalElement element) {
         getSelectedLayer().resetEditableElements();
         setSelectedGraphicalElement(GraphicalElementFactory.createElement(element));
+    }
+
+    public void selectBold(){
+        GraphicalElement boldText = GraphicalElementFactory.createBoldText(getSelectedGraphicalElement());
+        setSelectedGraphicalElement(boldText);
     }
 
     //Use Template Method Pattern for division of file exporting into similar and differing parts

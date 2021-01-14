@@ -10,5 +10,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Graphic
  */
 public interface IDrawStrategy {
 
+    Paint initializePaint(GraphicalElement graphicalElement);
+
     void draw(Canvas canvas, GraphicalElement graphicalElement);
 }

@@ -5,10 +5,10 @@ import android.util.Log;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.ElementCollection;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IndexCollection;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.IterableCollection;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.iterators.Iterator;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections.ElementCollection;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections.IndexCollection;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections.IterableCollection;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections.Iterator;
 
 public class Layer {
 

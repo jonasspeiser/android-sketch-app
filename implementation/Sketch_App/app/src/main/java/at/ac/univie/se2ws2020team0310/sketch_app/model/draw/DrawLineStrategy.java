@@ -8,6 +8,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Line;
 
 public class DrawLineStrategy implements IDrawStrategy {
 
+    @Override
     public Paint initializePaint(GraphicalElement graphicalElement) {
         Paint mPaint = new Paint();
         mPaint.setAntiAlias(true);

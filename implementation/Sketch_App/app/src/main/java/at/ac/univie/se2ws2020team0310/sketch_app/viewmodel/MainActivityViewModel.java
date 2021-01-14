@@ -11,7 +11,7 @@ import java.util.List;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.BR;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.TextDecorator;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.decorators.BoldDecorator;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.ElementNotFoundException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
@@ -112,18 +112,30 @@ public class MainActivityViewModel extends BaseObservable {
 
 
     public void onClickItalicButton() {
-        TextDecorator textDecorator = new TextDecorator(sketch.getSelectedGraphicalElement());
-        textDecorator.onClickItalicButton();
+
+        /*
+        BoldDecorator boldDecorator = new BoldDecorator(sketch.getSelectedGraphicalElement());
+        boldDecorator.onClickItalicButton();
+
+         */
     }
 
     public void onClickBoldButton() {
-        TextDecorator textDecorator = new TextDecorator(sketch.getSelectedGraphicalElement());
-        textDecorator.onClickBoldButton();
+        sketch.selectBold();
+        /*
+        BoldDecorator boldDecorator = new BoldDecorator(sketch.getSelectedGraphicalElement());
+        boldDecorator.onClickBoldButton();
+
+         */
     }
 
     public void onClickUnderlineButton() {
-        TextDecorator textDecorator = new TextDecorator(sketch.getSelectedGraphicalElement());
-        textDecorator.onClickUnderlineButton();
+
+        /*
+        BoldDecorator boldDecorator = new BoldDecorator(sketch.getSelectedGraphicalElement());
+        boldDecorator.onClickUnderlineButton();
+
+         */
     }
 
     /**

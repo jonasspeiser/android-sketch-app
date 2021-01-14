@@ -13,6 +13,11 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Graphic
 public class DrawCombinedShapeStrategy implements IDrawStrategy {
 
     @Override
+    public Paint initializePaint(GraphicalElement graphicalElement) {
+        return null;
+    }
+
+    @Override
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
         CombinedShape combinedShape = (CombinedShape) graphicalElement;
         for (GraphicalElement element : combinedShape.getElements()) {

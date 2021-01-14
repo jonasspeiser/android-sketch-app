@@ -6,6 +6,9 @@ public enum EGraphicalElementType {
     QUADRANGLE,
     LINE,
     TEXT_FIELD,
+    BOLD_TEXT,
+    ITALIC_TEXT,
+    UNDERLINE_TEXT,
     FREEHAND,
     COMBINED_SHAPE
 }

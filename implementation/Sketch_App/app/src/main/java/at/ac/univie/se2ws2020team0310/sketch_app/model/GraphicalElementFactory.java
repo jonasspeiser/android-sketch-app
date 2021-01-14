@@ -2,6 +2,7 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
 import android.graphics.Path;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.decorators.BoldDecorator;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawCircleStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawCombinedShapeStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawFreehandStrategy;
@@ -9,6 +10,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawLineStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawQuadrangleStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawTextStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawTriangleStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Circle;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
@@ -113,6 +115,15 @@ public final class GraphicalElementFactory {
      */
     private static CombinedShape createCombinedShape() {
         return new CombinedShape(new DrawCombinedShapeStrategy());
+    }
+
+    public static Text createBoldText(GraphicalElement graphicalElement){
+        IDrawStrategy oldStrategy = graphicalElement.getDrawStrategy();
+        IDrawStrategy newStrategy = new BoldDecorator(oldStrategy);
+        Text mText = new Text(newStrategy);
+        mText.setColor(graphicalElement.getColor());
+        mText.setSize(graphicalElement.getSize());
+        return mText;
     }
 
 }

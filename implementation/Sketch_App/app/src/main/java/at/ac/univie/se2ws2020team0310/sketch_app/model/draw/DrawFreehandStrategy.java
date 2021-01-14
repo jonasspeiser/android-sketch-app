@@ -17,6 +17,7 @@ public class DrawFreehandStrategy implements IDrawStrategy {
         return mPath;
     }
 
+    @Override
     public Paint initializePaint(GraphicalElement graphicalElement) {
         Paint mPaint = new Paint();
         mPaint.setAntiAlias(true);
