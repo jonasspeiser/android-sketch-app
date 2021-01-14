@@ -117,29 +117,14 @@ public class MainActivityViewModel extends BaseObservable {
 
     public void onClickItalicButton() {
         sketch.selectItalic();
-        /*
-        BoldDecorator boldDecorator = new BoldDecorator(sketch.getSelectedGraphicalElement());
-        boldDecorator.onClickItalicButton();
-
-         */
     }
 
     public void onClickBoldButton() {
         sketch.selectBold();
-        /*
-        BoldDecorator boldDecorator = new BoldDecorator(sketch.getSelectedGraphicalElement());
-        boldDecorator.onClickBoldButton();
-
-         */
     }
 
     public void onClickUnderlineButton() {
         sketch.selectUnderline();
-        /*
-        BoldDecorator boldDecorator = new BoldDecorator(sketch.getSelectedGraphicalElement());
-        boldDecorator.onClickUnderlineButton();
-
-         */
     }
 
     /**
