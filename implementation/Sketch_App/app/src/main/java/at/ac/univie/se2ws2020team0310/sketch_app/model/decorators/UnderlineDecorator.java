@@ -6,9 +6,9 @@ import android.graphics.Typeface;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
-public class ItalicDecorator extends DrawStrategyDecorator {
+public class UnderlineDecorator extends DrawStrategyDecorator {
 
-    public ItalicDecorator(IDrawStrategy drawStrategy) {
+    public UnderlineDecorator(IDrawStrategy drawStrategy) {
         super(drawStrategy);
     }
 
@@ -16,6 +16,6 @@ public class ItalicDecorator extends DrawStrategyDecorator {
     public Paint initializePaint(GraphicalElement graphicalElement) {
         Paint mPaint = getOldStrategy().initializePaint(graphicalElement);
 
-        mPaint.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
+        mPaint.setUnderlineText(true);
         return mPaint;    }
 }

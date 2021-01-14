@@ -1,8 +1,12 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model;
 
 import android.graphics.Path;
+
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.decorators.BoldDecorator;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.decorators.BoldItalicDecorator;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.decorators.ItalicDecorator;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.decorators.UnderlineDecorator;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawCircleStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawCombinedShapeStrategy;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawFreehandStrategy;
@@ -28,7 +32,7 @@ public final class GraphicalElementFactory {
     }
 
     public static GraphicalElement createElement(EGraphicalElementType type, int color, float size,
-            float strokeWidth) throws AppException {
+                                                 float strokeWidth) throws AppException {
         switch (type) {
             case LINE:
                 return createLine(color, strokeWidth);
@@ -117,9 +121,42 @@ public final class GraphicalElementFactory {
         return new CombinedShape(new DrawCombinedShapeStrategy());
     }
 
-    public static Text createBoldText(GraphicalElement graphicalElement){
+    public static Text createBoldText(GraphicalElement graphicalElement) {
         IDrawStrategy oldStrategy = graphicalElement.getDrawStrategy();
-        IDrawStrategy newStrategy = new BoldDecorator(oldStrategy);
+        IDrawStrategy newStrategy;
+
+        if (oldStrategy instanceof ItalicDecorator) {
+            newStrategy = new BoldItalicDecorator(oldStrategy);
+        } else {
+            newStrategy = new BoldDecorator(oldStrategy);
+        }
+
+        Text mText = new Text(newStrategy);
+        mText.setColor(graphicalElement.getColor());
+        mText.setSize(graphicalElement.getSize());
+        return mText;
+    }
+
+    public static Text createItalicText(GraphicalElement graphicalElement) {
+        IDrawStrategy oldStrategy = graphicalElement.getDrawStrategy();
+        IDrawStrategy newStrategy;
+
+        if (oldStrategy instanceof BoldDecorator) {
+            newStrategy = new BoldItalicDecorator(oldStrategy);
+        } else {
+            newStrategy = new ItalicDecorator(oldStrategy);
+        }
+
+        Text mText = new Text(newStrategy);
+        mText.setColor(graphicalElement.getColor());
+        mText.setSize(graphicalElement.getSize());
+        return mText;
+    }
+
+    public static Text createUnderlineText(GraphicalElement graphicalElement) {
+        IDrawStrategy oldStrategy = graphicalElement.getDrawStrategy();
+        IDrawStrategy newStrategy = new UnderlineDecorator(oldStrategy);
+
         Text mText = new Text(newStrategy);
         mText.setColor(graphicalElement.getColor());
         mText.setSize(graphicalElement.getSize());

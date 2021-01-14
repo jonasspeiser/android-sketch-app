@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.ElementNotFoundException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
@@ -21,8 +22,10 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections.L
 import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObservable;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObserver;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.storage.GsonInterfaceAdapter;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -265,9 +268,19 @@ public class Sketch implements CustomObservable {
         setSelectedGraphicalElement(GraphicalElementFactory.createElement(element));
     }
 
-    public void selectBold(){
+    public void selectBold() {
         GraphicalElement boldText = GraphicalElementFactory.createBoldText(getSelectedGraphicalElement());
         setSelectedGraphicalElement(boldText);
+    }
+
+    public void selectItalic() {
+        GraphicalElement italicText = GraphicalElementFactory.createItalicText(getSelectedGraphicalElement());
+        setSelectedGraphicalElement(italicText);
+    }
+
+    public void selectUnderline() {
+        GraphicalElement underlineText = GraphicalElementFactory.createUnderlineText(getSelectedGraphicalElement());
+        setSelectedGraphicalElement(underlineText);
     }
 
     //Use Template Method Pattern for division of file exporting into similar and differing parts

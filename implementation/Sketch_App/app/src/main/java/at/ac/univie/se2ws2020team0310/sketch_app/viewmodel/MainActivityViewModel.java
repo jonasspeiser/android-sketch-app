@@ -40,7 +40,8 @@ public class MainActivityViewModel extends BaseObservable {
         sketch = Sketch.getSketch();
         combinedShapes = new ArrayList<>();
     }
-// Getters and Setters
+
+    // Getters and Setters
     public static void setSketch(Sketch sketch) {
         MainActivityViewModel.sketch = sketch;
     }
@@ -75,8 +76,7 @@ public class MainActivityViewModel extends BaseObservable {
     }
 
 
-
-// Other Methods
+    // Other Methods
     public void exportCanvas() {
 
     }
@@ -93,7 +93,9 @@ public class MainActivityViewModel extends BaseObservable {
         sketch.changeSize(size);
     }
 
-    public void deleteElement(){sketch.deleteElement();}
+    public void deleteElement() {
+        sketch.deleteElement();
+    }
 
     public void clearSketch() {
         sketch.clear();
@@ -108,11 +110,13 @@ public class MainActivityViewModel extends BaseObservable {
         sketch.setLayerVisibility(layerNumber, isVisible);
     }
 
-    public boolean layerIsEmpty() {return sketch.layerIsEmpty();}
+    public boolean layerIsEmpty() {
+        return sketch.layerIsEmpty();
+    }
 
 
     public void onClickItalicButton() {
-
+        sketch.selectItalic();
         /*
         BoldDecorator boldDecorator = new BoldDecorator(sketch.getSelectedGraphicalElement());
         boldDecorator.onClickItalicButton();
@@ -130,7 +134,7 @@ public class MainActivityViewModel extends BaseObservable {
     }
 
     public void onClickUnderlineButton() {
-
+        sketch.selectUnderline();
         /*
         BoldDecorator boldDecorator = new BoldDecorator(sketch.getSelectedGraphicalElement());
         boldDecorator.onClickUnderlineButton();
@@ -140,7 +144,8 @@ public class MainActivityViewModel extends BaseObservable {
 
     /**
      * Create and select a new GraphicalElement with the given type
-     * @param type  the type of the GraphicalElement
+     *
+     * @param type the type of the GraphicalElement
      */
     public void selectGraphicalElement(EGraphicalElementType type) {
         sketch.selectGraphicalElement(type);
@@ -148,7 +153,8 @@ public class MainActivityViewModel extends BaseObservable {
 
     /**
      * Create and select a new GraphicalElement as a copy of the given one as parameter
-     * @param element  the element to copy from
+     *
+     * @param element the element to copy from
      */
     public void selectGraphicalElement(GraphicalElement element) {
         sketch.selectGraphicalElement(element);
@@ -170,12 +176,13 @@ public class MainActivityViewModel extends BaseObservable {
         sketch.loadLayersFromFile(context, saveslot);
     }
 
-    public void deleteSavedSketches(Context context){
+    public void deleteSavedSketches(Context context) {
         sketch.deleteSavedSketches(context);
     }
 
     /**
      * Enable Combined Shapes mode: all selected Graphical Elements will be added to the current Combined Shape
+     *
      * @param combinedShape the current Combined Shape
      */
     public void enableCombinedShapesMode(CombinedShape combinedShape) {
@@ -213,6 +220,7 @@ public class MainActivityViewModel extends BaseObservable {
     /**
      * Check if the created Combined Shape contains at least one element
      * If the Combined Shape is empty, then remove its references
+     *
      * @throws AppException if the Combined Shape contains no elements
      */
     public void processCurrentCombinedShape() throws AppException {
@@ -238,6 +246,7 @@ public class MainActivityViewModel extends BaseObservable {
 
     /**
      * Sets the entered text as the name of the current Combined Shape
+     *
      * @param enteredText
      */
     public void setCurrentCombinedShapeName(String enteredText) {
