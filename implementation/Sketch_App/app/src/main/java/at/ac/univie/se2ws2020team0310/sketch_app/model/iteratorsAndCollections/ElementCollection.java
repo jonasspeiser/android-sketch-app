@@ -45,7 +45,11 @@ public class ElementCollection implements IterableCollection {
 
     @Override
     public void remove(int index) {
-        collectedElements.remove(index);
+        try {
+            collectedElements.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

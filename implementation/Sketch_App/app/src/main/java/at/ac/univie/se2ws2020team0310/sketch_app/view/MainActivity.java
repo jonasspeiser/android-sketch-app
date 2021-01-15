@@ -575,7 +575,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // TODO: Funktionalität in Methode im ViewModel auslagern (ab hier bis unten)
+    // TODO: Funktionalität (presentation logic) ins ViewModel auslagern (ab hier bis unten)
 
     /**
      * @param view required by Android interface
