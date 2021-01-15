@@ -7,7 +7,7 @@ import org.mockito.Mock;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawTextStrategy;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class TextTest {
 
@@ -27,14 +27,11 @@ public class TextTest {
         text.setUserText("hallo");
         mPaint.measureText(text.getUserText());
 
-        //mPaint.setTextSize(textsize);
-        //mPaint.setTextSize(text.setSize(size));
-
         text.setSize(textsize);
         mPaint.setTextSize(text.getSize());
 
-        //test passes if touch is within quadrangle
-        assertTrue(text.isWithinElement(100,200));
+        //test passes if touch is within text
+        assertFalse(text.isWithinElement(500,500));
 
     }
 }
