@@ -2,6 +2,8 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model.draw;
 
 import android.graphics.Canvas;
 
+import junit.framework.TestCase;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -15,11 +17,10 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppExcep
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
-import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DrawCombinedShapeStrategyTest {
+public class DrawCombinedShapeStrategyTest extends TestCase {
 
     // Mock collaborators of DrawCombinedShapeStrategy
     @Mock

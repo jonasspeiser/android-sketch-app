@@ -1,18 +1,20 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.draw;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Circle;
-import org.junit.Before;
+
+import junit.framework.TestCase;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Circle;
+
 @RunWith(MockitoJUnitRunner.class)
-public class DrawCircleStrategyTest {
+public class DrawCircleStrategyTest extends TestCase {
 
     @Mock
     private Canvas canvas;
@@ -33,3 +35,4 @@ public class DrawCircleStrategyTest {
 
     }
 }
+
