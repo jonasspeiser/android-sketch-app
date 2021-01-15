@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -95,11 +96,13 @@ public class MainActivity extends AppCompatActivity {
                 mainActivityViewModel.changeElementSize(progress);
             }
 
-            public void onStartTrackingTouch(SeekBar sizeSeekBar) {
-                // TODO Auto-generated method stub
+            public void onStartTrackingTouch(SeekBar sizeSeekBar){
+                Log.i("SeekBar","Size change in progress");
             }
 
             public void onStopTrackingTouch(SeekBar sizeSeekBar) {
+                Log.i("SeekBar","Size change finished");
+
             }
         });
 
@@ -112,10 +115,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public void onStartTrackingTouch(SeekBar strokeWidthSeekBar) {
-                // TODO Auto-generated method stub
+                Log.i("SeekBar","Stroke width change in progress");
             }
 
             public void onStopTrackingTouch(SeekBar strokeWidthSeekBar) {
+                Log.i("SeekBar","Stroke width change finished");
             }
         });
 
