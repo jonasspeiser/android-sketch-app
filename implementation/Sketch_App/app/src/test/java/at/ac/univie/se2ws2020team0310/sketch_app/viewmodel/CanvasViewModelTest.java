@@ -12,11 +12,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.Sketch;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObserver;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatternInterfaces.CustomObserver;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CanvasViewModelTest extends TestCase {

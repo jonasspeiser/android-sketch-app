@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObserver;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatternInterfaces.CustomObserver;
 import at.ac.univie.se2ws2020team0310.sketch_app.viewmodel.CanvasViewModel;
 import java.io.IOException;
 

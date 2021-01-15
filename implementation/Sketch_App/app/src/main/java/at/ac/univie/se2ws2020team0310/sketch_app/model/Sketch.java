@@ -19,8 +19,8 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Graphic
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections.IterableCollection;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections.Iterator;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections.LayerCollection;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObservable;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatterInterfaces.CustomObserver;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatternInterfaces.CustomObservable;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.observerPatternInterfaces.CustomObserver;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.storage.GsonInterfaceAdapter;
 
 import com.google.gson.Gson;
