@@ -8,7 +8,7 @@ public class LayerCollection implements IterableCollection {
 
 // Attributes
 
-    static final int MAX_LAYERS = 3;
+    private static final int MAX_LAYERS = 3;
     private Layer[] layers;
 
 // Constructor

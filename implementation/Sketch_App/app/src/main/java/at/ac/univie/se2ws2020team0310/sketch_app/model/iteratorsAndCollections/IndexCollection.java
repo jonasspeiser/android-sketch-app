@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class IndexCollection implements IterableCollection {
 
     // Attributes
-    ArrayList<Integer> collectedIndices;
+    private ArrayList<Integer> collectedIndices;
 
 // Constructor
 

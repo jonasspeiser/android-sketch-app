@@ -7,7 +7,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Graphic
 public class ElementCollection implements IterableCollection {
 
     // Attributes
-    ArrayList<GraphicalElement> collectedElements;
+    private ArrayList<GraphicalElement> collectedElements;
 
 // Constructor
 
