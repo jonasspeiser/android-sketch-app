@@ -312,18 +312,15 @@ public class Sketch implements CustomObservable {
      * @param saveslot A number between 1 and 5
      */
     public void saveLayersToFile(Context context, int saveslot) {
-
+        // Get SharedPreferences instance
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
         SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
 
-        //Create our gson instance
-        GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(IterableCollection.class, new GsonInterfaceAdapter());
-        builder.registerTypeAdapter(GraphicalElement.class, new GsonInterfaceAdapter());
-        builder.registerTypeAdapter(IDrawStrategy.class, new GsonInterfaceAdapter());
-        Gson gson = builder.create();
+        // Create gson instance
+        Gson gson = registerGsonAdapter();
 
+        // Serialize layers collection object and store it in SharedPreferences
         String filename = "SavedSketch" + saveslot;
         String json = gson.toJson(this.layers);
         prefsEditor.putString(filename, json);
@@ -339,20 +336,18 @@ public class Sketch implements CustomObservable {
      * in combination with: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
      *
      * @param context  The application context (activity.getApplicationContext())
-     * @param saveslot A number between 1 and 5
-     * @throws NullPointerException When trying to load a non-existent file
+     * @param saveslot A number between 1 and 5, matching the saveslot the desired object was saved to
+     * @throws NullPointerException When trying to load from an empty saveslot
      */
     public void loadLayersFromFile(Context context, int saveslot) throws NullPointerException {
+        // Get SharedPreferences instance
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
-        //Create our gson instance
-        GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(IterableCollection.class, new GsonInterfaceAdapter());
-        builder.registerTypeAdapter(GraphicalElement.class, new GsonInterfaceAdapter());
-        builder.registerTypeAdapter(IDrawStrategy.class, new GsonInterfaceAdapter());
-        Gson gson = builder.create();
+        // Create gson instance
+        Gson gson = registerGsonAdapter();
 
+        // deserialize json to layers collection object from SharedPreferences
         String json = appSharedPrefs.getString("SavedSketch" + saveslot, "");
 
         if (json == null || json.isEmpty()) {
@@ -363,8 +358,25 @@ public class Sketch implements CustomObservable {
         }
     }
 
+    /**
+     * Needed for saving and loading sketches on the device.
+     * Registers Gson Adapters, needed for serialization and deserialization of our layers objects.
+     * @return a Gson instance to work with for (de-)serialization of layers objects
+     */
+    public Gson registerGsonAdapter() {
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(IterableCollection.class, new GsonInterfaceAdapter());
+        builder.registerTypeAdapter(GraphicalElement.class, new GsonInterfaceAdapter());
+        builder.registerTypeAdapter(IDrawStrategy.class, new GsonInterfaceAdapter());
+        Gson gson = builder.create();
+        return gson;
+    }
 
-    // as seen at: https://stackoverflow.com/questions/6125296/delete-sharedpreferences-file
+    /**
+     * Deletes all the saved sketches
+     * based on: https://stackoverflow.com/questions/6125296/delete-sharedpreferences-file
+     * @param context The application context (activity.getApplicationContext())
+     */
     public void deleteSavedSketches(Context context) {
         File dir = new File(context.getFilesDir().getParent() + "/shared_prefs/");
         String[] children = dir.list();
@@ -376,20 +388,6 @@ public class Sketch implements CustomObservable {
             new File(dir, child).delete();
         }
     }
-
-    //TODO : Creating gson instance auslagern (in eigene Methode, evtl in andere Klasse?)
-
-
-/*
-    public Gson registerGsonAdapter() {
-        //Create our gson instance
-        GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(IterableCollection.class, new GsonInterfaceAdapter());
-        Gson gson = builder.create();
-        return gson;
-    }
-
- */
 
     @Override
     public void registerObserver(CustomObserver observer) {

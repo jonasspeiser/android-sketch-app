@@ -52,7 +52,7 @@ public class Layer {
     /** Adds the given GraphicalElement in the layer's ElementCollection
      * and makes it editable and movable
      *
-     * @param selectedGraphicalElement
+     * @param selectedGraphicalElement element that shall be stored
      */
     public void storeElement(GraphicalElement selectedGraphicalElement) {
         // check if element is already present, then add it
@@ -138,8 +138,8 @@ public class Layer {
 
     /**
      * Sets the given coordinates to the graphical element that is currently set as movable
-     * @param x
-     * @param y
+     * @param x the x-coordinate
+     * @param y the y-coordinate
      */
     public void setCoordinates(float x, float y) {
         try {
@@ -153,8 +153,8 @@ public class Layer {
 
     /**
      * Invokes the changeCoordinates function on the graphical element that is currently set as movable
-     * @param x
-     * @param y
+     * @param x the x-coordinate
+     * @param y the y-coordinate
      */
     public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
         try {
@@ -238,7 +238,7 @@ public class Layer {
 
     /**
      * Returns an Iterator to traverse through all graphical elements on this layer
-     * @return
+     * @return an Iterator object for traversal of an ElementCollection
      */
     public Iterator createIterator() {
         return drawnElements.createIterator();
