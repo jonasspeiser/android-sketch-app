@@ -1,13 +1,16 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
+import junit.framework.TestCase;
+
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawLineStrategy;
 
-import static org.junit.Assert.assertTrue;
-
-public class LineTest {
+@RunWith(MockitoJUnitRunner.class)
+public class LineTest extends TestCase {
 
     @Mock
     DrawLineStrategy strategy = new DrawLineStrategy();
