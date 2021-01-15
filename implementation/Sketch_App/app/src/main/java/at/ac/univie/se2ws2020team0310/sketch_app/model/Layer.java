@@ -10,6 +10,9 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections.I
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections.IterableCollection;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections.Iterator;
 
+/**
+ * A Layer object holds graphical elements which were drawn on it and can invoke operations on them
+ */
 public class Layer {
 
     private static final String LAYER_TAG = "Layer";
@@ -46,6 +49,11 @@ public class Layer {
 
 // Other Methods
 
+    /** Adds the given GraphicalElement in the layer's ElementCollection
+     * and makes it editable and movable
+     *
+     * @param selectedGraphicalElement
+     */
     public void storeElement(GraphicalElement selectedGraphicalElement) {
         // check if element is already present, then add it
         if (selectedGraphicalElement != null && !drawnElements.contains(selectedGraphicalElement)) {
@@ -55,6 +63,9 @@ public class Layer {
         }
     }
 
+    /**
+     * Deletes all graphical elements drawn on this layer
+     */
     public void clear() {
         drawnElements.clear();
         resetEditableElements();
@@ -106,6 +117,7 @@ public class Layer {
         return false;
     }
 
+
     public void makeMovable(GraphicalElement graphicalElement) {
         try {
             int index = drawnElements.indexOf(graphicalElement);
@@ -124,6 +136,11 @@ public class Layer {
         }
     }
 
+    /**
+     * Sets the given coordinates to the graphical element that is currently set as movable
+     * @param x
+     * @param y
+     */
     public void setCoordinates(float x, float y) {
         try {
             int index = this.movableElementIndex;
@@ -134,6 +151,11 @@ public class Layer {
         }
     }
 
+    /**
+     * Invokes the changeCoordinates function on the graphical element that is currently set as movable
+     * @param x
+     * @param y
+     */
     public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) {
         try {
             int index = this.movableElementIndex;
@@ -144,6 +166,10 @@ public class Layer {
         }
     }
 
+    /**
+     * Changes the color of all graphical elements that are currently set as editable
+     * @param color
+     */
     public void changeColor(int color) {
         try {
             Iterator indexIterator = editableElementsIndices.createIterator();
@@ -157,6 +183,10 @@ public class Layer {
         }
     }
 
+    /**
+     * Changes the strokewidth of all graphical elements that are currently set as editable
+     * @param strokewidth
+     */
     public void changeStrokeWidth(float strokewidth) {
         try {
             Iterator indexIterator = editableElementsIndices.createIterator();
@@ -170,6 +200,10 @@ public class Layer {
         }
     }
 
+    /**
+     * Changes the size of all graphical elements that are currently set as editable
+     * @param size
+     */
     public void changeSize(float size) {
         try {
             Iterator indexIterator = editableElementsIndices.createIterator();
@@ -183,7 +217,9 @@ public class Layer {
         }
     }
 
-
+    /**
+     * Deletes all graphical elements that are currently set as editable
+     */
     public void deleteEditableElements() {
         Iterator indexIterator = editableElementsIndices.createIterator();
         while (indexIterator.hasMore()) {
@@ -193,10 +229,17 @@ public class Layer {
         }
     }
 
+    /**
+     * Resets the selection of elements that can be edited
+     */
     public void resetEditableElements() {
         editableElementsIndices.clear();
     }
 
+    /**
+     * Returns an Iterator to traverse through all graphical elements on this layer
+     * @return
+     */
     public Iterator createIterator() {
         return drawnElements.createIterator();
     }
