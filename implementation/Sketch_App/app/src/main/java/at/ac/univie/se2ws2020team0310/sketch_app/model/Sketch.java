@@ -37,6 +37,10 @@ public class Sketch implements CustomObservable {
 
     private static final Sketch sketch = new Sketch();
 
+    private int selectedColor;
+    private float selectedSize;
+    private float selectedStrokeWidth;
+
     private ArrayList<CustomObserver> observers;
 
     private IterableCollection layers;
@@ -45,9 +49,7 @@ public class Sketch implements CustomObservable {
     private GraphicalElement selectedGraphicalElement;
     private CombinedShape currentCombinedShape;
 
-    private int selectedColor;
-    private float selectedSize;
-    private float selectedStrokeWidth;
+
 
     private boolean editModeTurnedOn;
     private boolean combineShapesModeOn;

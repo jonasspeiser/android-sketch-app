@@ -6,8 +6,8 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Graphic
 
 public class ElementCollectionIterator implements Iterator {
 
-    ArrayList<GraphicalElement> items;
-    int position = 0;
+    private ArrayList<GraphicalElement> items;
+    private int position = 0;
 
     public ElementCollectionIterator(ArrayList<GraphicalElement> items) {
         this.items = items;

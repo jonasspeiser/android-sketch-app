@@ -4,8 +4,8 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.Layer;
 
 public class LayerCollectionIterator implements Iterator {
 
-    Layer[] items;
-    int position = 0;
+    private Layer[] items;
+    private int position = 0;
 
     public LayerCollectionIterator(Layer[] items) {
         this.items = items;

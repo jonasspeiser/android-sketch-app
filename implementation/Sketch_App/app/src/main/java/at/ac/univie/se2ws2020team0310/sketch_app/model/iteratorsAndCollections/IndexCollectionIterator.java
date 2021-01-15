@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class IndexCollectionIterator implements Iterator {
 
-    ArrayList<Integer> items;
-    int position = 0;
+    private ArrayList<Integer> items;
+    private int position = 0;
 
     public IndexCollectionIterator(ArrayList<Integer> items) {
         this.items = items;
