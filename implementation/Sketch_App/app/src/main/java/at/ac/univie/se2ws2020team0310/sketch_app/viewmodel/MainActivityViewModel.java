@@ -28,11 +28,6 @@ public class MainActivityViewModel extends ViewModel {
 
     private static Sketch sketch;
 
-    // TODO: Ist es wirklich nötig, diese Attribute in Sketch UND MainActivityViewModel zu haben?
-    private int selectedColor;
-    private float selectedSize;
-    private float selectedStrokeWidth;
-
     private List<CombinedShape> combinedShapes;
 
     // Constructor
@@ -42,38 +37,19 @@ public class MainActivityViewModel extends ViewModel {
         combinedShapes = new ArrayList<>();
     }
 
-    // Getters and Setters
-
-    public int getSelectedColor() {
-        return selectedColor;
-    }
+    // Other Methods
 
     public void setSelectedColor(int selectedColor) {
-        this.selectedColor = selectedColor;
         sketch.setSelectedColor(selectedColor);
     }
 
-    public float getSelectedSize() {
-        return selectedSize;
-    }
-
     public void setSelectedSize(float selectedSize) {
-        this.selectedSize = selectedSize;
         sketch.setSelectedSize(selectedSize);
     }
 
-    public float getSelectedStrokeWidth() {
-        return selectedStrokeWidth;
-    }
-
     public void setSelectedStrokeWidth(float selectedStrokeWidth) {
-        this.selectedStrokeWidth = selectedStrokeWidth;
         sketch.setSelectedStrokeWidth(selectedStrokeWidth);
-
     }
-
-
-    // Other Methods
 
     public void changeElementColor(int color) {
         sketch.changeColor(color);
