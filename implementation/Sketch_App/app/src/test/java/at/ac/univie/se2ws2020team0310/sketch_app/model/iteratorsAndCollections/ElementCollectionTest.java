@@ -61,7 +61,7 @@ public class ElementCollectionTest extends TestCase {
 
     @Test
     public void testContains() {
-        elementCollection.contains(quadrangle);
-        assertFalse(elementCollection.contains(quadrangle));
+        elementCollection.contains(item1);
+        assertFalse(elementCollection.contains(item1));
     }
 }
