@@ -18,7 +18,7 @@ import java.lang.reflect.Type;
  * used e.g. for storing and reading nested java-objects on the device, if the default Gson
  * deserializer doesn't work as expected.
  * <p>
- * Based on: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
+ * as seen at: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
  */
 public class GsonInterfaceAdapter implements JsonSerializer, JsonDeserializer {
 
