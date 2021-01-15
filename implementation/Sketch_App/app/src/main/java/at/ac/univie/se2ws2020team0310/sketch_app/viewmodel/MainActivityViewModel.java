@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphi
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
 
-public class MainActivityViewModel extends BaseObservable {
+public class MainActivityViewModel extends ViewModel {
 
     private static final String MAIN_ACTIVITY_VIEW_MODEL = "MainActivityViewModel";
 
@@ -65,12 +66,10 @@ public class MainActivityViewModel extends BaseObservable {
         return selectedStrokeWidth;
     }
 
-    @Bindable
-    public void setSelectedStrokeWidth(
-            float selectedStrokeWidth) {     // TODO: Was genau tut das? Wieso gibts das nur bei Strokewidth?
+    public void setSelectedStrokeWidth(float selectedStrokeWidth) {
         this.selectedStrokeWidth = selectedStrokeWidth;
         sketch.setSelectedStrokeWidth(selectedStrokeWidth);
-        notifyPropertyChanged(BR.selectedStrokeWidth);
+
     }
 
 
