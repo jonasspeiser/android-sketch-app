@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -95,11 +96,13 @@ public class MainActivity extends AppCompatActivity {
                 mainActivityViewModel.changeElementSize(progress);
             }
 
-            public void onStartTrackingTouch(SeekBar sizeSeekBar) {
-                // TODO Auto-generated method stub
+            public void onStartTrackingTouch(SeekBar sizeSeekBar){
+                Log.i("SeekBar","Size change in progress");
             }
 
             public void onStopTrackingTouch(SeekBar sizeSeekBar) {
+                Log.i("SeekBar","Size change finished");
+
             }
         });
 
@@ -112,10 +115,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public void onStartTrackingTouch(SeekBar strokeWidthSeekBar) {
-                // TODO Auto-generated method stub
+                Log.i("SeekBar","Stroke width change in progress");
             }
 
             public void onStopTrackingTouch(SeekBar strokeWidthSeekBar) {
+                Log.i("SeekBar","Stroke width change finished");
             }
         });
 
@@ -181,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 showToast("Layer 2 selected");
                 break;
+            default: showToast("Please restart app!");
         }
     }
 
@@ -300,7 +305,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //The implementation of the load, save and export-functions will be included for DEAD.
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -383,6 +387,7 @@ public class MainActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                                 break;
+                            default: showToast("Please try saving again.");
                         }
                     }
                 });
@@ -448,6 +453,7 @@ public class MainActivity extends AppCompatActivity {
                                     showToast("Selected Saveslot is empty");
                                 }
                                 break;
+                            default: showToast("Please try opening again.");
                         }
                     }
                 });
@@ -492,6 +498,7 @@ public class MainActivity extends AppCompatActivity {
                                             e.printStackTrace();
                                         }
                                         break;
+                                    default: showToast("Please try exporting again.");
                                 }
                             }
                         });

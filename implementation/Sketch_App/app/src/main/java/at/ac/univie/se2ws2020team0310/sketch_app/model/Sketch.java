@@ -206,11 +206,17 @@ public class Sketch implements CustomObservable {
         }
     }
 
+    /**
+     * Deletes all elements that are set as editable on the currently selected layer
+     */
     public void deleteElement() {
         getSelectedLayer().deleteEditableElements();
         notifyObservers();
     }
 
+    /**
+     * Deletes every graphical element on every layer
+     */
     public void clear() {
         Iterator layersIterator = layers.createIterator();
         while (layersIterator.hasMore()) {
@@ -220,6 +226,9 @@ public class Sketch implements CustomObservable {
         notifyObservers();
     }
 
+    /**
+     * Sets the currently selected graphical element type on null
+     */
     public void resetSelection() {
         this.setSelectedGraphicalElement(null);
     }
@@ -270,18 +279,27 @@ public class Sketch implements CustomObservable {
         setSelectedGraphicalElement(GraphicalElementFactory.createElement(element));
     }
 
+    /**
+     * Create and select a new Text with a BoldDecorator
+     */
     public void selectBold() {
         GraphicalElement boldText = GraphicalElementFactory
                 .createBoldText(getSelectedGraphicalElement());
         setSelectedGraphicalElement(boldText);
     }
 
+    /**
+     * Create and select a new Text with an ItalicDecorator
+     */
     public void selectItalic() {
         GraphicalElement italicText = GraphicalElementFactory
                 .createItalicText(getSelectedGraphicalElement());
         setSelectedGraphicalElement(italicText);
     }
 
+    /**
+     * Create and select a new Text with an UnderlineDecorator
+     */
     public void selectUnderline() {
         GraphicalElement underlineText = GraphicalElementFactory
                 .createUnderlineText(getSelectedGraphicalElement());
@@ -312,22 +330,17 @@ public class Sketch implements CustomObservable {
      * @param saveslot A number between 1 and 5
      */
     public void saveLayersToFile(Context context, int saveslot) {
-
+        // Get SharedPreferences instance
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
         SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
-
-        //Create our gson instance
-        GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(IterableCollection.class, new GsonInterfaceAdapter());
-        builder.registerTypeAdapter(GraphicalElement.class, new GsonInterfaceAdapter());
-        builder.registerTypeAdapter(IDrawStrategy.class, new GsonInterfaceAdapter());
-        Gson gson = builder.create();
-
+        // Create gson instance
+        Gson gson = registerGsonAdapter();
+        // Serialize layers collection object and store it in SharedPreferences
         String filename = "SavedSketch" + saveslot;
         String json = gson.toJson(this.layers);
         prefsEditor.putString(filename, json);
-        prefsEditor.commit();
+        prefsEditor.apply();
     }
 
 
@@ -335,26 +348,21 @@ public class Sketch implements CustomObservable {
      * Restores saved layers by reading them from a file and overwrites the current layers with
      * their content
      * <p>
-     * Based on: https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable/15011927#15011927
+     * based on: https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable/15011927#15011927
      * in combination with: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
      *
      * @param context  The application context (activity.getApplicationContext())
-     * @param saveslot A number between 1 and 5
-     * @throws NullPointerException When trying to load a non-existent file
+     * @param saveslot A number between 1 and 5, matching the saveslot the desired object was saved to
+     * @throws NullPointerException When trying to load from an empty saveslot
      */
     public void loadLayersFromFile(Context context, int saveslot) throws NullPointerException {
+        // Get SharedPreferences instance
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
-
-        //Create our gson instance
-        GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(IterableCollection.class, new GsonInterfaceAdapter());
-        builder.registerTypeAdapter(GraphicalElement.class, new GsonInterfaceAdapter());
-        builder.registerTypeAdapter(IDrawStrategy.class, new GsonInterfaceAdapter());
-        Gson gson = builder.create();
-
+        // Create gson instance
+        Gson gson = registerGsonAdapter();
+        // deserialize json to layers collection object from SharedPreferences
         String json = appSharedPrefs.getString("SavedSketch" + saveslot, "");
-
         if (json == null || json.isEmpty()) {
             throw new NullPointerException("Called saveslot is empty");
         } else {
@@ -363,33 +371,35 @@ public class Sketch implements CustomObservable {
         }
     }
 
+    /**
+     * Needed for saving and loading sketches on the device.
+     * Registers Gson Adapters, needed for serialization and deserialization of our layers objects.
+     * @return a Gson instance to work with for (de-)serialization of layers objects
+     */
+    public Gson registerGsonAdapter() {
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(IterableCollection.class, new GsonInterfaceAdapter());
+        builder.registerTypeAdapter(GraphicalElement.class, new GsonInterfaceAdapter());
+        builder.registerTypeAdapter(IDrawStrategy.class, new GsonInterfaceAdapter());
+        return builder.create();
+    }
 
-    // as seen at: https://stackoverflow.com/questions/6125296/delete-sharedpreferences-file
+    /**
+     * Deletes all the saved sketches
+     * based on: https://stackoverflow.com/questions/6125296/delete-sharedpreferences-file
+     * @param context The application context (activity.getApplicationContext())
+     */
     public void deleteSavedSketches(Context context) {
         File dir = new File(context.getFilesDir().getParent() + "/shared_prefs/");
         String[] children = dir.list();
         for (String child : children) {
             // clear each preference file
             context.getSharedPreferences(child.replace(".xml", ""), Context.MODE_PRIVATE).edit()
-                    .clear().commit();
+                    .clear().apply();
             //delete the file
             new File(dir, child).delete();
         }
     }
-
-    //TODO : Creating gson instance auslagern (in eigene Methode, evtl in andere Klasse?)
-
-
-/*
-    public Gson registerGsonAdapter() {
-        //Create our gson instance
-        GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(IterableCollection.class, new GsonInterfaceAdapter());
-        Gson gson = builder.create();
-        return gson;
-    }
-
- */
 
     @Override
     public void registerObserver(CustomObserver observer) {
