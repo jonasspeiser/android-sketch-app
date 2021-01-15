@@ -81,7 +81,6 @@ public class CanvasView extends View implements CustomObserver {
                 case MotionEvent.ACTION_DOWN:
                     canvasViewModel.onTouchDown(touchX, touchY);
                     if (canvasViewModel.elementsToDraw()) {
-                        invalidate();
                         return true;
                     } else {
                         throw new AppException("No object selected");
@@ -89,7 +88,6 @@ public class CanvasView extends View implements CustomObserver {
 
                 case MotionEvent.ACTION_MOVE:
                     canvasViewModel.onTouchMove(touchX, touchY);
-                    invalidate();
                     return true;
 
                 case MotionEvent.ACTION_UP:
