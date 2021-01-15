@@ -11,7 +11,8 @@ public class BoldDecorator extends DrawStrategyDecorator {
 
     /**
      * Constructor of a BoldDecorator for a different DrawStrategy
-     * @param drawStrategy   the drawStrategy to decorate
+     *
+     * @param drawStrategy the drawStrategy to decorate
      */
     public BoldDecorator(IDrawStrategy drawStrategy) {
         super(drawStrategy);

@@ -11,13 +11,14 @@ import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
 
-/** Custom serialize and deserialize methods for Gson-library.
- *
- *  Solves a problem where Gson can't find Constructors for objects with an Interface-type.
- *  Can be used e.g. for storing and reading nested java-objects on the device,
- *  if the default Gson deserializer doesn't work as expected.
- *
- *  Based on: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
+/**
+ * Custom serialize and deserialize methods for Gson-library.
+ * <p>
+ * Solves a problem where Gson can't find Constructors for objects with an Interface-type. Can be
+ * used e.g. for storing and reading nested java-objects on the device, if the default Gson
+ * deserializer doesn't work as expected.
+ * <p>
+ * Based on: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
  */
 public class GsonInterfaceAdapter implements JsonSerializer, JsonDeserializer {
 
@@ -25,7 +26,8 @@ public class GsonInterfaceAdapter implements JsonSerializer, JsonDeserializer {
     private static final String DATA = "DATA";
 
     @Override
-    public Object deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public Object deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException {
 
         JsonObject jsonObject = json.getAsJsonObject();
         JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);

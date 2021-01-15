@@ -4,17 +4,18 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 
 public class Circle extends GraphicalElement {
 
-// Attributes
+    // Attributes
     private float radius;
 
-// Constructor
+    // Constructor
     public Circle(IDrawStrategy drawStrategy) {
         super(drawStrategy);
     }
 
     /**
      * Copy Constructor for Circle
-     * @param copy  the Circle to copy from
+     *
+     * @param copy the Circle to copy from
      */
     public Circle(Circle copy) {
         super(copy);

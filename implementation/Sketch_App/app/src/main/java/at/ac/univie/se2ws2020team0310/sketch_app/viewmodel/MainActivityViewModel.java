@@ -19,6 +19,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphi
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 
 public class MainActivityViewModel extends BaseObservable {
+
     private static final String MAIN_ACTIVITY_VIEW_MODEL = "MainActivityViewModel";
 
 // Attributes
@@ -69,7 +70,8 @@ public class MainActivityViewModel extends BaseObservable {
     }
 
     @Bindable
-    public void setSelectedStrokeWidth(float selectedStrokeWidth) {     // TODO: Was genau tut das? Wieso gibts das nur bei Strokewidth?
+    public void setSelectedStrokeWidth(
+            float selectedStrokeWidth) {     // TODO: Was genau tut das? Wieso gibts das nur bei Strokewidth?
         this.selectedStrokeWidth = selectedStrokeWidth;
         sketch.setSelectedStrokeWidth(selectedStrokeWidth);
         notifyPropertyChanged(BR.selectedStrokeWidth);
@@ -166,14 +168,16 @@ public class MainActivityViewModel extends BaseObservable {
     }
 
     /**
-     * Enable Combined Shapes mode: all selected Graphical Elements will be added to the current Combined Shape
+     * Enable Combined Shapes mode: all selected Graphical Elements will be added to the current
+     * Combined Shape
      *
      * @param combinedShape the current Combined Shape
      */
     public void enableCombinedShapesMode(CombinedShape combinedShape) {
         sketch.setCurrentCombinedShape(combinedShape);
         sketch.setCombineShapesModeOn(true);
-        sketch.setEditModeTurnedOn(true);    // enable Edit Mode to prevent moving shapes at this point
+        sketch.setEditModeTurnedOn(
+                true);    // enable Edit Mode to prevent moving shapes at this point
         combinedShapes.add(combinedShape);
     }
 
@@ -203,8 +207,8 @@ public class MainActivityViewModel extends BaseObservable {
     }
 
     /**
-     * Check if the created Combined Shape contains at least one element
-     * If the Combined Shape is empty, then remove its references
+     * Check if the created Combined Shape contains at least one element If the Combined Shape is
+     * empty, then remove its references
      *
      * @throws AppException if the Combined Shape contains no elements
      */
@@ -220,9 +224,12 @@ public class MainActivityViewModel extends BaseObservable {
                 // attempt to remove the Combined Shape from the current Sketch
                 sketch.removeElement(combinedShape);
             } catch (ElementNotFoundException e) {
-                Log.w(MAIN_ACTIVITY_VIEW_MODEL, "Error while removing Combined Shape from sketch: " + e.getLocalizedMessage());
+                Log.w(MAIN_ACTIVITY_VIEW_MODEL,
+                        "Error while removing Combined Shape from sketch: " + e
+                                .getLocalizedMessage());
             }
-            Log.w(MAIN_ACTIVITY_VIEW_MODEL, combinedShape + " has no elements selected, ignoring it");
+            Log.w(MAIN_ACTIVITY_VIEW_MODEL,
+                    combinedShape + " has no elements selected, ignoring it");
             throw new AppException("No elements selected for the Combined Shape");
         }
         // remove elements within Combined Shape from current list of drawn elements

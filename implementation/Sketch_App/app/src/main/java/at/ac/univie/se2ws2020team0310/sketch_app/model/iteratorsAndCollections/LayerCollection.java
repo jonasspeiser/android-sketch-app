@@ -59,20 +59,21 @@ public class LayerCollection implements IterableCollection {
     public int indexOf(Object item) throws Exception {
         int index = 0;
         Iterator iterator = createIterator();
-        while(iterator.hasMore()){
+        while (iterator.hasMore()) {
             if (item.equals(iterator.getNext())) {
                 return index;
             }
             index++;
         }
-        throw new Exception("No index can be returned: There is no such object in LayerCollection.");
+        throw new Exception(
+                "No index can be returned: There is no such object in LayerCollection.");
     }
 
     @Override
     public boolean contains(Object item) {
         boolean flag = false;
         Iterator iterator = createIterator();
-        while(iterator.hasMore()){
+        while (iterator.hasMore()) {
             if (item.equals(iterator.getNext())) {
                 flag = true;
             }

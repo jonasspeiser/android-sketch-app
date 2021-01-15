@@ -9,7 +9,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Graphic
 public class DrawCircleStrategy implements IDrawStrategy {
 
     @Override
-    public Paint initializePaint(GraphicalElement graphicalElement){
+    public Paint initializePaint(GraphicalElement graphicalElement) {
         Paint mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
@@ -22,6 +22,7 @@ public class DrawCircleStrategy implements IDrawStrategy {
     public void draw(Canvas canvas, GraphicalElement graphicalElement) {
         Paint mPaint = initializePaint(graphicalElement);
 
-        canvas.drawCircle(graphicalElement.getXPosition(), graphicalElement.getYPosition(),((Circle) graphicalElement).getRadius(), mPaint);
+        canvas.drawCircle(graphicalElement.getXPosition(), graphicalElement.getYPosition(),
+                ((Circle) graphicalElement).getRadius(), mPaint);
     }
 }

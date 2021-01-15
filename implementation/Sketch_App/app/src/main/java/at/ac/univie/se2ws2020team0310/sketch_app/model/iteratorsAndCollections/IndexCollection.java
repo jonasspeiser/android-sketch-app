@@ -3,7 +3,8 @@ package at.ac.univie.se2ws2020team0310.sketch_app.model.iteratorsAndCollections;
 import java.util.ArrayList;
 
 public class IndexCollection implements IterableCollection {
-// Attributes
+
+    // Attributes
     ArrayList<Integer> collectedIndices;
 
 // Constructor

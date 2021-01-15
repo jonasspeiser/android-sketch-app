@@ -8,7 +8,6 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.IDrawStrategy;
 
 public abstract class GraphicalElement implements Cloneable {
 
-
 // Attributes
 
     private final IDrawStrategy drawStrategy;
@@ -96,7 +95,6 @@ public abstract class GraphicalElement implements Cloneable {
         this.strokeWidth = strokeWidth;
     }
 
-
 // Other Methods
 
     public void draw(Canvas canvas) {
@@ -131,7 +129,8 @@ public abstract class GraphicalElement implements Cloneable {
      * @param lastTouchX the previous coordinate x (used only for Freehand drawing)
      * @param lastTouchY the previous coordinate y (used only for Freehand drawing)
      */
-    public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY) throws AppException {
+    public void changeCoordinates(float x, float y, float lastTouchX, float lastTouchY)
+            throws AppException {
         this.setCoordinates(x, y);
     }
 

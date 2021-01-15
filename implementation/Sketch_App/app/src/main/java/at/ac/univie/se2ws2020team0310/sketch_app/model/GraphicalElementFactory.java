@@ -32,7 +32,7 @@ public final class GraphicalElementFactory {
     }
 
     public static GraphicalElement createElement(EGraphicalElementType type, int color, float size,
-                                                 float strokeWidth) throws AppException {
+            float strokeWidth) throws AppException {
         switch (type) {
             case LINE:
                 return createLine(color, strokeWidth);

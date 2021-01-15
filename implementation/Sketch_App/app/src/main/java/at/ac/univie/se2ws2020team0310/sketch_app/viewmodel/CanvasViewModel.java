@@ -133,6 +133,7 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
         if (path != null) {
             path.moveTo(touchX, touchY); // start is here
         }
+        notifyObservers();
     }
 
     public void onTouchMove(float touchX, float touchY) {
@@ -146,6 +147,7 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
     private void freehandBehaviourOnTouchMove(float touchX, float touchY) {
         if (path != null) {
             path.lineTo(touchX, touchY);
+            notifyObservers();
         }
     }
 
