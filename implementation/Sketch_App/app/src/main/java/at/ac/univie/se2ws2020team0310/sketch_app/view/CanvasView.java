@@ -20,7 +20,6 @@ public class CanvasView extends View implements CustomObserver {
 
 // Attributes
 
-    public Bitmap mBitmap;
     private Canvas mCanvas;
     private final CanvasViewModel canvasViewModel = new CanvasViewModel();
 
@@ -49,12 +48,6 @@ public class CanvasView extends View implements CustomObserver {
 
     private void init() {
         canvasViewModel.registerObserver(this);
-    }
-
-// Getters and Setters
-
-    public CanvasViewModel getCanvasViewModel() {
-        return canvasViewModel;
     }
 
 // Methods
