@@ -206,11 +206,17 @@ public class Sketch implements CustomObservable {
         }
     }
 
+    /**
+     * Deletes all elements that are set as editable on the currently selected layer
+     */
     public void deleteElement() {
         getSelectedLayer().deleteEditableElements();
         notifyObservers();
     }
 
+    /**
+     * Deletes every graphical element on every layer
+     */
     public void clear() {
         Iterator layersIterator = layers.createIterator();
         while (layersIterator.hasMore()) {
@@ -220,6 +226,9 @@ public class Sketch implements CustomObservable {
         notifyObservers();
     }
 
+    /**
+     * Sets the currently selected graphical element type on null
+     */
     public void resetSelection() {
         this.setSelectedGraphicalElement(null);
     }
@@ -270,18 +279,27 @@ public class Sketch implements CustomObservable {
         setSelectedGraphicalElement(GraphicalElementFactory.createElement(element));
     }
 
+    /**
+     * Create and select a new Text with a BoldDecorator
+     */
     public void selectBold() {
         GraphicalElement boldText = GraphicalElementFactory
                 .createBoldText(getSelectedGraphicalElement());
         setSelectedGraphicalElement(boldText);
     }
 
+    /**
+     * Create and select a new Text with an ItalicDecorator
+     */
     public void selectItalic() {
         GraphicalElement italicText = GraphicalElementFactory
                 .createItalicText(getSelectedGraphicalElement());
         setSelectedGraphicalElement(italicText);
     }
 
+    /**
+     * Create and select a new Text with an UnderlineDecorator
+     */
     public void selectUnderline() {
         GraphicalElement underlineText = GraphicalElementFactory
                 .createUnderlineText(getSelectedGraphicalElement());
