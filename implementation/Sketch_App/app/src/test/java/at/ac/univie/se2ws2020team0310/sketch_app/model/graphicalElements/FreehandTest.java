@@ -1,25 +1,30 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
+import android.graphics.Path;
+
 import org.junit.Test;
 import org.mockito.Mock;
 
-import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawLineStrategy;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawFreehandStrategy;
 
-import static org.junit.Assert.assertTrue;
-
-public class LineTest {
+public class FreehandTest {
 
     @Mock
-    DrawLineStrategy strategy = new DrawLineStrategy();
-    Line line = new Line(strategy);
+    DrawFreehandStrategy strategy = new DrawFreehandStrategy();
+    Freehand freehand = new Freehand(strategy);
+    Path tempPath = new Path(); // Create temp Path
+
 
     @Test
     public void testIsWithinElement() {
+        /*
         line.setStartCoordinates(80, 100);
         line.xPosition = 100;
         line.yPosition = 200;
 
-        //test passes if touch is within line
         assertTrue(line.isWithinElement(80,100));
+
+         */
     }
+
 }

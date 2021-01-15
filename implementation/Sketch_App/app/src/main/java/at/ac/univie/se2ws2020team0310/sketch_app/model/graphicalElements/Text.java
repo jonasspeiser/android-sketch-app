@@ -40,7 +40,7 @@ public class Text extends GraphicalElement {
         float textLength = mPaint.measureText(userText);
         float textSize = getSize();
 
-        float xTopLeft = this.xPosition - textLength;
+        float xTopLeft = this.xPosition;
         float yTopLeft = this.yPosition - textSize;
 
         float xBottomRight = this.xPosition + textLength;
