@@ -129,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
                     mainActivityViewModel.setLayerVisibility(0, false);
                     showToast("Layer 0 invisible");
                 }
-                refreshScreen();
             }
         });
 
@@ -143,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
                     mainActivityViewModel.setLayerVisibility(1, false);
                     showToast("Layer 1 invisible");
                 }
-                refreshScreen();
             }
         });
 
@@ -157,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                     mainActivityViewModel.setLayerVisibility(2, false);
                     showToast("Layer 2 invisible");
                 }
-                refreshScreen();
             }
         });
     }
@@ -725,8 +722,4 @@ public class MainActivity extends AppCompatActivity {
         ViewUtils.showToast(getApplicationContext(), text);
     }
 
-    //TODO: Can we get rid of this method? It would be better not to call a canvasView method directly from here
-    public void refreshScreen() {
-        canvasView.invalidate();
-    }
 }
