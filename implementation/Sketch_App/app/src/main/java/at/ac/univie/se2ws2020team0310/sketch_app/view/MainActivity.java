@@ -529,7 +529,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.deleteId:
-                mainActivityViewModel.clearSketch();
+                mainActivityViewModel.deleteElement();
                 return true;
 
             case R.id.clearId:
@@ -540,7 +540,6 @@ public class MainActivity extends AppCompatActivity {
                 //TODo Felix soll diesen Satz löschen!
                 //In Anlehnung an https://code.tutsplus.com/tutorials/android-sdk-create-a-drawing-app-essential-functionality--mobile-19328
                 //Show window to user in order to confirm that the sketch should be deleted
-                mainActivityViewModel.deleteElement();
                 AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
                 newDialog.setTitle("New Sketch");
                 newDialog.setMessage("Start from scratch?");
