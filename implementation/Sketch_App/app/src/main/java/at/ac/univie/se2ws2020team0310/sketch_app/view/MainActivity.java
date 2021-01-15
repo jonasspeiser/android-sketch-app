@@ -185,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 showToast("Layer 2 selected");
                 break;
+            default: showToast("Please restart app!");
         }
     }
 
@@ -304,7 +305,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //The implementation of the load, save and export-functions will be included for DEAD.
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -387,6 +387,7 @@ public class MainActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                                 break;
+                            default: showToast("Please try saving again.");
                         }
                     }
                 });
@@ -452,6 +453,7 @@ public class MainActivity extends AppCompatActivity {
                                     showToast("Selected Saveslot is empty");
                                 }
                                 break;
+                            default: showToast("Please try opening again.");
                         }
                     }
                 });
@@ -496,6 +498,7 @@ public class MainActivity extends AppCompatActivity {
                                             e.printStackTrace();
                                         }
                                         break;
+                                    default: showToast("Please try exporting again.");
                                 }
                             }
                         });
