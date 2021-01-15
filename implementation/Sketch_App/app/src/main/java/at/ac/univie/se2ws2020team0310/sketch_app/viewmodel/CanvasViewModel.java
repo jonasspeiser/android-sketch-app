@@ -24,11 +24,6 @@ public class CanvasViewModel extends ViewModel implements CustomObserver, Custom
     private float lastTouchX;
     private float lastTouchY;
 
-// Getters and Setters
-
-    public static void setSketch(Sketch sketch) {
-        CanvasViewModel.sketch = sketch;
-    }
 
 // Constructors
 

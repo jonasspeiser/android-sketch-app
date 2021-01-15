@@ -25,8 +25,6 @@ public class MainActivityViewModel extends BaseObservable {
 
 // Attributes
 
-    public String imgSaved;
-
     private static Sketch sketch;
 
     // TODO: Ist es wirklich nötig, diese Attribute in Sketch UND MainActivityViewModel zu haben?
@@ -44,9 +42,6 @@ public class MainActivityViewModel extends BaseObservable {
     }
 
     // Getters and Setters
-    public static void setSketch(Sketch sketch) {
-        MainActivityViewModel.sketch = sketch;
-    }
 
     public int getSelectedColor() {
         return selectedColor;
@@ -80,9 +75,6 @@ public class MainActivityViewModel extends BaseObservable {
 
 
     // Other Methods
-    public void exportCanvas() {
-
-    }
 
     public void changeElementColor(int color) {
         sketch.changeColor(color);
