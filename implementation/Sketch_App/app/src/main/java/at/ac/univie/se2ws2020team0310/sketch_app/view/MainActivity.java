@@ -581,12 +581,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view required by Android interface
      */
     public void onClickDoneButton(View view) {
-
-        Text mText = (Text) canvasView.getSelectedGraphicalElement();
-        mText.setUserText(getEnteredText());
-
-        refreshScreen();
-
+        mainActivityViewModel.setUserTextInput(getEnteredText());
         hideTextEntryField();
         hideTextStyleButtons();
     }

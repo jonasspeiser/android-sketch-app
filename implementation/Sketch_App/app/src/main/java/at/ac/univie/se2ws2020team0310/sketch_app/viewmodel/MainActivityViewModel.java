@@ -17,6 +17,7 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.ElementN
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.EGraphicalElementType;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
 
 public class MainActivityViewModel extends BaseObservable {
 
@@ -245,6 +246,15 @@ public class MainActivityViewModel extends BaseObservable {
         if (getCurrentCombinedShape() != null) {
             getCurrentCombinedShape().setName(enteredText);
         }
+    }
+
+    public void setUserTextInput(String userTextInput) {
+        if(sketch.getSelectedGraphicalElement() instanceof Text) {
+            Text mText = (Text) sketch.getSelectedGraphicalElement();
+            mText.setUserText(userTextInput);
+
+        }
+
     }
 }
 
