@@ -1,13 +1,16 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements;
 
+import junit.framework.TestCase;
+
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import at.ac.univie.se2ws2020team0310.sketch_app.model.draw.DrawCircleStrategy;
 
-import static org.junit.Assert.assertTrue;
-
-public class CircleTest {
+@RunWith(MockitoJUnitRunner.class)
+public class CircleTest extends TestCase {
 
     @Mock
     DrawCircleStrategy strategy = new DrawCircleStrategy();
