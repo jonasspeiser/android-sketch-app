@@ -23,6 +23,7 @@ public abstract class Export {
         placeImageInGallery(fileFormat, context);
     }
 
+    //FileOutputStream idea from https://stackoverflow.com/questions/17674634/saving-and-reading-bitmaps-images-from-internal-memory-in-android
     public void exportPreparation(Context context, Bitmap drawingCache, String fileFormat)
             throws IOException {
         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
