@@ -8,7 +8,6 @@ import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Graphic
 
 public class BoldDecorator extends DrawStrategyDecorator {
 
-
     /**
      * Constructor of a BoldDecorator for a different DrawStrategy
      *

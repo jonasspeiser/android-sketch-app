@@ -17,5 +17,6 @@ public class ItalicDecorator extends DrawStrategyDecorator {
         Paint mPaint = getOldStrategy().initializePaint(graphicalElement);
 
         mPaint.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
-        return mPaint;    }
+        return mPaint;
+    }
 }
