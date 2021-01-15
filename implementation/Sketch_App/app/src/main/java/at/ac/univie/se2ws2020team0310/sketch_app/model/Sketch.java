@@ -173,8 +173,8 @@ public class Sketch implements CustomObservable {
         notifyObservers();
     }
 
-    public void changeStrokeWidth(float strokewidth) {
-        getSelectedLayer().changeStrokeWidth(strokewidth);
+    public void changeStrokeWidth(float strokeWidth) {
+        getSelectedLayer().changeStrokeWidth(strokeWidth);
         notifyObservers();
     }
 
