@@ -404,7 +404,7 @@ public class MainActivity extends AppCompatActivity {
                             case 0:
                                 try {
                                     mainActivityViewModel.loadSketch(getApplicationContext(),
-                                            1); // TODO: Saveslot je nach Userwahl übergeben
+                                            1);
                                     showToast("Sketch opened from slot 1");
                                 } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
                                     e.printStackTrace();
@@ -414,7 +414,7 @@ public class MainActivity extends AppCompatActivity {
                             case 1:
                                 try {
                                     mainActivityViewModel.loadSketch(getApplicationContext(),
-                                            2); // TODO: Saveslot je nach Userwahl übergeben
+                                            2);
                                     showToast("Sketch opened from slot 2");
                                 } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
                                     e.printStackTrace();
@@ -424,7 +424,7 @@ public class MainActivity extends AppCompatActivity {
                             case 2:
                                 try {
                                     mainActivityViewModel.loadSketch(getApplicationContext(),
-                                            3); // TODO: Saveslot je nach Userwahl übergeben
+                                            3);
                                     showToast("Sketch opened from slot 3");
                                 } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
                                     e.printStackTrace();
@@ -434,7 +434,7 @@ public class MainActivity extends AppCompatActivity {
                             case 3:
                                 try {
                                     mainActivityViewModel.loadSketch(getApplicationContext(),
-                                            4); // TODO: Saveslot je nach Userwahl übergeben
+                                            4);
                                     showToast("Sketch opened from slot 4");
                                 } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
                                     e.printStackTrace();
@@ -444,7 +444,7 @@ public class MainActivity extends AppCompatActivity {
                             case 4:
                                 try {
                                     mainActivityViewModel.loadSketch(getApplicationContext(),
-                                            5); // TODO: Saveslot je nach Userwahl übergeben
+                                            5);
                                     showToast("Sketch opened from slot 5");
                                 } catch (NullPointerException e) { // TODO: Können wir durch eine Custom Exception ersetzen (in Sketch Klasse)
                                     e.printStackTrace();
@@ -724,8 +724,8 @@ public class MainActivity extends AppCompatActivity {
     private void showToast(String text) {
         ViewUtils.showToast(getApplicationContext(), text);
     }
-    //TODO: Can we get rid of this method? It would be better not to call a canvasView method directly from here
 
+    //TODO: Can we get rid of this method? It would be better not to call a canvasView method directly from here
     public void refreshScreen() {
         canvasView.invalidate();
     }

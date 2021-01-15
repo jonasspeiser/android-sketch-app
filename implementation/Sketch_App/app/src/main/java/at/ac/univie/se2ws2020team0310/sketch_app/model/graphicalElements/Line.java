@@ -36,8 +36,8 @@ public class Line extends GraphicalElement {
     // else set position as endpoint
     @Override
     public void setCoordinates(float x, float y) throws AppException {
-        if (getStartX() == 0 & getStartY()
-                == 0) {  // TODO replace & with && (& is a bitwise operator and should only used for this purpose)
+        if (getStartX() == 0 && getStartY()
+                == 0) {
             setStartCoordinates(x, y);
             setCoordinates(x, y);
         } else {

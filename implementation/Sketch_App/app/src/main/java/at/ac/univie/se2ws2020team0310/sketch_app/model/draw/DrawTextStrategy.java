@@ -6,7 +6,6 @@ import android.graphics.Paint;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
 import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.Text;
 
-// TODO: Überarbeiten
 public class DrawTextStrategy implements IDrawStrategy {
 
 

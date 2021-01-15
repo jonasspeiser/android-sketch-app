@@ -207,7 +207,7 @@ public class Sketch implements CustomObservable {
     }
 
     public void deleteElement() {
-        getSelectedLayer().deleteElement();
+        getSelectedLayer().deleteEditableElements();
         notifyObservers();
     }
 

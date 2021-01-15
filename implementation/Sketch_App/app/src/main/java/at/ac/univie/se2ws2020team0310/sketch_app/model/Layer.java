@@ -184,8 +184,7 @@ public class Layer {
     }
 
 
-    // TODO rename this method to match the implemented behavior, like deleteEditableElements
-    public void deleteElement() {
+    public void deleteEditableElements() {
         Iterator indexIterator = editableElementsIndices.createIterator();
         while (indexIterator.hasMore()) {
             int index = (int) indexIterator.getNext();
