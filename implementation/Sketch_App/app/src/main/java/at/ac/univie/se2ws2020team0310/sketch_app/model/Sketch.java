@@ -316,15 +316,13 @@ public class Sketch implements CustomObservable {
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
         SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
-
         // Create gson instance
         Gson gson = registerGsonAdapter();
-
         // Serialize layers collection object and store it in SharedPreferences
         String filename = "SavedSketch" + saveslot;
         String json = gson.toJson(this.layers);
         prefsEditor.putString(filename, json);
-        prefsEditor.commit();
+        prefsEditor.apply();
     }
 
 
@@ -332,7 +330,7 @@ public class Sketch implements CustomObservable {
      * Restores saved layers by reading them from a file and overwrites the current layers with
      * their content
      * <p>
-     * Based on: https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable/15011927#15011927
+     * based on: https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable/15011927#15011927
      * in combination with: https://technology.finra.org/code/serialize-deserialize-interfaces-in-java.html
      *
      * @param context  The application context (activity.getApplicationContext())
@@ -343,13 +341,10 @@ public class Sketch implements CustomObservable {
         // Get SharedPreferences instance
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
-
         // Create gson instance
         Gson gson = registerGsonAdapter();
-
         // deserialize json to layers collection object from SharedPreferences
         String json = appSharedPrefs.getString("SavedSketch" + saveslot, "");
-
         if (json == null || json.isEmpty()) {
             throw new NullPointerException("Called saveslot is empty");
         } else {
@@ -368,8 +363,7 @@ public class Sketch implements CustomObservable {
         builder.registerTypeAdapter(IterableCollection.class, new GsonInterfaceAdapter());
         builder.registerTypeAdapter(GraphicalElement.class, new GsonInterfaceAdapter());
         builder.registerTypeAdapter(IDrawStrategy.class, new GsonInterfaceAdapter());
-        Gson gson = builder.create();
-        return gson;
+        return builder.create();
     }
 
     /**
@@ -383,7 +377,7 @@ public class Sketch implements CustomObservable {
         for (String child : children) {
             // clear each preference file
             context.getSharedPreferences(child.replace(".xml", ""), Context.MODE_PRIVATE).edit()
-                    .clear().commit();
+                    .clear().apply();
             //delete the file
             new File(dir, child).delete();
         }
