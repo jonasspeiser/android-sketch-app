@@ -46,7 +46,11 @@ public class Text extends GraphicalElement {
         float xBottomRight = this.xPosition + textLength;
         float yBottomRight = this.yPosition;
 
-        return x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight;
+        if (x >= xTopLeft && x <= xBottomRight && y >= yTopLeft && y <= yBottomRight) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
