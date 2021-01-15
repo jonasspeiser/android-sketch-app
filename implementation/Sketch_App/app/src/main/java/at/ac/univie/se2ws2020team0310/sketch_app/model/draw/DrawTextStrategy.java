@@ -14,8 +14,6 @@ public class DrawTextStrategy implements IDrawStrategy {
     public static boolean setItalic = false;
 
 
-
-
     @Override
     public Paint initializePaint(GraphicalElement graphicalElement) {
         Paint mPaint = new Paint();

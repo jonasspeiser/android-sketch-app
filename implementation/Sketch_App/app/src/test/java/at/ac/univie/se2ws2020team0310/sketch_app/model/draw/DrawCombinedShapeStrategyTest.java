@@ -1,19 +1,22 @@
 package at.ac.univie.se2ws2020team0310.sketch_app.model.draw;
 
-import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.when;
-
 import android.graphics.Canvas;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
-import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
-import java.util.ArrayList;
-import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import at.ac.univie.se2ws2020team0310.sketch_app.model.customExceptions.AppException;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.CombinedShape;
+import at.ac.univie.se2ws2020team0310.sketch_app.model.graphicalElements.GraphicalElement;
+
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DrawCombinedShapeStrategyTest {
@@ -31,7 +34,7 @@ public class DrawCombinedShapeStrategyTest {
 
     @Test
     public void testInitializePaintNull() {
-        assertNull(strategy.initializePaint());
+        assertNull(strategy.initializePaint(element));
     }
 
     @Test
